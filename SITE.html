@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- ÍCONE DA ABA DO NAVEGADOR -->
+    <link rel="icon" type="image/png" href="https://cup-edition.github.io/sistema-inscricoes/CUP%20EDITION.png">
+    <link rel="shortcut icon" type="image/png" href="https://cup-edition.github.io/sistema-inscricoes/CUP%20EDITION.png">
+    
     <!-- META TAGS PARA PREVIEW EM REDES SOCIAIS -->
     <meta property="og:title" content="CUP EDITION CAMPIM FC" />
     <meta property="og:description" content="Participe da maior competição do CAMPIM FC" />
@@ -23,6 +27,25 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* BLOQUEIO DE SELEÇÃO E CÓPIA */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        /* BLOQUEIO DE DRAG DE IMAGENS */
+        img {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
+        }
+
         :root {
             --bg-dark: #0a0a0a;
             --bg-metal: #1a1a1a;
@@ -346,6 +369,7 @@
             backdrop-filter: blur(5px);
             z-index: 1;
             transform: perspective(1000px) rotateX(0deg);
+            cursor: pointer;
         }
 
         .btn:focus-visible { outline: 3px solid var(--gold-mid); outline-offset: 3px; }
@@ -564,6 +588,85 @@
     </style>
 </head>
 <body>
+
+    <!-- BLOQUEIO DE BOTÃO DIREITO E TECLAS DE ATALHO -->
+    <script>
+        // Bloqueia o botão direito do mouse
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Bloqueia teclas de atalho para dev tools e código fonte
+        document.addEventListener('keydown', function(e) {
+            // F12
+            if (e.key === 'F12' || e.keyCode === 123) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Ctrl+Shift+I (Windows/Linux)
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.keyCode === 73)) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Ctrl+Shift+J (Windows/Linux)
+            if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.keyCode === 74)) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Ctrl+U (Windows/Linux) - Ver código fonte
+            if (e.ctrlKey && (e.key === 'U' || e.keyCode === 85)) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Ctrl+Shift+C (Windows/Linux) - Inspecionar elemento
+            if (e.ctrlKey && e.shiftKey && (e.key === 'C' || e.keyCode === 67)) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Ctrl+Shift+U (Windows/Linux)
+            if (e.ctrlKey && e.shiftKey && (e.key === 'U' || e.keyCode === 85)) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Ctrl+Shift+H (Windows/Linux)
+            if (e.ctrlKey && e.shiftKey && (e.key === 'H' || e.keyCode === 72)) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Ctrl+S (Salvar página)
+            if (e.ctrlKey && (e.key === 'S' || e.keyCode === 83)) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Ctrl+P (Imprimir)
+            if (e.ctrlKey && (e.key === 'P' || e.keyCode === 80)) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Previne seleção de texto via duplo clique
+        document.addEventListener('dblclick', function(e) {
+            e.preventDefault();
+        });
+
+        // Previne arrastar imagens
+        document.addEventListener('dragstart', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
 
     <div class="particles">
         <div class="particle"></div>
