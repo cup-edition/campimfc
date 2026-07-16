@@ -3677,7 +3677,9 @@ function calcClassificacaoSimulada(partidasSimuladas) {
     else { t1.e++; t1.pts++; t2.e++; t2.pts++; }
     t1.sg = t1.gp - t1.gc; t2.sg = t2.gp - t2.gc;
   });
-  return Object.values(tabela).sort((a, b) => b.pts - a.pts || b.sg - b.sg || b.gp - a.gp);
+  return Object.values(tabela).sort((a, b) => 
+    b.pts - a.pts || b.sg - a.sg || b.gp - a.gp
+  );
 }
 
 window.fecharEdicaoPartida = function() {
@@ -4162,7 +4164,7 @@ function calcClassificacao() {
   });
   
   return Object.values(tabela).sort((a, b) => 
-    b.pts - a.pts || b.sg - b.sg || b.gp - a.gp
+    b.pts - a.pts || b.sg - a.sg || b.gp - a.gp
   );
 }
 
