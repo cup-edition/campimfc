@@ -3850,7 +3850,7 @@ async function gerarOuAtualizarFinal(tempId) {
     isPlacarDefinido(p.gols1) && isPlacarDefinido(p.gols2)
   );
   
-  if (definidas.length < 4) {
+  if (definidas.length < 3) {
     const finais = state.partidas.filter(p => 
       p.temporadaId === tempId && 
       p.fase === 'Final'
