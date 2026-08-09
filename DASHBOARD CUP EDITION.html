@@ -391,6 +391,16 @@
     color: var(--accent-1);
     min-width: 50px;
   }
+  .edicao-global {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-weight: 600;
+    background: rgba(74, 106, 122, 0.15);
+    padding: 2px 8px;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(74, 106, 122, 0.1);
+  }
   .edicao-campeao {
     display: flex;
     align-items: center;
@@ -692,6 +702,73 @@
   .gol-stats .fg { color: var(--accent-1); }
   .gol-stats .f { color: #ffd600; }
 
+  /* ===== ESTILOS PARA NUMERAÇÃO HÍBRIDA ===== */
+  .edicao-num-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 60px;
+    flex-shrink: 0;
+  }
+  .edicao-num-local {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--accent-1);
+    line-height: 1.2;
+  }
+  .edicao-num-global {
+    font-size: 9px;
+    color: var(--text-muted);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background: rgba(74, 106, 122, 0.12);
+    padding: 1px 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(74, 106, 122, 0.08);
+    margin-top: 2px;
+  }
+  .edicao-num-local.gold { color: #ffd600; }
+
+  /* Estilo para o card de edição no dashboard */
+  .dash-edicao-num-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 50px;
+    flex-shrink: 0;
+  }
+  .dash-edicao-num-local {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--accent-1);
+    line-height: 1.2;
+  }
+  .dash-edicao-num-global {
+    font-size: 8px;
+    color: var(--text-muted);
+    font-weight: 600;
+    background: rgba(74, 106, 122, 0.12);
+    padding: 1px 6px;
+    border-radius: 8px;
+    border: 1px solid rgba(74, 106, 122, 0.08);
+    margin-top: 1px;
+  }
+
+  /* Estilo para destacar a temporada atual */
+  .current-season-badge {
+    background: rgba(0, 230, 118, 0.15);
+    color: #00e676;
+    border: 1px solid rgba(0, 230, 118, 0.25);
+    padding: 2px 14px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
   @media (max-width: 768px) {
     .header {
       padding: 0 12px;
@@ -870,9 +947,15 @@
     .edicao-header {
       gap: 4px;
     }
-    .edicao-num {
+    .edicao-num-wrapper {
+      min-width: 40px;
+    }
+    .edicao-num-local {
       font-size: 14px;
-      min-width: 30px;
+    }
+    .edicao-num-global {
+      font-size: 7px;
+      padding: 0 5px;
     }
     .edicao-campeao {
       font-size: 12px;
@@ -953,6 +1036,18 @@
       padding-top: 8px;
       margin-top: 8px;
     }
+
+    /* Mobile - Numeração híbrida no dashboard */
+    .dash-edicao-num-wrapper {
+      min-width: 35px;
+    }
+    .dash-edicao-num-local {
+      font-size: 14px;
+    }
+    .dash-edicao-num-global {
+      font-size: 6px;
+      padding: 0 4px;
+    }
   }
 
   @media (max-width: 480px) {
@@ -985,9 +1080,15 @@
     .season-pub-name {
       font-size: 12px;
     }
-    .edicao-num {
+    .edicao-num-wrapper {
+      min-width: 30px;
+    }
+    .edicao-num-local {
       font-size: 12px;
-      min-width: 24px;
+    }
+    .edicao-num-global {
+      font-size: 6px;
+      padding: 0 4px;
     }
     .edicao-campeao {
       font-size: 10px;
@@ -1018,6 +1119,16 @@
     }
     .card-title {
       font-size: 11px;
+    }
+    .dash-edicao-num-wrapper {
+      min-width: 25px;
+    }
+    .dash-edicao-num-local {
+      font-size: 11px;
+    }
+    .dash-edicao-num-global {
+      font-size: 5px;
+      padding: 0 3px;
     }
   }
 
@@ -1061,9 +1172,15 @@
     .season-pub-desc {
       font-size: 9px;
     }
-    .edicao-num {
+    .edicao-num-wrapper {
+      min-width: 24px;
+    }
+    .edicao-num-local {
       font-size: 10px;
-      min-width: 20px;
+    }
+    .edicao-num-global {
+      font-size: 5px;
+      padding: 0 3px;
     }
     .edicao-campeao {
       font-size: 9px;
@@ -1076,6 +1193,16 @@
     }
     .container {
       padding: 6px 4px;
+    }
+    .dash-edicao-num-wrapper {
+      min-width: 20px;
+    }
+    .dash-edicao-num-local {
+      font-size: 9px;
+    }
+    .dash-edicao-num-global {
+      font-size: 4px;
+      padding: 0 2px;
     }
   }
 </style>
@@ -1098,14 +1225,24 @@
 
 <nav class="main-nav">
   <div class="main-nav-inner">
-    <button class="nav-tab active" data-tab="dashboard" onclick="showSection('dashboard', this)">📊 Dashboard</button>
+    <button class="nav-tab active" data-tab="atual" onclick="showSection('atual', this)">📈 Temporada Atual</button>
+    <button class="nav-tab" data-tab="dashboard" onclick="showSection('dashboard', this)">📊 HISTÓRIA DAS COPINHAS</button>
     <button class="nav-tab" data-tab="temporadas" onclick="showSection('temporadas', this)">📅 Temporadas</button>
   </div>
 </nav>
 
 <div class="container">
 
-  <div class="section active" id="sec-dashboard">
+  <!-- ===== TEMPORADA ATUAL (Primeira aba - ESQUERDA) ===== -->
+  <div class="section active" id="sec-atual">
+    <div class="section-title">📈 Temporada Atual</div>
+    <div id="atual-content">
+      <div style="text-align:center;color:var(--text-muted);padding:40px 0;">Carregando temporada atual...</div>
+    </div>
+  </div>
+
+  <!-- ===== DASHBOARD (Histórico completo) ===== -->
+  <div class="section" id="sec-dashboard">
     <div class="stat-boxes">
       <div class="stat-box"><div class="stat-box-num" id="stat-times">0</div><div class="stat-box-label">Times</div></div>
       <div class="stat-box"><div class="stat-box-num" id="stat-jogadores">0</div><div class="stat-box-label">Jogadores</div></div>
@@ -1120,6 +1257,7 @@
     <div class="card" style="margin-top:16px;"><div class="card-title">👤 Estatísticas dos Jogadores</div><div id="dash-jogadores-stats" style="padding:8px 0;color:var(--text-muted);text-align:center;">Carregando...</div></div>
   </div>
 
+  <!-- ===== TEMPORADAS ===== -->
   <div class="section" id="sec-temporadas">
     <div class="section-title">📅 Temporadas do Campeonato</div>
     <div id="pub-temporadas"></div>
@@ -1185,11 +1323,12 @@ function showSection(id, btn) {
   }
   
   if (id === 'dashboard') renderDashboard();
+  if (id === 'atual') renderTemporadaAtual();
 }
 
 window.addEventListener('popstate', function(event) {
   var params = getUrlParams();
-  var tab = params.tab || 'dashboard';
+  var tab = params.tab || 'atual';
   var btn = document.querySelector('.nav-tab[data-tab="' + tab + '"]');
   if (btn) {
     showSection(tab, btn);
@@ -1252,23 +1391,23 @@ function isPlacarDefinido(valor) {
 }
 
 // ============================================================
-// VISUALIZAR EDIÇÃO (COM DESTAQUE PARA MAIORES GOLS)
+// VISUALIZAR EDIÇÃO
 // ============================================================
 
 window.visualizarEdicao = function(edicaoId) {
   const edicao = state.edicoes.find(e => e.id === edicaoId);
   if (!edicao) return;
 
-  // Busca dados atuais dos times
+  const numeroLocal = edicao.numeroTemporada || edicao.numero || 1;
+  const numeroGlobal = edicao.numero || 0;
+
   const timesComEscudos = (edicao.times || []).map(t => ({
     ...t,
     escudo: getTime(t.id)?.escudo || '⚽'
   }));
 
-  // ===== ORDEM FIXA DOS TIMES =====
   const ORDEM_FIXA = ['BARCELONA', 'REAL MADRID', 'PSG', 'LIVERPOOL'];
 
-  // Ordena os times da edição baseado na ordem fixa
   const timesOrdenados = [...(edicao.times || [])].sort((a, b) => {
     const idxA = ORDEM_FIXA.indexOf((a.nome || '').toUpperCase());
     const idxB = ORDEM_FIXA.indexOf((b.nome || '').toUpperCase());
@@ -1295,7 +1434,6 @@ window.visualizarEdicao = function(edicaoId) {
     return j ? j.nome : 'Desconhecido';
   }
 
-  // ===== CALCULA MAIOR NÚMERO DE GOLS PARA DESTAQUE =====
   let maiorGols = 0;
   if (edicao.jogadores && Array.isArray(edicao.jogadores)) {
     edicao.jogadores.forEach(j => {
@@ -1305,7 +1443,6 @@ window.visualizarEdicao = function(edicaoId) {
     });
   }
 
-  // ===== BUSCA JOGADORES DOS TIMES DA FINAL =====
   const jogadoresTime1Final = [];
   const jogadoresTime2Final = [];
 
@@ -1333,7 +1470,6 @@ window.visualizarEdicao = function(edicaoId) {
   jogadoresTime1Final.sort((a, b) => b.gols - a.gols);
   jogadoresTime2Final.sort((a, b) => b.gols - a.gols);
 
-  // Agrupa jogadores por time
   const jogadoresPorTime = {};
   timesOrdenados.forEach(time => {
     jogadoresPorTime[time.id] = {
@@ -1508,14 +1644,21 @@ window.visualizarEdicao = function(edicaoId) {
     }
   }
 
-  // Monta HTML da edição
   let html = `
     <div style="position:fixed;inset:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(12px);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)this.remove()">
       <div style="background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px;padding:32px;max-width:1100px;max-height:90vh;overflow-y:auto;width:100%;position:relative;">
         <button onclick="this.closest('div[style*=\\'position:fixed\\']').remove()" style="position:sticky;top:0;float:right;background:rgba(255,107,107,0.2);border:none;color:var(--accent-3);font-size:24px;cursor:pointer;padding:4px 12px;border-radius:8px;z-index:10;">✕</button>
         
-        <div style="font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;background:var(--gradient-main);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:20px;">
-          ${ordinal(edicao.numero || 1)} Edição - ${edicao.temporadaNome || 'Temporada'}
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap;">
+          <div style="font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;background:var(--gradient-main);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+            ${ordinal(numeroLocal)} Edição
+          </div>
+          <div style="font-size:13px;color:var(--text-muted);font-weight:600;background:rgba(74,106,122,0.15);padding:4px 14px;border-radius:20px;border:1px solid rgba(74,106,122,0.1);letter-spacing:0.5px;">
+            🌍 Global #${numeroGlobal}
+          </div>
+          <div style="font-size:14px;color:var(--text-secondary);font-weight:600;">
+            ${edicao.temporadaNome || 'Temporada'}
+          </div>
         </div>
         
         <div style="font-size:14px;color:var(--text-muted);margin-bottom:16px;">
@@ -1524,7 +1667,6 @@ window.visualizarEdicao = function(edicaoId) {
           ${tevePenalidades ? '• ⚽ Decidido nos pênaltis' : ''}
         </div>
         
-        <!-- CAMPEÃO E VICE -->
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
           <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);text-align:center;">
             <div style="font-size:11px;color:var(--text-muted);">🏆 CAMPEÃO</div>
@@ -1550,78 +1692,70 @@ window.visualizarEdicao = function(edicaoId) {
           </div>
         </div>
 
-<!-- FINAL - COM GOLS DOS JOGADORES DENTRO DOS TIMES -->
-<div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);margin-bottom:16px;">
-  <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">🏟️ FINAL</div>
-  <div style="display:flex;align-items:center;justify-content:center;gap:30px;flex-wrap:wrap;">
-    
-    <!-- TIME 1 -->
-    <div style="text-align:center;min-width:140px;">
-      <div style="display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:8px;">
-        <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;border:2px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          ${time1Final?.escudo && (time1Final.escudo.startsWith('http') || time1Final.escudo.startsWith('data:')) 
-            ? `<img src="${time1Final.escudo}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
-            : `<span style="font-size:20px;">${time1Final?.escudo || '⚽'}</span>`}
-        </div>
-        <span style="font-size:18px;font-weight:700;">${edicao.final?.time1Nome || '?'}</span>
-      </div>
-      <!-- Jogadores do Time 1 com seus gols na FINAL -->
-      <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:280px;">
-        ${jogadoresTime1Final.length > 0 ? jogadoresTime1Final.map(j => {
-          // Conta quantos gols este jogador fez na FINAL
-          const golsNaFinal = (edicao.final?.eventos || []).filter(e => e.jogadorId === j.id && !e.isPenalidade).length;
-          return `
-            <div style="display:flex;align-items:center;gap:6px;padding:2px 10px 2px 4px;background:rgba(5,8,12,0.3);border-radius:16px;border:1px solid var(--border-color);font-size:13px;">
-              <div style="width:26px;height:26px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                ${getPlayerAvatar(j.id)}
+        <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);margin-bottom:16px;">
+          <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">🏟️ FINAL</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:30px;flex-wrap:wrap;">
+            
+            <div style="text-align:center;min-width:140px;">
+              <div style="display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:8px;">
+                <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;border:2px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  ${time1Final?.escudo && (time1Final.escudo.startsWith('http') || time1Final.escudo.startsWith('data:')) 
+                    ? `<img src="${time1Final.escudo}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
+                    : `<span style="font-size:20px;">${time1Final?.escudo || '⚽'}</span>`}
+                </div>
+                <span style="font-size:18px;font-weight:700;">${edicao.final?.time1Nome || '?'}</span>
               </div>
-              <span style="font-weight:500;color:var(--text-primary);">${j.nome}</span>
-              ${golsNaFinal > 0 ? `<span style="font-weight:700;color:#ffd600;font-size:12px;">⚽${golsNaFinal}</span>` : ''}
-            </div>
-          `;
-        }).join('') : '<span style="font-size:12px;color:var(--text-muted);">Sem jogadores</span>'}
-      </div>
-    </div>
-    
-    <!-- PLACAR CENTRAL -->
-    <div style="text-align:center;min-width:140px;">
-      <div style="font-family:'Orbitron',sans-serif;font-size:32px;font-weight:900;color:var(--accent-1);">
-        ${edicao.final?.gols1 || 0} × ${edicao.final?.gols2 || 0}
-      </div>
-      ${penaltyInfo}
-    </div>
-    
-    <!-- TIME 2 -->
-    <div style="text-align:center;min-width:140px;">
-      <div style="display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:8px;">
-        <span style="font-size:18px;font-weight:700;">${edicao.final?.time2Nome || '?'}</span>
-        <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;border:2px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          ${time2Final?.escudo && (time2Final.escudo.startsWith('http') || time2Final.escudo.startsWith('data:')) 
-            ? `<img src="${time2Final.escudo}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
-            : `<span style="font-size:20px;">${time2Final?.escudo || '⚽'}</span>`}
-        </div>
-      </div>
-      <!-- Jogadores do Time 2 com seus gols na FINAL -->
-      <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:280px;">
-        ${jogadoresTime2Final.length > 0 ? jogadoresTime2Final.map(j => {
-          const golsNaFinal = (edicao.final?.eventos || []).filter(e => e.jogadorId === j.id && !e.isPenalidade).length;
-          return `
-            <div style="display:flex;align-items:center;gap:6px;padding:2px 10px 2px 4px;background:rgba(5,8,12,0.3);border-radius:16px;border:1px solid var(--border-color);font-size:13px;">
-              <div style="width:26px;height:26px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                ${getPlayerAvatar(j.id)}
+              <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:280px;">
+                ${jogadoresTime1Final.length > 0 ? jogadoresTime1Final.map(j => {
+                  const golsNaFinal = (edicao.final?.eventos || []).filter(e => e.jogadorId === j.id && !e.isPenalidade).length;
+                  return `
+                    <div style="display:flex;align-items:center;gap:6px;padding:2px 10px 2px 4px;background:rgba(5,8,12,0.3);border-radius:16px;border:1px solid var(--border-color);font-size:13px;">
+                      <div style="width:26px;height:26px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        ${getPlayerAvatar(j.id)}
+                      </div>
+                      <span style="font-weight:500;color:var(--text-primary);">${j.nome}</span>
+                      ${golsNaFinal > 0 ? `<span style="font-weight:700;color:#ffd600;font-size:12px;">⚽${golsNaFinal}</span>` : ''}
+                    </div>
+                  `;
+                }).join('') : '<span style="font-size:12px;color:var(--text-muted);">Sem jogadores</span>'}
               </div>
-              <span style="font-weight:500;color:var(--text-primary);">${j.nome}</span>
-              ${golsNaFinal > 0 ? `<span style="font-weight:700;color:#ffd600;font-size:12px;">⚽${golsNaFinal}</span>` : ''}
             </div>
-          `;
-        }).join('') : '<span style="font-size:12px;color:var(--text-muted);">Sem jogadores</span>'}
-      </div>
-    </div>
-    
-  </div>
-</div>
+            
+            <div style="text-align:center;min-width:140px;">
+              <div style="font-family:'Orbitron',sans-serif;font-size:32px;font-weight:900;color:var(--accent-1);">
+                ${edicao.final?.gols1 || 0} × ${edicao.final?.gols2 || 0}
+              </div>
+              ${penaltyInfo}
+            </div>
+            
+            <div style="text-align:center;min-width:140px;">
+              <div style="display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:8px;">
+                <span style="font-size:18px;font-weight:700;">${edicao.final?.time2Nome || '?'}</span>
+                <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;border:2px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  ${time2Final?.escudo && (time2Final.escudo.startsWith('http') || time2Final.escudo.startsWith('data:')) 
+                    ? `<img src="${time2Final.escudo}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
+                    : `<span style="font-size:20px;">${time2Final?.escudo || '⚽'}</span>`}
+                </div>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:280px;">
+                ${jogadoresTime2Final.length > 0 ? jogadoresTime2Final.map(j => {
+                  const golsNaFinal = (edicao.final?.eventos || []).filter(e => e.jogadorId === j.id && !e.isPenalidade).length;
+                  return `
+                    <div style="display:flex;align-items:center;gap:6px;padding:2px 10px 2px 4px;background:rgba(5,8,12,0.3);border-radius:16px;border:1px solid var(--border-color);font-size:13px;">
+                      <div style="width:26px;height:26px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        ${getPlayerAvatar(j.id)}
+                      </div>
+                      <span style="font-weight:500;color:var(--text-primary);">${j.nome}</span>
+                      ${golsNaFinal > 0 ? `<span style="font-weight:700;color:#ffd600;font-size:12px;">⚽${golsNaFinal}</span>` : ''}
+                    </div>
+                  `;
+                }).join('') : '<span style="font-size:12px;color:var(--text-muted);">Sem jogadores</span>'}
+              </div>
+            </div>
+            
+          </div>
+        </div>
         
-        <!-- PLACARES FASE DE GRUPOS -->
         <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);margin-bottom:16px;">
           <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">📋 RESULTADOS DA FASE DE GRUPOS</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
@@ -1629,7 +1763,6 @@ window.visualizarEdicao = function(edicaoId) {
           </div>
         </div>
         
-        <!-- ESTATÍSTICAS + CLASSIFICAÇÃO -->
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
           <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);">
             <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">🎯 ESTATÍSTICAS DOS JOGADORES</div>
@@ -1655,7 +1788,7 @@ window.visualizarEdicao = function(edicaoId) {
           </div>
           
           <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);">
-            <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">📊 CLASSIFICAÇÃO FINAL</div>
+            <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">📊 CLASSIFICAÇÃO FASE DE GRUPOS</div>
             ${edicao.classificacao?.length ? `
               <div style="display:flex;flex-direction:column;gap:4px;max-height:300px;overflow-y:auto;">
                 ${edicao.classificacao.map(c => {
@@ -1681,7 +1814,6 @@ window.visualizarEdicao = function(edicaoId) {
           </div>
         </div>
         
-        <!-- JOGADORES POR TIME -->
         <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);margin-bottom:16px;">
           <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">👥 JOGADORES POR TIME</div>
           <div style="max-height:350px;overflow-y:auto;display:flex;flex-wrap:wrap;">
@@ -1689,7 +1821,6 @@ window.visualizarEdicao = function(edicaoId) {
           </div>
         </div>
         
-        <!-- RODAPÉ -->
         <div style="margin-top:16px;font-size:11px;color:var(--text-muted);text-align:center;border-top:1px solid var(--border-color);padding-top:12px;">
           Finalizado em ${edicao.dataFinalizacao ? new Date(edicao.dataFinalizacao).toLocaleDateString('pt-BR') : 'data desconhecida'}
           ${edicao.jogadores?.length ? `• ${edicao.jogadores.length} jogadores participantes` : ''}
@@ -1705,7 +1836,7 @@ window.visualizarEdicao = function(edicaoId) {
 };
 
 // ============================================================
-// DASHBOARD - COM EFEITOS DE HOVER E CLICK
+// DASHBOARD
 // ============================================================
 
 function renderDashboard() {
@@ -1720,7 +1851,6 @@ function renderDashboard() {
   document.getElementById('stat-partidas').textContent = totalPartidas || state.partidas.length;
   document.getElementById('stat-gols').textContent = totalGols;
 
-  // ===== LÍDER DE TÍTULOS =====
   var liderEl = document.getElementById('dash-lider');
   var titulosPorJogador = {};
   state.edicoes.forEach(function(edicao) {
@@ -1762,7 +1892,6 @@ function renderDashboard() {
     liderEl.innerHTML = 'Nenhum título registrado';
   }
 
-  // ===== ARTILHEIRO DO HISTÓRICO =====
   var artEl = document.getElementById('dash-artilheiro');
   var golsPorJogador = {};
   state.edicoes.forEach(function(edicao) {
@@ -1805,7 +1934,6 @@ function renderDashboard() {
     artEl.innerHTML = 'Sem gols registrados';
   }
 
-  // ===== ÚLTIMAS EDIÇÕES - COM EFEITOS DE HOVER E CLICK =====
   var ultEl = document.getElementById('dash-ultimas-edicoes');
   var sortedEdicoes = state.edicoes.slice().sort(function(a, b) { 
     return (b.numero || 0) - (a.numero || 0); 
@@ -1814,7 +1942,9 @@ function renderDashboard() {
 
   if (recentes.length > 0) {
     ultEl.innerHTML = recentes.map(function(e, index) {
-      // ===== PEGA O NOME DO CAMPEÃO =====
+      var numeroLocal = e.numeroTemporada || e.numero || 1;
+      var numeroGlobal = e.numero || 0;
+
       var campeaoId = (e.campeao || {}).timeId;
       var campeaoNome = 'N/A';
       var escudoCampeao = '';
@@ -1826,7 +1956,6 @@ function renderDashboard() {
         }
       }
 
-      // ===== PEGA OS JOGADORES DO TIME CAMPEÃO COM SEUS GOLS =====
       var jogadoresDoTime = [];
       if (e.jogadores && Array.isArray(e.jogadores)) {
         var jogadoresFiltrados = e.jogadores.filter(function(j) {
@@ -1855,7 +1984,6 @@ function renderDashboard() {
         });
       }
 
-      // ===== MONTA OS JOGADORES EM UMA ÚNICA LINHA =====
       var jogadoresHtml = '';
       if (jogadoresDoTime.length > 0) {
         jogadoresHtml = jogadoresDoTime.map(function(j) {
@@ -1873,8 +2001,7 @@ function renderDashboard() {
         jogadoresHtml = '<span style="font-size:11px;color:var(--text-muted);">Nenhum jogador</span>';
       }
 
-      // ===== EFEITOS DE HOVER E CLICK =====
-      var delay = index * 50; // efeito cascata
+      var delay = index * 50;
       
       return '<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid rgba(56,156,255,0.05);cursor:pointer;flex-wrap:wrap;border-radius:10px;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);background:transparent;position:relative;overflow:hidden;animation: fadeInItem 0.4s ease '+delay+'ms both;" '+
         'onmouseenter="this.style.background=\'rgba(0,212,255,0.06)\'; this.style.borderColor=\'var(--accent-1)\'; this.style.transform=\'translateX(6px) scale(1.01)\'; this.style.boxShadow=\'0 0 40px rgba(0,212,255,0.06)\';" '+
@@ -1882,55 +2009,28 @@ function renderDashboard() {
         'onmousedown="this.style.transform=\'scale(0.97)\'; this.style.transition=\'all 0.1s ease\';" '+
         'onmouseup="this.style.transform=\'scale(1.01)\'; this.style.transition=\'all 0.2s ease\';" '+
         'onclick="visualizarEdicao(\''+e.id+'\')">'+
-        // ===== EFEITO DE GLOW NO HOVER =====
         '<div style="position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle, rgba(0,212,255,0.03) 0%, transparent 70%);opacity:0;transition:opacity 0.5s ease;pointer-events:none;" '+
         'onmouseenter="this.style.opacity=\'1\'" onmouseleave="this.style.opacity=\'0\'"></div>'+
-        // ===== CONTEÚDO =====
-        '<span style="font-family:Orbitron,sans-serif;font-size:16px;font-weight:900;color:var(--accent-1);min-width:40px;flex-shrink:0;transition:all 0.3s ease;position:relative;z-index:1;">'+ordinal(e.numero || 1)+'</span>'+
+        '<span class="dash-edicao-num-local" style="font-family:\'Orbitron\',sans-serif;font-size:20px;font-weight:900;color:var(--accent-1);position:relative;z-index:1;transition:all 0.3s ease;">'+ordinal(numeroLocal)+'</span>'+
         (escudoCampeao ? '<span style="position:relative;z-index:1;">'+imgOrEmoji(escudoCampeao, 22)+'</span>' : '')+
-        '<span style="font-weight:700;color:#ffd600;font-size:14px;flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;">🏆 '+campeaoNome+'</span>'+
+        '<span style="font-weight:700;color:#ffd600;font-size:14px;flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;">'+campeaoNome+'</span>'+
         '<span style="display:flex;align-items:center;gap:2px;flex:1;flex-wrap:wrap;min-width:120px;position:relative;z-index:1;">'+
           jogadoresHtml+
         '</span>'+
-        '<span style="font-size:11px;color:var(--text-muted);margin-left:auto;flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;">📅 '+(e.dataEdicao||'—')+'</span>'+
-        '<span style="font-size:16px;color:var(--text-muted);flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;opacity:0.5;">👁️</span>'+
+        '<span style="font-size:11px;color:var(--text-muted);flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;">📅 '+(e.dataEdicao||'—')+'</span>'+
+        '<span style="background:rgba(0,212,255,0.15);color:var(--accent-1);border:1px solid rgba(0,212,255,0.25);padding:2px 14px;border-radius:16px;font-weight:700;font-size:14px;font-family:\'Orbitron\',sans-serif;flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;box-shadow:0 0 20px rgba(0,212,255,0.05);">#'+numeroGlobal+'</span>'+
       '</div>';
     }).join('') + 
-    // ===== ANIMAÇÃO DE ENTRADA =====
     '<style>'+
     '@keyframes fadeInItem {'+
     '  0% { opacity: 0; transform: translateY(12px) scale(0.98); }'+
     '  100% { opacity: 1; transform: translateY(0) scale(1); }'+
-    '}'+
-    '.dash-edicao-item:hover .dash-edicao-icon {'+
-    '  opacity: 1 !important;'+
-    '  transform: scale(1.2) !important;'+
-    '  color: var(--accent-1) !important;'+
-    '}'+
-    '.dash-edicao-item:hover .dash-edicao-num {'+
-    '  transform: scale(1.1) !important;'+
-    '  text-shadow: 0 0 30px rgba(0,212,255,0.3) !important;'+
-    '}'+
-    '.dash-edicao-item:hover .dash-edicao-campeao {'+
-    '  text-shadow: 0 0 30px rgba(255,215,0,0.3) !important;'+
-    '}'+
-    '.dash-edicao-item:hover .dash-edicao-data {'+
-    '  color: var(--accent-1) !important;'+
-    '}'+
-    '.dash-edicao-item .player-tag {'+
-    '  transition: all 0.3s ease !important;'+
-    '}'+
-    '.dash-edicao-item:hover .player-tag {'+
-    '  transform: translateY(-2px) scale(1.05) !important;'+
-    '  border-color: var(--accent-1) !important;'+
-    '  box-shadow: 0 0 20px rgba(0,212,255,0.1) !important;'+
     '}'+
     '</style>';
   } else {
     ultEl.innerHTML = 'Nenhuma edição finalizada';
   }
 
-  // ===== ESTATÍSTICAS DOS JOGADORES =====
   var statsEl = document.getElementById('dash-jogadores-stats');
   var jogadoresComHistorico = state.jogadores.map(function(jogador) {
     var golsHistorico = 0, partidasHistorico = 0, titulosHistorico = 0, vicesHistorico = 0, artilhariasHistorico = 0, edicoesParticipou = 0, ultimoTimeNome = 'Sem time';
@@ -1979,7 +2079,7 @@ function renderDashboard() {
           ? '<img src="'+j.foto+'" alt="'+j.nome+'">'
           : '<span class="fallback">🧑</span>';
         return '<tr><td><div class="player-cell"><div class="avatar-mini">'+avatarHtml+'</div>'+
-          '<div><div class="player-name">'+j.nome+'</div><div class="player-team">'+(j.ultimoTimeNome||'Sem time')+'</div></div></div></td>'+
+          '<div><div class="player-name" style="color:var(--text-primary);font-weight:600;">'+j.nome+'</div></div></div></td>'+
           '<td><span class="stat-num stat-gols">'+j.golsHistorico+'</span></td>'+
           '<td><span class="stat-num stat-titulos">'+j.titulosHistorico+'</span></td>'+
           '<td><span class="stat-num stat-vices">'+j.vicesHistorico+'</span></td>'+
@@ -1993,37 +2093,280 @@ function renderDashboard() {
 }
 
 // ============================================================
-// TEMPORADAS
+// TEMPORADA ATUAL (Última temporada criada)
 // ============================================================
 
-function calcClassificacaoPorTemporada(tempId) {
-  var partidas = state.partidas.filter(function(p) {
-    return p.temporadaId === tempId && p.fase === 'Fase de Grupos' && p.status === 'encerrada' &&
-      isPlacarDefinido(p.gols1) && isPlacarDefinido(p.gols2);
+function renderTemporadaAtual() {
+  var el = document.getElementById('atual-content');
+  if (!el) return;
+
+  if (!state.temporadas.length) {
+    el.innerHTML = '<div style="text-align:center;color:var(--text-muted);padding:40px 0;">Nenhuma temporada cadastrada</div>';
+    return;
+  }
+
+  // Pega a última temporada criada (pelo ano)
+  var sortedTemps = state.temporadas.slice().sort(function(a, b) {
+    return (b.ano || '').localeCompare(a.ano || '');
+  });
+  var ultimaTemp = sortedTemps[0];
+  if (!ultimaTemp) {
+    el.innerHTML = '<div style="text-align:center;color:var(--text-muted);padding:40px 0;">Nenhuma temporada encontrada</div>';
+    return;
+  }
+
+  var edicoesDaTemp = state.edicoes.filter(function(e) { return e.temporadaId === ultimaTemp.id; });
+  
+  // ===== CORREÇÃO: CONTA TIMES E JOGADORES ÚNICOS DA TEMPORADA =====
+  var timesUnicos = new Set();
+  var jogadoresUnicos = new Set();
+  var totalPartidas = 0;
+  var totalGols = 0;
+  
+  edicoesDaTemp.forEach(function(e) {
+    // Times únicos
+    if (e.times && Array.isArray(e.times)) {
+      e.times.forEach(function(t) {
+        if (t.id) timesUnicos.add(t.id);
+      });
+    }
+    // Jogadores únicos
+    if (e.jogadores && Array.isArray(e.jogadores)) {
+      e.jogadores.forEach(function(j) {
+        if (j.id) jogadoresUnicos.add(j.id);
+      });
+    }
+    totalPartidas += e.totalPartidas || 0;
+    totalGols += e.totalGols || 0;
   });
 
-  var tabela = {};
-  state.times.forEach(function(t) {
-    tabela[t.id] = { id: t.id, nome: t.nome, escudo: t.escudo, j: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0, sg: 0, pts: 0 };
+  var totalTimes = timesUnicos.size || state.times.length;
+  var totalJogadores = jogadoresUnicos.size || state.jogadores.length;
+
+  // Líder de títulos na temporada atual
+  var titulosPorJogadorTemp = {};
+  edicoesDaTemp.forEach(function(edicao) {
+    if (edicao.jogadores && Array.isArray(edicao.jogadores)) {
+      edicao.jogadores.forEach(function(j) {
+        if (j.timeId === (edicao.campeao || {}).timeId) {
+          titulosPorJogadorTemp[j.id] = (titulosPorJogadorTemp[j.id] || 0) + 1;
+        }
+      });
+    }
   });
 
-  partidas.forEach(function(p) {
-    var g1 = parseInt(p.gols1), g2 = parseInt(p.gols2);
-    if (!tabela[p.time1Id] || !tabela[p.time2Id]) return;
-    var t1 = tabela[p.time1Id], t2 = tabela[p.time2Id];
-    t1.j++; t2.j++;
-    t1.gp += g1; t1.gc += g2;
-    t2.gp += g2; t2.gc += g1;
-    if (g1 > g2) { t1.v++; t1.pts += 3; t2.d++; }
-    else if (g2 > g1) { t2.v++; t2.pts += 3; t1.d++; }
-    else { t1.e++; t1.pts++; t2.e++; t2.pts++; }
-    t1.sg = t1.gp - t1.gc; t2.sg = t2.gp - t2.gc;
+  var maiorTitulosTemp = 0;
+  for (var key in titulosPorJogadorTemp) {
+    if (titulosPorJogadorTemp[key] > maiorTitulosTemp) maiorTitulosTemp = titulosPorJogadorTemp[key];
+  }
+
+  var lideresTitulosTemp = [];
+  for (var key2 in titulosPorJogadorTemp) {
+    if (titulosPorJogadorTemp[key2] === maiorTitulosTemp && maiorTitulosTemp > 0) {
+      var jogador = state.jogadores.find(function(j) { return j.id === key2; });
+      if (jogador) lideresTitulosTemp.push({ ...jogador, titulos: titulosPorJogadorTemp[key2] });
+    }
+  }
+
+  // Artilheiro da temporada atual
+  var golsPorJogadorTemp = {};
+  edicoesDaTemp.forEach(function(edicao) {
+    if (edicao.jogadores && Array.isArray(edicao.jogadores)) {
+      edicao.jogadores.forEach(function(j) {
+        if (j.gols) {
+          golsPorJogadorTemp[j.id] = (golsPorJogadorTemp[j.id] || 0) + j.gols;
+        }
+      });
+    }
   });
 
-  return Object.values(tabela).sort(function(a, b) {
-    return b.pts - a.pts || b.sg - a.sg || b.gp - a.gp;
-  });
+  var maiorGolsTemp = 0;
+  for (var key3 in golsPorJogadorTemp) {
+    if (golsPorJogadorTemp[key3] > maiorGolsTemp) maiorGolsTemp = golsPorJogadorTemp[key3];
+  }
+
+  var artilheirosTemp = [];
+  for (var key4 in golsPorJogadorTemp) {
+    if (golsPorJogadorTemp[key4] === maiorGolsTemp && maiorGolsTemp > 0) {
+      var jogador2 = state.jogadores.find(function(j) { return j.id === key4; });
+      if (jogador2) artilheirosTemp.push({ ...jogador2, gols: golsPorJogadorTemp[key4] });
+    }
+  }
+
+  // ===== MONTA O HTML DA TEMPORADA ATUAL =====
+  var statusColor = '';
+  if (ultimaTemp.status === 'em_andamento') {
+    statusColor = '#00e676';
+  } else if (ultimaTemp.status === 'encerrado') {
+    statusColor = '#ff6b6b';
+  } else {
+    statusColor = 'var(--accent-1)';
+  }
+
+  var html = `
+    <div style="margin-bottom:20px;padding:16px 20px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-color);">
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <span style="font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;background:var(--gradient-main);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">${ultimaTemp.ano}</span>
+        <span style="font-size:18px;font-weight:700;">${ultimaTemp.nome}</span>
+        <span style="padding:3px 14px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:${statusColor}20;color:${statusColor};border:1px solid ${statusColor}40;">${ultimaTemp.status || 'Planejado'}</span>
+        ${edicoesDaTemp.length > 0 ? `<span style="font-size:12px;color:var(--text-muted);">📋 ${edicoesDaTemp.length} edição(ões)</span>` : ''}
+      </div>
+      ${ultimaTemp.descricao ? `<div style="color:var(--text-muted);font-size:13px;margin-top:8px;">${ultimaTemp.descricao}</div>` : ''}
+    </div>
+
+    <div class="stat-boxes">
+      <div class="stat-box"><div class="stat-box-num">${totalTimes}</div><div class="stat-box-label">Times</div></div>
+      <div class="stat-box"><div class="stat-box-num">${totalJogadores}</div><div class="stat-box-label">Jogadores</div></div>
+      <div class="stat-box"><div class="stat-box-num">${totalPartidas}</div><div class="stat-box-label">Partidas</div></div>
+      <div class="stat-box"><div class="stat-box-num">${totalGols}</div><div class="stat-box-label">Gols</div></div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">🏆 Líder de Títulos (Temporada)</div>
+        ${lideresTitulosTemp.length > 0 ? lideresTitulosTemp.map(function(j) {
+          var timeNome = 'Sem time';
+          if (j.timeId) {
+            var time = state.times.find(function(t) { return t.id === j.timeId; });
+            if (time) timeNome = time.nome;
+          }
+          return '<div style="display:flex;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid rgba(56,156,255,0.05);">'+
+            imgOrEmoji(j.foto, 40)+
+            '<div><div style="font-size:15px;font-weight:700;color:#ffd600;">🏆 '+j.nome+'</div>'+
+            '<div style="color:var(--text-muted);font-size:12px;">'+timeNome+' • '+j.titulos+' título(s)</div></div></div>';
+        }).join('') : '<div style="color:var(--text-muted);text-align:center;padding:12px 0;">Nenhum título nesta temporada</div>'}
+      </div>
+      <div class="card">
+        <div class="card-title">🎯 Artilheiro (Temporada)</div>
+        ${artilheirosTemp.length > 0 ? artilheirosTemp.map(function(j) {
+          var timeNome = 'Sem time';
+          if (j.timeId) {
+            var time2 = state.times.find(function(t) { return t.id === j.timeId; });
+            if (time2) timeNome = time2.nome;
+          }
+          return '<div style="display:flex;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid rgba(56,156,255,0.05);">'+
+            imgOrEmoji(j.foto, 40)+
+            '<div><div style="font-size:15px;font-weight:700;">'+j.nome+'</div>'+
+            '<div style="color:var(--accent-1);font-family:Orbitron,sans-serif;font-size:22px;">'+j.gols+' ⚽</div>'+
+            '<div style="color:var(--text-muted);font-size:12px;">'+timeNome+'</div></div></div>';
+        }).join('') : '<div style="color:var(--text-muted);text-align:center;padding:12px 0;">Sem gols registrados</div>'}
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="card-title">📋 Últimas 5 Edições da Temporada</div>
+      ${edicoesDaTemp.length > 0 ? edicoesDaTemp.slice().sort(function(a, b) {
+        return (b.numero || 0) - (a.numero || 0);
+      }).slice(0, 5).map(function(e, index) {
+        var numeroLocal = e.numeroTemporada || e.numero || 1;
+        var numeroGlobal = e.numero || 0;
+
+        var campeaoId = (e.campeao || {}).timeId;
+        var campeaoNome = 'N/A';
+        var escudoCampeao = '';
+        if (campeaoId) {
+          var timeCampeao = state.times.find(function(t) { return t.id === campeaoId; });
+          if (timeCampeao) {
+            campeaoNome = timeCampeao.nome;
+            escudoCampeao = timeCampeao.escudo;
+          }
+        }
+
+        var delay = index * 50;
+
+        return '<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid rgba(56,156,255,0.05);cursor:pointer;flex-wrap:wrap;border-radius:10px;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);background:transparent;position:relative;overflow:hidden;animation: fadeInItem 0.4s ease '+delay+'ms both;" '+
+          'onmouseenter="this.style.background=\'rgba(0,212,255,0.06)\'; this.style.borderColor=\'var(--accent-1)\'; this.style.transform=\'translateX(6px) scale(1.01)\'; this.style.boxShadow=\'0 0 40px rgba(0,212,255,0.06)\';" '+
+          'onmouseleave="this.style.background=\'transparent\'; this.style.borderColor=\'transparent\'; this.style.transform=\'translateX(0) scale(1)\'; this.style.boxShadow=\'none\';" '+
+          'onmousedown="this.style.transform=\'scale(0.97)\'; this.style.transition=\'all 0.1s ease\';" '+
+          'onmouseup="this.style.transform=\'scale(1.01)\'; this.style.transition=\'all 0.2s ease\';" '+
+          'onclick="visualizarEdicao(\''+e.id+'\')">'+
+          '<div style="position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle, rgba(0,212,255,0.03) 0%, transparent 70%);opacity:0;transition:opacity 0.5s ease;pointer-events:none;" '+
+          'onmouseenter="this.style.opacity=\'1\'" onmouseleave="this.style.opacity=\'0\'"></div>'+
+          '<span class="dash-edicao-num-local" style="font-family:\'Orbitron\',sans-serif;font-size:20px;font-weight:900;color:var(--accent-1);position:relative;z-index:1;transition:all 0.3s ease;">'+ordinal(numeroLocal)+'</span>'+
+          (escudoCampeao ? '<span style="position:relative;z-index:1;">'+imgOrEmoji(escudoCampeao, 22)+'</span>' : '')+
+          '<span style="font-weight:700;color:#ffd600;font-size:14px;flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;">'+campeaoNome+'</span>'+
+          '<span style="font-size:11px;color:var(--text-muted);flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;">📅 '+(e.dataEdicao||'—')+'</span>'+
+          '<span style="background:rgba(0,212,255,0.15);color:var(--accent-1);border:1px solid rgba(0,212,255,0.25);padding:2px 14px;border-radius:16px;font-weight:700;font-size:14px;font-family:\'Orbitron\',sans-serif;flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;box-shadow:0 0 20px rgba(0,212,255,0.05);margin-left:auto;">#'+numeroGlobal+'</span>'+
+        '</div>';
+      }).join('') : '<div style="color:var(--text-muted);text-align:center;padding:20px 0;">Nenhuma edição finalizada nesta temporada</div>'}
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="card-title">👤 Estatísticas dos Jogadores (Temporada)</div>
+      ${edicoesDaTemp.length > 0 ? (function() {
+        var jogadoresDaTemp = {};
+        edicoesDaTemp.forEach(function(edicao) {
+          if (edicao.jogadores && Array.isArray(edicao.jogadores)) {
+            edicao.jogadores.forEach(function(j) {
+              if (!jogadoresDaTemp[j.id]) {
+                jogadoresDaTemp[j.id] = {
+                  id: j.id,
+                  nome: getJogadorNome(j.id),
+                  foto: getJogadorFoto(j.id),
+                  gols: 0,
+                  partidas: 0,
+                  titulos: 0,
+                  vices: 0,
+                  artilharias: 0,
+                  edicoes: 0
+                };
+              }
+              jogadoresDaTemp[j.id].gols += j.gols || 0;
+              jogadoresDaTemp[j.id].partidas += j.partidasJogadas || 0;
+              jogadoresDaTemp[j.id].edicoes += 1;
+              if ((edicao.campeao || {}).timeId === j.timeId) jogadoresDaTemp[j.id].titulos++;
+              if ((edicao.vice || {}).timeId === j.timeId) jogadoresDaTemp[j.id].vices++;
+              if (edicao.artilheiros && Array.isArray(edicao.artilheiros)) {
+                if (edicao.artilheiros.some(function(a) { return a.jogadorId === j.id; })) jogadoresDaTemp[j.id].artilharias++;
+              }
+            });
+          }
+        });
+
+        var listaTemp = Object.values(jogadoresDaTemp).filter(function(j) {
+          return j.gols > 0 || j.titulos > 0 || j.vices > 0 || j.artilharias > 0 || j.partidas > 0 || j.edicoes > 0;
+        }).sort(function(a, b) {
+          if (b.gols !== a.gols) return b.gols - a.gols;
+          if (b.titulos !== a.titulos) return b.titulos - a.titulos;
+          if (b.vices !== a.vices) return b.vices - a.vices;
+          if (b.artilharias !== a.artilharias) return b.artilharias - a.artilharias;
+          if (b.edicoes !== a.edicoes) return b.edicoes - a.edicoes;
+          return a.nome.localeCompare(b.nome);
+        });
+
+        if (listaTemp.length > 0) {
+          return '<div class="stats-table-wrap"><table><thead><tr>'+
+            '<th style="text-align:left;">Jogador</th><th style="text-align:center;">⚽ Gols</th>'+
+            '<th style="text-align:center;">🏆 Títulos</th><th style="text-align:center;">🥈 Vices</th>'+
+            '<th style="text-align:center;">🎯 Artilharias</th>'+
+            '<th style="text-align:center;">📅 Edições</th>'+
+            '<th style="text-align:center;">📋 Partidas</th></tr></thead><tbody>'+
+            listaTemp.map(function(j) {
+              var avatarHtml = j.foto && (j.foto.startsWith('http') || j.foto.startsWith('data:'))
+                ? '<img src="'+j.foto+'" alt="'+j.nome+'">'
+                : '<span class="fallback">🧑</span>';
+              return '<tr><td><div class="player-cell"><div class="avatar-mini">'+avatarHtml+'</div>'+
+                '<div><div class="player-name" style="color:var(--text-primary);font-weight:600;">'+j.nome+'</div></div></div></td>'+
+                '<td><span class="stat-num stat-gols">'+j.gols+'</span></td>'+
+                '<td><span class="stat-num stat-titulos">'+j.titulos+'</span></td>'+
+                '<td><span class="stat-num stat-vices">'+j.vices+'</span></td>'+
+                '<td><span class="stat-num stat-artilharias">'+j.artilharias+'</span></td>'+
+                '<td><span class="stat-num stat-edicoes">'+j.edicoes+'</span></td>'+
+                '<td><span class="stat-num stat-partidas">'+j.partidas+'</span></td></tr>';
+            }).join('')+'</tbody></table></div>';
+        } else {
+          return '<div style="color:var(--text-muted);text-align:center;padding:12px 0;">Nenhum jogador com estatísticas</div>';
+        }
+      })() : '<div style="color:var(--text-muted);text-align:center;padding:12px 0;">Nenhuma edição para exibir</div>'}
+    </div>
+  `;
+
+  el.innerHTML = html;
 }
+
+// ============================================================
+// TEMPORADAS
+// ============================================================
 
 function renderTemporadas() {
   var el = document.getElementById('pub-temporadas');
@@ -2034,7 +2377,11 @@ function renderTemporadas() {
   }
 
   var statusLabel = { em_andamento:'Em Andamento', encerrado:'Encerrado', planejado:'Planejado' };
-  var statusClass = { em_andamento:'status-andamento', encerrado:'status-encerrado', planejado:'status-planejado' };
+  var statusClass = { 
+    em_andamento:'status-andamento', 
+    encerrado:'status-encerrado', 
+    planejado:'status-planejado' 
+  };
 
   var sorted = state.temporadas.slice().sort(function(a, b) {
     return (b.ano || '').localeCompare(a.ano || '');
@@ -2051,12 +2398,13 @@ function renderTemporadas() {
     var edicoesHtml = '';
 
     if (edicoes.length) {
-      edicoesHtml = '<div class="edicoes-container open" id="edicoes-'+t.id+'">';
+      edicoesHtml = '<div class="edicoes-container" id="edicoes-'+t.id+'" style="display:none;">';
       edicoes.forEach(function(e) {
+        var numeroLocal = e.numeroTemporada || e.numero || 1;
+        var numeroGlobal = e.numero || 0;
+
         var campeao = (e.campeao || {}).nome || 'N/A';
-        var vice = (e.vice || {}).nome || 'N/A';
         var timeCampeao = state.times.find(function(tm) { return tm.id === e.campeao?.timeId; });
-        var timeVice = state.times.find(function(tm) { return tm.id === e.vice?.timeId; });
         
         var artilheirosList = e.artilheiros || [];
         var artStr = artilheirosList.length > 0 ? artilheirosList.map(function(a) {
@@ -2064,7 +2412,6 @@ function renderTemporadas() {
           return jogador ? jogador.nome + ' (' + a.gols + '⚽)' : '?';
         }).join(', ') : '—';
 
-        // Dados da final
         var final = e.final || {};
         var tevePenalidades = final.tevePenalidades || false;
         var gols1 = final.gols1 || 0;
@@ -2072,17 +2419,14 @@ function renderTemporadas() {
         var golsP1 = final.golsPenalidades1 || 0;
         var golsP2 = final.golsPenalidades2 || 0;
 
-        // ====== PEGA OS NOMES DOS TIMES DA FINAL ======
         var time1Final = state.times.find(function(tm) { return tm.id === final.time1Id; });
         var time2Final = state.times.find(function(tm) { return tm.id === final.time2Id; });
         
         var nomeTime1 = time1Final ? time1Final.nome : '?';
         var nomeTime2 = time2Final ? time2Final.nome : '?';
 
-        // ====== CARD COM EFEITOS DE HOVER E CLICK ======
         edicoesHtml += '<div class="edicao-item" onclick="event.stopPropagation();visualizarEdicao(\''+e.id+'\')" style="cursor:pointer;border:1px solid var(--border-color);border-radius:12px;padding:10px 16px;margin-bottom:8px;background:rgba(5,8,12,0.3);transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);position:relative;overflow:hidden;">';
         
-        // ====== EFEITO DE HOVER (borda glow) ======
         edicoesHtml += '<style>';
         edicoesHtml += '.edicao-item:hover {';
         edicoesHtml += '  border-color: var(--accent-1) !important;';
@@ -2103,23 +2447,23 @@ function renderTemporadas() {
         edicoesHtml += '  transform: translateX(4px) scale(1.1);';
         edicoesHtml += '  color: var(--accent-1);';
         edicoesHtml += '}';
-        edicoesHtml += '.edicao-item .edicao-numero {';
+        edicoesHtml += '.edicao-item .edicao-num-local-hover {';
         edicoesHtml += '  transition: all 0.3s ease;';
         edicoesHtml += '}';
-        edicoesHtml += '.edicao-item:hover .edicao-numero {';
+        edicoesHtml += '.edicao-item:hover .edicao-num-local-hover {';
         edicoesHtml += '  transform: scale(1.05);';
         edicoesHtml += '  text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);';
         edicoesHtml += '}';
-        edicoesHtml += '.edicao-item .campeao-nome {';
+        edicoesHtml += '.edicao-item .campeao-nome-hover {';
         edicoesHtml += '  transition: all 0.3s ease;';
         edicoesHtml += '}';
-        edicoesHtml += '.edicao-item:hover .campeao-nome {';
+        edicoesHtml += '.edicao-item:hover .campeao-nome-hover {';
         edicoesHtml += '  text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);';
         edicoesHtml += '}';
-        edicoesHtml += '.edicao-item .placar-gols {';
+        edicoesHtml += '.edicao-item .placar-gols-hover {';
         edicoesHtml += '  transition: all 0.3s ease;';
         edicoesHtml += '}';
-        edicoesHtml += '.edicao-item:hover .placar-gols {';
+        edicoesHtml += '.edicao-item:hover .placar-gols-hover {';
         edicoesHtml += '  transform: scale(1.08);';
         edicoesHtml += '  text-shadow: 0 0 20px rgba(0, 212, 255, 0.2);';
         edicoesHtml += '}';
@@ -2136,20 +2480,22 @@ function renderTemporadas() {
         edicoesHtml += '.edicao-item:hover .artilheiros-hover {';
         edicoesHtml += '  transform: translateX(4px);';
         edicoesHtml += '}';
+        edicoesHtml += '.edicao-item .global-badge-hover {';
+        edicoesHtml += '  transition: all 0.3s ease;';
+        edicoesHtml += '}';
+        edicoesHtml += '.edicao-item:hover .global-badge-hover {';
+        edicoesHtml += '  border-color: var(--accent-1) !important;';
+        edicoesHtml += '  color: var(--accent-1) !important;';
+        edicoesHtml += '}';
         edicoesHtml += '</style>';
         
-        // ====== LINHA 1: Nº EDIÇÃO + CAMPEÃO + PLACAR + VICE ======
         edicoesHtml += '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">';
         
-        // Número da edição (azul)
-        edicoesHtml += '<span class="edicao-numero" style="font-family:\'Orbitron\',sans-serif;font-size:16px;font-weight:900;color:var(--accent-1);min-width:40px;transition:all 0.3s ease;">' + ordinal(e.numero || 1) + '</span>';
+        edicoesHtml += '<span style="font-family:\'Orbitron\',sans-serif;font-size:20px;font-weight:900;color:var(--accent-1);line-height:1.2;flex-shrink:0;">' + ordinal(numeroLocal) + '</span>';
         
-        // ====== MOSTRA O PLACAR COM OS TIMES DA FINAL ======
         if (time1Final && time2Final) {
-          // Verifica se o time1 é o campeão
           var isTime1Campeao = time1Final.id === e.campeao?.timeId;
           
-          // Mostra time1 (campeão ou não)
           edicoesHtml += '<div style="display:flex;align-items:center;gap:4px;">';
           edicoesHtml += '<div style="width:24px;height:24px;border-radius:50%;overflow:hidden;border:2px solid ' + (isTime1Campeao ? '#ffd600' : 'var(--border-color)') + ';background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.3s ease;">';
           if (time1Final.escudo && (time1Final.escudo.startsWith('http') || time1Final.escudo.startsWith('data:'))) {
@@ -2158,13 +2504,11 @@ function renderTemporadas() {
             edicoesHtml += '<span style="font-size:14px;">'+(time1Final.escudo || '⚽')+'</span>';
           }
           edicoesHtml += '</div>';
-          edicoesHtml += '<span class="' + (isTime1Campeao ? 'campeao-nome' : '') + '" style="font-weight:' + (isTime1Campeao ? '700' : '600') + ';font-size:15px;color:' + (isTime1Campeao ? '#ffd600' : 'var(--text-secondary)') + ';transition:all 0.3s ease;">' + nomeTime1 + '</span>';
+          edicoesHtml += '<span class="campeao-nome-hover" style="font-weight:' + (isTime1Campeao ? '700' : '600') + ';font-size:15px;color:' + (isTime1Campeao ? '#ffd600' : 'var(--text-secondary)') + ';transition:all 0.3s ease;">' + nomeTime1 + '</span>';
           edicoesHtml += '</div>';
 
-          // Placar
-          edicoesHtml += '<span class="placar-gols" style="font-family:\'Orbitron\',sans-serif;font-weight:700;color:var(--accent-1);font-size:14px;transition:all 0.3s ease;">' + gols1 + ' × ' + gols2 + '</span>';
+          edicoesHtml += '<span class="placar-gols-hover" style="font-family:\'Orbitron\',sans-serif;font-weight:700;color:var(--accent-1);font-size:14px;transition:all 0.3s ease;">' + gols1 + ' × ' + gols2 + '</span>';
 
-          // Mostra time2
           var isTime2Campeao = time2Final.id === e.campeao?.timeId;
           edicoesHtml += '<div style="display:flex;align-items:center;gap:4px;">';
           edicoesHtml += '<div style="width:24px;height:24px;border-radius:50%;overflow:hidden;border:2px solid ' + (isTime2Campeao ? '#ffd600' : 'var(--border-color)') + ';background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.3s ease;">';
@@ -2174,51 +2518,55 @@ function renderTemporadas() {
             edicoesHtml += '<span style="font-size:14px;">'+(time2Final.escudo || '⚽')+'</span>';
           }
           edicoesHtml += '</div>';
-          edicoesHtml += '<span class="' + (isTime2Campeao ? 'campeao-nome' : '') + '" style="font-weight:' + (isTime2Campeao ? '700' : '600') + ';font-size:15px;color:' + (isTime2Campeao ? '#ffd600' : 'var(--text-secondary)') + ';transition:all 0.3s ease;">' + nomeTime2 + '</span>';
+          edicoesHtml += '<span class="campeao-nome-hover" style="font-weight:' + (isTime2Campeao ? '700' : '600') + ';font-size:15px;color:' + (isTime2Campeao ? '#ffd600' : 'var(--text-secondary)') + ';transition:all 0.3s ease;">' + nomeTime2 + '</span>';
           edicoesHtml += '</div>';
         }
 
-        // Pênaltis (se houver)
         if (tevePenalidades) {
           edicoesHtml += '<span class="penalty-badge-hover" style="font-size:10px;color:#ff6b6b;font-weight:700;background:rgba(255,107,107,0.08);padding:2px 10px;border-radius:12px;border:1px solid rgba(255,107,107,0.15);transition:all 0.3s ease;">⚽ PÊNALTIS ' + golsP1 + '×' + golsP2 + '</span>';
         }
 
-        // Artilheiros + Data (lado direito)
         edicoesHtml += '<span style="margin-left:auto;display:flex;align-items:center;gap:12px;">';
         
-        // Artilheiros
         if (artStr !== '—') {
           edicoesHtml += '<span class="artilheiros-hover" style="font-size:11px;color:var(--accent-1);font-weight:500;transition:all 0.3s ease;">🎯 ' + artStr + '</span>';
         }
 
-        // Data
         if (e.dataEdicao) {
           edicoesHtml += '<span style="font-size:12px;color:var(--text-muted);font-weight:500;">📅 ' + e.dataEdicao + '</span>';
         }
 
-        // Ícone de expandir com efeito
-        edicoesHtml += '<span class="edicao-expand-icon" style="font-size:14px;color:var(--text-muted);transition:all 0.3s ease;">👁️</span>';
+        edicoesHtml += '<span style="background:rgba(0,212,255,0.15);color:var(--accent-1);border:1px solid rgba(0,212,255,0.25);padding:2px 14px;border-radius:16px;font-weight:700;font-size:14px;font-family:\'Orbitron\',sans-serif;flex-shrink:0;transition:all 0.3s ease;box-shadow:0 0 20px rgba(0,212,255,0.05);">#' + numeroGlobal + '</span>';
 
-        edicoesHtml += '</span>'; // fim lado direito
+        edicoesHtml += '</span>';
 
-        edicoesHtml += '</div>'; // fim da linha
+        edicoesHtml += '</div>';
 
-        edicoesHtml += '</div>'; // fim card
+        edicoesHtml += '</div>';
       });
       edicoesHtml += '</div>';
     } else {
-      edicoesHtml = '<div class="edicoes-container" style="display:block;padding:12px 20px;color:var(--text-muted);font-size:13px;">Nenhuma edição finalizada para esta temporada</div>';
+      edicoesHtml = '<div class="edicoes-container" style="display:none;padding:12px 20px;color:var(--text-muted);font-size:13px;">Nenhuma edição finalizada para esta temporada</div>';
     }
 
-    html += '<div class="season-pub-card '+(isActive?'active':'')+'" onclick="toggleEdicoes(\''+t.id+'\')" style="margin-bottom:8px;">' +
+    var statusColor = '';
+    if (t.status === 'em_andamento') {
+      statusColor = '#00e676';
+    } else if (t.status === 'encerrado') {
+      statusColor = '#ff6b6b';
+    } else {
+      statusColor = 'var(--accent-1)';
+    }
+
+    html += '<div class="season-pub-card '+(isActive?'active':'')+'" onclick="toggleEdicoes(\''+t.id+'\')" style="margin-bottom:8px;cursor:pointer;">' +
       '<div class="season-pub-year '+(isActive?'active':'')+'">'+t.ano+'</div>' +
       '<div class="season-info">' +
         '<div class="season-pub-name">'+t.nome+'</div>' +
         '<div class="season-pub-desc">'+(t.descricao||'')+'</div>' +
         '<div style="font-size:11px;color:var(--text-muted);margin-top:4px;">📋 '+edicoes.length+' edição(ões)</div>' +
       '</div>' +
-      '<div class="season-pub-badge"><span class="status-badge '+(statusClass[t.status]||'')+'">'+(statusLabel[t.status]||t.status)+'</span></div>' +
-      '<span class="season-pub-expand" id="season-expand-'+t.id+'">'+(edicoes.length ? '▼' : '—')+'</span>' +
+      '<div class="season-pub-badge"><span style="padding:3px 12px;border-radius:20px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:'+statusColor+'20;color:'+statusColor+';border:1px solid '+statusColor+'40;">'+(statusLabel[t.status]||t.status)+'</span></div>' +
+      '<span class="season-pub-expand" id="season-expand-'+t.id+'">'+(edicoes.length ? '▶' : '—')+'</span>' +
     '</div>' + edicoesHtml;
   });
 
@@ -2254,19 +2602,20 @@ function setupFirestoreListeners() {
       loaded++;
       if (loaded >= collections.length) {
         renderDashboard();
+        renderTemporadaAtual();
         renderTemporadas();
         
         if (isFirstLoad) {
           isFirstLoad = false;
           var params = getUrlParams();
-          var tab = params.tab || 'dashboard';
+          var tab = params.tab || 'atual';
           
           var btn = document.querySelector('.nav-tab[data-tab="' + tab + '"]');
           if (btn) {
             showSection(tab, btn);
           } else {
-            var defaultBtn = document.querySelector('.nav-tab[data-tab="dashboard"]');
-            if (defaultBtn) showSection('dashboard', defaultBtn);
+            var defaultBtn = document.querySelector('.nav-tab[data-tab="atual"]');
+            if (defaultBtn) showSection('atual', defaultBtn);
           }
         }
       }
@@ -2275,18 +2624,19 @@ function setupFirestoreListeners() {
       loaded++;
       if (loaded >= collections.length) {
         renderDashboard();
+        renderTemporadaAtual();
         renderTemporadas();
         
         if (isFirstLoad) {
           isFirstLoad = false;
           var params = getUrlParams();
-          var tab = params.tab || 'dashboard';
+          var tab = params.tab || 'atual';
           var btn = document.querySelector('.nav-tab[data-tab="' + tab + '"]');
           if (btn) {
             showSection(tab, btn);
           } else {
-            var defaultBtn = document.querySelector('.nav-tab[data-tab="dashboard"]');
-            if (defaultBtn) showSection('dashboard', defaultBtn);
+            var defaultBtn = document.querySelector('.nav-tab[data-tab="atual"]');
+            if (defaultBtn) showSection('atual', defaultBtn);
           }
         }
       }
@@ -2298,6 +2648,7 @@ setupFirestoreListeners();
 
 setTimeout(function() {
   renderDashboard();
+  renderTemporadaAtual();
   renderTemporadas();
 }, 3000);
 </script>
