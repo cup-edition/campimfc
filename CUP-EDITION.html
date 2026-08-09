@@ -2607,16 +2607,7 @@ function setupFirestoreListeners() {
         
         if (isFirstLoad) {
           isFirstLoad = false;
-          var params = getUrlParams();
-          var tab = params.tab || 'atual';
-          
-          var btn = document.querySelector('.nav-tab[data-tab="' + tab + '"]');
-          if (btn) {
-            showSection(tab, btn);
-          } else {
-            var defaultBtn = document.querySelector('.nav-tab[data-tab="atual"]');
-            if (defaultBtn) showSection('atual', defaultBtn);
-          }
+          restoreTabFromUrl();
         }
       }
     }, function(error) {
@@ -2629,15 +2620,7 @@ function setupFirestoreListeners() {
         
         if (isFirstLoad) {
           isFirstLoad = false;
-          var params = getUrlParams();
-          var tab = params.tab || 'atual';
-          var btn = document.querySelector('.nav-tab[data-tab="' + tab + '"]');
-          if (btn) {
-            showSection(tab, btn);
-          } else {
-            var defaultBtn = document.querySelector('.nav-tab[data-tab="atual"]');
-            if (defaultBtn) showSection('atual', defaultBtn);
-          }
+          restoreTabFromUrl();
         }
       }
     });
@@ -2646,10 +2629,35 @@ function setupFirestoreListeners() {
 
 setupFirestoreListeners();
 
+function restoreTabFromUrl() {
+  var params = getUrlParams();
+  var tab = params.tab || 'atual';
+  
+  // Mapear data-tab para section ID correto
+  var tabMap = {
+    'ATUAL': 'atual',
+    'CARREIRAS': 'dashboard',
+    'TEMPORADAS': 'temporadas'
+  };
+  var sectionId = tabMap[tab] || 'atual';
+  
+  var btn = document.querySelector('.nav-tab[data-tab="' + tab + '"]');
+  if (btn) {
+    showSection(sectionId, btn);
+  } else {
+    var defaultBtn = document.querySelector('.nav-tab[data-tab="atual"]');
+    if (defaultBtn) showSection('atual', defaultBtn);
+  }
+}
+
 setTimeout(function() {
   renderDashboard();
   renderTemporadaAtual();
   renderTemporadas();
+  if (isFirstLoad) {
+    isFirstLoad = false;
+    restoreTabFromUrl();
+  }
 }, 3000);
 </script>
 </body>
