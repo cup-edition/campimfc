@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- ÍCONE DA ABA DO NAVEGADOR -->
+
     <link rel="icon" type="image/png" href="https://cup-edition.github.io/sistema-inscricoes/CUP%20EDITION.png">
     <link rel="shortcut icon" type="image/png" href="https://cup-edition.github.io/sistema-inscricoes/CUP%20EDITION.png">
-    
-    <!-- META TAGS PARA PREVIEW EM REDES SOCIAIS -->
+
     <meta property="og:title" content="CUP EDITION CAMPIM FC" />
     <meta property="og:description" content="Participe da maior competição do CAMPIM FC" />
     <meta property="og:image" content="https://cup-edition.github.io/campimfc/CUP%20EDITION.jpg" />
@@ -21,13 +19,16 @@
     <meta name="twitter:title" content="CUP EDITION CAMPIM FC" />
     <meta name="twitter:description" content="Participe da maior competição do CAMPIM FC" />
     <meta name="twitter:image" content="https://cup-edition.github.io/campimfc/CUP%20EDITION.jpg" />
-    
+
     <title>CUP EDITION - CAMPIM FC</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
     <style>
-        /* BLOQUEIO DE SELEÇÃO E CÓPIA */
         * {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -36,7 +37,6 @@
             -webkit-touch-callout: none;
         }
 
-        /* BLOQUEIO DE DRAG DE IMAGENS */
         img {
             -webkit-user-drag: none;
             -khtml-user-drag: none;
@@ -239,7 +239,6 @@
             filter: drop-shadow(0 15px 40px rgba(212, 175, 55, 0.2));
         }
 
-        /* RODAPÉ COM LOGOS LADO A LADO */
         .footer-logos {
             display: flex;
             justify-content: center;
@@ -328,6 +327,7 @@
             text-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
             transition: all 0.3s ease;
             line-height: 1.2;
+            min-height: 1.6rem;
         }
 
         .stat .label {
@@ -496,6 +496,15 @@
             z-index: 1;
         }
 
+        .stat-loading {
+            animation: statPulse 1.2s ease-in-out infinite;
+            color: rgba(212, 175, 55, 0.3) !important;
+        }
+        @keyframes statPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
         @media (max-width: 600px) {
             body { padding: 0; min-height: 100vh; align-items: stretch; }
 
@@ -586,85 +595,32 @@
             .btn .icon { font-size: 1.2rem; }
         }
     </style>
+<base target="_blank">
 </head>
 <body>
 
-    <!-- BLOQUEIO DE BOTÃO DIREITO E TECLAS DE ATALHO -->
     <script>
-        // Bloqueia o botão direito do mouse
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
             return false;
         });
 
-        // Bloqueia teclas de atalho para dev tools e código fonte
         document.addEventListener('keydown', function(e) {
-            // F12
-            if (e.key === 'F12' || e.keyCode === 123) {
-                e.preventDefault();
-                return false;
-            }
-            
-            // Ctrl+Shift+I (Windows/Linux)
-            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.keyCode === 73)) {
-                e.preventDefault();
-                return false;
-            }
-            
-            // Ctrl+Shift+J (Windows/Linux)
-            if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.keyCode === 74)) {
-                e.preventDefault();
-                return false;
-            }
-            
-            // Ctrl+U (Windows/Linux) - Ver código fonte
-            if (e.ctrlKey && (e.key === 'U' || e.keyCode === 85)) {
-                e.preventDefault();
-                return false;
-            }
-            
-            // Ctrl+Shift+C (Windows/Linux) - Inspecionar elemento
-            if (e.ctrlKey && e.shiftKey && (e.key === 'C' || e.keyCode === 67)) {
-                e.preventDefault();
-                return false;
-            }
-            
-            // Ctrl+Shift+U (Windows/Linux)
-            if (e.ctrlKey && e.shiftKey && (e.key === 'U' || e.keyCode === 85)) {
-                e.preventDefault();
-                return false;
-            }
-            
-            // Ctrl+Shift+H (Windows/Linux)
-            if (e.ctrlKey && e.shiftKey && (e.key === 'H' || e.keyCode === 72)) {
-                e.preventDefault();
-                return false;
-            }
-            
-            // Ctrl+S (Salvar página)
-            if (e.ctrlKey && (e.key === 'S' || e.keyCode === 83)) {
-                e.preventDefault();
-                return false;
-            }
-            
-            // Ctrl+P (Imprimir)
-            if (e.ctrlKey && (e.key === 'P' || e.keyCode === 80)) {
-                e.preventDefault();
-                return false;
-            }
+            if (e.key === 'F12' || e.keyCode === 123) { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.keyCode === 73)) { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.keyCode === 74)) { e.preventDefault(); return false; }
+            if (e.ctrlKey && (e.key === 'U' || e.keyCode === 85)) { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'C' || e.keyCode === 67)) { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'U' || e.keyCode === 85)) { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'H' || e.keyCode === 72)) { e.preventDefault(); return false; }
+            if (e.ctrlKey && (e.key === 'S' || e.keyCode === 83)) { e.preventDefault(); return false; }
+            if (e.ctrlKey && (e.key === 'P' || e.keyCode === 80)) { e.preventDefault(); return false; }
         });
 
-        // Previne seleção de texto via duplo clique
-        document.addEventListener('dblclick', function(e) {
-            e.preventDefault();
-        });
+        document.addEventListener('dblclick', function(e) { e.preventDefault(); });
 
-        // Previne arrastar imagens
         document.addEventListener('dragstart', function(e) {
-            if (e.target.tagName === 'IMG') {
-                e.preventDefault();
-                return false;
-            }
+            if (e.target.tagName === 'IMG') { e.preventDefault(); return false; }
         });
     </script>
 
@@ -688,33 +644,32 @@
     <div class="painel">
         <div class="conteudo-wrapper">
             <img src="https://cup-edition.github.io/sistema-inscricoes/CUP%20EDITION%20CAMPIM%20FC.png" alt="Logo Cup Edition Campim FC" class="logo-img">
-            
+
             <div class="titulo-destaque">TEMPORADA 2026</div>
 
-            <div class="estatisticas">
+            <!-- ESTATÍSTICAS CUP EDITION - ATUALIZADAS PELO FIRESTORE -->
+            <div class="estatisticas" id="stats-cup">
                 <div class="stat">
-                    <span class="numero">12</span>
+                    <span class="numero stat-loading" id="stat-edicoes">—</span>
                     <span class="label">EDIÇÕES</span>
                 </div>
                 <div class="stat-divider"></div>
                 <div class="stat">
-                    <span class="numero">48</span>
-                    <span class="label">TIMES</span>
+                    <span class="numero stat-loading" id="stat-jogadores">—</span>
+                    <span class="label">JOGADORES</span>
                 </div>
                 <div class="stat-divider"></div>
                 <div class="stat">
-                    <span class="numero">256</span>
+                    <span class="numero stat-loading" id="stat-jogos">—</span>
                     <span class="label">JOGOS</span>
                 </div>
             </div>
 
             <a href="DASHBOARD CUP EDITION.html" class="btn btn-outline"><span class="icon">🏆</span> CUP EDITION 2026</a>
-            <a href="ARTILHARIA-ATUAL.html" class="btn btn-outline"><span class="icon">⚽</span> ARTILHARIA 2026</a>
-            <a href="TITULOS-ATUAL.html" class="btn btn-outline"><span class="icon">🥇</span> TÍTULOS DE 2026</a>
             <a href="https://campimfc.my.canva.site/calendrio" class="btn btn-outline"><span class="icon">📅</span> CALENDÁRIO E TIMES</a>
 
             <div class="divisor"></div>
-            
+
             <span class="subtitulo-temporadas">🏛️ TEMPORADAS</span>
             <a href="TEMPORADAS.html" class="btn btn-temporadas"><span class="icon">📜</span> TODAS AS EDIÇÕES</a>
 
@@ -752,13 +707,101 @@
 
             <div class="divisor"></div>
 
-            <!-- LOGOS LADO A LADO: CAMPIMFC À ESQUERDA, ENDRILSILVA À DIREITA -->
             <div class="footer-logos">
                 <img src="https://cup-edition.github.io/campimfc/CAMPIMFC2016.png" alt="Campim FC" class="logo-campimfc">
                 <img src="https://cup-edition.github.io/campimfc/ENDRILSILVA.png" alt="Endrill Silva" class="logo-endrill">
             </div>
         </div>
     </div>
+
+    <!-- FIRESTORE + ATUALIZAÇÃO DAS ESTATÍSTICAS -->
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAR--VWkuPUBzKtJlEHPXnwBwbapB8JY_w",
+            authDomain: "sistema-inscricoes-e9241.firebaseapp.com",
+            projectId: "sistema-inscricoes-e9241",
+            storageBucket: "sistema-inscricoes-e9241.firebasestorage.app",
+            messagingSenderId: "232618438422",
+            appId: "1:232618438422:web:1c62103b2169e64e862a37"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // ============================================================
+        // ANIMAÇÃO DE CONTAGEM
+        // ============================================================
+        function animarNumero(elemento, valorFinal, duracao) {
+            const valorInicial = parseInt(elemento.textContent) || 0;
+            const diferenca = valorFinal - valorInicial;
+            const inicio = performance.now();
+
+            function atualizar(tempoAtual) {
+                const progresso = Math.min((tempoAtual - inicio) / duracao, 1);
+                const ease = 1 - Math.pow(1 - progresso, 3);
+                const valorAtual = Math.round(valorInicial + (diferenca * ease));
+                elemento.textContent = valorAtual;
+
+                if (progresso < 1) {
+                    requestAnimationFrame(atualizar);
+                } else {
+                    elemento.textContent = valorFinal;
+                }
+            }
+
+            requestAnimationFrame(atualizar);
+        }
+
+        function atualizarEstatistica(id, valor) {
+            const elemento = document.getElementById(id);
+            if (!elemento) return;
+            elemento.classList.remove('stat-loading');
+            const valorNumerico = parseInt(valor);
+            if (!isNaN(valorNumerico) && valorNumerico >= 0) {
+                animarNumero(elemento, valorNumerico, 1500);
+            }
+        }
+
+        // ============================================================
+        // 1) EDIÇÕES — conta documentos na coleção "edicoes"
+        // ============================================================
+        db.collection('edicoes').onSnapshot((snapshot) => {
+            atualizarEstatistica('stat-edicoes', snapshot.size);
+        }, (error) => {
+            console.warn('Erro ao carregar edições:', error.message);
+            const el = document.getElementById('stat-edicoes');
+            if (el) el.classList.remove('stat-loading');
+        });
+
+        // ============================================================
+        // 2) JOGADORES — conta documentos na coleção "jogadores"
+        // ============================================================
+        db.collection('jogadores').onSnapshot((snapshot) => {
+            atualizarEstatistica('stat-jogadores', snapshot.size);
+        }, (error) => {
+            console.warn('Erro ao carregar jogadores:', error.message);
+            const el = document.getElementById('stat-jogadores');
+            if (el) el.classList.remove('stat-loading');
+        });
+
+        // ============================================================
+        // 3) JOGOS — soma o campo "totalPartidas" de TODAS as edições
+        // ============================================================
+        db.collection('edicoes').onSnapshot((snapshot) => {
+            let totalPartidas = 0;
+            snapshot.forEach((doc) => {
+                const dados = doc.data();
+                if (dados.totalPartidas !== undefined) {
+                    totalPartidas += parseInt(dados.totalPartidas) || 0;
+                }
+            });
+            atualizarEstatistica('stat-jogos', totalPartidas);
+        }, (error) => {
+            console.warn('Erro ao calcular total de jogos:', error.message);
+            const el = document.getElementById('stat-jogos');
+            if (el) el.classList.remove('stat-loading');
+        });
+    </script>
 
 </body>
 </html>
