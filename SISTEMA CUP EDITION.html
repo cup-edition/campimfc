@@ -4241,8 +4241,10 @@ window.finalizarEdicao = async function() {
     return showToast('⚠️ Defina o placar da Final na aba "Todas as Partidas"');
   }
   
-  const edicoesExistentes = state.edicoes.filter(e => e.temporadaId === tempId);
-  const numeroEdicao = edicoesExistentes.length + 1;
+  // 🔥 NUMERAÇÃO HÍBRIDA
+  const edicoesDaTemporada = state.edicoes.filter(e => e.temporadaId === tempId);
+  const numeroGlobal = state.edicoes.length + 1;  // Global: 1, 2, 3, 4...
+  const numeroLocal = edicoesDaTemporada.length + 1;  // Local: 1, 2, 1, 2...
   
   let vencedorId = null;
   let perdedorId = null;
@@ -4278,7 +4280,7 @@ window.finalizarEdicao = async function() {
     mensagemPenaltis = `\n✅ Pênaltis: ${golsPenalidades1} × ${golsPenalidades2}`;
   }
   
-  if (!confirm(`⚠️ ATENÇÃO! Ao finalizar esta edição:\n\n✅ ${getTimeName(final.time1Id)} ${final.gols1} × ${final.gols2} ${getTimeName(final.time2Id)}${mensagemPenaltis}\n\n✅ ${timeCampeao ? timeCampeao.nome : 'Time'} será o CAMPEÃO!\n✅ ${timeVice ? timeVice.nome : 'Time'} será o VICE-CAMPEÃO!\n✅ Data: ${dataFormatada}\n\n✅ Será criada a ${numeroEdicao}ª Edição\n✅ Os títulos serão salvos DENTRO da edição\n✅ As partidas serão RESETADAS (placares zerados)\n✅ A FINAL será EXCLUÍDA para gerar nova na próxima edição\n✅ Os jogadores serão desvinculados\n\nDeseja continuar?`)) return;
+  if (!confirm(`⚠️ ATENÇÃO! Ao finalizar esta edição:\n\n✅ ${getTimeName(final.time1Id)} ${final.gols1} × ${final.gols2} ${getTimeName(final.time2Id)}${mensagemPenaltis}\n\n✅ ${timeCampeao ? timeCampeao.nome : 'Time'} será o CAMPEÃO!\n✅ ${timeVice ? timeVice.nome : 'Time'} será o VICE-CAMPEÃO!\n✅ Data: ${dataFormatada}\n\n📊 Numeração:\n  🌍 Global: #${numeroGlobal}\n  📅 Local (${temporada.nome || temporada.ano}): ${ordinal(numeroLocal)}\n\n✅ Será criada a ${ordinal(numeroLocal)} Edição (Global #${numeroGlobal})\n✅ Os títulos serão salvos DENTRO da edição\n✅ As partidas serão RESETADAS (placares zerados)\n✅ A FINAL será EXCLUÍDA para gerar nova na próxima edição\n✅ Os jogadores serão desvinculados\n\nDeseja continuar?`)) return;
   
   showToast('⏳ Processando finalização da edição...');
 
@@ -4307,7 +4309,12 @@ window.finalizarEdicao = async function() {
       // Dados básicos
       temporadaId: tempId,
       temporadaNome: temporada.nome || temporada.ano || 'Temporada sem nome',
-      numero: numeroEdicao,
+      
+      // 🔥 NUMERAÇÃO HÍBRIDA
+      numero: numeroGlobal,        // Numeração global (1, 2, 3, 4...)
+      numeroTemporada: numeroLocal, // Numeração dentro da temporada (1, 2, 1, 2...)
+      tituloExibicao: `${ordinal(numeroLocal)} Edição (Global #${numeroGlobal})`,
+      
       ano: temporada.ano || new Date().getFullYear().toString(),
       dataEdicao: dataFormatada,
       dataFinalizacao: new Date().toISOString(),
@@ -4318,7 +4325,7 @@ window.finalizarEdicao = async function() {
         nome: time.nome
       })),
       
-      // ✅ PARTIDAS DA FASE DE GRUPOS (NOVO)
+      // PARTIDAS DA FASE DE GRUPOS
       partidas: partidasSalvas,
       
       // Classificação (estatísticas agregadas)
@@ -4536,7 +4543,7 @@ window.finalizarEdicao = async function() {
 
     await fbUpdate('temporadas', tempId, { status: 'planejado' });
 
-    showToast(`🏆 ${ordinal(numeroEdicao)} Edição finalizada! ${timeCampeao ? timeCampeao.nome : 'Time'} é o CAMPEÃO! Partidas resetadas e Final excluída para a próxima edição.`);
+    showToast(`🏆 ${ordinal(numeroLocal)} Edição (Global #${numeroGlobal}) finalizada! ${timeCampeao ? timeCampeao.nome : 'Time'} é o CAMPEÃO! Partidas resetadas e Final excluída para a próxima edição.`);
     
     document.getElementById('finalizar-confirmacao-status').style.display = 'none';
     document.getElementById('edicao-partida-card').style.display = 'none';
@@ -4575,6 +4582,10 @@ window.visualizarEdicao = function(edicaoId) {
   const timeVice = timesComEscudos.find(t => t.id === edicao.vice?.timeId);
   const time1Final = timesComEscudos.find(t => t.id === edicao.final?.time1Id);
   const time2Final = timesComEscudos.find(t => t.id === edicao.final?.time2Id);
+  
+  // 🔥 NUMERAÇÃO HÍBRIDA
+  const numeroLocal = edicao.numeroTemporada || edicao.numero || 1;
+  const numeroGlobal = edicao.numero || 0;
   
   function getPlayerAvatar(jogadorId) {
     const jogador = state.jogadores.find(j => j.id === jogadorId);
@@ -4823,12 +4834,15 @@ window.visualizarEdicao = function(edicaoId) {
       <div style="background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px;padding:32px;max-width:1100px;max-height:90vh;overflow-y:auto;width:100%;position:relative;">
         <button onclick="this.closest('div[style*=\\'position:fixed\\']').remove()" style="position:sticky;top:0;float:right;background:rgba(255,107,107,0.2);border:none;color:var(--accent-3);font-size:24px;cursor:pointer;padding:4px 12px;border-radius:8px;z-index:10;">✕</button>
         
-        <div style="font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;background:var(--gradient-main);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:20px;">
-          ${ordinal(edicao.numero || 1)} Edição - ${edicao.temporadaNome || 'Temporada'}
+        <div style="font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;background:var(--gradient-main);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;">
+          ${ordinal(numeroLocal)} Edição ${edicao.temporadaNome ? `- ${edicao.temporadaNome}` : ''}
         </div>
         
-        <div style="font-size:14px;color:var(--text-muted);margin-bottom:16px;">
-          📅 ${edicao.dataEdicao || 'Data não definida'} • ⚽ ${edicao.totalPartidas || 0} partidas • 🎯 ${edicao.totalGols || 0} gols
+        <div style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">
+          🌍 Global #${numeroGlobal} • 
+          📅 ${edicao.dataEdicao || 'Data não definida'} • 
+          ⚽ ${edicao.totalPartidas || 0} partidas • 
+          🎯 ${edicao.totalGols || 0} gols
           ${edicao.jogadores?.length ? `• 👤 ${edicao.jogadores.length} jogadores` : ''}
           ${tevePenalidades ? '• ⚽ Decidido nos pênaltis' : ''}
         </div>
@@ -4859,78 +4873,76 @@ window.visualizarEdicao = function(edicaoId) {
           </div>
         </div>
         
-        <!-- ====== SUBSTITUA O BLOCO DA FINAL (dentro da função visualizarEdicao) ====== -->
-
-<!-- FINAL - PLACAR CENTRALIZADO + GOLS DOS JOGADORES DENTRO DOS TIMES -->
-<div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);margin-bottom:16px;">
-  <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">🏟️ FINAL</div>
-  <div style="display:flex;align-items:center;justify-content:center;gap:30px;flex-wrap:wrap;">
-    
-    <!-- TIME 1 -->
-    <div style="text-align:center;min-width:140px;">
-      <div style="display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:8px;">
-        <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;border:2px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          ${time1Final?.escudo && (time1Final.escudo.startsWith('http') || time1Final.escudo.startsWith('data:')) 
-            ? `<img src="${time1Final.escudo}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
-            : `<span style="font-size:20px;">${time1Final?.escudo || '⚽'}</span>`}
-        </div>
-        <span style="font-size:18px;font-weight:700;">${edicao.final?.time1Nome || '?'}</span>
-      </div>
-      <!-- Jogadores do Time 1 com seus gols na FINAL -->
-      <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:280px;">
-        ${jogadoresTime1Final.length > 0 ? jogadoresTime1Final.map(j => {
-          // Conta quantos gols este jogador fez na FINAL
-          const golsNaFinal = (edicao.final?.eventos || []).filter(e => e.jogadorId === j.id && !e.isPenalidade).length;
-          return `
-            <div style="display:flex;align-items:center;gap:6px;padding:2px 10px 2px 4px;background:rgba(5,8,12,0.3);border-radius:16px;border:1px solid var(--border-color);font-size:13px;">
-              <div style="width:26px;height:26px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                ${getPlayerAvatar(j.id)}
+        <!-- FINAL - PLACAR CENTRALIZADO + GOLS DOS JOGADORES DENTRO DOS TIMES -->
+        <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);margin-bottom:16px;">
+          <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">🏟️ FINAL</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:30px;flex-wrap:wrap;">
+            
+            <!-- TIME 1 -->
+            <div style="text-align:center;min-width:140px;">
+              <div style="display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:8px;">
+                <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;border:2px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  ${time1Final?.escudo && (time1Final.escudo.startsWith('http') || time1Final.escudo.startsWith('data:')) 
+                    ? `<img src="${time1Final.escudo}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
+                    : `<span style="font-size:20px;">${time1Final?.escudo || '⚽'}</span>`}
+                </div>
+                <span style="font-size:18px;font-weight:700;">${edicao.final?.time1Nome || '?'}</span>
               </div>
-              <span style="font-weight:500;color:var(--text-primary);">${j.nome}</span>
-              ${golsNaFinal > 0 ? `<span style="font-weight:700;color:#ffd600;font-size:12px;">⚽${golsNaFinal}</span>` : ''}
-            </div>
-          `;
-        }).join('') : '<span style="font-size:12px;color:var(--text-muted);">Sem jogadores</span>'}
-      </div>
-    </div>
-    
-    <!-- PLACAR CENTRAL -->
-    <div style="text-align:center;min-width:140px;">
-      <div style="font-family:'Orbitron',sans-serif;font-size:32px;font-weight:900;color:var(--accent-1);">
-        ${edicao.final?.gols1 || 0} × ${edicao.final?.gols2 || 0}
-      </div>
-      ${penaltyInfo}
-    </div>
-    
-    <!-- TIME 2 -->
-    <div style="text-align:center;min-width:140px;">
-      <div style="display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:8px;">
-        <span style="font-size:18px;font-weight:700;">${edicao.final?.time2Nome || '?'}</span>
-        <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;border:2px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          ${time2Final?.escudo && (time2Final.escudo.startsWith('http') || time2Final.escudo.startsWith('data:')) 
-            ? `<img src="${time2Final.escudo}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
-            : `<span style="font-size:20px;">${time2Final?.escudo || '⚽'}</span>`}
-        </div>
-      </div>
-      <!-- Jogadores do Time 2 com seus gols na FINAL -->
-      <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:280px;">
-        ${jogadoresTime2Final.length > 0 ? jogadoresTime2Final.map(j => {
-          const golsNaFinal = (edicao.final?.eventos || []).filter(e => e.jogadorId === j.id && !e.isPenalidade).length;
-          return `
-            <div style="display:flex;align-items:center;gap:6px;padding:2px 10px 2px 4px;background:rgba(5,8,12,0.3);border-radius:16px;border:1px solid var(--border-color);font-size:13px;">
-              <div style="width:26px;height:26px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                ${getPlayerAvatar(j.id)}
+              <!-- Jogadores do Time 1 com seus gols na FINAL -->
+              <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:280px;">
+                ${jogadoresTime1Final.length > 0 ? jogadoresTime1Final.map(j => {
+                  // Conta quantos gols este jogador fez na FINAL
+                  const golsNaFinal = (edicao.final?.eventos || []).filter(e => e.jogadorId === j.id && !e.isPenalidade).length;
+                  return `
+                    <div style="display:flex;align-items:center;gap:6px;padding:2px 10px 2px 4px;background:rgba(5,8,12,0.3);border-radius:16px;border:1px solid var(--border-color);font-size:13px;">
+                      <div style="width:26px;height:26px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        ${getPlayerAvatar(j.id)}
+                      </div>
+                      <span style="font-weight:500;color:var(--text-primary);">${j.nome}</span>
+                      ${golsNaFinal > 0 ? `<span style="font-weight:700;color:#ffd600;font-size:12px;">⚽${golsNaFinal}</span>` : ''}
+                    </div>
+                  `;
+                }).join('') : '<span style="font-size:12px;color:var(--text-muted);">Sem jogadores</span>'}
               </div>
-              <span style="font-weight:500;color:var(--text-primary);">${j.nome}</span>
-              ${golsNaFinal > 0 ? `<span style="font-weight:700;color:#ffd600;font-size:12px;">⚽${golsNaFinal}</span>` : ''}
             </div>
-          `;
-        }).join('') : '<span style="font-size:12px;color:var(--text-muted);">Sem jogadores</span>'}
-      </div>
-    </div>
-    
-  </div>
-</div>
+            
+            <!-- PLACAR CENTRAL -->
+            <div style="text-align:center;min-width:140px;">
+              <div style="font-family:'Orbitron',sans-serif;font-size:32px;font-weight:900;color:var(--accent-1);">
+                ${edicao.final?.gols1 || 0} × ${edicao.final?.gols2 || 0}
+              </div>
+              ${penaltyInfo}
+            </div>
+            
+            <!-- TIME 2 -->
+            <div style="text-align:center;min-width:140px;">
+              <div style="display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:8px;">
+                <span style="font-size:18px;font-weight:700;">${edicao.final?.time2Nome || '?'}</span>
+                <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;border:2px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  ${time2Final?.escudo && (time2Final.escudo.startsWith('http') || time2Final.escudo.startsWith('data:')) 
+                    ? `<img src="${time2Final.escudo}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
+                    : `<span style="font-size:20px;">${time2Final?.escudo || '⚽'}</span>`}
+                </div>
+              </div>
+              <!-- Jogadores do Time 2 com seus gols na FINAL -->
+              <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:280px;">
+                ${jogadoresTime2Final.length > 0 ? jogadoresTime2Final.map(j => {
+                  const golsNaFinal = (edicao.final?.eventos || []).filter(e => e.jogadorId === j.id && !e.isPenalidade).length;
+                  return `
+                    <div style="display:flex;align-items:center;gap:6px;padding:2px 10px 2px 4px;background:rgba(5,8,12,0.3);border-radius:16px;border:1px solid var(--border-color);font-size:13px;">
+                      <div style="width:26px;height:26px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        ${getPlayerAvatar(j.id)}
+                      </div>
+                      <span style="font-weight:500;color:var(--text-primary);">${j.nome}</span>
+                      ${golsNaFinal > 0 ? `<span style="font-weight:700;color:#ffd600;font-size:12px;">⚽${golsNaFinal}</span>` : ''}
+                    </div>
+                  `;
+                }).join('') : '<span style="font-size:12px;color:var(--text-muted);">Sem jogadores</span>'}
+              </div>
+            </div>
+            
+          </div>
+        </div>
         
         <!-- PLACARES DA FASE DE GRUPOS -->
         <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);margin-bottom:16px;">
@@ -4966,9 +4978,9 @@ window.visualizarEdicao = function(edicaoId) {
             ` : '<div class="text-muted">Nenhum jogador registrado</div>'}
           </div>
           
-          <!-- COLUNA DIREITA: CLASSIFICAÇÃO FINAL -->
+          <!-- COLUNA DIREITA: CLASSIFICAÇÃO FASE DE GRUPOS -->
           <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);">
-            <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">📊 CLASSIFICAÇÃO FINAL</div>
+            <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">📊 CLASSIFICAÇÃO FASE DE GRUPOS</div>
             ${edicao.classificacao?.length ? `
               <div style="display:flex;flex-direction:column;gap:4px;max-height:300px;overflow-y:auto;">
                 ${edicao.classificacao.map(c => {
@@ -5085,9 +5097,20 @@ function renderEdicoes() {
         penaltyInfo = ` <span class="penalty-badge">⚽ PÊNALTIS ${g1}×${g2}</span>`;
       }
       
+      // 🔥 NUMERAÇÃO HÍBRIDA
+      const numeroLocal = e.numeroTemporada || e.numero || 1;
+      const numeroGlobal = e.numero || 0;
+      
       html += `<div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:16px 20px;margin-bottom:10px;transition:var(--transition);">
         <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-          <span style="font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;color:var(--accent-1);min-width:60px;">${ordinal(e.numero || 1)}</span>
+          <div style="min-width:80px;">
+            <div style="font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;color:var(--accent-1);">
+              ${ordinal(numeroLocal)}
+            </div>
+            <div style="font-size:10px;color:var(--text-muted);">
+              Global #${numeroGlobal}
+            </div>
+          </div>
           
           <div style="flex:1;min-width:200px;">
             <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
@@ -5169,6 +5192,7 @@ window.removerTemporada = async function(id) {
   showToast('🗑️ Temporada removida');
 }
 
+// ============ RENDER TEMPORADAS ============
 function renderTemporadas() {
   const el = document.getElementById('lista-temporadas');
   if (!el) return;
@@ -5176,21 +5200,73 @@ function renderTemporadas() {
     el.innerHTML = '<div class="empty-state"><div class="icon">📅</div><p>Nenhuma temporada</p></div>';
     return;
   }
-  const sL = { em_andamento: '🟢 Em Andamento', encerrado: '⚪ Encerrado', planejado: '🔵 Planejado' };
-  el.innerHTML = state.temporadas.map(t => {
+  
+  const sL = { 
+    em_andamento: '🟢 Em Andamento', 
+    encerrado: '🔴 Encerrado', 
+    planejado: '🔵 Planejado' 
+  };
+  
+  // Ordenar por mais recente primeiro (extraindo o ano do nome)
+  const temporadasOrdenadas = [...state.temporadas].sort((a, b) => {
+    // Extrai números do nome (ex: "TEMPORADA 2025" → 2025)
+    const anoA = parseInt(a.nome?.match(/\d{4}/)?.[0]) || parseInt(a.ano) || 0;
+    const anoB = parseInt(b.nome?.match(/\d{4}/)?.[0]) || parseInt(b.ano) || 0;
+    return anoB - anoA; // Mais recente primeiro
+  });
+  
+  el.innerHTML = temporadasOrdenadas.map(t => {
     const edicoesCount = state.edicoes.filter(e => e.temporadaId === t.id).length;
     let imgHtml = t.imagem && (t.imagem.startsWith('http') || t.imagem.startsWith('data:')) ? `<img src="${t.imagem}" alt="${t.nome}">` : '<span class="fallback">🏆</span>';
+    
+    const statusAtual = t.status || 'planejado';
+    
+    // Opções do select com o status atual selecionado
+    const statusOptions = ['planejado', 'em_andamento', 'encerrado'].map(status => {
+      const selected = status === statusAtual ? 'selected' : '';
+      return `<option value="${status}" ${selected}>${sL[status] || status}</option>`;
+    }).join('');
+    
     return `<div class="season-card">
       <div class="season-image-container">${imgHtml}</div>
       <div class="season-year">${t.nome || t.ano}</div>
       <div class="season-details">
-        <div class="season-meta">${sL[t.status] || t.status}</div>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <span class="season-meta">${sL[statusAtual] || statusAtual}</span>
+          <select class="form-select" style="padding:4px 8px;font-size:11px;width:auto;min-width:140px;background:rgba(5,8,12,0.8);border:1px solid var(--border-color);border-radius:6px;color:var(--text-primary);font-family:'Inter',sans-serif;transition:var(--transition);outline:none;cursor:pointer;" onchange="mudarStatusTemporada('${t.id}', this.value)">
+            ${statusOptions}
+          </select>
+        </div>
         <div class="season-meta" style="margin-top:4px;color:var(--accent-1)">📋 ${edicoesCount} edição(ões)</div>
       </div>
       <button class="btn btn-danger btn-sm" onclick="removerTemporada('${t.id}')">🗑️</button>
     </div>`;
   }).join('');
 }
+
+// ============ MUDAR STATUS DA TEMPORADA ============
+window.mudarStatusTemporada = async function(temporadaId, novoStatus) {
+  const temporada = state.temporadas.find(t => t.id === temporadaId);
+  if (!temporada) return showToast('⚠️ Temporada não encontrada');
+  
+  const statusAtual = temporada.status || 'planejado';
+  if (statusAtual === novoStatus) return;
+  
+  const sL = { 
+    em_andamento: '🟢 Em Andamento', 
+    encerrado: '🔴 Encerrado', 
+    planejado: '🔵 Planejado' 
+  };
+  
+  try {
+    await fbUpdate('temporadas', temporadaId, { status: novoStatus });
+    showToast(`✅ Status alterado para ${sL[novoStatus] || novoStatus}`);
+    refreshAll();
+  } catch (error) {
+    console.error('Erro ao mudar status:', error);
+    showToast('❌ Erro ao mudar status');
+  }
+};
 
 // ============ DASHBOARD ============
 function renderDashboard() {
@@ -5511,13 +5587,15 @@ function carregarConfirmacaoFinalizacao() {
   
   const partidasFinal = getPartidasFinal(tempId);
   const finalDefinida = partidasFinal.some(p => isPlacarDefinido(p.gols1) && isPlacarDefinido(p.gols2));
-  const edicoesExistentes = state.edicoes.filter(e => e.temporadaId === tempId);
-  const numeroEdicao = edicoesExistentes.length + 1;
+  const edicoesDaTemporada = state.edicoes.filter(e => e.temporadaId === tempId);
+  const numeroLocal = edicoesDaTemporada.length + 1;
+  const numeroGlobal = state.edicoes.length + 1;
   
   let html = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
     <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color)">
       <div style="font-size:12px;color:var(--text-muted)">🏆 Edição</div>
-      <div style="font-size:24px;font-weight:700;color:var(--accent-1)">${ordinal(numeroEdicao)}</div>
+      <div style="font-size:20px;font-weight:700;color:var(--accent-1)">${ordinal(numeroLocal)}</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Global #${numeroGlobal}</div>
     </div>
     <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color)">
       <div style="font-size:12px;color:var(--text-muted)">⚽ Final</div>
@@ -5554,7 +5632,7 @@ function carregarConfirmacaoFinalizacao() {
   const podeFinalizar = partidasFinal.length > 0 && finalDefinida;
   html += `<div style="margin-top:16px;padding:12px;border-radius:8px;background:${podeFinalizar ? 'rgba(0,230,118,0.05)' : 'rgba(255,107,107,0.05)'};border:1px solid ${podeFinalizar ? 'rgba(0,230,118,0.2)' : 'rgba(255,107,107,0.2)'}">
     <div style="font-size:13px;font-weight:600;color:${podeFinalizar ? 'var(--text-green)' : 'var(--accent-3)'}">
-      ${podeFinalizar ? `✅ Pronto para finalizar a ${ordinal(numeroEdicao)} Edição!` : '⛔ Defina o placar da Final primeiro'}
+      ${podeFinalizar ? `✅ Pronto para finalizar a ${ordinal(numeroLocal)} Edição (Global #${numeroGlobal})!` : '⛔ Defina o placar da Final primeiro'}
     </div>
   </div>`;
   infoEl.innerHTML = html;
