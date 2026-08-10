@@ -644,10 +644,40 @@
         <div class="conteudo-wrapper">
             <img src="https://cup-edition.github.io/sistema-inscricoes/CUP%20EDITION%20CAMPIM%20FC.png" alt="Logo Cup Edition Campim FC" class="logo-img">
 
-            <div class="titulo-destaque">TEMPORADA 2026</div>
+            <div class="titulo-destaque" id="titulo-temporada-atual">Carregando temporada...</div>
 
-            <!-- ESTATÍSTICAS CUP EDITION - ATUALIZADAS PELO FIRESTORE -->
-            <div class="estatisticas" id="stats-cup">
+            <!-- ESTATÍSTICAS DA TEMPORADA MAIS RECENTE -->
+            <div class="estatisticas" id="stats-temporada-atual">
+                <div class="stat">
+                    <span class="numero stat-loading" id="stat-temp-edicoes">—</span>
+                    <span class="label">EDIÇÕES</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="numero stat-loading" id="stat-temp-jogadores">—</span>
+                    <span class="label">JOGADORES</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="numero stat-loading" id="stat-temp-partidas">—</span>
+                    <span class="label">PARTIDAS</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="numero stat-loading" id="stat-temp-gols">—</span>
+                    <span class="label">GOLS</span>
+                </div>
+            </div>
+
+            <a href="https://cup-edition.github.io/campimfc/CUP-EDITION.html?tab=ATUAL" class="btn btn-outline"><span class="icon">🏆</span> CUP EDITION 2026</a>
+            <a href="https://campimfc.my.canva.site/calendrio" class="btn btn-outline"><span class="icon">📅</span> CALENDÁRIO E TIMES</a>
+
+            <div class="divisor"></div>
+
+            <span class="subtitulo-temporadas">🏛️ TEMPORADAS</span>
+
+            <!-- ESTATÍSTICAS GERAIS (ALL-TIME) -->
+            <div class="estatisticas" id="stats-gerais" style="margin: 16px 0;">
                 <div class="stat">
                     <span class="numero stat-loading" id="stat-edicoes">—</span>
                     <span class="label">EDIÇÕES</span>
@@ -660,17 +690,17 @@
                 <div class="stat-divider"></div>
                 <div class="stat">
                     <span class="numero stat-loading" id="stat-jogos">—</span>
-                    <span class="label">JOGOS</span>
+                    <span class="label">PARTIDAS</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="numero stat-loading" id="stat-gols">—</span>
+                    <span class="label">GOLS</span>
                 </div>
             </div>
 
-            <a href="https://cup-edition.github.io/campimfc/CUP-EDITION.html?tab=ATUAL" class="btn btn-outline"><span class="icon">🏆</span> CUP EDITION 2026</a>
-            <a href="https://campimfc.my.canva.site/calendrio" class="btn btn-outline"><span class="icon">📅</span> CALENDÁRIO E TIMES</a>
-
-            <div class="divisor"></div>
-
-            <span class="subtitulo-temporadas">🏛️ TEMPORADAS</span>
             <a href="https://cup-edition.github.io/campimfc/CUP-EDITION.html?tab=TEMPORADAS" class="btn btn-temporadas"><span class="icon">📜</span> TODAS AS EDIÇÕES</a>
+            <a href="https://cup-edition.github.io/campimfc/CUP-EDITION.html?tab=CARREIRAS" class="btn btn-temporadas"><span class="icon">📊</span> CARREIRAS</a>
 
             <div class="divisor"></div>
 
@@ -762,7 +792,65 @@
         }
 
         // ============================================================
-        // 1) EDIÇÕES — conta documentos na coleção "edicoes"
+        // TEMPORADA MAIS RECENTE — busca a temporada com maior ano
+        // ============================================================
+        function carregarTemporadaRecente() {
+            db.collection('temporadas').orderBy('ano', 'desc').limit(1).onSnapshot((snapshot) => {
+                if (snapshot.empty) {
+                    document.getElementById('titulo-temporada-atual').textContent = 'Nenhuma temporada';
+                    ['stat-temp-edicoes', 'stat-temp-jogadores', 'stat-temp-partidas', 'stat-temp-gols'].forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) { el.textContent = '0'; el.classList.remove('stat-loading'); }
+                    });
+                    return;
+                }
+
+                const temporada = snapshot.docs[0].data();
+                const temporadaId = snapshot.docs[0].id;
+                const ano = temporada.ano || '—';
+                const nome = temporada.nome || '';
+
+                document.getElementById('titulo-temporada-atual').textContent = nome || `TEMPORADA ${ano}`;
+
+                // Buscar edições dessa temporada
+                db.collection('edicoes').where('temporadaId', '==', temporadaId).onSnapshot((edicoesSnap) => {
+                    let jogadoresSet = new Set();
+                    let totalPartidas = 0;
+                    let totalGols = 0;
+                    const numEdicoes = edicoesSnap.size;
+
+                    edicoesSnap.forEach((doc) => {
+                        const ed = doc.data();
+                        if (ed.jogadores && Array.isArray(ed.jogadores)) {
+                            ed.jogadores.forEach(j => j.id && jogadoresSet.add(j.id));
+                        }
+                        totalPartidas += parseInt(ed.totalPartidas) || 0;
+                        totalGols += parseInt(ed.totalGols) || 0;
+                    });
+
+                    atualizarEstatistica('stat-temp-edicoes', numEdicoes);
+                    atualizarEstatistica('stat-temp-jogadores', jogadoresSet.size);
+                    atualizarEstatistica('stat-temp-partidas', totalPartidas);
+                    atualizarEstatistica('stat-temp-gols', totalGols);
+                }, (error) => {
+                    console.warn('Erro ao carregar edições da temporada:', error.message);
+                    ['stat-temp-edicoes', 'stat-temp-jogadores', 'stat-temp-partidas', 'stat-temp-gols'].forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) el.classList.remove('stat-loading');
+                    });
+                });
+            }, (error) => {
+                console.warn('Erro ao carregar temporada recente:', error.message);
+                document.getElementById('titulo-temporada-atual').textContent = 'Erro ao carregar';
+                ['stat-temp-edicoes', 'stat-temp-jogadores', 'stat-temp-partidas', 'stat-temp-gols'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.classList.remove('stat-loading');
+                });
+            });
+        }
+
+        // ============================================================
+        // ESTATÍSTICAS GERAIS (ALL-TIME)
         // ============================================================
         db.collection('edicoes').onSnapshot((snapshot) => {
             atualizarEstatistica('stat-edicoes', snapshot.size);
@@ -772,9 +860,6 @@
             if (el) el.classList.remove('stat-loading');
         });
 
-        // ============================================================
-        // 2) JOGADORES — conta documentos na coleção "jogadores"
-        // ============================================================
         db.collection('jogadores').onSnapshot((snapshot) => {
             atualizarEstatistica('stat-jogadores', snapshot.size);
         }, (error) => {
@@ -783,23 +868,30 @@
             if (el) el.classList.remove('stat-loading');
         });
 
-        // ============================================================
-        // 3) JOGOS — soma o campo "totalPartidas" de TODAS as edições
-        // ============================================================
         db.collection('edicoes').onSnapshot((snapshot) => {
             let totalPartidas = 0;
+            let totalGols = 0;
             snapshot.forEach((doc) => {
                 const dados = doc.data();
                 if (dados.totalPartidas !== undefined) {
                     totalPartidas += parseInt(dados.totalPartidas) || 0;
                 }
+                if (dados.totalGols !== undefined) {
+                    totalGols += parseInt(dados.totalGols) || 0;
+                }
             });
             atualizarEstatistica('stat-jogos', totalPartidas);
+            atualizarEstatistica('stat-gols', totalGols);
         }, (error) => {
             console.warn('Erro ao calcular total de jogos:', error.message);
-            const el = document.getElementById('stat-jogos');
-            if (el) el.classList.remove('stat-loading');
+            const el1 = document.getElementById('stat-jogos');
+            const el2 = document.getElementById('stat-gols');
+            if (el1) el1.classList.remove('stat-loading');
+            if (el2) el2.classList.remove('stat-loading');
         });
+
+        // Iniciar carregamento da temporada mais recente
+        carregarTemporadaRecente();
     </script>
 
 </body>
