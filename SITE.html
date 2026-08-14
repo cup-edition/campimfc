@@ -971,14 +971,18 @@
                 return;
             }
             const rect = painel.getBoundingClientRect();
-            btnMenu.style.right = (window.innerWidth - rect.right + 12) + 'px';
-            btnMenu.style.top = (rect.top - 30) + 'px';
-            menuDropdown.style.right = (window.innerWidth - rect.right + 12) + 'px';
-            menuDropdown.style.top = (rect.top + 28) + 'px';
+            const right = (window.innerWidth - rect.right + 12) + 'px';
+            const topDesejado = rect.top + 12;
+            const topFinal = Math.max(topDesejado, 12);
+            btnMenu.style.right = right;
+            btnMenu.style.top = topFinal + 'px';
+            menuDropdown.style.right = right;
+            menuDropdown.style.top = (topFinal + 58) + 'px';
         }
 
         window.addEventListener('load', posicionarMenuNoPainel);
         window.addEventListener('resize', posicionarMenuNoPainel);
+        window.addEventListener('scroll', posicionarMenuNoPainel);
 
         function toggleMenu() {
             const aberto = menuDropdown.style.display === 'flex';
