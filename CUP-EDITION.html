@@ -6,7 +6,8 @@
 <meta name="theme-color" content="#05080c">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>⚽ CUP EDITION — Ao Vivo</title>
+<link rel="icon" type="image/png" href="https://cup-edition.github.io/sistema-inscricoes/CUP%20EDITION.png">
+<title>CUP EDITION CAMPIM FC</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;600;700;900&display=swap');
 
@@ -1206,6 +1207,15 @@
     }
   }
 </style>
+<script>
+document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+document.addEventListener('keydown', function(e){
+  if (e.key === 'F12') { e.preventDefault(); return false; }
+  if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) { e.preventDefault(); return false; }
+  if (e.ctrlKey && e.key === 'U') { e.preventDefault(); return false; }
+  if (e.ctrlKey && e.key === 'S') { e.preventDefault(); return false; }
+});
+</script>
 </head>
 <body>
 
@@ -1267,6 +1277,7 @@
 
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <script>
 const firebaseConfig = {
@@ -1404,6 +1415,9 @@ window.visualizarEdicao = function(edicaoId) {
 
   const numeroLocal = edicao.numeroTemporada || edicao.numero || 1;
   const numeroGlobal = edicao.numero || 0;
+
+  const dataArquivo = (edicao.dataEdicao || '').replace(/\//g, '-');
+  const nomeArquivoEdicao = 'EDIÇÃO ' + numeroLocal + 'º (GLOBAL #' + numeroGlobal + ') ' + dataArquivo + ' (' + (edicao.temporadaNome || '') + ').png';
 
   const timesComEscudos = (edicao.times || []).map(t => ({
     ...t,
@@ -1650,8 +1664,9 @@ window.visualizarEdicao = function(edicaoId) {
 
   let html = `
     <div style="position:fixed;inset:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(12px);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)this.remove()">
-      <div style="background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px;padding:32px;max-width:1100px;max-height:90vh;overflow-y:auto;width:100%;position:relative;">
-        <button onclick="this.closest('div[style*=\\'position:fixed\\']').remove()" style="position:sticky;top:0;float:right;background:rgba(255,107,107,0.2);border:none;color:var(--accent-3);font-size:24px;cursor:pointer;padding:4px 12px;border-radius:8px;z-index:10;">✕</button>
+      <div id="modal-edicao-captura" style="background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px;padding:32px;max-width:1100px;max-height:90vh;overflow-y:auto;width:100%;position:relative;">
+        <button onclick="this.closest('div[style*=\\'position:fixed\\']').remove()" id="btn-fechar-modal-edicao" style="position:sticky;top:0;float:right;background:rgba(255,107,107,0.2);border:none;color:var(--accent-3);font-size:24px;cursor:pointer;padding:4px 12px;border-radius:8px;z-index:10;">✕</button>
+        <button onclick="baixarImagemEdicao('modal-edicao-captura', '${nomeArquivoEdicao}')" id="btn-baixar-edicao" title="Baixar imagem da edição" style="position:sticky;top:0;float:right;margin-right:8px;background:rgba(0,212,255,0.15);border:1px solid rgba(0,212,255,0.3);color:var(--accent-1);font-size:18px;cursor:pointer;padding:6px 14px;border-radius:8px;z-index:10;">📥</button>
         
         <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap;">
           <div style="font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;background:var(--gradient-main);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
@@ -1837,6 +1852,63 @@ window.visualizarEdicao = function(edicaoId) {
   `;
 
   document.body.insertAdjacentHTML('beforeend', html);
+};
+
+window.baixarImagemEdicao = function(containerId, nomeArquivo) {
+  var container = document.getElementById(containerId);
+  if (!container) return;
+  if (typeof html2canvas === 'undefined') {
+    alert('Biblioteca de imagem não carregou. Verifique a conexão.');
+    return;
+  }
+  var btn = document.getElementById('btn-baixar-edicao');
+  var fechar = document.getElementById('btn-fechar-modal-edicao');
+  var ocultos = [];
+  [btn, fechar].forEach(function(el) {
+    if (el) { ocultos.push([el, el.style.display]); el.style.display = 'none'; }
+  });
+
+  if (!nomeArquivo) nomeArquivo = 'edicao-' + new Date().toISOString().slice(0, 10) + '.png';
+
+  html2canvas(container, {
+    useCORS: true,
+    scale: 2,
+    backgroundColor: '#0a1219',
+    onclone: function(doc) {
+      var raiz = doc.getElementById(containerId);
+      var nodes = raiz ? [raiz].concat(Array.prototype.slice.call(raiz.querySelectorAll('*'))) : [];
+      nodes.forEach(function(n) {
+        n.style.maxHeight = 'none';
+        n.style.overflow = 'visible';
+      });
+      if (raiz) {
+        raiz.querySelectorAll('img').forEach(function(img) {
+          var inline = img.getAttribute('style') || '';
+          var ehEscudo = inline.indexOf('object-fit:contain') !== -1;
+          if (!ehEscudo) {
+            img.style.borderRadius = '50%';
+          }
+        });
+      }
+    }
+  }).then(function(canvas) {
+    ocultos.forEach(function(p) { p[0].style.display = p[1]; });
+    canvas.toBlob(function(blob) {
+      if (!blob) { alert('Falha ao gerar a imagem'); return; }
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = nomeArquivo;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(function() { URL.revokeObjectURL(url); }, 1500);
+    }, 'image/png');
+  }).catch(function(err) {
+    ocultos.forEach(function(p) { p[0].style.display = p[1]; });
+    console.error('Erro ao gerar imagem:', err);
+    alert('Não foi possível gerar a imagem.');
+  });
 };
 
 // ============================================================
