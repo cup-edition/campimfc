@@ -1599,6 +1599,41 @@
     .sorteio-header .sorteio-buttons .btn { font-size: 8px; padding: 3px 8px; }
     .penalty-kick { width: 24px; height: 24px; font-size: 10px; }
   }
+
+  #telaLogin {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    z-index: 100000;
+  }
+  .caixa-login {
+    background: #2d3142;
+    padding: 40px 30px; border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    width: 100%; max-width: 350px; text-align: center;
+  }
+  .caixa-login h2 { color: #ffffff; margin-bottom: 20px; font-size: 22px; }
+  .caixa-login input {
+    width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #4f546c;
+    border-radius: 6px; font-size: 15px; background-color: #1f2233; color: #ffffff;
+    font-family: 'Inter', sans-serif; outline: none;
+  }
+  .caixa-login input::placeholder { color: #b8b8d1; }
+  .caixa-login button {
+    width: 100%; padding: 12px; background-color: #27ae60; color: white; border: none;
+    border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px;
+    transition: background 0.2s; font-family: 'Inter', sans-serif; text-transform: uppercase;
+  }
+  .caixa-login button:hover { background-color: #219653; }
+  .errologin { color: #ff6b6b; font-size: 14px; margin-top: 10px; display: none; font-weight: bold; }
+  .creditos-container { margin-top: 25px; text-align: center; letter-spacing: 2px; text-transform: uppercase; }
+  .creditos-menor { font-size: 10px; color: #7f8c8d; font-weight: 500; }
+  .creditos-maior {
+    font-size: 22px; color: #2ecc71;
+    text-shadow: 0 0 10px rgba(46, 204, 113, 0.6), 0 0 20px rgba(46, 204, 113, 0.3);
+    margin-top: 4px; letter-spacing: 3px; font-weight: 900;
+  }
 </style>
 <script>
 document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
@@ -1611,6 +1646,21 @@ document.addEventListener('keydown', function(e){
 </script>
 </head>
 <body>
+
+<div id="telaLogin">
+  <div class="caixa-login">
+    <img src="https://cup-edition.github.io/sistema-inscricoes/CUP%20EDITION%20CAMPIM%20FC.png" alt="Cup Edition Logo" style="width: 280px; height: auto; margin-top: -15px; margin-bottom: 10px; display: inline-block;">
+    <h2>🔐 ACESSO RESTRITO</h2>
+    <input type="text" id="usuarioLogin" placeholder="USUÁRIO" required oninput="verificarUsuario()">
+    <input type="password" id="senhaLogin" placeholder="SENHA" required onkeydown="if(event.key === 'Enter') fazerLogin()">
+    <button onclick="fazerLogin()">ENTRAR</button>
+    <div class="errologin" id="mensagemErro">USUÁRIO OU SENHA INCORRETOS!</div>
+  </div>
+  <div class="creditos-container">
+    <div class="creditos-menor">DESENVOLVIDO POR</div>
+    <div class="creditos-maior">ENDRIL SILVA</div>
+  </div>
+</div>
 
 <div id="loading-overlay" class="loading-overlay">
   <div class="loading-spinner"></div>
@@ -2125,6 +2175,33 @@ function setFbStatus(ok, msg, type = 'ok') {
   const lbl = document.getElementById('fb-status');
   dot.className = 'firebase-dot ' + type;
   lbl.textContent = msg;
+}
+
+// ============ LOGIN ============
+function verificarUsuario() {
+  const usuario = document.getElementById('usuarioLogin').value.trim().toLowerCase();
+  if (usuario === 'campim') { document.getElementById('senhaLogin').focus(); }
+}
+
+function fazerLogin() {
+  const usuario = document.getElementById('usuarioLogin').value.trim();
+  const senha = document.getElementById('senhaLogin').value.trim();
+  const mensagemErro = document.getElementById('mensagemErro');
+
+  rtdb.ref('seguranca').once('value')
+    .then(snap => {
+      const dados = snap.val();
+      if (dados && usuario === dados.usuario && senha === dados.senha) {
+        document.getElementById('telaLogin').style.display = 'none';
+        setupFirestoreListeners();
+        iniciarControleSorteio();
+        iniciarListenerSorteioRTDB();
+      } else {
+        mensagemErro.style.display = 'block';
+        document.getElementById('senhaLogin').value = '';
+      }
+    })
+    .catch(erro => { alert('❌ Erro de conexão!'); console.error(erro); });
 }
 
 // ============ FIRESTORE LISTENERS ============
@@ -5731,9 +5808,7 @@ function carregarConfirmacaoFinalizacao() {
 }
 
 // ============ INIT ============
-setupFirestoreListeners();
-iniciarControleSorteio();
-iniciarListenerSorteioRTDB();
+// Aguarda o login ser validado (fazerLogin) para iniciar os listeners.
 </script>
 </body>
 </html>
