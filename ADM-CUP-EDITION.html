@@ -2268,7 +2268,8 @@ async function fbUpdate(collectionName, docId, data) {
     });
   } catch (e) {
     console.error('Erro ao atualizar:', e);
-    showToast('❌ Erro ao atualizar no Firestore');
+    const motivo = (e && (e.message || e.code)) ? `: ${e.message || e.code}` : '';
+    showToast('❌ Erro ao atualizar no Firestore' + motivo);
     throw e;
   }
 }
@@ -2764,6 +2765,30 @@ function contarGolsHistoricoJogador(jogadorId) {
 }
 
 // ============ PREVIEW FOTO ============
+function comprimirImagem(file, maxDim, quality, callback) {
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.onload = function() {
+      let w = img.width, h = img.height;
+      const escala = Math.min(1, maxDim / Math.max(w, h));
+      w = Math.round(w * escala);
+      h = Math.round(h * escala);
+      const canvas = document.createElement('canvas');
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, w, h);
+      ctx.drawImage(img, 0, 0, w, h);
+      callback(canvas.toDataURL('image/jpeg', quality));
+    };
+    img.onerror = function() { callback(null); };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
 window.previewFoto = function(event) {
   const file = event.target.files[0];
   if (!file) return;
@@ -2772,14 +2797,18 @@ window.previewFoto = function(event) {
     event.target.value = '';
     return;
   }
-  if (file.size > 500 * 1024) {
-    showToast('⚠️ Imagem muito grande! Máx 500KB.');
+  if (file.size > 8 * 1024 * 1024) {
+    showToast('⚠️ Imagem muito grande! Máx 8MB.');
     event.target.value = '';
     return;
   }
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    fotoBase64 = e.target.result;
+  comprimirImagem(file, 400, 0.85, function(fotoCompressida) {
+    if (!fotoCompressida) {
+      showToast('❌ Não foi possível ler a imagem');
+      event.target.value = '';
+      return;
+    }
+    fotoBase64 = fotoCompressida;
     document.getElementById('jogador-foto-base64').value = fotoBase64;
     const container = document.getElementById('foto-preview-container');
     const label = document.getElementById('foto-label');
@@ -2788,9 +2817,8 @@ window.previewFoto = function(event) {
     placeholder.style.display = 'none';
     container.innerHTML = `<img src="${fotoBase64}" class="file-preview">`;
     label.classList.add('has-image');
-    nome.textContent = `📷 ${file.name} (${(file.size/1024).toFixed(1)} KB)`;
-  };
-  reader.readAsDataURL(file);
+    nome.textContent = `📷 ${file.name}`;
+  });
 }
 
 window.previewEditFoto = function(event) {
@@ -2801,14 +2829,18 @@ window.previewEditFoto = function(event) {
     event.target.value = '';
     return;
   }
-  if (file.size > 500 * 1024) {
-    showToast('⚠️ Imagem muito grande! Máx 500KB.');
+  if (file.size > 8 * 1024 * 1024) {
+    showToast('⚠️ Imagem muito grande! Máx 8MB.');
     event.target.value = '';
     return;
   }
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    editFotoBase64 = e.target.result;
+  comprimirImagem(file, 400, 0.85, function(fotoCompressida) {
+    if (!fotoCompressida) {
+      showToast('❌ Não foi possível ler a imagem');
+      event.target.value = '';
+      return;
+    }
+    editFotoBase64 = fotoCompressida;
     document.getElementById('edit-jogador-foto-base64').value = editFotoBase64;
     const container = document.getElementById('edit-foto-preview-container');
     const label = document.getElementById('edit-foto-label');
@@ -2817,9 +2849,8 @@ window.previewEditFoto = function(event) {
     placeholder.style.display = 'none';
     container.innerHTML = `<img src="${editFotoBase64}" class="file-preview">`;
     label.classList.add('has-image');
-    nome.textContent = `📷 ${file.name} (${(file.size/1024).toFixed(1)} KB)`;
-  };
-  reader.readAsDataURL(file);
+    nome.textContent = `📷 ${file.name}`;
+  });
 }
 
 window.previewTempImagem = function(event) {
