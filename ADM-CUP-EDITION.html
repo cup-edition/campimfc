@@ -667,6 +667,7 @@
     background: var(--gradient-main);
     opacity: 0;
     transition: var(--transition);
+    pointer-events: none;
   }
   .team-card:hover::before { opacity: 0.03; }
   .team-card:hover { 
@@ -702,6 +703,35 @@
   .team-logo-container .fallback-logo {
     font-size: 56px;
     line-height: 1;
+  }
+  .team-logo-btn-vincular {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(0, 212, 255, 0.2);
+    border: 1px solid var(--accent-1);
+    color: var(--accent-1);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+  }
+  .team-logo-btn-vincular:hover {
+    background: var(--accent-1);
+    color: #fff;
+  }
+  .team-card-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 2;
   }
   .team-name { 
     font-weight: 700; 
@@ -1739,20 +1769,10 @@ document.addEventListener('keydown', function(e){
     </div>
     <div class="card">
       <div class="card-title">🛡️ Times Cadastrados</div>
-      <div class="team-grid" id="lista-times"><div class="empty-state"><div class="icon">🛡️</div><p>Nenhum time cadastrado</p></div></div>
-    </div>
-    <div class="card">
-      <div class="card-title">🎲 Sorteio ao Vivo</div>
-      <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px">Sequência: BARCELONA → REAL MADRID → PSG → LIVERPOOL (repete). Lido da Realtime Database em <code>sorteios/sorteados</code>.</div>
-      <div class="sorteio-header">
-        <div class="sorteio-title"></div>
-        <div class="sorteio-buttons">
-          <button class="btn btn-warning btn-sm" onclick="forcarRedistribuicao()">🔄 Redistribuir Agora</button>
-          <button class="btn btn-ghost btn-sm" onclick="resetarSorteio()">↺ Resetar Sorteio</button>
-        </div>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+        <button class="btn btn-warning btn-sm" onclick="desvincularTodosJogadores()">🔗 Desvincular Todos os Jogadores</button>
       </div>
-      <div id="sorteio-status" style="margin-bottom:12px"></div>
-      <div id="sorteio-ao-vivo-lista"></div>
+      <div class="team-grid" id="lista-times"><div class="empty-state"><div class="icon">🛡️</div><p>Nenhum time cadastrado</p></div></div>
     </div>
   </div>
 
@@ -1912,19 +1932,7 @@ document.addEventListener('keydown', function(e){
         </div>
 
         <hr class="separator">
-        <div class="card-title" style="font-size:13px">🎯 Adicionar Gol</div>
-        <div class="grid-2">
-          <div class="form-group">
-            <label class="form-label">Jogador</label>
-            <select class="form-select" id="edicao-evento-jogador">
-              <option value="">— Selecione —</option>
-            </select>
-          </div>
-          <div class="form-group" style="display:flex;align-items:flex-end">
-            <button class="btn btn-primary" onclick="adicionarEventoEdicao()" style="width:100%">⚽ Adicionar Gol</button>
-          </div>
-        </div>
-        <div class="card-title" style="font-size:13px;margin-top:16px">📋 Gols da Partida</div>
+        <div class="card-title" style="font-size:13px">📋 Gols da Partida</div>
         <div class="event-list" id="edicao-lista-eventos"></div>
         <hr class="separator">
         <div style="display:flex;gap:12px;flex-wrap:wrap">
@@ -2163,12 +2171,6 @@ let penalties = { time1: [], time2: [] };
 let penaltyRound = 0;
 let penaltyFinished = false;
 
-// ============ SORTEIO ============
-let sorteioDados = {};
-let sorteioControlDoc = { processados: [], finalizado: false };
-let isInitialLoad = true;
-const SORTEIO_TIMES_SEQUENCIA = ['BARCELONA', 'REAL MADRID', 'PSG', 'LIVERPOOL'];
-
 // ============ FIREBASE STATUS ============
 function setFbStatus(ok, msg, type = 'ok') {
   const dot = document.getElementById('fb-dot');
@@ -2194,8 +2196,6 @@ function fazerLogin() {
       if (dados && usuario === dados.usuario && senha === dados.senha) {
         document.getElementById('telaLogin').style.display = 'none';
         setupFirestoreListeners();
-        iniciarControleSorteio();
-        iniciarListenerSorteioRTDB();
       } else {
         mensagemErro.style.display = 'block';
         document.getElementById('senhaLogin').value = '';
@@ -2283,6 +2283,23 @@ async function fbDelete(collectionName, docId) {
     throw e;
   }
 }
+
+window.desvincularTodosJogadores = async function() {
+  const vinculados = state.jogadores.filter(j => j.timeId);
+  if (!vinculados.length) return showToast('⚠️ Nenhum jogador vinculado.');
+  if (!confirm(`Desvincular todos os ${vinculados.length} jogador(es) dos times?`)) return;
+  showToast('⏳ Desvinculando...');
+  let ok = 0, falha = 0;
+  for (const jogador of vinculados) {
+    try {
+      await fbUpdate('jogadores', jogador.id, { timeId: '' });
+      ok++;
+    } catch (e) {
+      falha++;
+    }
+  }
+  showToast(`✅ ${ok} jogador(es) desvinculado(s).${falha ? ` ${falha} falhou.` : ''}`);
+};
 
 // ============ CALENDÁRIO PARA SELEÇÃO DE DATA ============
 function mostrarCalendarioData() {
@@ -2392,241 +2409,6 @@ function formatarDataParaExibicao(dataString) {
   const ano = data.getFullYear();
   
   return `${dia}/${mes}/${ano}`;
-}
-
-// ============ SORTEIO ============
-function getTimeIdPorNomeExato(nomeTime) {
-  const alvo = nomeTime.trim().toUpperCase();
-  const t = state.times.find(x => (x.nome || '').trim().toUpperCase() === alvo);
-  return t ? t.id : null;
-}
-
-async function salvarControleSorteio(novoEstado) {
-  sorteioControlDoc = { ...sorteioControlDoc, ...novoEstado };
-  try {
-    await db.collection('sorteioControl').doc('estado').set(sorteioControlDoc);
-  } catch (e) {
-    console.error('Erro ao salvar controle do sorteio:', e);
-  }
-}
-
-function iniciarControleSorteio() {
-  db.collection('sorteioControl').doc('estado').onSnapshot((snap) => {
-    sorteioControlDoc = snap.exists ? snap.data() : { processados: [], finalizado: false };
-    renderSorteioAoVivo();
-  }, (error) => {
-    console.error('Erro ao ler controle do sorteio:', error);
-  });
-}
-
-function getJogadorPorNomeExato(nomeJogador) {
-  const alvo = nomeJogador.trim().toUpperCase();
-  return state.jogadores.find(j => (j.nome || '').trim().toUpperCase() === alvo) || null;
-}
-
-async function redistribuirSorteiosIncompletos(indices, processados) {
-  const totalEsperado = 16;
-  const totalAtual = indices.length;
-  if (totalAtual >= totalEsperado) return false;
-  
-  const ultimoTimeIdx = 3;
-  const ultimoTimeNome = SORTEIO_TIMES_SEQUENCIA[ultimoTimeIdx];
-  
-  const indicesUltimoTime = indices.filter(idx => {
-    const nomeTime = SORTEIO_TIMES_SEQUENCIA[idx % 4];
-    return nomeTime === ultimoTimeNome;
-  });
-  
-  if (indicesUltimoTime.length === 0) return false;
-  
-  const timesDestino = [0, 1, 2];
-  let redistribuidos = 0;
-  
-  for (let i = 0; i < indicesUltimoTime.length; i++) {
-    const idx = indicesUltimoTime[i];
-    const dadosJogador = sorteioDados[idx];
-    if (!dadosJogador || !dadosJogador.nome) continue;
-    
-    const timeDestinoIdx = timesDestino[i % timesDestino.length];
-    const nomeTimeDestino = SORTEIO_TIMES_SEQUENCIA[timeDestinoIdx];
-    const timeId = getTimeIdPorNomeExato(nomeTimeDestino);
-    if (!timeId) {
-      showToast(`⚠️ Time "${nomeTimeDestino}" não encontrado.`);
-      continue;
-    }
-    
-    const jogadorExistente = getJogadorPorNomeExato(dadosJogador.nome);
-    if (jogadorExistente) {
-      await fbUpdate('jogadores', jogadorExistente.id, {
-        timeId,
-        foto: jogadorExistente.foto || dadosJogador.foto || ''
-      });
-      showToast(`🔄 ${jogadorExistente.nome} redistribuído: ${ultimoTimeNome} → ${nomeTimeDestino}`);
-      processados.add(idx);
-      redistribuidos++;
-    }
-  }
-  
-  if (redistribuidos > 0) {
-    const timesNomes = ['BARCELONA', 'REAL MADRID', 'PSG', 'LIVERPOOL'];
-    const distribuicaoFinal = {};
-    for (const nomeTime of timesNomes) {
-      const timeId = getTimeIdPorNomeExato(nomeTime);
-      distribuicaoFinal[nomeTime] = timeId ? state.jogadores.filter(j => j.timeId === timeId).length : 0;
-    }
-    await salvarControleSorteio({ 
-      processados: Array.from(processados), 
-      finalizado: true,
-      redistribuido: true,
-      totalRedistribuido: redistribuidos,
-      distribuicaoFinal: distribuicaoFinal
-    });
-    showToast(`✅ Redistribuição concluída! ${redistribuidos} jogador(es) realocados.`);
-    return true;
-  }
-  return false;
-}
-
-async function processarNovosSorteios() {
-  const indices = Object.keys(sorteioDados).map(Number).filter(n => !isNaN(n)).sort((a, b) => a - b);
-  const processados = new Set(sorteioControlDoc.processados || []);
-  let houveNovo = false;
-
-  for (const idx of indices) {
-    if (processados.has(idx)) continue;
-    const dadosJogador = sorteioDados[idx];
-    if (!dadosJogador || !dadosJogador.nome) continue;
-
-    const nomeTime = SORTEIO_TIMES_SEQUENCIA[idx % SORTEIO_TIMES_SEQUENCIA.length];
-    const timeId = getTimeIdPorNomeExato(nomeTime);
-    if (!timeId) {
-      if (!isInitialLoad) showToast(`⚠️ Time "${nomeTime}" não encontrado.`);
-      continue;
-    }
-
-    const jogadorExistente = getJogadorPorNomeExato(dadosJogador.nome);
-    if (jogadorExistente) {
-      await fbUpdate('jogadores', jogadorExistente.id, {
-        timeId,
-        foto: jogadorExistente.foto || dadosJogador.foto || ''
-      });
-      if (!isInitialLoad) showToast(`⚽ ${jogadorExistente.nome} vinculado ao ${nomeTime}!`);
-      processados.add(idx);
-      houveNovo = true;
-    }
-  }
-
-  if (houveNovo) {
-    await salvarControleSorteio({ processados: Array.from(processados), finalizado: false });
-  }
-}
-
-function iniciarListenerSorteioRTDB() {
-  const sorteadosRef = rtdb.ref('sorteios/sorteados');
-  let primeiraLeitura = true;
-  sorteadosRef.on('value', (snapshot) => {
-    sorteioDados = snapshot.val() || {};
-    processarNovosSorteios();
-    renderSorteioAoVivo();
-    if (primeiraLeitura) {
-      primeiraLeitura = false;
-      setTimeout(() => { isInitialLoad = false; }, 500);
-    }
-  }, (error) => {
-    console.error('Erro ao ler sorteios no Realtime Database:', error);
-  });
-}
-
-window.resetarSorteio = async function() {
-  const indices = Object.keys(sorteioDados).map(Number).filter(n => !isNaN(n));
-  if (!confirm(`Resetar o sorteio? Isso irá desvincular ${indices.length} jogador(es) dos times.`)) return;
-  showToast('⏳ Desvinculando jogadores...');
-  const promessas = [];
-  for (const idx of indices) {
-    const dados = sorteioDados[idx];
-    if (!dados || !dados.nome) continue;
-    const jogador = getJogadorPorNomeExato(dados.nome);
-    if (jogador && jogador.timeId) {
-      promessas.push(fbUpdate('jogadores', jogador.id, { timeId: '' }));
-    }
-  }
-  await Promise.all(promessas);
-  await salvarControleSorteio({ processados: [], finalizado: false, redistribuido: false });
-  showToast(`✅ Sorteio resetado! ${promessas.length} jogador(es) desvinculados.`);
-}
-
-window.forcarRedistribuicao = async function() {
-  const indices = Object.keys(sorteioDados).map(Number).filter(n => !isNaN(n)).sort((a, b) => a - b);
-  if (!indices.length) return showToast('⚠️ Nenhum sorteado no momento');
-  if (indices.length >= 16) return showToast('✅ Sorteio completo (16 jogadores)');
-  if (!confirm(`Forçar redistribuição? ${indices.length} sorteados, esperados 16.`)) return;
-  await salvarControleSorteio({ redistribuido: false, finalizado: true });
-  const processados = new Set(sorteioControlDoc.processados || []);
-  await redistribuirSorteiosIncompletos(indices, processados);
-}
-
-function renderSorteioAoVivo() {
-  const el = document.getElementById('sorteio-ao-vivo-lista');
-  const statusEl = document.getElementById('sorteio-status');
-  if (!el || !statusEl) return;
-
-  const indices = Object.keys(sorteioDados).map(Number).filter(n => !isNaN(n)).sort((a, b) => a - b);
-  if (!indices.length) {
-    el.innerHTML = '<div class="empty-state" style="padding:20px"><p>Nenhum sorteado ainda</p></div>';
-    statusEl.innerHTML = '';
-    return;
-  }
-
-  const processados = new Set(sorteioControlDoc.processados || []);
-  let html = '';
-  for (const idx of indices) {
-    const d = sorteioDados[idx];
-    if (!d) continue;
-    let timeEsperado = SORTEIO_TIMES_SEQUENCIA[idx % 4];
-    const jogador = getJogadorPorNomeExato(d.nome);
-    let timeAtual = timeEsperado;
-    let isRedistribuido = false;
-    if (jogador && jogador.timeId) {
-      const timeObj = state.times.find(t => t.id === jogador.timeId);
-      if (timeObj) {
-        timeAtual = timeObj.nome;
-        if (timeAtual.toUpperCase() !== timeEsperado.toUpperCase()) isRedistribuido = true;
-      }
-    }
-    const vinculado = processados.has(idx);
-    const fotoHtml = d.foto ? `<img src="${d.foto}" style="width:32px;height:32px;border-radius:50%;object-fit:cover;border:1px solid var(--border-color)">` : `<span style="font-size:20px">🧑</span>`;
-    let statusBadge = `<span class="status-badge ${vinculado ? 'definido' : 'pendente'}">${vinculado ? '✅ Vinculado' : '⏳ Processando'}</span>`;
-    if (isRedistribuido) {
-      statusBadge = `<span class="status-badge definido" style="background:rgba(255,214,0,0.15);color:#ffd600;">🔄 ${timeEsperado} → ${timeAtual}</span>`;
-    }
-    html += `<div style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(5,8,12,0.4);border-radius:8px;border:1px solid var(--border-color);margin-bottom:6px">
-      <span style="font-family:'Orbitron',sans-serif;color:var(--text-muted);min-width:24px">${idx}</span>
-      ${fotoHtml}
-      <span style="font-weight:600;flex:1">${d.nome || '?'}</span>
-      <span class="edicao-badge" style="${isRedistribuido ? 'background:rgba(255,214,0,0.25);color:#ffd600;' : ''}">${timeAtual}</span>
-      ${statusBadge}
-    </div>`;
-  }
-  el.innerHTML = html;
-  
-  if (sorteioControlDoc.finalizado) {
-    if (sorteioControlDoc.redistribuido && sorteioControlDoc.distribuicaoFinal) {
-      const d = sorteioControlDoc.distribuicaoFinal;
-      statusEl.innerHTML = `<div style="display:flex;flex-direction:column;gap:6px;padding:10px;background:rgba(255,214,0,0.05);border-radius:8px;border:1px solid rgba(255,214,0,0.2);">
-        <span class="status-badge definido" style="background:rgba(255,214,0,0.15);color:#ffd600;">🔄 Sorteio Finalizado com Redistribuição</span>
-        <div style="display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--text-secondary);">
-          <span>🟦 BARCELONA: <strong>${d.BARCELONA || 0}</strong></span>
-          <span>⬜ REAL MADRID: <strong>${d['REAL MADRID'] || 0}</strong></span>
-          <span>🟥 PSG: <strong>${d.PSG || 0}</strong></span>
-          <span>🟩 LIVERPOOL: <strong>${d.LIVERPOOL || 0}</strong></span>
-        </div>
-      </div>`;
-    } else {
-      statusEl.innerHTML = `<span class="status-badge definido">🏁 Sorteio Finalizado — ${indices.length} sorteado(s)</span>`;
-    }
-  } else {
-    statusEl.innerHTML = `<span class="status-badge pendente">⏳ ${indices.length} sorteado(s) — aguardando finalização</span>`;
-  }
 }
 
 // ============ TOGGLE FORMULÁRIOS ============
@@ -3096,7 +2878,7 @@ window.vincularJogadorRapido = async function(jogadorId) {
   if (!timeId) return showToast('⚠️ Selecione um time');
   const jogador = state.jogadores.find(j => j.id === jogadorId);
   if (!jogador) return showToast('⚠️ Jogador não encontrado');
-  await fbUpdate('jogadores', jogadorId, { timeId: timeId });
+  await fbUpdate('jogadores', jogadorId, { timeId: timeId, vinculadoEm: firebase.firestore.FieldValue.serverTimestamp() });
   showToast(`✅ ${jogador.nome} vinculado ao time!`);
   renderListaVincularRapido();
   renderTimes();
@@ -3264,7 +3046,16 @@ function renderTimes() {
   });
   
   el.innerHTML = timesOrdenados.map(t => {
-    const jogadoresDoTime = state.jogadores.filter(j => j.timeId === t.id);
+    const jogadoresDoTime = (() => {
+      const todos = state.jogadores.filter(j => j.timeId === t.id);
+      const comData = todos.filter(j => j.vinculadoEm).sort((a, b) => {
+        const aTime = a.vinculadoEm.seconds || a.vinculadoEm;
+        const bTime = b.vinculadoEm.seconds || b.vinculadoEm;
+        return aTime - bTime;
+      });
+      const semData = todos.filter(j => !j.vinculadoEm);
+      return comData.concat(semData);
+    })();
     let logoHtml = t.escudo && (t.escudo.startsWith('http') || t.escudo.startsWith('data:')) ? `<img src="${t.escudo}" alt="${t.nome}">` : `<span class="fallback-logo">${t.escudo || '⚽'}</span>`;
     
     let jogadoresHtml = '';
@@ -3287,14 +3078,14 @@ function renderTimes() {
     }
     
     return `<div class="team-card">
+      <div class="team-card-actions">
+        <button class="btn btn-success btn-sm" onclick="abrirVincularRapido('${t.id}')" title="Vincular jogador">➕</button>
+        <button class="btn btn-warning btn-sm" onclick="abrirEditarTime('${t.id}')">✏️</button>
+        <button class="btn btn-danger btn-sm" onclick="removerTime('${t.id}')">🗑️</button>
+      </div>
       <div class="team-logo-container">${logoHtml}</div>
       <div class="team-name">${t.nome}</div>
       <div class="team-players-count">👤 ${jogadoresDoTime.length} jogadores</div>
-      <div class="team-actions">
-        <button class="btn btn-warning btn-sm" onclick="abrirEditarTime('${t.id}')">✏️</button>
-        <button class="btn btn-success btn-sm" onclick="abrirVincularRapido('${t.id}')">➕ Vincular</button>
-        <button class="btn btn-danger btn-sm" onclick="removerTime('${t.id}')">🗑️</button>
-      </div>
       ${jogadoresHtml}
     </div>`;
   }).join('');
@@ -3530,7 +3321,6 @@ window.abrirEdicaoPartida = function(id) {
   document.getElementById('edicao-placar-time1-nome').textContent = getTimeName(p.time1Id);
   document.getElementById('edicao-placar-time2-nome').textContent = getTimeName(p.time2Id);
   atualizarJogadoresEdicao(p.time1Id, p.time2Id);
-  populateJogadoresEdicao(p.time1Id, p.time2Id);
   
   edicaoEventosPendentes = [...(p.eventos || [])];
   renderEventosEdicao();
@@ -3581,12 +3371,16 @@ function atualizarJogadoresEdicao(time1Id, time2Id) {
   
   function renderJogadorMini(jogador) {
     const foto = jogador.foto && (jogador.foto.startsWith('http') || jogador.foto.startsWith('data:')) ? 
-      `<img src="${jogador.foto}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--border-color);background:var(--bg-primary);">` : 
-      `<span style="font-size:24px;line-height:40px;">🧑</span>`;
+      `<img src="${jogador.foto}" style="width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid var(--border-color);background:var(--bg-primary);">` : 
+      `<span style="font-size:26px;line-height:46px;">🧑</span>`;
     
-    return `<div style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 8px;background:rgba(5,8,12,0.5);border-radius:10px;border:1px solid var(--border-color);min-width:60px;transition:var(--transition);">
-      <div style="width:40px;height:40px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--bg-primary);flex-shrink:0;">${foto}</div>
-      <span style="font-size:10px;color:var(--text-secondary);text-align:center;max-width:64px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500;line-height:1.2;">${jogador.nome}</span>
+    const golsJogador = edicaoEventosPendentes.filter(e => e.jogadorId === jogador.id).length;
+    const golBadge = golsJogador > 0 ? `<span style="position:absolute;top:-4px;right:-2px;min-width:14px;height:14px;border-radius:7px;background:var(--accent-1);color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 3px;box-shadow:0 2px 8px rgba(0,212,255,0.4);z-index:2;">${golsJogador}</span>` : '';
+    
+    return `<div onclick="adicionarGolPorJogador('${jogador.id}')" title="Clicar para marcar gol" style="position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 10px;background:rgba(5,8,12,0.5);border-radius:10px;border:1px solid var(--border-color);min-width:72px;transition:var(--transition);cursor:pointer;" onmouseover="this.style.borderColor='var(--accent-1)';this.style.background='rgba(0,212,255,0.08)';" onmouseout="this.style.borderColor='var(--border-color)';this.style.background='rgba(5,8,12,0.5)';">
+      ${golBadge}
+      <div style="width:46px;height:46px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--bg-primary);flex-shrink:0;">${foto}</div>
+      <span style="font-size:10px;color:var(--text-secondary);text-align:center;max-width:70px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500;line-height:1.2;">${jogador.nome}</span>
     </div>`;
   }
   
@@ -3594,30 +3388,7 @@ function atualizarJogadoresEdicao(time1Id, time2Id) {
   container2.innerHTML = jogadores2.length ? jogadores2.map(j => renderJogadorMini(j)).join('') : '<span style="font-size:12px;color:var(--text-muted);padding:8px;">Sem jogadores</span>';
 }
 
-function populateJogadoresEdicao(time1Id, time2Id) {
-  const select = document.getElementById('edicao-evento-jogador');
-  if (!select) return;
-  
-  const jogadoresTime1 = state.jogadores.filter(j => j.timeId === time1Id);
-  const jogadoresTime2 = state.jogadores.filter(j => j.timeId === time2Id);
-  const todosJogadores = [...jogadoresTime1, ...jogadoresTime2];
-  
-  if (!todosJogadores.length) {
-    select.innerHTML = '<option value="">— Nenhum jogador vinculado —</option>';
-    return;
-  }
-  
-  select.innerHTML = '<option value="">— Selecione um jogador —</option>';
-  todosJogadores.forEach(j => {
-    const timeNome = getTimeName(j.timeId);
-    const fotoHtml = j.foto && (j.foto.startsWith('http') || j.foto.startsWith('data:')) ? 
-      `<img src="${j.foto}" style="width:20px;height:20px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:6px">` : '';
-    select.innerHTML += `<option value="${j.id}">${fotoHtml} ${j.nome} (${timeNome})</option>`;
-  });
-}
-
-window.adicionarEventoEdicao = async function() {
-  const jogId = document.getElementById('edicao-evento-jogador').value;
+window.adicionarGolPorJogador = function(jogId) {
   if (!jogId) return showToast('⚠️ Selecione um jogador');
   
   const jogador = state.jogadores.find(j => j.id === jogId);
@@ -3651,6 +3422,7 @@ window.adicionarEventoEdicao = async function() {
   renderEventosEdicao();
   showToast(`⚽ Gol de ${jogador.nome} adicionado!`);
   atualizarClassificacaoTempoReal();
+  atualizarJogadoresEdicao(document.getElementById('edicao-time1-id').value, document.getElementById('edicao-time2-id').value);
   
   const partidaId = document.getElementById('edicao-partida-id').value;
   const partida = state.partidas.find(p => p.id === partidaId);
@@ -3684,6 +3456,7 @@ window.removerEventoEdicao = function(id) {
   edicaoEventosPendentes = edicaoEventosPendentes.filter(e => e.id !== id);
   renderEventosEdicao();
   atualizarClassificacaoTempoReal();
+  atualizarJogadoresEdicao(document.getElementById('edicao-time1-id').value, document.getElementById('edicao-time2-id').value);
 }
 
 function renderEventosEdicao() {
@@ -4697,8 +4470,6 @@ window.visualizarEdicao = function(edicaoId) {
     return idxA - idxB;
   });
   
-  const timeCampeao = timesComEscudos.find(t => t.id === edicao.campeao?.timeId);
-  const timeVice = timesComEscudos.find(t => t.id === edicao.vice?.timeId);
   const time1Final = timesComEscudos.find(t => t.id === edicao.final?.time1Id);
   const time2Final = timesComEscudos.find(t => t.id === edicao.final?.time2Id);
   
@@ -4970,46 +4741,21 @@ window.visualizarEdicao = function(edicaoId) {
           ${tevePenalidades ? '• ⚽ Decidido nos pênaltis' : ''}
         </div>
         
-        <!-- CAMPEÃO E VICE -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
-          <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);text-align:center;">
-            <div style="font-size:11px;color:var(--text-muted);">🏆 CAMPEÃO</div>
-            <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px;">
-              <div style="width:32px;height:32px;border-radius:50%;overflow:hidden;border:2px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                ${timeCampeao?.escudo && (timeCampeao.escudo.startsWith('http') || timeCampeao.escudo.startsWith('data:')) 
-                  ? `<img src="${timeCampeao.escudo}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
-                  : `<span style="font-size:18px;">${timeCampeao?.escudo || '⚽'}</span>`}
-              </div>
-              <span style="font-size:18px;font-weight:700;color:#ffd600;">${edicao.campeao?.nome || 'N/A'}</span>
-            </div>
-          </div>
-          <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);text-align:center;">
-            <div style="font-size:11px;color:var(--text-muted);">🥈 VICE</div>
-            <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px;">
-              <div style="width:32px;height:32px;border-radius:50%;overflow:hidden;border:2px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                ${timeVice?.escudo && (timeVice.escudo.startsWith('http') || timeVice.escudo.startsWith('data:')) 
-                  ? `<img src="${timeVice.escudo}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
-                  : `<span style="font-size:18px;">${timeVice?.escudo || '⚽'}</span>`}
-              </div>
-              <span style="font-size:18px;font-weight:700;color:var(--text-secondary);">${edicao.vice?.nome || 'N/A'}</span>
-            </div>
-          </div>
-        </div>
-        
         <!-- FINAL - PLACAR CENTRALIZADO + GOLS DOS JOGADORES DENTRO DOS TIMES -->
         <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);margin-bottom:16px;">
-          <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">🏟️ FINAL</div>
+          <div style="font-size:18px;font-weight:900;color:#ffd600;text-align:center;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;text-shadow:0 0 16px rgba(255,214,0,0.35);">FINAL</div>
           <div style="display:flex;align-items:center;justify-content:center;gap:30px;flex-wrap:wrap;">
             
             <!-- TIME 1 -->
             <div style="text-align:center;min-width:140px;">
+              ${edicao.campeao?.timeId === time1Final?.id ? '<div style="font-size:11px;font-weight:700;color:#ffd600;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">🏆 CAMPEÃO</div>' : (edicao.vice?.timeId === time1Final?.id ? '<div style="font-size:11px;font-weight:700;color:#a0a0a0;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">🥈 VICE</div>' : '<div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">&nbsp;</div>')}
               <div style="display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:8px;">
-                <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;border:2px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;border:2px solid ${edicao.campeao?.timeId === time1Final?.id ? '#ffd600' : (edicao.vice?.timeId === time1Final?.id ? '#a0a0a0' : 'var(--border-color)')};background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:${edicao.campeao?.timeId === time1Final?.id ? '0 0 14px rgba(255,214,0,0.5)' : 'none'};">
                   ${time1Final?.escudo && (time1Final.escudo.startsWith('http') || time1Final.escudo.startsWith('data:')) 
                     ? `<img src="${time1Final.escudo}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
                     : `<span style="font-size:20px;">${time1Final?.escudo || '⚽'}</span>`}
                 </div>
-                <span style="font-size:18px;font-weight:700;">${edicao.final?.time1Nome || '?'}</span>
+                <span style="font-size:18px;font-weight:700;color:${edicao.campeao?.timeId === time1Final?.id ? '#ffd600' : (edicao.vice?.timeId === time1Final?.id ? '#a0a0a0' : 'var(--text-primary)')};">${edicao.final?.time1Nome || '?'}</span>
               </div>
               <!-- Jogadores do Time 1 com seus gols na FINAL -->
               <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:280px;">
@@ -5039,9 +4785,10 @@ window.visualizarEdicao = function(edicaoId) {
             
             <!-- TIME 2 -->
             <div style="text-align:center;min-width:140px;">
+              ${edicao.campeao?.timeId === time2Final?.id ? '<div style="font-size:11px;font-weight:700;color:#ffd600;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">🏆 CAMPEÃO</div>' : (edicao.vice?.timeId === time2Final?.id ? '<div style="font-size:11px;font-weight:700;color:#a0a0a0;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">🥈 VICE</div>' : '<div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">&nbsp;</div>')}
               <div style="display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:8px;">
-                <span style="font-size:18px;font-weight:700;">${edicao.final?.time2Nome || '?'}</span>
-                <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;border:2px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <span style="font-size:18px;font-weight:700;color:${edicao.campeao?.timeId === time2Final?.id ? '#ffd600' : (edicao.vice?.timeId === time2Final?.id ? '#a0a0a0' : 'var(--text-primary)')};">${edicao.final?.time2Nome || '?'}</span>
+                <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;border:2px solid ${edicao.campeao?.timeId === time2Final?.id ? '#ffd600' : (edicao.vice?.timeId === time2Final?.id ? '#a0a0a0' : 'var(--border-color)')};background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:${edicao.campeao?.timeId === time2Final?.id ? '0 0 14px rgba(255,214,0,0.5)' : 'none'};">
                   ${time2Final?.escudo && (time2Final.escudo.startsWith('http') || time2Final.escudo.startsWith('data:')) 
                     ? `<img src="${time2Final.escudo}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
                     : `<span style="font-size:20px;">${time2Final?.escudo || '⚽'}</span>`}
