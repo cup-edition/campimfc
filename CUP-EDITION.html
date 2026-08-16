@@ -1434,8 +1434,6 @@ window.visualizarEdicao = function(edicaoId) {
     return idxA - idxB;
   });
 
-  const timeCampeao = timesComEscudos.find(t => t.id === edicao.campeao?.timeId);
-  const timeVice = timesComEscudos.find(t => t.id === edicao.vice?.timeId);
   const time1Final = timesComEscudos.find(t => t.id === edicao.final?.time1Id);
   const time2Final = timesComEscudos.find(t => t.id === edicao.final?.time2Id);
 
@@ -1686,43 +1684,19 @@ window.visualizarEdicao = function(edicaoId) {
           ${tevePenalidades ? '• ⚽ Decidido nos pênaltis' : ''}
         </div>
         
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
-          <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);text-align:center;">
-            <div style="font-size:11px;color:var(--text-muted);">🏆 CAMPEÃO</div>
-            <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px;">
-              <div style="width:32px;height:32px;border-radius:50%;overflow:hidden;border:2px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                ${timeCampeao?.escudo && (timeCampeao.escudo.startsWith('http') || timeCampeao.escudo.startsWith('data:')) 
-                  ? `<img src="${timeCampeao.escudo}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
-                  : `<span style="font-size:18px;">${timeCampeao?.escudo || '⚽'}</span>`}
-              </div>
-              <span style="font-size:18px;font-weight:700;color:#ffd600;">${edicao.campeao?.nome || 'N/A'}</span>
-            </div>
-          </div>
-          <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);text-align:center;">
-            <div style="font-size:11px;color:var(--text-muted);">🥈 VICE</div>
-            <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px;">
-              <div style="width:32px;height:32px;border-radius:50%;overflow:hidden;border:2px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                ${timeVice?.escudo && (timeVice.escudo.startsWith('http') || timeVice.escudo.startsWith('data:')) 
-                  ? `<img src="${timeVice.escudo}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
-                  : `<span style="font-size:18px;">${timeVice?.escudo || '⚽'}</span>`}
-              </div>
-              <span style="font-size:18px;font-weight:700;color:var(--text-secondary);">${edicao.vice?.nome || 'N/A'}</span>
-            </div>
-          </div>
-        </div>
-
         <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);margin-bottom:16px;">
-          <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">🏟️ FINAL</div>
+          <div style="font-size:18px;font-weight:900;color:#ffd600;text-align:center;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;text-shadow:0 0 16px rgba(255,214,0,0.35);">FINAL</div>
           <div style="display:flex;align-items:center;justify-content:center;gap:30px;flex-wrap:wrap;">
             
             <div style="text-align:center;min-width:140px;">
+              ${edicao.campeao?.timeId === time1Final?.id ? '<div style="font-size:11px;font-weight:700;color:#ffd600;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">🏆 CAMPEÃO</div>' : (edicao.vice?.timeId === time1Final?.id ? '<div style="font-size:11px;font-weight:700;color:#a0a0a0;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">🥈 VICE</div>' : '<div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">&nbsp;</div>')}
               <div style="display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:8px;">
-                <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;border:2px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;border:2px solid ${edicao.campeao?.timeId === time1Final?.id ? '#ffd600' : (edicao.vice?.timeId === time1Final?.id ? '#a0a0a0' : 'var(--border-color)')};background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:${edicao.campeao?.timeId === time1Final?.id ? '0 0 14px rgba(255,214,0,0.5)' : 'none'};">
                   ${time1Final?.escudo && (time1Final.escudo.startsWith('http') || time1Final.escudo.startsWith('data:')) 
                     ? `<img src="${time1Final.escudo}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
                     : `<span style="font-size:20px;">${time1Final?.escudo || '⚽'}</span>`}
                 </div>
-                <span style="font-size:18px;font-weight:700;">${edicao.final?.time1Nome || '?'}</span>
+                <span style="font-size:18px;font-weight:700;color:${edicao.campeao?.timeId === time1Final?.id ? '#ffd600' : (edicao.vice?.timeId === time1Final?.id ? '#a0a0a0' : 'var(--text-primary)')};">${edicao.final?.time1Nome || '?'}</span>
               </div>
               <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:280px;">
                 ${jogadoresTime1Final.length > 0 ? jogadoresTime1Final.map(j => {
@@ -1748,9 +1722,10 @@ window.visualizarEdicao = function(edicaoId) {
             </div>
             
             <div style="text-align:center;min-width:140px;">
+              ${edicao.campeao?.timeId === time2Final?.id ? '<div style="font-size:11px;font-weight:700;color:#ffd600;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">🏆 CAMPEÃO</div>' : (edicao.vice?.timeId === time2Final?.id ? '<div style="font-size:11px;font-weight:700;color:#a0a0a0;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">🥈 VICE</div>' : '<div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">&nbsp;</div>')}
               <div style="display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:8px;">
-                <span style="font-size:18px;font-weight:700;">${edicao.final?.time2Nome || '?'}</span>
-                <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;border:2px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <span style="font-size:18px;font-weight:700;color:${edicao.campeao?.timeId === time2Final?.id ? '#ffd600' : (edicao.vice?.timeId === time2Final?.id ? '#a0a0a0' : 'var(--text-primary)')};">${edicao.final?.time2Nome || '?'}</span>
+                <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;border:2px solid ${edicao.campeao?.timeId === time2Final?.id ? '#ffd600' : (edicao.vice?.timeId === time2Final?.id ? '#a0a0a0' : 'var(--border-color)')};background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:${edicao.campeao?.timeId === time2Final?.id ? '0 0 14px rgba(255,214,0,0.5)' : 'none'};">
                   ${time2Final?.escudo && (time2Final.escudo.startsWith('http') || time2Final.escudo.startsWith('data:')) 
                     ? `<img src="${time2Final.escudo}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
                     : `<span style="font-size:20px;">${time2Final?.escudo || '⚽'}</span>`}
