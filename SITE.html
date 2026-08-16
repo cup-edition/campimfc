@@ -815,7 +815,7 @@
             }
         }
 
-        rtdb.ref('configuracao/inscricao_gratuita_aberta').on('value', function(snap) {
+        rtdb.ref('configuracao/botao_gratuito_aberto').on('value', function(snap) {
             atualizarBotaoInscricao(snap.val() === true);
         });
 
