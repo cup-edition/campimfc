@@ -4826,7 +4826,7 @@ window.visualizarEdicao = function(edicaoId) {
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
           <!-- COLUNA ESQUERDA: ESTATÍSTICAS DOS JOGADORES COM DESTAQUE -->
           <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);">
-            <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">🎯 ESTATÍSTICAS DOS JOGADORES</div>
+            <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">🎯 ARTILHARIA DA EDIÇÃO</div>
             ${edicao.jogadores?.length ? `
               <div style="display:flex;flex-direction:column;gap:3px;max-height:300px;overflow-y:auto;">
                 ${edicao.jogadores.sort((a, b) => (b.gols || 0) - (a.gols || 0)).map(j => {
