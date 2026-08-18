@@ -755,28 +755,28 @@
 
             <img src="https://cup-edition.github.io/campimfc/CUP%20EDITION%20PES.png" alt="Logo Cup Edition PES" class="logo-pes">
 
-            <div class="titulo-pes">TEMPORADA 2026</div>
+            <div class="titulo-pes" id="titulo-pes-temporada">Carregando temporada...</div>
 
             <div class="estatisticas">
                 <div class="stat">
-                    <span class="numero">32</span>
+                    <span class="numero stat-loading" id="stat-pes-partidas">—</span>
                     <span class="label">PARTIDAS</span>
                 </div>
                 <div class="stat-divider"></div>
                 <div class="stat">
-                    <span class="numero">16</span>
-                    <span class="label">TIMES</span>
+                    <span class="numero stat-loading" id="stat-pes-jogadores">—</span>
+                    <span class="label">JOGADORES</span>
                 </div>
                 <div class="stat-divider"></div>
                 <div class="stat">
-                    <span class="numero">128</span>
+                    <span class="numero stat-loading" id="stat-pes-gols">—</span>
                     <span class="label">GOLS</span>
                 </div>
             </div>
 
-            <a href="TEMPORADA-PES-ATUAL.html" class="btn btn-outline"><span class="icon">🏆</span> CUP EDITION PES 2026</a>
-            <a href="ARTILHARIA-PES-ATUAL.html" class="btn btn-outline"><span class="icon">⚽</span> ARTILHARIA PES 2026</a>
-            <a href="TITULOS-PES-ATUAL.html" class="btn btn-outline"><span class="icon">🥇</span> TÍTULOS PES 2026</a>
+            <a href="https://cup-edition.github.io/campimfc/CUP-EDITION-PES.html?tab=ATUAL" class="btn btn-outline"><span class="icon">🏆</span> CUP EDITION PES 2026</a>
+            <a href="https://cup-edition.github.io/campimfc/CUP-EDITION-PES.html?tab=TEMPORADAS" class="btn btn-outline"><span class="icon">📜</span> TODAS AS EDIÇÕES</a>
+            <a href="https://cup-edition.github.io/campimfc/CUP-EDITION-PES.html?tab=CARREIRAS" class="btn btn-outline"><span class="icon">📊</span> CARREIRAS</a>
 
             <div class="divisor"></div>
 
@@ -801,6 +801,18 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const rtdb = firebase.database();
+
+        const firebaseConfigPes = {
+            apiKey: "AIzaSyA6ozmGZgsNYsNjCtpoaT9J3OY8t6hdUkc",
+            authDomain: "sistema-pes-d7794.firebaseapp.com",
+            projectId: "sistema-pes-d7794",
+            storageBucket: "sistema-pes-d7794.firebasestorage.app",
+            messagingSenderId: "110858256169",
+            appId: "1:110858256169:web:b5cdcee911b0b2d7954138"
+        };
+
+        const pesApp = firebase.initializeApp(firebaseConfigPes, 'pes');
+        const pesDb = firebase.firestore(pesApp);
 
         function atualizarBotaoInscricao(aberto) {
             const link = document.getElementById('linkInscricao');
@@ -912,6 +924,61 @@
         }
 
         // ============================================================
+        // ESTATÍSTICAS PES — temporada mais recente do banco do PES
+        // ============================================================
+        function carregarTemporadaPes() {
+            pesDb.collection('temporadas').orderBy('ano', 'desc').limit(1).onSnapshot((snapshot) => {
+                if (snapshot.empty) {
+                    document.getElementById('titulo-pes-temporada').textContent = 'Nenhuma temporada';
+                    ['stat-pes-partidas', 'stat-pes-jogadores', 'stat-pes-gols'].forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) { el.textContent = '0'; el.classList.remove('stat-loading'); }
+                    });
+                    return;
+                }
+
+                const temporada = snapshot.docs[0].data();
+                const temporadaId = snapshot.docs[0].id;
+                const ano = temporada.ano || '—';
+                const nome = temporada.nome || '';
+
+                document.getElementById('titulo-pes-temporada').textContent = nome || `TEMPORADA ${ano}`;
+
+                pesDb.collection('edicoes').where('temporadaId', '==', temporadaId).onSnapshot((edicoesSnap) => {
+                    let jogadoresSet = new Set();
+                    let totalPartidas = 0;
+                    let totalGols = 0;
+
+                    edicoesSnap.forEach((doc) => {
+                        const ed = doc.data();
+                        if (ed.jogadores && Array.isArray(ed.jogadores)) {
+                            ed.jogadores.forEach(j => j.id && jogadoresSet.add(j.id));
+                        }
+                        totalPartidas += parseInt(ed.totalPartidas) || 0;
+                        totalGols += parseInt(ed.totalGols) || 0;
+                    });
+
+                    atualizarEstatistica('stat-pes-partidas', totalPartidas);
+                    atualizarEstatistica('stat-pes-jogadores', jogadoresSet.size);
+                    atualizarEstatistica('stat-pes-gols', totalGols);
+                }, (error) => {
+                    console.warn('Erro ao carregar edições PES da temporada:', error.message);
+                    ['stat-pes-partidas', 'stat-pes-jogadores', 'stat-pes-gols'].forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) el.classList.remove('stat-loading');
+                    });
+                });
+            }, (error) => {
+                console.warn('Erro ao carregar temporada PES recente:', error.message);
+                document.getElementById('titulo-pes-temporada').textContent = 'Erro ao carregar';
+                ['stat-pes-partidas', 'stat-pes-jogadores', 'stat-pes-gols'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.classList.remove('stat-loading');
+                });
+            });
+        }
+
+        // ============================================================
         // ESTATÍSTICAS GERAIS (ALL-TIME)
         // ============================================================
         db.collection('edicoes').onSnapshot((snapshot) => {
@@ -954,6 +1021,7 @@
 
         // Iniciar carregamento da temporada mais recente
         carregarTemporadaRecente();
+        carregarTemporadaPes();
     </script>
 
     <script>
