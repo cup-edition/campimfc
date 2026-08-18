@@ -7,19 +7,19 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="icon" type="image/png" href="https://cup-edition.github.io/sistema-inscricoes/CUP%20EDITION.png">
-<title>CUP EDITION CAMPIM FC</title>
-    <meta property="og:title" content="CUP EDITION CAMPIM FC" />
-    <meta property="og:description" content="A maior competição do CAMPIM FC" />
-    <meta property="og:image" content="https://cup-edition.github.io/campimfc/CUP%20EDITION.jpg" />
+<title>CUP EDITION PES</title>
+    <meta property="og:title" content="CUP EDITION PES" />
+    <meta property="og:description" content="A maior competição do PES" />
+    <meta property="og:image" content="https://cup-edition.github.io/campimfc/CUP%20EDITION%20PES.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:url" content="https://cup-edition.github.io/sistema-inscricoes/CUP-EDITION.html" />
+    <meta property="og:url" content="https://cup-edition.github.io/campimfc/CUP-EDITION-PES.html" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="CUP EDITION - CAMPIM FC" />
+    <meta property="og:site_name" content="CUP EDITION - PES" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="CUP EDITION CAMPIM FC" />
-    <meta name="twitter:description" content="A maior competição do CAMPIM FC" />
-    <meta name="twitter:image" content="https://cup-edition.github.io/campimfc/CUP%20EDITION.jpg" />
+    <meta name="twitter:title" content="CUP EDITION PES" />
+    <meta name="twitter:description" content="A maior competição do PES" />
+    <meta name="twitter:image" content="https://cup-edition.github.io/campimfc/CUP%20EDITION%20PES.png" />
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;600;700;900&display=swap');
 
@@ -1555,7 +1555,10 @@ window.visualizarEdicao = function(edicaoId) {
     <div style="position:fixed;inset:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(12px);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)this.remove()">
       <div id="modal-edicao-captura" style="background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px;padding:32px;max-width:1100px;max-height:90vh;overflow-y:auto;width:100%;position:relative;">
         <button onclick="this.closest('div[style*=\\'position:fixed\\']').remove()" id="btn-fechar-modal-edicao" style="position:sticky;top:0;float:right;background:rgba(255,107,107,0.2);border:none;color:var(--accent-3);font-size:24px;cursor:pointer;padding:4px 12px;border-radius:8px;z-index:10;">✕</button>
-        <button onclick="baixarImagemEdicao('modal-edicao-captura', '${nomeArquivoEdicao}')" id="btn-baixar-edicao" title="Baixar imagem da edição" style="position:sticky;top:0;float:right;margin-right:8px;background:rgba(0,212,255,0.15);border:1px solid rgba(0,212,255,0.3);color:var(--accent-1);font-size:18px;cursor:pointer;padding:6px 14px;border-radius:8px;z-index:10;">📥</button>
+        <div style="position:sticky;top:0;float:right;margin-right:8px;display:flex;align-items:center;gap:8px;z-index:10;">
+        <img src="https://cup-edition.github.io/campimfc/CUP%20EDITION%20PES.png" alt="CUP EDITION PES" style="height:38px;width:auto;border-radius:8px;filter:drop-shadow(0 0 20px var(--accent-glow));">
+        <button onclick="baixarImagemEdicao('modal-edicao-captura', '${nomeArquivoEdicao}')" id="btn-baixar-edicao" title="Baixar imagem da edição" style="background:rgba(0,212,255,0.15);border:1px solid rgba(0,212,255,0.3);color:var(--accent-1);font-size:18px;cursor:pointer;padding:6px 14px;border-radius:8px;">📥</button>
+        </div>
         
         <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap;">
           <div style="font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;background:var(--gradient-main);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
@@ -1746,10 +1749,27 @@ window.baixarImagemEdicao = function(containerId, nomeArquivo) {
         n.style.overflow = 'visible';
       });
       if (raiz) {
+        var logoPes = raiz.querySelector('img[alt="CUP EDITION PES"]');
+        if (logoPes) {
+          logoPes.style.height = '90px';
+          logoPes.style.width = 'auto';
+          logoPes.style.borderRadius = '0';
+          logoPes.style.filter = 'drop-shadow(0 0 30px rgba(0, 212, 255, 0.3))';
+          var logoPai = logoPes.parentNode;
+          if (logoPai) {
+            logoPai.style.position = 'absolute';
+            logoPai.style.top = '12px';
+            logoPai.style.right = '12px';
+            logoPai.style.float = 'none';
+            logoPai.style.margin = '0';
+            logoPai.style.alignItems = 'flex-start';
+            logoPai.style.zIndex = '100';
+          }
+        }
         raiz.querySelectorAll('img').forEach(function(img) {
           var inline = img.getAttribute('style') || '';
           var ehEscudo = inline.indexOf('object-fit:contain') !== -1;
-          if (!ehEscudo) {
+          if (!ehEscudo && img !== logoPes) {
             img.style.borderRadius = '50%';
           }
         });
