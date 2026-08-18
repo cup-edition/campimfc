@@ -644,7 +644,6 @@
   }
   .status-andamento { background: rgba(255, 107, 107, 0.12); color: var(--accent-3); }
   .status-encerrado { background: rgba(74, 106, 122, 0.12); color: var(--text-muted); }
-  .status-planejado { background: rgba(0, 212, 255, 0.12); color: var(--accent-1); }
 
   .empty-pub {
     text-align: center;
@@ -2109,13 +2108,9 @@ function renderTemporadaAtual() {
   }
 
   // ===== MONTA O HTML DA TEMPORADA ATUAL =====
-  var statusColor = '';
-  if (ultimaTemp.status === 'em_andamento') {
-    statusColor = '#00e676';
-  } else if (ultimaTemp.status === 'encerrado') {
+  var statusColor = '#00e676';
+  if (ultimaTemp.status === 'encerrado') {
     statusColor = '#ff6b6b';
-  } else {
-    statusColor = 'var(--accent-1)';
   }
 
   var html = `
@@ -2123,7 +2118,7 @@ function renderTemporadaAtual() {
       <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
         <span style="font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;background:var(--gradient-main);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">${ultimaTemp.ano}</span>
         <span style="font-size:18px;font-weight:700;">${ultimaTemp.nome}</span>
-        <span style="padding:3px 14px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:${statusColor}20;color:${statusColor};border:1px solid ${statusColor}40;">${ultimaTemp.status || 'Planejado'}</span>
+        <span style="padding:3px 14px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:${statusColor}20;color:${statusColor};border:1px solid ${statusColor}40;">${ultimaTemp.status === 'encerrado' ? 'Encerrado' : 'Em Andamento'}</span>
         ${edicoesDaTemp.length > 0 ? `<span style="font-size:12px;color:var(--text-muted);">📋 ${edicoesDaTemp.length} edição(ões)</span>` : ''}
       </div>
       ${ultimaTemp.descricao ? `<div style="color:var(--text-muted);font-size:13px;margin-top:8px;">${ultimaTemp.descricao}</div>` : ''}
@@ -2278,11 +2273,10 @@ function renderTemporadas() {
     return;
   }
 
-  var statusLabel = { em_andamento:'Em Andamento', encerrado:'Encerrado', planejado:'Planejado' };
+  var statusLabel = { em_andamento:'Em Andamento', encerrado:'Encerrado' };
   var statusClass = { 
     em_andamento:'status-andamento', 
-    encerrado:'status-encerrado', 
-    planejado:'status-planejado' 
+    encerrado:'status-encerrado' 
   };
 
   var sorted = state.temporadas.slice().sort(function(a, b) {
@@ -2448,13 +2442,9 @@ var numeroLocal = e.numeroTemporada || e.numero || 1;
       edicoesHtml = '<div class="edicoes-container" style="display:none;padding:12px 20px;color:var(--text-muted);font-size:13px;">Nenhuma edição finalizada para esta temporada</div>';
     }
 
-    var statusColor = '';
-    if (t.status === 'em_andamento') {
-      statusColor = '#00e676';
-    } else if (t.status === 'encerrado') {
+    var statusColor = '#00e676';
+    if (t.status === 'encerrado') {
       statusColor = '#ff6b6b';
-    } else {
-      statusColor = 'var(--accent-1)';
     }
 
     html += '<div class="season-pub-card '+(isActive?'active':'')+'" onclick="toggleEdicoes(\''+t.id+'\')" style="margin-bottom:8px;cursor:pointer;">' +
@@ -2464,7 +2454,7 @@ var numeroLocal = e.numeroTemporada || e.numero || 1;
         '<div class="season-pub-desc">'+(t.descricao||'')+'</div>' +
         '<div style="font-size:11px;color:var(--text-muted);margin-top:4px;">📋 '+edicoes.length+' edição(ões)</div>' +
       '</div>' +
-      '<div class="season-pub-badge"><span style="padding:3px 12px;border-radius:20px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:'+statusColor+'20;color:'+statusColor+';border:1px solid '+statusColor+'40;">'+(statusLabel[t.status]||t.status)+'</span></div>' +
+      '<div class="season-pub-badge"><span style="padding:3px 12px;border-radius:20px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:'+statusColor+'20;color:'+statusColor+';border:1px solid '+statusColor+'40;">'+(statusLabel[(t.status === 'planejado') ? 'em_andamento' : t.status]||'Em Andamento')+'</span></div>' +
       '<span class="season-pub-expand" id="season-expand-'+t.id+'">'+(edicoes.length ? '▶' : '—')+'</span>' +
     '</div>' + edicoesHtml;
   });
