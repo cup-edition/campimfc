@@ -1,0 +1,2563 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<meta name="theme-color" content="#05080c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" type="image/png" href="https://cup-edition.github.io/sistema-inscricoes/CUP%20EDITION.png">
+<title>CUP EDITION CAMPIM FC</title>
+    <meta property="og:title" content="CUP EDITION CAMPIM FC" />
+    <meta property="og:description" content="A maior competição do CAMPIM FC" />
+    <meta property="og:image" content="https://cup-edition.github.io/campimfc/CUP%20EDITION.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://cup-edition.github.io/sistema-inscricoes/CUP-EDITION.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="CUP EDITION - CAMPIM FC" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CUP EDITION CAMPIM FC" />
+    <meta name="twitter:description" content="A maior competição do CAMPIM FC" />
+    <meta name="twitter:image" content="https://cup-edition.github.io/campimfc/CUP%20EDITION.jpg" />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;600;700;900&display=swap');
+
+  :root {
+    --bg-primary: #05080c;
+    --bg-secondary: #0a1219;
+    --bg-card: rgba(16, 28, 42, 0.85);
+    --bg-card-hover: rgba(24, 42, 62, 0.95);
+    --border-color: rgba(56, 156, 255, 0.15);
+    --border-glow: rgba(56, 156, 255, 0.3);
+    --text-primary: #f0f8ff;
+    --text-secondary: #8ab4d6;
+    --text-muted: #4a6a7a;
+    --accent-1: #00d4ff;
+    --accent-2: #7b2ffc;
+    --accent-3: #ff6b6b;
+    --accent-glow: rgba(0, 212, 255, 0.25);
+    --gradient-main: linear-gradient(135deg, #00d4ff 0%, #7b2ffc 50%, #ff6b6b 100%);
+    --shadow-card: 0 8px 40px rgba(0, 0, 0, 0.6);
+    --shadow-glow: 0 0 60px rgba(0, 212, 255, 0.1);
+    --radius: 16px;
+    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 10% 20%, rgba(0, 212, 255, 0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 80%, rgba(123, 47, 252, 0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(255, 107, 107, 0.02) 0%, transparent 70%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+  ::-webkit-scrollbar-thumb { background: var(--gradient-main); border-radius: 4px; }
+
+  .header {
+    background: rgba(10, 18, 25, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 32px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 40px rgba(0, 0, 0, 0.4);
+  }
+  .header-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+  .header-logo {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    max-width: 280px;
+  }
+  .header-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 30px var(--accent-glow));
+    transition: var(--transition);
+  }
+  .header-logo img:hover {
+    filter: drop-shadow(0 0 50px rgba(0, 212, 255, 0.4));
+    transform: scale(1.02);
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .live-badge {
+    background: var(--accent-3);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 20px;
+    letter-spacing: 2px;
+    animation: pulse-live 1.5s infinite;
+    text-transform: uppercase;
+    box-shadow: 0 0 30px rgba(255, 107, 107, 0.3);
+    flex-shrink: 0;
+  }
+  @keyframes pulse-live {
+    0%, 100% { opacity: 1; box-shadow: 0 0 30px rgba(255, 107, 107, 0.3); }
+    50% { opacity: 0.7; box-shadow: 0 0 60px rgba(255, 107, 107, 0.1); }
+  }
+
+  .header-time {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+
+  .status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #00e676;
+    display: inline-block;
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.4);
+    animation: pulse-dot 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { box-shadow: 0 0 20px rgba(0, 230, 118, 0.4); }
+    50% { box-shadow: 0 0 40px rgba(0, 230, 118, 0.1); }
+  }
+
+  .status-text {
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .main-nav {
+    background: rgba(10, 18, 25, 0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-color);
+  }
+  .main-nav-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    gap: 4px;
+    padding: 0 4px;
+  }
+  .nav-tab {
+    padding: 14px 28px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: var(--transition);
+    font-family: 'Inter', sans-serif;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 3px solid transparent;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 8px 8px 0 0;
+  }
+  .nav-tab:hover {
+    color: var(--text-primary);
+    background: rgba(0, 212, 255, 0.03);
+  }
+  .nav-tab.active {
+    color: var(--accent-1);
+    border-bottom-color: var(--accent-1);
+    background: rgba(0, 212, 255, 0.05);
+    box-shadow: inset 0 -3px 0 var(--accent-1);
+  }
+
+  .container { max-width: 1280px; margin: 0 auto; padding: 32px 24px; }
+
+  .section { display: none; animation: fadeIn 0.5s ease; }
+  .section.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    background: var(--gradient-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border-color), transparent);
+  }
+
+  .stat-boxes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .stat-box {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 24px;
+    text-align: center;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gradient-main);
+    animation: shimmer 3s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+  .stat-box:hover {
+    border-color: var(--border-glow);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card), var(--shadow-glow);
+  }
+  .stat-box-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 42px;
+    font-weight: 900;
+    background: var(--gradient-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+  }
+  .stat-box-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-top: 8px;
+    font-weight: 600;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow-card);
+    transition: var(--transition);
+  }
+  .card:hover {
+    border-color: var(--border-glow);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card), var(--shadow-glow);
+  }
+  .card-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    background: var(--gradient-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .season-pub-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    transition: var(--transition);
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+    margin-bottom: 12px;
+  }
+  .season-pub-card:hover {
+    border-color: var(--border-glow);
+    transform: translateX(4px);
+    box-shadow: var(--shadow-card), var(--shadow-glow);
+  }
+  .season-pub-card.active {
+    border-color: var(--accent-3);
+    box-shadow: 0 0 40px rgba(255, 107, 107, 0.08);
+  }
+  .season-pub-year {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 38px;
+    font-weight: 900;
+    color: var(--accent-1);
+    min-width: 80px;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .season-pub-year.active { color: var(--accent-3); }
+  .season-info {
+    flex: 1;
+  }
+  .season-pub-name {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .season-pub-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  .season-pub-badge { 
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .season-pub-expand {
+    font-size: 24px;
+    color: var(--text-muted);
+    transition: var(--transition);
+    flex-shrink: 0;
+  }
+  .season-pub-card:hover .season-pub-expand {
+    color: var(--accent-1);
+  }
+
+  .edicoes-container {
+    margin-top: 12px;
+    padding-left: 20px;
+    border-left: 2px solid var(--border-color);
+    display: none;
+  }
+  .edicoes-container.open { display: block; }
+
+  .edicao-item {
+    background: rgba(5, 8, 12, 0.4);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    transition: var(--transition);
+    cursor: pointer;
+  }
+  .edicao-item:hover {
+    border-color: var(--border-glow);
+    background: rgba(0, 212, 255, 0.03);
+  }
+  .edicao-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .edicao-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--accent-1);
+    min-width: 50px;
+  }
+  .edicao-global {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-weight: 600;
+    background: rgba(74, 106, 122, 0.15);
+    padding: 2px 8px;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(74, 106, 122, 0.1);
+  }
+  .edicao-campeao {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffd600;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .edicao-artilheiros {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .edicao-data {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+  .edicao-expand {
+    font-size: 18px;
+    color: var(--text-muted);
+    transition: var(--transition);
+  }
+
+  .edicao-detalhes-expand {
+    margin-top: 14px;
+    padding: 20px;
+    background: rgba(5, 8, 12, 0.3);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    display: none;
+  }
+  .edicao-detalhes-expand.open { display: block; }
+
+  .edicao-detalhes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .detail-card {
+    background: rgba(5, 8, 12, 0.4);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .detail-card:last-child { margin-bottom: 0; }
+  .detail-card-title {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 6px;
+  }
+
+  .final-match-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 8px 0;
+    font-size: 18px;
+    font-weight: 700;
+    flex-wrap: wrap;
+  }
+  .final-team {
+    text-align: center;
+    min-width: 80px;
+  }
+  .final-escudo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin: 0 auto 6px;
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+    background: rgba(5, 8, 12, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .final-escudo img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+  .final-escudo .fallback { font-size: 24px; }
+  .final-nome { font-size: 14px; font-weight: 600; }
+  .final-score {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--accent-1);
+  }
+  .final-score.gold { color: #ffd600; }
+
+  .table-wrap { overflow-x: auto; border-radius: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  thead th {
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 9px;
+    font-weight: 800;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--border-color);
+    background: rgba(5, 8, 12, 0.5);
+  }
+  tbody td {
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(56, 156, 255, 0.05);
+    vertical-align: middle;
+    font-size: 12px;
+  }
+  tbody tr:hover { background: rgba(0, 212, 255, 0.03); }
+  tbody tr:last-child td { border-bottom: none; }
+
+  .pos-badge-mini {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 12px;
+    font-family: 'Orbitron', sans-serif;
+  }
+  .pos-1-mini { background: linear-gradient(135deg, #ffd600, #f5a623); color: #000; }
+  .pos-2-mini { background: linear-gradient(135deg, #b0bec5, #78909c); color: #000; }
+  .pos-other-mini { background: var(--border-color); color: var(--text-muted); }
+
+  .artilheiro-mini {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(56, 156, 255, 0.05);
+  }
+  .artilheiro-mini:last-child { border-bottom: none; }
+  .artilheiro-mini .foto-mini {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #ffd600;
+    background: rgba(5, 8, 12, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .artilheiro-mini .foto-mini img { width: 100%; height: 100%; object-fit: cover; }
+  .artilheiro-mini .foto-mini .fallback { font-size: 16px; }
+  .artilheiro-mini .art-nome { font-weight: 600; flex: 1; font-size: 14px; }
+  .artilheiro-mini .art-time { font-size: 11px; color: var(--text-muted); }
+  .artilheiro-mini .art-gols {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--accent-1);
+  }
+  .artilheiro-mini .art-gols.gold { color: #ffd600; }
+
+  .gols-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  .gol-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 12px;
+    background: rgba(5, 8, 12, 0.2);
+    border-radius: 6px;
+    font-size: 13px;
+    border-left: 3px solid var(--border-color);
+  }
+  .gol-item.final-gol {
+    border-left-color: #ffd600;
+    background: rgba(255, 215, 0, 0.05);
+  }
+  .gol-item .gol-foto {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    background: rgba(5, 8, 12, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .gol-item .gol-foto img { width: 100%; height: 100%; object-fit: cover; }
+  .gol-item .gol-foto .fallback { font-size: 14px; }
+  .gol-item .gol-nome { font-weight: 600; flex: 1; font-size: 14px; }
+  .gol-item .gol-time { font-size: 11px; color: var(--text-muted); }
+  .gol-item .gol-fase {
+    font-size: 10px;
+    color: var(--accent-1);
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .gol-item .gol-fase.final-fase { color: #ffd600; }
+  .gol-item .gol-qtd {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent-1);
+  }
+  .gol-item .gol-detalhes {
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  .status-badge {
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    display: inline-block;
+    text-transform: uppercase;
+  }
+  .status-andamento { background: rgba(255, 107, 107, 0.12); color: var(--accent-3); }
+  .status-encerrado { background: rgba(74, 106, 122, 0.12); color: var(--text-muted); }
+  .status-planejado { background: rgba(0, 212, 255, 0.12); color: var(--accent-1); }
+
+  .empty-pub {
+    text-align: center;
+    padding: 64px 24px;
+    color: var(--text-muted);
+  }
+  .empty-pub .icon { font-size: 56px; margin-bottom: 16px; opacity: 0.5; }
+  .empty-pub p { font-size: 14px; }
+
+  .stats-table-wrap { overflow-x: auto; border-radius: 12px; }
+  .stats-table-wrap table { font-size: 12px; }
+  .stats-table-wrap thead th {
+    padding: 6px 10px;
+    font-size: 8px;
+    text-align: center;
+  }
+  .stats-table-wrap tbody td {
+    padding: 6px 10px;
+    text-align: center;
+    font-size: 12px;
+  }
+  .stats-table-wrap tbody td:first-child { text-align: left; }
+  .stats-table-wrap .player-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .stats-table-wrap .player-cell .avatar-mini {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    background: rgba(5, 8, 12, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .stats-table-wrap .player-cell .avatar-mini img { width: 100%; height: 100%; object-fit: cover; }
+  .stats-table-wrap .player-cell .avatar-mini .fallback { font-size: 14px; }
+  .stats-table-wrap .player-cell .player-name { font-weight: 600; font-size: 13px; }
+  .stats-table-wrap .player-cell .player-team { font-size: 10px; color: var(--text-muted); }
+  .stat-num { font-family: 'Orbitron', sans-serif; font-weight: 700; }
+  .stat-gols { color: var(--accent-1); font-size: 16px; }
+  .stat-titulos { color: #ffd600; font-size: 16px; }
+  .stat-vices { color: #b0bec5; font-size: 16px; }
+  .stat-artilharias { color: var(--accent-1); font-size: 16px; }
+  .stat-edicoes { color: var(--text-muted); font-size: 16px; }
+  .stat-partidas { color: var(--text-muted); font-size: 16px; }
+
+  .edicao-footer {
+    margin-top: 16px;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    padding-top: 12px;
+  }
+  .edicao-footer span { margin: 0 8px; }
+
+  .gol-stats {
+    display: flex;
+    gap: 4px;
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+  .gol-stats .fg { color: var(--accent-1); }
+  .gol-stats .f { color: #ffd600; }
+
+  /* ===== ESTILOS PARA NUMERAÇÃO HÍBRIDA ===== */
+  .edicao-num-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 60px;
+    flex-shrink: 0;
+  }
+  .edicao-num-local {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--accent-1);
+    line-height: 1.2;
+  }
+  .edicao-num-global {
+    font-size: 9px;
+    color: var(--text-muted);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background: rgba(74, 106, 122, 0.12);
+    padding: 1px 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(74, 106, 122, 0.08);
+    margin-top: 2px;
+  }
+  .edicao-num-local.gold { color: #ffd600; }
+
+  /* Estilo para o card de edição no dashboard */
+  .dash-edicao-num-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 50px;
+    flex-shrink: 0;
+  }
+  .dash-edicao-num-local {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--accent-1);
+    line-height: 1.2;
+  }
+  .dash-edicao-num-global {
+    font-size: 8px;
+    color: var(--text-muted);
+    font-weight: 600;
+    background: rgba(74, 106, 122, 0.12);
+    padding: 1px 6px;
+    border-radius: 8px;
+    border: 1px solid rgba(74, 106, 122, 0.08);
+    margin-top: 1px;
+  }
+
+  /* Estilo para destacar a temporada atual */
+  .current-season-badge {
+    background: rgba(0, 230, 118, 0.15);
+    color: #00e676;
+    border: 1px solid rgba(0, 230, 118, 0.25);
+    padding: 2px 14px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 768px) {
+    .header {
+      padding: 0 12px;
+      height: auto;
+      min-height: 56px;
+    }
+    .header-inner {
+      height: 56px;
+      gap: 8px;
+    }
+    .header-logo {
+      height: 36px;
+      max-width: 150px;
+    }
+    .header-time {
+      font-size: 9px;
+      display: none;
+    }
+    .status-text {
+      font-size: 7px;
+      display: none;
+    }
+    .live-badge {
+      font-size: 7px;
+      padding: 3px 8px;
+      letter-spacing: 1px;
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+    }
+
+    .main-nav {
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      height: auto;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+    .main-nav::-webkit-scrollbar {
+      display: none;
+    }
+    .main-nav-inner {
+      gap: 2px;
+      padding: 0 4px;
+      min-width: 100%;
+      width: max-content;
+    }
+    .nav-tab {
+      padding: 10px 14px;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .container {
+      padding: 14px 12px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+    }
+
+    .stat-boxes {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .stat-box {
+      background: transparent !important;
+      backdrop-filter: none !important;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 8px 4px !important;
+      box-shadow: none !important;
+    }
+    .stat-box::before {
+      display: none !important;
+    }
+    .stat-box:hover {
+      transform: none !important;
+      border-color: transparent !important;
+      box-shadow: none !important;
+    }
+    .stat-box-num {
+      font-size: 28px;
+    }
+    .stat-box-label {
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      margin-top: 2px;
+    }
+
+    .grid-2 {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+
+    .card {
+      background: transparent !important;
+      backdrop-filter: none !important;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 8px 0 !important;
+      box-shadow: none !important;
+    }
+    .card:hover {
+      transform: none !important;
+      border-color: transparent !important;
+      box-shadow: none !important;
+    }
+    .card-title {
+      font-size: 13px;
+      margin-bottom: 6px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid rgba(56, 156, 255, 0.1);
+    }
+
+    .season-pub-card {
+      background: transparent !important;
+      backdrop-filter: none !important;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 10px 0 !important;
+      box-shadow: none !important;
+      gap: 8px;
+      margin-bottom: 4px;
+      border-bottom: 1px solid rgba(56, 156, 255, 0.08) !important;
+    }
+    .season-pub-card:hover {
+      transform: none !important;
+      border-color: transparent !important;
+      box-shadow: none !important;
+    }
+    .season-pub-card.active {
+      border-color: transparent !important;
+      box-shadow: none !important;
+    }
+    .season-pub-year {
+      font-size: 22px;
+      min-width: 40px;
+    }
+    .season-pub-name {
+      font-size: 14px;
+    }
+    .season-pub-desc {
+      font-size: 11px;
+    }
+    .season-pub-expand {
+      font-size: 18px;
+    }
+
+    .edicoes-container {
+      padding-left: 8px;
+      border-left: 1px solid rgba(56, 156, 255, 0.1);
+      margin-top: 4px;
+    }
+    .edicao-item {
+      background: transparent !important;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 8px 0 !important;
+      margin-bottom: 4px;
+      border-bottom: 1px solid rgba(56, 156, 255, 0.05) !important;
+    }
+    .edicao-item:hover {
+      background: transparent !important;
+      border-color: transparent !important;
+    }
+    .edicao-header {
+      gap: 4px;
+    }
+    .edicao-num-wrapper {
+      min-width: 40px;
+    }
+    .edicao-num-local {
+      font-size: 14px;
+    }
+    .edicao-num-global {
+      font-size: 7px;
+      padding: 0 5px;
+    }
+    .edicao-campeao {
+      font-size: 12px;
+      gap: 4px;
+    }
+    .edicao-artilheiros {
+      font-size: 10px;
+    }
+    .edicao-data {
+      font-size: 9px;
+    }
+    .edicao-expand {
+      font-size: 14px;
+    }
+
+    .edicao-detalhes-expand {
+      background: transparent !important;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 8px 0 !important;
+      margin-top: 4px;
+    }
+    .edicao-detalhes-grid {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .stats-table-wrap table {
+      font-size: 10px;
+      min-width: 400px;
+    }
+    .stats-table-wrap thead th {
+      padding: 4px 6px;
+      font-size: 7px;
+    }
+    .stats-table-wrap tbody td {
+      padding: 4px 6px;
+      font-size: 10px;
+    }
+    .player-cell .avatar-mini {
+      width: 22px;
+      height: 22px;
+    }
+    .player-cell .player-name {
+      font-size: 10px;
+    }
+    .player-cell .player-team {
+      font-size: 7px;
+    }
+    .stat-num {
+      font-size: 11px;
+    }
+
+    .table-wrap {
+      margin: 0 -4px;
+      padding: 0 4px;
+    }
+
+    .status-badge {
+      padding: 2px 8px;
+      font-size: 7px;
+      letter-spacing: 0.5px;
+    }
+
+    .empty-pub {
+      padding: 30px 12px;
+    }
+    .empty-pub .icon {
+      font-size: 36px;
+      margin-bottom: 8px;
+    }
+    .empty-pub p {
+      font-size: 12px;
+    }
+
+    .edicao-footer {
+      border-top: 1px solid rgba(56, 156, 255, 0.1);
+      padding-top: 8px;
+      margin-top: 8px;
+    }
+
+    /* Mobile - Numeração híbrida no dashboard */
+    .dash-edicao-num-wrapper {
+      min-width: 35px;
+    }
+    .dash-edicao-num-local {
+      font-size: 14px;
+    }
+    .dash-edicao-num-global {
+      font-size: 6px;
+      padding: 0 4px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header-logo {
+      height: 30px;
+      max-width: 120px;
+    }
+    .live-badge {
+      font-size: 6px;
+      padding: 2px 6px;
+    }
+    .nav-tab {
+      padding: 8px 10px;
+      font-size: 9px;
+    }
+    .stat-box-num {
+      font-size: 24px;
+    }
+    .stat-box {
+      padding: 4px 0 !important;
+    }
+    .stat-box-label {
+      font-size: 8px;
+      letter-spacing: 1px;
+    }
+    .season-pub-year {
+      font-size: 18px;
+      min-width: 32px;
+    }
+    .season-pub-name {
+      font-size: 12px;
+    }
+    .edicao-num-wrapper {
+      min-width: 30px;
+    }
+    .edicao-num-local {
+      font-size: 12px;
+    }
+    .edicao-num-global {
+      font-size: 6px;
+      padding: 0 4px;
+    }
+    .edicao-campeao {
+      font-size: 10px;
+    }
+    .edicao-artilheiros {
+      font-size: 8px;
+    }
+    .edicao-data {
+      font-size: 8px;
+    }
+    .container {
+      padding: 10px 8px;
+    }
+    .card {
+      padding: 6px 0 !important;
+    }
+    .section-title {
+      font-size: 14px;
+    }
+    .season-pub-card {
+      padding: 8px 0 !important;
+    }
+    .edicao-item {
+      padding: 6px 0 !important;
+    }
+    .edicao-detalhes-expand {
+      padding: 6px 0 !important;
+    }
+    .card-title {
+      font-size: 11px;
+    }
+    .dash-edicao-num-wrapper {
+      min-width: 25px;
+    }
+    .dash-edicao-num-local {
+      font-size: 11px;
+    }
+    .dash-edicao-num-global {
+      font-size: 5px;
+      padding: 0 3px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .header-logo {
+      height: 24px;
+      max-width: 90px;
+    }
+    .header-time {
+      display: none !important;
+    }
+    .status-text {
+      display: none !important;
+    }
+    .live-badge {
+      font-size: 5px;
+      padding: 2px 4px;
+    }
+    .status-dot {
+      width: 5px;
+      height: 5px;
+    }
+    .nav-tab {
+      padding: 6px 8px;
+      font-size: 8px;
+    }
+    .stat-box-num {
+      font-size: 20px;
+    }
+    .stat-box-label {
+      font-size: 7px;
+      letter-spacing: 0.5px;
+    }
+    .season-pub-year {
+      font-size: 15px;
+      min-width: 26px;
+    }
+    .season-pub-name {
+      font-size: 11px;
+    }
+    .season-pub-desc {
+      font-size: 9px;
+    }
+    .edicao-num-wrapper {
+      min-width: 24px;
+    }
+    .edicao-num-local {
+      font-size: 10px;
+    }
+    .edicao-num-global {
+      font-size: 5px;
+      padding: 0 3px;
+    }
+    .edicao-campeao {
+      font-size: 9px;
+    }
+    .edicao-artilheiros {
+      font-size: 7px;
+    }
+    .edicao-data {
+      font-size: 7px;
+    }
+    .container {
+      padding: 6px 4px;
+    }
+    .dash-edicao-num-wrapper {
+      min-width: 20px;
+    }
+    .dash-edicao-num-local {
+      font-size: 9px;
+    }
+    .dash-edicao-num-global {
+      font-size: 4px;
+      padding: 0 2px;
+    }
+  }
+</style>
+<script>
+document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+document.addEventListener('keydown', function(e){
+  if (e.key === 'F12') { e.preventDefault(); return false; }
+  if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) { e.preventDefault(); return false; }
+  if (e.ctrlKey && e.key === 'U') { e.preventDefault(); return false; }
+  if (e.ctrlKey && e.key === 'S') { e.preventDefault(); return false; }
+});
+</script>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="header-logo">
+      <img src="https://cup-edition.github.io/campimfc/CUP%20EDITION%20PES.png" alt="CUP EDITION">
+    </div>
+    <div class="header-right">
+      <span class="live-badge">● AO VIVO</span>
+      <div class="header-time" id="clock"></div>
+      <span class="status-dot"></span>
+      <span class="status-text">EM TEMPO REAL</span>
+    </div>
+  </div>
+</header>
+
+<nav class="main-nav">
+  <div class="main-nav-inner">
+    <button class="nav-tab active" data-tab="ATUAL" onclick="showSection('atual', this)">📈 TEMPORADA ATUAL</button>
+    <button class="nav-tab" data-tab="CARREIRAS" onclick="showSection('dashboard', this)">📊 CARREIRAS</button>
+    <button class="nav-tab" data-tab="TEMPORADAS" onclick="showSection('temporadas', this)">📅 TODAS AS TEMPORADAS</button>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- ===== TEMPORADA ATUAL (Primeira aba - ESQUERDA) ===== -->
+  <div class="section active" id="sec-atual">
+    <div class="section-title">📈 Temporada Atual</div>
+    <div id="atual-content">
+      <div style="text-align:center;color:var(--text-muted);padding:40px 0;">Carregando temporada atual...</div>
+    </div>
+  </div>
+
+  <!-- ===== DASHBOARD (Histórico completo) ===== -->
+  <div class="section" id="sec-dashboard">
+    <div class="stat-boxes">
+      <div class="stat-box"><div class="stat-box-num" id="stat-edicoes">0</div><div class="stat-box-label">Edições</div></div>
+      <div class="stat-box"><div class="stat-box-num" id="stat-jogadores">0</div><div class="stat-box-label">Jogadores</div></div>
+      <div class="stat-box"><div class="stat-box-num" id="stat-partidas">0</div><div class="stat-box-label">Partidas</div></div>
+      <div class="stat-box"><div class="stat-box-num" id="stat-gols">0</div><div class="stat-box-label">Gols</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="card"><div class="card-title">🏆 Líder de Títulos</div><div id="dash-lider" style="padding:8px 0;color:var(--text-muted);text-align:center;">Carregando...</div></div>
+      <div class="card"><div class="card-title">🎯 Artilheiro do Histórico</div><div id="dash-artilheiro" style="padding:8px 0;color:var(--text-muted);text-align:center;">Carregando...</div></div>
+    </div>
+    <div class="card" style="margin-top:16px;"><div class="card-title">📋 Últimas 5 Edições</div><div id="dash-ultimas-edicoes" style="color:var(--text-muted);">Carregando...</div></div>
+    <div class="card" style="margin-top:16px;"><div class="card-title">👤 Estatísticas dos Jogadores</div><div id="dash-jogadores-stats" style="padding:8px 0;color:var(--text-muted);text-align:center;">Carregando...</div></div>
+  </div>
+
+  <!-- ===== TEMPORADAS ===== -->
+  <div class="section" id="sec-temporadas">
+    <div class="section-title">📅 Temporadas do Campeonato</div>
+    <div id="pub-temporadas"></div>
+  </div>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyA6ozmGZgsNYsNjCtpoaT9J3OY8t6hdUkc",
+  authDomain: "sistema-pes-d7794.firebaseapp.com",
+  projectId: "sistema-pes-d7794",
+  storageBucket: "sistema-pes-d7794.firebasestorage.app",
+  messagingSenderId: "110858256169",
+  appId: "1:110858256169:web:b5cdcee911b0b2d7954138"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+let state = { jogadores: [], partidas: [], temporadas: [], edicoes: [] };
+let isFirstLoad = true;
+
+// ============================================================
+// FUNÇÕES AUXILIARES
+// ============================================================
+
+function updateClock() {
+  var el = document.getElementById('clock');
+  if (el) el.textContent = new Date().toLocaleTimeString('pt-BR');
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+function getUrlParams() {
+  var params = {};
+  var query = window.location.search.substring(1);
+  var pairs = query.split('&');
+  for (var i = 0; i < pairs.length; i++) {
+    var pair = pairs[i].split('=');
+    if (pair.length === 2) {
+      params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+    }
+  }
+  return params;
+}
+
+function showSection(id, btn, replace) {
+  document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+  document.querySelectorAll('.nav-tab').forEach(function(b) { b.classList.remove('active'); });
+  var el = document.getElementById('sec-' + id);
+  if (el) el.classList.add('active');
+  if (btn) btn.classList.add('active');
+  
+  if (btn && btn.dataset.tab) {
+    var url = new URL(window.location);
+    url.searchParams.set('tab', btn.dataset.tab);
+    if (replace) {
+      window.history.replaceState({ tab: btn.dataset.tab }, '', url);
+    } else {
+      window.history.pushState({ tab: btn.dataset.tab }, '', url);
+    }
+  }
+  
+  if (id === 'dashboard') renderDashboard();
+  if (id === 'atual') renderTemporadaAtual();
+}
+
+window.addEventListener('popstate', function(event) {
+  var params = getUrlParams();
+  var tab = params.tab || 'atual';
+  var btn = document.querySelector('.nav-tab[data-tab="' + tab + '"]');
+  if (btn) {
+    showSection(tab, btn);
+  }
+});
+
+function imgOrEmoji(src, size) {
+  size = size || 40;
+  if (!src) {
+    return '<div style="width:'+size+'px;height:'+size+'px;border-radius:50%;background:var(--border-color);display:flex;align-items:center;justify-content:center;font-size:'+(size*0.5)+'px">🧑</div>';
+  }
+  if (src.startsWith('http') || src.startsWith('data:')) {
+    return '<img src="'+src+'" style="width:'+size+'px;height:'+size+'px;border-radius:50%;object-fit:cover;border:1px solid var(--border-color)" onerror="this.outerHTML=\'<div style=width:'+size+'px;height:'+size+'px;border-radius:50%;background:var(--border-color);display:flex;align-items:center;justify-content:center;font-size:'+(size*0.5)+'px>🧑</div>\'">';
+  }
+  return '<div style="width:'+size+'px;height:'+size+'px;border-radius:50%;background:var(--bg-primary);display:flex;align-items:center;justify-content:center;font-size:'+(size*0.5)+'px;border:1px solid var(--border-color)">'+src+'</div>';
+}
+
+function getJogador(id) {
+  var found = state.jogadores.find(function(x) { return x.id === id; });
+  return found || { nome: '?', foto: '🧑' };
+}
+
+function getTimeName(id) { var j = getJogador(id); return j.nome; }
+
+function ordinal(n) {
+  var sufixos = ['ª', 'ª', 'ª', 'ª', 'ª', 'ª', 'ª', 'ª', 'ª', 'ª'];
+  var v = n % 100;
+  return n + (sufixos[(v - 20) % 10] || sufixos[v] || sufixos[0]);
+}
+
+function getJogadorNome(id) {
+  var j = state.jogadores.find(function(x) { return x.id === id; });
+  return j ? j.nome : 'Desconhecido';
+}
+
+function getJogadorFoto(id) {
+  var j = state.jogadores.find(function(x) { return x.id === id; });
+  return j ? j.foto : null;
+}
+
+function getPlayerAvatarHTML(jogadorId, fallbackNome, size) {
+  size = size || 32;
+  var jogador = null;
+  if (jogadorId) jogador = state.jogadores.find(function(j) { return j.id === jogadorId; });
+  if (!jogador && fallbackNome) jogador = state.jogadores.find(function(j) { return j.nome === fallbackNome; });
+  var foto = jogador ? jogador.foto : null;
+  if (foto && (foto.startsWith('http') || foto.startsWith('data:'))) {
+    return '<img src="'+foto+'" style="width:100%;height:100%;object-fit:cover;">';
+  }
+  return '<span style="font-size:'+Math.round(size*0.45)+'px;">🧑</span>';
+}
+
+function isPlacarDefinido(valor) {
+  return valor !== '-' && valor !== '' && valor !== null && valor !== undefined && !isNaN(parseInt(valor));
+}
+
+// ============================================================
+// VISUALIZAR EDIÇÃO
+// ============================================================
+
+window.visualizarEdicao = function(edicaoId) {
+  const edicao = state.edicoes.find(e => e.id === edicaoId);
+  if (!edicao) return;
+
+  const numeroLocal = edicao.numeroTemporada || edicao.numero || 1;
+  const numeroGlobal = edicao.numero || 0;
+
+  const dataArquivo = (edicao.dataEdicao || '').replace(/\//g, '-');
+  const nomeArquivoEdicao = 'EDIÇÃO ' + numeroLocal + 'º (GLOBAL #' + numeroGlobal + ') ' + dataArquivo + ' (' + (edicao.temporadaNome || '') + ').png';
+
+  const timesComEscudos = (edicao.times || []).map(t => ({
+    ...t,
+    escudo: getJogador(t.id)?.foto || '🧑'
+  }));
+
+  const time1Final = timesComEscudos.find(t => t.id === edicao.final?.time1Id);
+  const time2Final = timesComEscudos.find(t => t.id === edicao.final?.time2Id);
+
+  function getPlayerAvatar(jogadorId) {
+    const jogador = state.jogadores.find(j => j.id === jogadorId);
+    if (jogador?.foto && (jogador.foto.startsWith('http') || jogador.foto.startsWith('data:'))) {
+      return `<img src="${jogador.foto}" style="width:100%;height:100%;object-fit:cover;">`;
+    }
+    return `<span style="font-size:14px;">🧑</span>`;
+  }
+
+  function getJogadorNome(jogadorId) {
+    const j = state.jogadores.find(j => j.id === jogadorId);
+    return j ? j.nome : 'Desconhecido';
+  }
+
+  let maiorGols = 0;
+  if (edicao.jogadores && Array.isArray(edicao.jogadores)) {
+    edicao.jogadores.forEach(j => {
+      if ((j.gols || 0) > maiorGols) {
+        maiorGols = j.gols || 0;
+      }
+    });
+  }
+
+  const jogadoresTime1Final = [];
+  const jogadoresTime2Final = [];
+
+  if (edicao.jogadores && Array.isArray(edicao.jogadores)) {
+    const time1Id = edicao.final?.time1Id;
+    const time2Id = edicao.final?.time2Id;
+
+    edicao.jogadores.forEach(j => {
+      if (j.timeId === time1Id) {
+        jogadoresTime1Final.push({
+          id: j.id,
+          nome: getJogadorNome(j.id),
+          gols: j.gols || 0
+        });
+      } else if (j.timeId === time2Id) {
+        jogadoresTime2Final.push({
+          id: j.id,
+          nome: getJogadorNome(j.id),
+          gols: j.gols || 0
+        });
+      }
+    });
+  }
+
+  jogadoresTime1Final.sort((a, b) => b.gols - a.gols);
+  jogadoresTime2Final.sort((a, b) => b.gols - a.gols);
+
+  function renderJogadoresAgrupados() {
+    if (!edicao.jogadores || edicao.jogadores.length === 0) {
+      return '<div style="color:var(--text-muted);font-size:13px;text-align:center;padding:12px;width:100%;">Nenhum jogador registrado nesta edição</div>';
+    }
+
+    const lista = edicao.jogadores.slice().sort((a, b) => (b.gols || 0) - (a.gols || 0));
+
+    return lista.map(j => {
+      const isMaiorGol = j.gols > 0 && j.gols === maiorGols;
+      return `
+        <div style="display:flex;align-items:center;gap:8px;padding:4px 10px;background:${isMaiorGol ? 'rgba(255,215,0,0.08)' : 'rgba(5,8,12,0.2)'};border-radius:6px;margin:2px;border:${isMaiorGol ? '1px solid rgba(255,215,0,0.15)' : '1px solid var(--border-color)'};min-width:200px;flex:1;">
+          <div style="width:24px;height:24px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            ${getPlayerAvatar(j.id)}
+          </div>
+          <span style="font-weight:${isMaiorGol ? '700' : '500'};flex:1;font-size:13px;color:${isMaiorGol ? '#ffd600' : 'var(--text-primary)'};">${getJogadorNome(j.id)}</span>
+          <span style="font-size:11px;color:${isMaiorGol ? '#ffd600' : 'var(--accent-1)'};font-weight:600;">${j.gols || 0}⚽</span>
+          ${isMaiorGol ? '<span style="font-size:11px;">🎯</span>' : ''}
+        </div>
+      `;
+    }).join('');
+  }
+
+  function renderPlacaresFaseGrupos() {
+    if (!edicao.partidas || edicao.partidas.length === 0) {
+      return '<div style="color:var(--text-muted);font-size:13px;text-align:center;padding:12px;">Nenhuma partida registrada</div>';
+    }
+
+    return edicao.partidas.map(p => {
+      const escudo1 = getJogador(p.time1Id)?.foto || '🧑';
+      const escudo2 = getJogador(p.time2Id)?.foto || '🧑';
+      const nome1 = getJogadorNome(p.time1Id) || p.time1Nome || '?';
+      const nome2 = getJogadorNome(p.time2Id) || p.time2Nome || '?';
+      return `
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 12px;background:rgba(5,8,12,0.2);border-radius:6px;margin-bottom:4px;border:1px solid var(--border-color);">
+          <div style="display:flex;align-items:center;gap:8px;flex:1;">
+            <div style="width:24px;height:24px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              ${escudo1 && (escudo1.startsWith('http') || escudo1.startsWith('data:')) 
+                ? `<img src="${escudo1}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
+                : `<span style="font-size:12px;">${escudo1 || '🧑'}</span>`}
+            </div>
+            <span style="font-size:13px;font-weight:500;">${nome1}</span>
+          </div>
+          <div style="font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:var(--accent-1);padding:0 12px;">
+            ${p.gols1 || 0} × ${p.gols2 || 0}
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;flex:1;justify-content:flex-end;">
+            <span style="font-size:13px;font-weight:500;">${nome2}</span>
+            <div style="width:24px;height:24px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              ${escudo2 && (escudo2.startsWith('http') || escudo2.startsWith('data:')) 
+                ? `<img src="${escudo2}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
+                : `<span style="font-size:12px;">${escudo2 || '🧑'}</span>`}
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  const tevePenalidades = edicao.final?.tevePenalidades || false;
+
+  let penaltyInfo = '';
+  if (tevePenalidades && edicao.final) {
+    const g1 = edicao.final.golsPenalidades1 || 0;
+    const g2 = edicao.final.golsPenalidades2 || 0;
+    penaltyInfo = `<div style="font-size:13px;color:#ff6b6b;font-weight:700;margin-top:4px;">⚽ Pênaltis: ${g1} × ${g2}</div>`;
+    if (edicao.final.penalties?.winner) {
+      penaltyInfo += `<div style="font-size:13px;color:#ffd600;font-weight:700;">🏆 Vencedor nos pênaltis: ${edicao.final.penalties.winner}</div>`;
+    }
+  }
+
+  let html = `
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(12px);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)this.remove()">
+      <div id="modal-edicao-captura" style="background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px;padding:32px;max-width:1100px;max-height:90vh;overflow-y:auto;width:100%;position:relative;">
+        <button onclick="this.closest('div[style*=\\'position:fixed\\']').remove()" id="btn-fechar-modal-edicao" style="position:sticky;top:0;float:right;background:rgba(255,107,107,0.2);border:none;color:var(--accent-3);font-size:24px;cursor:pointer;padding:4px 12px;border-radius:8px;z-index:10;">✕</button>
+        <button onclick="baixarImagemEdicao('modal-edicao-captura', '${nomeArquivoEdicao}')" id="btn-baixar-edicao" title="Baixar imagem da edição" style="position:sticky;top:0;float:right;margin-right:8px;background:rgba(0,212,255,0.15);border:1px solid rgba(0,212,255,0.3);color:var(--accent-1);font-size:18px;cursor:pointer;padding:6px 14px;border-radius:8px;z-index:10;">📥</button>
+        
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap;">
+          <div style="font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;background:var(--gradient-main);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+            ${ordinal(numeroLocal)} Edição
+          </div>
+          <div style="font-size:13px;color:var(--text-muted);font-weight:600;background:rgba(74,106,122,0.15);padding:4px 14px;border-radius:20px;border:1px solid rgba(74,106,122,0.1);letter-spacing:0.5px;">
+            🌍 Global #${numeroGlobal}
+          </div>
+          <div style="font-size:14px;color:var(--text-secondary);font-weight:600;">
+            ${edicao.temporadaNome || 'Temporada'}
+          </div>
+        </div>
+        
+        <div style="font-size:14px;color:var(--text-muted);margin-bottom:16px;">
+          📅 ${edicao.dataEdicao || 'Data não definida'} • ⚽ ${edicao.totalPartidas || 0} partidas • 🎯 ${edicao.totalGols || 0} gols
+          ${edicao.jogadores?.length ? `• 👤 ${edicao.jogadores.length} jogadores` : ''}
+          ${tevePenalidades ? '• ⚽ Decidido nos pênaltis' : ''}
+        </div>
+        
+        <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);margin-bottom:16px;">
+          <div style="font-size:18px;font-weight:900;color:#ffd600;text-align:center;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;text-shadow:0 0 16px rgba(255,214,0,0.35);">FINAL</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:30px;flex-wrap:wrap;">
+            
+            <div style="text-align:center;min-width:140px;">
+              ${edicao.campeao?.timeId === time1Final?.id ? '<div style="font-size:11px;font-weight:700;color:#ffd600;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">🏆 CAMPEÃO</div>' : (edicao.vice?.timeId === time1Final?.id ? '<div style="font-size:11px;font-weight:700;color:#a0a0a0;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">🥈 VICE</div>' : '<div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">&nbsp;</div>')}
+              <div style="display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:8px;">
+                <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;border:2px solid ${edicao.campeao?.timeId === time1Final?.id ? '#ffd600' : (edicao.vice?.timeId === time1Final?.id ? '#a0a0a0' : 'var(--border-color)')};background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:${edicao.campeao?.timeId === time1Final?.id ? '0 0 14px rgba(255,214,0,0.5)' : 'none'};">
+                  ${time1Final?.escudo && (time1Final.escudo.startsWith('http') || time1Final.escudo.startsWith('data:')) 
+                    ? `<img src="${time1Final.escudo}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
+                    : `<span style="font-size:20px;">${time1Final?.escudo || '🧑'}</span>`}
+                </div>
+                <span style="font-size:18px;font-weight:700;color:${edicao.campeao?.timeId === time1Final?.id ? '#ffd600' : (edicao.vice?.timeId === time1Final?.id ? '#a0a0a0' : 'var(--text-primary)')};">${edicao.final?.time1Nome || '?'}</span>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:280px;">
+                ${jogadoresTime1Final.length > 0 ? jogadoresTime1Final.map(j => {
+                  const golsNaFinal = (edicao.final?.eventos || []).filter(e => e.jogadorId === j.id && !e.isPenalidade).length;
+                  return `
+                    <div style="display:flex;align-items:center;gap:6px;padding:2px 10px 2px 4px;background:rgba(5,8,12,0.3);border-radius:16px;border:1px solid var(--border-color);font-size:13px;">
+                      <div style="width:26px;height:26px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        ${getPlayerAvatar(j.id)}
+                      </div>
+                      <span style="font-weight:500;color:var(--text-primary);">${j.nome}</span>
+                      ${golsNaFinal > 0 ? `<span style="font-weight:700;color:#ffd600;font-size:12px;">⚽${golsNaFinal}</span>` : ''}
+                    </div>
+                  `;
+                }).join('') : '<span style="font-size:12px;color:var(--text-muted);">Sem jogadores</span>'}
+              </div>
+            </div>
+            
+            <div style="text-align:center;min-width:140px;">
+              <div style="font-family:'Orbitron',sans-serif;font-size:32px;font-weight:900;color:var(--accent-1);">
+                ${edicao.final?.gols1 || 0} × ${edicao.final?.gols2 || 0}
+              </div>
+              ${penaltyInfo}
+            </div>
+            
+            <div style="text-align:center;min-width:140px;">
+              ${edicao.campeao?.timeId === time2Final?.id ? '<div style="font-size:11px;font-weight:700;color:#ffd600;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">🏆 CAMPEÃO</div>' : (edicao.vice?.timeId === time2Final?.id ? '<div style="font-size:11px;font-weight:700;color:#a0a0a0;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">🥈 VICE</div>' : '<div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">&nbsp;</div>')}
+              <div style="display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:8px;">
+                <span style="font-size:18px;font-weight:700;color:${edicao.campeao?.timeId === time2Final?.id ? '#ffd600' : (edicao.vice?.timeId === time2Final?.id ? '#a0a0a0' : 'var(--text-primary)')};">${edicao.final?.time2Nome || '?'}</span>
+                <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;border:2px solid ${edicao.campeao?.timeId === time2Final?.id ? '#ffd600' : (edicao.vice?.timeId === time2Final?.id ? '#a0a0a0' : 'var(--border-color)')};background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:${edicao.campeao?.timeId === time2Final?.id ? '0 0 14px rgba(255,214,0,0.5)' : 'none'};">
+                  ${time2Final?.escudo && (time2Final.escudo.startsWith('http') || time2Final.escudo.startsWith('data:')) 
+                    ? `<img src="${time2Final.escudo}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
+                    : `<span style="font-size:20px;">${time2Final?.escudo || '🧑'}</span>`}
+                </div>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:280px;">
+                ${jogadoresTime2Final.length > 0 ? jogadoresTime2Final.map(j => {
+                  const golsNaFinal = (edicao.final?.eventos || []).filter(e => e.jogadorId === j.id && !e.isPenalidade).length;
+                  return `
+                    <div style="display:flex;align-items:center;gap:6px;padding:2px 10px 2px 4px;background:rgba(5,8,12,0.3);border-radius:16px;border:1px solid var(--border-color);font-size:13px;">
+                      <div style="width:26px;height:26px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        ${getPlayerAvatar(j.id)}
+                      </div>
+                      <span style="font-weight:500;color:var(--text-primary);">${j.nome}</span>
+                      ${golsNaFinal > 0 ? `<span style="font-weight:700;color:#ffd600;font-size:12px;">⚽${golsNaFinal}</span>` : ''}
+                    </div>
+                  `;
+                }).join('') : '<span style="font-size:12px;color:var(--text-muted);">Sem jogadores</span>'}
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        
+        <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);margin-bottom:16px;">
+          <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">📋 RESULTADOS DA FASE DE GRUPOS</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+            ${renderPlacaresFaseGrupos()}
+          </div>
+        </div>
+        
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+          <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);">
+            <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">🎯 ARTILHARIA DA EDIÇÃO</div>
+            ${edicao.jogadores?.length ? `
+              <div style="display:flex;flex-direction:column;gap:3px;max-height:300px;overflow-y:auto;">
+                ${edicao.jogadores.slice().sort((a, b) => (b.gols || 0) - (a.gols || 0)).map(j => {
+                  const isMaiorGol = j.gols > 0 && j.gols === maiorGols;
+                  return `
+                    <div style="display:flex;align-items:center;gap:8px;padding:4px 8px;background:${isMaiorGol ? 'rgba(255,215,0,0.08)' : 'rgba(5,8,12,0.2)'};border-radius:4px;border:${isMaiorGol ? '1px solid rgba(255,215,0,0.2)' : 'none'};">
+                      <div style="width:24px;height:24px;border-radius:50%;overflow:hidden;border:${isMaiorGol ? '2px solid #ffd600' : '1px solid var(--border-color)'};background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        ${getPlayerAvatar(j.id)}
+                      </div>
+                      <span style="font-weight:${isMaiorGol ? '700' : '600'};flex:1;color:${isMaiorGol ? '#ffd600' : 'var(--text-primary)'};">${getJogadorNome(j.id)}</span>
+                      <span style="color:${isMaiorGol ? '#ffd600' : 'var(--accent-1)'};font-weight:700;font-family:'Orbitron',sans-serif;">${j.gols || 0} ⚽</span>
+                      ${isMaiorGol ? '🎯' : ''}
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            ` : '<div style="color:var(--text-muted);">Nenhum jogador registrado</div>'}
+          </div>
+          
+          <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);">
+            <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">📊 CLASSIFICAÇÃO FASE DE GRUPOS</div>
+            ${edicao.classificacao?.length ? `
+              <div style="display:flex;flex-direction:column;gap:4px;max-height:300px;overflow-y:auto;">
+                ${edicao.classificacao.filter(c => (c.jogos || 0) > 0).map(c => {
+                  const time = state.jogadores.find(t => t.id === c.timeId);
+                  const posEmoji = c.posicao === 1 ? '🥇' : (c.posicao === 2 ? '🥈' : (c.posicao === 3 ? '🥉' : `${c.posicao}.`));
+                  return `
+                    <div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:${c.posicao === 1 ? 'rgba(255,215,0,0.08)' : (c.posicao === 2 ? 'rgba(192,192,192,0.08)' : 'rgba(5,8,12,0.3)')};border-radius:6px;border:${c.posicao === 1 ? '1px solid rgba(255,215,0,0.2)' : (c.posicao === 2 ? '1px solid rgba(192,192,192,0.15)' : 'none')};">
+                      <span style="font-weight:700;color:var(--text-muted);min-width:30px;">${posEmoji}</span>
+                      <div style="width:24px;height:24px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        ${time?.foto && (time.foto.startsWith('http') || time.foto.startsWith('data:')) 
+                          ? `<img src="${time.foto}" style="width:100%;height:100%;object-fit:cover;padding:0;">` 
+                          : `<span style="font-size:12px;">${time?.foto || '🧑'}</span>`}
+                      </div>
+                      <span style="font-weight:600;flex:1;font-size:14px;color:${c.posicao === 1 ? '#ffd600' : 'var(--text-primary)'};">${c.timeNome}</span>
+                      <span style="color:var(--accent-1);font-weight:700;font-family:'Orbitron',sans-serif;font-size:18px;">${c.pontos}</span>
+                      <span style="font-size:10px;color:var(--text-muted);">${c.vitorias}V ${c.empates}E ${c.derrotas}D</span>
+                      <span style="font-size:10px;color:var(--text-muted);">⚽ ${c.golsPro}×${c.golsContra}</span>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            ` : '<div style="color:var(--text-muted);">Classificação não disponível</div>'}
+          </div>
+        </div>
+        
+        <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);margin-bottom:16px;">
+          <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">👥 JOGADORES PARTICIPANTES</div>
+          <div style="max-height:350px;overflow-y:auto;display:flex;flex-wrap:wrap;">
+            ${renderJogadoresAgrupados()}
+          </div>
+        </div>
+        
+        <div style="margin-top:16px;font-size:11px;color:var(--text-muted);text-align:center;border-top:1px solid var(--border-color);padding-top:12px;">
+          Finalizado em ${edicao.dataFinalizacao ? new Date(edicao.dataFinalizacao).toLocaleDateString('pt-BR') : 'data desconhecida'}
+          ${edicao.jogadores?.length ? `• ${edicao.jogadores.length} jogadores participantes` : ''}
+          ${edicao.totalGols ? `• ${edicao.totalGols} gols totais` : ''}
+          ${edicao.partidas?.length ? `• ${edicao.partidas.length} partidas na fase de grupos` : ''}
+          ${tevePenalidades ? '• ⚽ Decidido nos pênaltis' : ''}
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.insertAdjacentHTML('beforeend', html);
+};
+
+window.baixarImagemEdicao = function(containerId, nomeArquivo) {
+  var container = document.getElementById(containerId);
+  if (!container) return;
+  if (typeof html2canvas === 'undefined') {
+    alert('Biblioteca de imagem não carregou. Verifique a conexão.');
+    return;
+  }
+  var btn = document.getElementById('btn-baixar-edicao');
+  var fechar = document.getElementById('btn-fechar-modal-edicao');
+  var ocultos = [];
+  [btn, fechar].forEach(function(el) {
+    if (el) { ocultos.push([el, el.style.display]); el.style.display = 'none'; }
+  });
+
+  if (!nomeArquivo) nomeArquivo = 'edicao-' + new Date().toISOString().slice(0, 10) + '.png';
+
+  html2canvas(container, {
+    useCORS: true,
+    scale: 2,
+    backgroundColor: '#0a1219',
+    onclone: function(doc) {
+      var raiz = doc.getElementById(containerId);
+      var nodes = raiz ? [raiz].concat(Array.prototype.slice.call(raiz.querySelectorAll('*'))) : [];
+      nodes.forEach(function(n) {
+        n.style.maxHeight = 'none';
+        n.style.overflow = 'visible';
+      });
+      if (raiz) {
+        raiz.querySelectorAll('img').forEach(function(img) {
+          var inline = img.getAttribute('style') || '';
+          var ehEscudo = inline.indexOf('object-fit:contain') !== -1;
+          if (!ehEscudo) {
+            img.style.borderRadius = '50%';
+          }
+        });
+      }
+    }
+  }).then(function(canvas) {
+    ocultos.forEach(function(p) { p[0].style.display = p[1]; });
+    canvas.toBlob(function(blob) {
+      if (!blob) { alert('Falha ao gerar a imagem'); return; }
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = nomeArquivo;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(function() { URL.revokeObjectURL(url); }, 1500);
+    }, 'image/png');
+  }).catch(function(err) {
+    ocultos.forEach(function(p) { p[0].style.display = p[1]; });
+    console.error('Erro ao gerar imagem:', err);
+    alert('Não foi possível gerar a imagem.');
+  });
+};
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+
+function renderDashboard() {
+  document.getElementById('stat-edicoes').textContent = state.edicoes.length;
+  document.getElementById('stat-jogadores').textContent = state.jogadores.length;
+
+  var totalPartidas = 0, totalGols = 0;
+  state.edicoes.forEach(function(e) {
+    totalPartidas += e.totalPartidas || 0;
+    totalGols += e.totalGols || 0;
+  });
+  document.getElementById('stat-partidas').textContent = totalPartidas || state.partidas.length;
+  document.getElementById('stat-gols').textContent = totalGols;
+
+  var liderEl = document.getElementById('dash-lider');
+  var titulosPorJogador = {};
+  state.edicoes.forEach(function(edicao) {
+    if (edicao.jogadores && Array.isArray(edicao.jogadores)) {
+      edicao.jogadores.forEach(function(j) {
+        if (j.timeId === (edicao.campeao || {}).timeId) {
+          titulosPorJogador[j.id] = (titulosPorJogador[j.id] || 0) + 1;
+        }
+      });
+    }
+  });
+
+  var maiorNumeroTitulos = 0;
+  for (var key in titulosPorJogador) {
+    if (titulosPorJogador[key] > maiorNumeroTitulos) maiorNumeroTitulos = titulosPorJogador[key];
+  }
+
+  var lideres = [];
+  for (var key2 in titulosPorJogador) {
+    if (titulosPorJogador[key2] === maiorNumeroTitulos && maiorNumeroTitulos > 0) {
+      var jogador = state.jogadores.find(function(j) { return j.id === key2; });
+      if (jogador) lideres.push({ ...jogador, titulos: titulosPorJogador[key2] });
+    }
+  }
+
+  if (lideres.length > 0) {
+    liderEl.innerHTML = lideres.map(function(j) {
+      return '<div style="display:flex;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid rgba(56,156,255,0.05);">'+
+        imgOrEmoji(j.foto, 40)+
+        '<div><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:15px;font-weight:700;color:#ffd600;">🏆 '+j.nome+'</span></div>'+
+        '<div style="color:var(--text-muted);font-size:12px;">'+j.titulos+' título(s)</div></div></div>';
+    }).join('') + '<div style="color:var(--accent-1);font-size:12px;margin-top:4px;">🏅 '+state.edicoes.length+' edições realizadas</div>';
+  } else {
+    liderEl.innerHTML = 'Nenhum título registrado';
+  }
+
+  var artEl = document.getElementById('dash-artilheiro');
+  var golsPorJogador = {};
+  state.edicoes.forEach(function(edicao) {
+    if (edicao.jogadores && Array.isArray(edicao.jogadores)) {
+      edicao.jogadores.forEach(function(j) {
+        if (j.gols) {
+          golsPorJogador[j.id] = (golsPorJogador[j.id] || 0) + j.gols;
+        }
+      });
+    }
+  });
+
+  var maiorNumeroGols = 0;
+  for (var key3 in golsPorJogador) {
+    if (golsPorJogador[key3] > maiorNumeroGols) maiorNumeroGols = golsPorJogador[key3];
+  }
+
+  var artilheiros = [];
+  for (var key4 in golsPorJogador) {
+    if (golsPorJogador[key4] === maiorNumeroGols && maiorNumeroGols > 0) {
+      var jogador2 = state.jogadores.find(function(j) { return j.id === key4; });
+      if (jogador2) artilheiros.push({ ...jogador2, gols: golsPorJogador[key4] });
+    }
+  }
+
+  if (artilheiros.length > 0) {
+    artEl.innerHTML = artilheiros.map(function(j) {
+      return '<div style="display:flex;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid rgba(56,156,255,0.05);">'+
+        imgOrEmoji(j.foto, 40)+
+        '<div><div style="font-size:15px;font-weight:700;">'+j.nome+'</div>'+
+        '<div style="color:var(--accent-1);font-family:Orbitron,sans-serif;font-size:22px;">'+j.gols+' ⚽</div></div></div>';
+    }).join('') + '<div style="color:var(--text-muted);font-size:12px;margin-top:4px;">🎯 Maior(es) Artilheiro(s) do Histórico</div>';
+  } else {
+    artEl.innerHTML = 'Sem gols registrados';
+  }
+
+  var ultEl = document.getElementById('dash-ultimas-edicoes');
+  var sortedEdicoes = state.edicoes.slice().sort(function(a, b) { 
+    return (b.numero || 0) - (a.numero || 0); 
+  });
+  var recentes = sortedEdicoes.slice(0, 5);
+
+  if (recentes.length > 0) {
+    ultEl.innerHTML = recentes.map(function(e, index) {
+      var numeroLocal = e.numeroTemporada || e.numero || 1;
+      var numeroGlobal = e.numero || 0;
+
+      var campeaoId = (e.campeao || {}).timeId;
+      var campeaoNome = 'N/A';
+      var escudoCampeao = '';
+      if (campeaoId) {
+        var timeCampeao = getJogador(campeaoId);
+        campeaoNome = timeCampeao.nome;
+        escudoCampeao = timeCampeao.foto;
+      }
+
+      var jogadoresDoTime = [];
+      if (e.jogadores && Array.isArray(e.jogadores)) {
+        var jogadoresFiltrados = e.jogadores.filter(function(j) {
+          return j.timeId === campeaoId;
+        });
+        
+        jogadoresFiltrados.forEach(function(j) {
+          var jogadorAtual = state.jogadores.find(function(jg) { return jg.id === j.id; });
+          if (jogadorAtual) {
+            jogadoresDoTime.push({
+              nome: jogadorAtual.nome,
+              gols: j.gols || 0,
+              foto: jogadorAtual.foto
+            });
+          } else {
+            jogadoresDoTime.push({
+              nome: j.nome || 'Jogador',
+              gols: j.gols || 0,
+              foto: null
+            });
+          }
+        });
+        
+        jogadoresDoTime.sort(function(a, b) {
+          return b.gols - a.gols;
+        });
+      }
+
+      var jogadoresHtml = '';
+      if (jogadoresDoTime.length > 0) {
+        jogadoresHtml = jogadoresDoTime.map(function(j) {
+          var fotoHtml = j.foto && (j.foto.startsWith('http') || j.foto.startsWith('data:'))
+            ? '<img src="'+j.foto+'" style="width:18px;height:18px;border-radius:50%;object-fit:cover;border:1px solid var(--border-color);">'
+            : '<span style="font-size:11px;">🧑</span>';
+          
+          return '<span style="display:inline-flex;align-items:center;gap:3px;background:rgba(5,8,12,0.3);padding:1px 8px 1px 3px;border-radius:12px;border:1px solid var(--border-color);font-size:11px;margin-right:4px;transition:all 0.3s ease;">'+
+            fotoHtml+
+            '<span style="font-weight:500;">'+j.nome+'</span>'+
+            '<span style="color:var(--accent-1);font-weight:700;font-size:10px;">⚽'+j.gols+'</span>'+
+          '</span>';
+        }).join('');
+      } else {
+        jogadoresHtml = '<span style="font-size:11px;color:var(--text-muted);">Nenhum jogador</span>';
+      }
+
+      var delay = index * 50;
+      
+      return '<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid rgba(56,156,255,0.05);cursor:pointer;flex-wrap:wrap;border-radius:10px;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);background:transparent;position:relative;overflow:hidden;animation: fadeInItem 0.4s ease '+delay+'ms both;" '+
+        'onmouseenter="this.style.background=\'rgba(0,212,255,0.06)\'; this.style.borderColor=\'var(--accent-1)\'; this.style.transform=\'translateX(6px) scale(1.01)\'; this.style.boxShadow=\'0 0 40px rgba(0,212,255,0.06)\';" '+
+        'onmouseleave="this.style.background=\'transparent\'; this.style.borderColor=\'transparent\'; this.style.transform=\'translateX(0) scale(1)\'; this.style.boxShadow=\'none\';" '+
+        'onmousedown="this.style.transform=\'scale(0.97)\'; this.style.transition=\'all 0.1s ease\';" '+
+        'onmouseup="this.style.transform=\'scale(1.01)\'; this.style.transition=\'all 0.2s ease\';" '+
+        'onclick="visualizarEdicao(\''+e.id+'\')">'+
+        '<div style="position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle, rgba(0,212,255,0.03) 0%, transparent 70%);opacity:0;transition:opacity 0.5s ease;pointer-events:none;" '+
+        'onmouseenter="this.style.opacity=\'1\'" onmouseleave="this.style.opacity=\'0\'"></div>'+
+        '<span class="dash-edicao-num-local" style="font-family:\'Orbitron\',sans-serif;font-size:20px;font-weight:900;color:var(--accent-1);position:relative;z-index:1;transition:all 0.3s ease;">'+ordinal(numeroLocal)+'</span>'+
+        (escudoCampeao ? '<span style="position:relative;z-index:1;">'+imgOrEmoji(escudoCampeao, 22)+'</span>' : '')+
+        '<span style="font-weight:700;color:#ffd600;font-size:14px;flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;">'+campeaoNome+'</span>'+
+        '<span style="display:flex;align-items:center;gap:2px;flex:1;flex-wrap:wrap;min-width:120px;position:relative;z-index:1;">'+
+          jogadoresHtml+
+        '</span>'+
+        '<span style="font-size:11px;color:var(--text-muted);flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;">📅 '+(e.dataEdicao||'—')+'</span>'+
+        '<span style="background:rgba(0,212,255,0.15);color:var(--accent-1);border:1px solid rgba(0,212,255,0.25);padding:2px 14px;border-radius:16px;font-weight:700;font-size:14px;font-family:\'Orbitron\',sans-serif;flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;box-shadow:0 0 20px rgba(0,212,255,0.05);">#'+numeroGlobal+'</span>'+
+      '</div>';
+    }).join('') + 
+    '<style>'+
+    '@keyframes fadeInItem {'+
+    '  0% { opacity: 0; transform: translateY(12px) scale(0.98); }'+
+    '  100% { opacity: 1; transform: translateY(0) scale(1); }'+
+    '}'+
+    '</style>';
+  } else {
+    ultEl.innerHTML = 'Nenhuma edição finalizada';
+  }
+
+  var statsEl = document.getElementById('dash-jogadores-stats');
+  var jogadoresComHistorico = state.jogadores.map(function(jogador) {
+    var golsHistorico = 0, partidasHistorico = 0, titulosHistorico = 0, vicesHistorico = 0, artilhariasHistorico = 0, edicoesParticipou = 0;
+
+    state.edicoes.forEach(function(edicao) {
+      var jogadorEdicao = (edicao.jogadores || []).find(function(j) { return j.id === jogador.id; });
+      if (jogadorEdicao) {
+        edicoesParticipou++;
+        golsHistorico += jogadorEdicao.gols || 0;
+        partidasHistorico += jogadorEdicao.partidasJogadas || 0;
+        if ((edicao.campeao || {}).timeId === jogadorEdicao.timeId) titulosHistorico++;
+        if ((edicao.vice || {}).timeId === jogadorEdicao.timeId) vicesHistorico++;
+        if (edicao.artilheiros && Array.isArray(edicao.artilheiros)) {
+          if (edicao.artilheiros.some(function(a) { return a.jogadorId === jogador.id; })) artilhariasHistorico++;
+        }
+      }
+    });
+
+    return { ...jogador, golsHistorico, partidasHistorico, titulosHistorico, vicesHistorico, artilhariasHistorico, edicoesParticipou };
+  });
+
+  var listaOrdenada = jogadoresComHistorico.filter(function(j) {
+    return j.golsHistorico > 0 || j.titulosHistorico > 0 || j.vicesHistorico > 0 || j.artilhariasHistorico > 0 || j.edicoesParticipou > 0;
+  }).sort(function(a, b) {
+    if (b.golsHistorico !== a.golsHistorico) return b.golsHistorico - a.golsHistorico;
+    if (b.titulosHistorico !== a.titulosHistorico) return b.titulosHistorico - a.titulosHistorico;
+    if (b.vicesHistorico !== a.vicesHistorico) return b.vicesHistorico - a.vicesHistorico;
+    if (b.artilhariasHistorico !== a.artilhariasHistorico) return b.artilhariasHistorico - a.artilhariasHistorico;
+    return a.nome.localeCompare(b.nome);
+  });
+
+  if (listaOrdenada.length > 0) {
+    statsEl.innerHTML = '<div class="stats-table-wrap"><table><thead><tr>'+
+      '<th style="text-align:left;">Jogador</th><th style="text-align:center;">⚽ Gols</th>'+
+      '<th style="text-align:center;">🏆 Títulos</th><th style="text-align:center;">🥈 Vices</th>'+
+      '<th style="text-align:center;">🎯 Artilharias</th><th style="text-align:center;">📅 Edições</th>'+
+      '<th style="text-align:center;">📋 Partidas</th></tr></thead><tbody>'+
+      listaOrdenada.map(function(j) {
+        var avatarHtml = j.foto && (j.foto.startsWith('http') || j.foto.startsWith('data:'))
+          ? '<img src="'+j.foto+'" alt="'+j.nome+'">'
+          : '<span class="fallback">🧑</span>';
+        return '<tr><td><div class="player-cell"><div class="avatar-mini">'+avatarHtml+'</div>'+
+          '<div><div class="player-name" style="color:var(--text-primary);font-weight:600;">'+j.nome+'</div></div></div></td>'+
+          '<td><span class="stat-num stat-gols">'+j.golsHistorico+'</span></td>'+
+          '<td><span class="stat-num stat-titulos">'+j.titulosHistorico+'</span></td>'+
+          '<td><span class="stat-num stat-vices">'+j.vicesHistorico+'</span></td>'+
+          '<td><span class="stat-num stat-artilharias">'+j.artilhariasHistorico+'</span></td>'+
+          '<td><span class="stat-num stat-edicoes">'+j.edicoesParticipou+'</span></td>'+
+          '<td><span class="stat-num stat-partidas">'+j.partidasHistorico+'</span></td></tr>';
+      }).join('')+'</tbody></table></div>';
+  } else {
+    statsEl.innerHTML = 'Nenhum jogador com estatísticas';
+  }
+}
+
+// ============================================================
+// TEMPORADA ATUAL (Última temporada criada)
+// ============================================================
+
+function renderTemporadaAtual() {
+  var el = document.getElementById('atual-content');
+  if (!el) return;
+
+  if (!state.temporadas.length) {
+    el.innerHTML = '<div style="text-align:center;color:var(--text-muted);padding:40px 0;">Nenhuma temporada cadastrada</div>';
+    return;
+  }
+
+  // Pega a última temporada criada (pelo ano)
+  var sortedTemps = state.temporadas.slice().sort(function(a, b) {
+    return (b.ano || '').localeCompare(a.ano || '');
+  });
+  var ultimaTemp = sortedTemps[0];
+  if (!ultimaTemp) {
+    el.innerHTML = '<div style="text-align:center;color:var(--text-muted);padding:40px 0;">Nenhuma temporada encontrada</div>';
+    return;
+  }
+
+  var edicoesDaTemp = state.edicoes.filter(function(e) { return e.temporadaId === ultimaTemp.id; });
+  
+  // ===== CORREÇÃO: CONTA JOGADORES ÚNICOS DA TEMPORADA =====
+  var jogadoresUnicos = new Set();
+  var totalPartidas = 0;
+  var totalGols = 0;
+  var totalEdicoes = edicoesDaTemp.length;
+  
+  edicoesDaTemp.forEach(function(e) {
+    // Jogadores únicos
+    if (e.jogadores && Array.isArray(e.jogadores)) {
+      e.jogadores.forEach(function(j) {
+        if (j.id) jogadoresUnicos.add(j.id);
+      });
+    }
+    totalPartidas += e.totalPartidas || 0;
+    totalGols += e.totalGols || 0;
+  });
+
+  var totalJogadores = jogadoresUnicos.size || state.jogadores.length;
+
+  // Líder de títulos na temporada atual
+  var titulosPorJogadorTemp = {};
+  edicoesDaTemp.forEach(function(edicao) {
+    if (edicao.jogadores && Array.isArray(edicao.jogadores)) {
+      edicao.jogadores.forEach(function(j) {
+        if (j.timeId === (edicao.campeao || {}).timeId) {
+          titulosPorJogadorTemp[j.id] = (titulosPorJogadorTemp[j.id] || 0) + 1;
+        }
+      });
+    }
+  });
+
+  var maiorTitulosTemp = 0;
+  for (var key in titulosPorJogadorTemp) {
+    if (titulosPorJogadorTemp[key] > maiorTitulosTemp) maiorTitulosTemp = titulosPorJogadorTemp[key];
+  }
+
+  var lideresTitulosTemp = [];
+  for (var key2 in titulosPorJogadorTemp) {
+    if (titulosPorJogadorTemp[key2] === maiorTitulosTemp && maiorTitulosTemp > 0) {
+      var jogador = state.jogadores.find(function(j) { return j.id === key2; });
+      if (jogador) lideresTitulosTemp.push({ ...jogador, titulos: titulosPorJogadorTemp[key2] });
+    }
+  }
+
+  // Artilheiro da temporada atual
+  var golsPorJogadorTemp = {};
+  edicoesDaTemp.forEach(function(edicao) {
+    if (edicao.jogadores && Array.isArray(edicao.jogadores)) {
+      edicao.jogadores.forEach(function(j) {
+        if (j.gols) {
+          golsPorJogadorTemp[j.id] = (golsPorJogadorTemp[j.id] || 0) + j.gols;
+        }
+      });
+    }
+  });
+
+  var maiorGolsTemp = 0;
+  for (var key3 in golsPorJogadorTemp) {
+    if (golsPorJogadorTemp[key3] > maiorGolsTemp) maiorGolsTemp = golsPorJogadorTemp[key3];
+  }
+
+  var artilheirosTemp = [];
+  for (var key4 in golsPorJogadorTemp) {
+    if (golsPorJogadorTemp[key4] === maiorGolsTemp && maiorGolsTemp > 0) {
+      var jogador2 = state.jogadores.find(function(j) { return j.id === key4; });
+      if (jogador2) artilheirosTemp.push({ ...jogador2, gols: golsPorJogadorTemp[key4] });
+    }
+  }
+
+  // ===== MONTA O HTML DA TEMPORADA ATUAL =====
+  var statusColor = '';
+  if (ultimaTemp.status === 'em_andamento') {
+    statusColor = '#00e676';
+  } else if (ultimaTemp.status === 'encerrado') {
+    statusColor = '#ff6b6b';
+  } else {
+    statusColor = 'var(--accent-1)';
+  }
+
+  var html = `
+    <div style="margin-bottom:20px;padding:16px 20px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-color);">
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <span style="font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;background:var(--gradient-main);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">${ultimaTemp.ano}</span>
+        <span style="font-size:18px;font-weight:700;">${ultimaTemp.nome}</span>
+        <span style="padding:3px 14px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:${statusColor}20;color:${statusColor};border:1px solid ${statusColor}40;">${ultimaTemp.status || 'Planejado'}</span>
+        ${edicoesDaTemp.length > 0 ? `<span style="font-size:12px;color:var(--text-muted);">📋 ${edicoesDaTemp.length} edição(ões)</span>` : ''}
+      </div>
+      ${ultimaTemp.descricao ? `<div style="color:var(--text-muted);font-size:13px;margin-top:8px;">${ultimaTemp.descricao}</div>` : ''}
+    </div>
+
+    <div class="stat-boxes">
+      <div class="stat-box"><div class="stat-box-num">${totalEdicoes}</div><div class="stat-box-label">Edições</div></div>
+      <div class="stat-box"><div class="stat-box-num">${totalJogadores}</div><div class="stat-box-label">Jogadores</div></div>
+      <div class="stat-box"><div class="stat-box-num">${totalPartidas}</div><div class="stat-box-label">Partidas</div></div>
+      <div class="stat-box"><div class="stat-box-num">${totalGols}</div><div class="stat-box-label">Gols</div></div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">🏆 Líder de Títulos (Temporada)</div>
+        ${lideresTitulosTemp.length > 0 ? lideresTitulosTemp.map(function(j) {
+          return '<div style="display:flex;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid rgba(56,156,255,0.05);">'+
+            imgOrEmoji(j.foto, 40)+
+            '<div><div style="font-size:15px;font-weight:700;color:#ffd600;">🏆 '+j.nome+'</div>'+
+            '<div style="color:var(--text-muted);font-size:12px;">'+j.titulos+' título(s)</div></div></div>';
+        }).join('') : '<div style="color:var(--text-muted);text-align:center;padding:12px 0;">Nenhum título nesta temporada</div>'}
+      </div>
+      <div class="card">
+        <div class="card-title">🎯 Artilheiro (Temporada)</div>
+        ${artilheirosTemp.length > 0 ? artilheirosTemp.map(function(j) {
+          return '<div style="display:flex;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid rgba(56,156,255,0.05);">'+
+            imgOrEmoji(j.foto, 40)+
+            '<div><div style="font-size:15px;font-weight:700;">'+j.nome+'</div>'+
+            '<div style="color:var(--accent-1);font-family:Orbitron,sans-serif;font-size:22px;">'+j.gols+' ⚽</div></div></div>';
+        }).join('') : '<div style="color:var(--text-muted);text-align:center;padding:12px 0;">Sem gols registrados</div>'}
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="card-title">📋 Últimas 5 Edições da Temporada</div>
+      ${edicoesDaTemp.length > 0 ? edicoesDaTemp.slice().sort(function(a, b) {
+        return (b.numero || 0) - (a.numero || 0);
+      }).slice(0, 5).map(function(e, index) {
+        var numeroLocal = e.numeroTemporada || e.numero || 1;
+        var numeroGlobal = e.numero || 0;
+
+        var campeaoId = (e.campeao || {}).timeId;
+        var campeaoNome = 'N/A';
+        var escudoCampeao = '';
+        if (campeaoId) {
+          var timeCampeao = getJogador(campeaoId);
+          campeaoNome = timeCampeao.nome;
+          escudoCampeao = timeCampeao.foto;
+        }
+
+        var delay = index * 50;
+
+        return '<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid rgba(56,156,255,0.05);cursor:pointer;flex-wrap:wrap;border-radius:10px;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);background:transparent;position:relative;overflow:hidden;animation: fadeInItem 0.4s ease '+delay+'ms both;" '+
+          'onmouseenter="this.style.background=\'rgba(0,212,255,0.06)\'; this.style.borderColor=\'var(--accent-1)\'; this.style.transform=\'translateX(6px) scale(1.01)\'; this.style.boxShadow=\'0 0 40px rgba(0,212,255,0.06)\';" '+
+          'onmouseleave="this.style.background=\'transparent\'; this.style.borderColor=\'transparent\'; this.style.transform=\'translateX(0) scale(1)\'; this.style.boxShadow=\'none\';" '+
+          'onmousedown="this.style.transform=\'scale(0.97)\'; this.style.transition=\'all 0.1s ease\';" '+
+          'onmouseup="this.style.transform=\'scale(1.01)\'; this.style.transition=\'all 0.2s ease\';" '+
+          'onclick="visualizarEdicao(\''+e.id+'\')">'+
+          '<div style="position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle, rgba(0,212,255,0.03) 0%, transparent 70%);opacity:0;transition:opacity 0.5s ease;pointer-events:none;" '+
+          'onmouseenter="this.style.opacity=\'1\'" onmouseleave="this.style.opacity=\'0\'"></div>'+
+          '<span class="dash-edicao-num-local" style="font-family:\'Orbitron\',sans-serif;font-size:20px;font-weight:900;color:var(--accent-1);position:relative;z-index:1;transition:all 0.3s ease;">'+ordinal(numeroLocal)+'</span>'+
+          (escudoCampeao ? '<span style="position:relative;z-index:1;">'+imgOrEmoji(escudoCampeao, 22)+'</span>' : '')+
+          '<span style="font-weight:700;color:#ffd600;font-size:14px;flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;">'+campeaoNome+'</span>'+
+          '<span style="font-size:11px;color:var(--text-muted);flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;">📅 '+(e.dataEdicao||'—')+'</span>'+
+          '<span style="background:rgba(0,212,255,0.15);color:var(--accent-1);border:1px solid rgba(0,212,255,0.25);padding:2px 14px;border-radius:16px;font-weight:700;font-size:14px;font-family:\'Orbitron\',sans-serif;flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;box-shadow:0 0 20px rgba(0,212,255,0.05);margin-left:auto;">#'+numeroGlobal+'</span>'+
+        '</div>';
+      }).join('') : '<div style="color:var(--text-muted);text-align:center;padding:20px 0;">Nenhuma edição finalizada nesta temporada</div>'}
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="card-title">👤 Estatísticas dos Jogadores (Temporada)</div>
+      ${edicoesDaTemp.length > 0 ? (function() {
+        var jogadoresDaTemp = {};
+        edicoesDaTemp.forEach(function(edicao) {
+          if (edicao.jogadores && Array.isArray(edicao.jogadores)) {
+            edicao.jogadores.forEach(function(j) {
+              if (!jogadoresDaTemp[j.id]) {
+                jogadoresDaTemp[j.id] = {
+                  id: j.id,
+                  nome: getJogadorNome(j.id),
+                  foto: getJogadorFoto(j.id),
+                  gols: 0,
+                  partidas: 0,
+                  titulos: 0,
+                  vices: 0,
+                  artilharias: 0,
+                  edicoes: 0
+                };
+              }
+              jogadoresDaTemp[j.id].gols += j.gols || 0;
+              jogadoresDaTemp[j.id].partidas += j.partidasJogadas || 0;
+              jogadoresDaTemp[j.id].edicoes += 1;
+              if ((edicao.campeao || {}).timeId === j.timeId) jogadoresDaTemp[j.id].titulos++;
+              if ((edicao.vice || {}).timeId === j.timeId) jogadoresDaTemp[j.id].vices++;
+              if (edicao.artilheiros && Array.isArray(edicao.artilheiros)) {
+                if (edicao.artilheiros.some(function(a) { return a.jogadorId === j.id; })) jogadoresDaTemp[j.id].artilharias++;
+              }
+            });
+          }
+        });
+
+        var listaTemp = Object.values(jogadoresDaTemp).filter(function(j) {
+          return j.gols > 0 || j.titulos > 0 || j.vices > 0 || j.artilharias > 0 || j.partidas > 0 || j.edicoes > 0;
+        }).sort(function(a, b) {
+          if (b.gols !== a.gols) return b.gols - a.gols;
+          if (b.titulos !== a.titulos) return b.titulos - a.titulos;
+          if (b.vices !== a.vices) return b.vices - a.vices;
+          if (b.artilharias !== a.artilharias) return b.artilharias - a.artilharias;
+          if (b.edicoes !== a.edicoes) return b.edicoes - a.edicoes;
+          return a.nome.localeCompare(b.nome);
+        });
+
+        if (listaTemp.length > 0) {
+          return '<div class="stats-table-wrap"><table><thead><tr>'+
+            '<th style="text-align:left;">Jogador</th><th style="text-align:center;">⚽ Gols</th>'+
+            '<th style="text-align:center;">🏆 Títulos</th><th style="text-align:center;">🥈 Vices</th>'+
+            '<th style="text-align:center;">🎯 Artilharias</th>'+
+            '<th style="text-align:center;">📅 Edições</th>'+
+            '<th style="text-align:center;">📋 Partidas</th></tr></thead><tbody>'+
+            listaTemp.map(function(j) {
+              var avatarHtml = j.foto && (j.foto.startsWith('http') || j.foto.startsWith('data:'))
+                ? '<img src="'+j.foto+'" alt="'+j.nome+'">'
+                : '<span class="fallback">🧑</span>';
+              return '<tr><td><div class="player-cell"><div class="avatar-mini">'+avatarHtml+'</div>'+
+                '<div><div class="player-name" style="color:var(--text-primary);font-weight:600;">'+j.nome+'</div></div></div></td>'+
+                '<td><span class="stat-num stat-gols">'+j.gols+'</span></td>'+
+                '<td><span class="stat-num stat-titulos">'+j.titulos+'</span></td>'+
+                '<td><span class="stat-num stat-vices">'+j.vices+'</span></td>'+
+                '<td><span class="stat-num stat-artilharias">'+j.artilharias+'</span></td>'+
+                '<td><span class="stat-num stat-edicoes">'+j.edicoes+'</span></td>'+
+                '<td><span class="stat-num stat-partidas">'+j.partidas+'</span></td></tr>';
+            }).join('')+'</tbody></table></div>';
+        } else {
+          return '<div style="color:var(--text-muted);text-align:center;padding:12px 0;">Nenhum jogador com estatísticas</div>';
+        }
+      })() : '<div style="color:var(--text-muted);text-align:center;padding:12px 0;">Nenhuma edição para exibir</div>'}
+    </div>
+  `;
+
+  el.innerHTML = html;
+}
+
+// ============================================================
+// TEMPORADAS
+// ============================================================
+
+function renderTemporadas() {
+  var el = document.getElementById('pub-temporadas');
+  if (!el) return;
+  if (!state.temporadas.length) {
+    el.innerHTML = '<div class="empty-pub"><div class="icon">📅</div><p>Nenhuma temporada cadastrada</p></div>';
+    return;
+  }
+
+  var statusLabel = { em_andamento:'Em Andamento', encerrado:'Encerrado', planejado:'Planejado' };
+  var statusClass = { 
+    em_andamento:'status-andamento', 
+    encerrado:'status-encerrado', 
+    planejado:'status-planejado' 
+  };
+
+  var sorted = state.temporadas.slice().sort(function(a, b) {
+    return (b.ano || '').localeCompare(a.ano || '');
+  });
+
+  var html = '';
+  sorted.forEach(function(t) {
+    var edicoes = state.edicoes.filter(function(e) { return e.temporadaId === t.id; });
+    edicoes.sort(function(a, b) { 
+      return (b.numero || 0) - (a.numero || 0);
+    });
+
+    var isActive = t.status === 'em_andamento';
+    var edicoesHtml = '';
+
+    if (edicoes.length) {
+      edicoesHtml = '<div class="edicoes-container" id="edicoes-'+t.id+'" style="display:none;">';
+      edicoes.forEach(function(e) {
+var numeroLocal = e.numeroTemporada || e.numero || 1;
+        var numeroGlobal = e.numero || 0;
+
+        var artilheirosList = e.artilheiros || [];
+        var artStr = artilheirosList.length > 0 ? artilheirosList.map(function(a) {
+          var jogador = state.jogadores.find(function(j) { return j.id === a.jogadorId; });
+          return jogador ? jogador.nome + ' (' + a.gols + '⚽)' : '?';
+        }).join(', ') : '—';
+
+        var final = e.final || {};
+        var tevePenalidades = final.tevePenalidades || false;
+        var gols1 = final.gols1 || 0;
+        var gols2 = final.gols2 || 0;
+        var golsP1 = final.golsPenalidades1 || 0;
+        var golsP2 = final.golsPenalidades2 || 0;
+
+        var time1Final = getJogador(final.time1Id);
+        var time2Final = getJogador(final.time2Id);
+        
+        var nomeTime1 = time1Final && time1Final.nome ? time1Final.nome : '?';
+        var nomeTime2 = time2Final && time2Final.nome ? time2Final.nome : '?';
+
+        edicoesHtml += '<div class="edicao-item" onclick="event.stopPropagation();visualizarEdicao(\''+e.id+'\')" style="cursor:pointer;border:1px solid var(--border-color);border-radius:12px;padding:10px 16px;margin-bottom:8px;background:rgba(5,8,12,0.3);transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);position:relative;overflow:hidden;">';
+        
+        edicoesHtml += '<style>';
+        edicoesHtml += '.edicao-item:hover {';
+        edicoesHtml += '  border-color: var(--accent-1) !important;';
+        edicoesHtml += '  background: rgba(0, 212, 255, 0.06) !important;';
+        edicoesHtml += '  transform: translateX(4px) scale(1.01);';
+        edicoesHtml += '  box-shadow: 0 0 30px rgba(0, 212, 255, 0.08);';
+        edicoesHtml += '}';
+        edicoesHtml += '.edicao-item:active {';
+        edicoesHtml += '  transform: scale(0.98);';
+        edicoesHtml += '  transition: all 0.1s ease;';
+        edicoesHtml += '}';
+        edicoesHtml += '.edicao-item .edicao-expand-icon {';
+        edicoesHtml += '  transition: all 0.3s ease;';
+        edicoesHtml += '  opacity: 0.5;';
+        edicoesHtml += '}';
+        edicoesHtml += '.edicao-item:hover .edicao-expand-icon {';
+        edicoesHtml += '  opacity: 1;';
+        edicoesHtml += '  transform: translateX(4px) scale(1.1);';
+        edicoesHtml += '  color: var(--accent-1);';
+        edicoesHtml += '}';
+        edicoesHtml += '.edicao-item .edicao-num-local-hover {';
+        edicoesHtml += '  transition: all 0.3s ease;';
+        edicoesHtml += '}';
+        edicoesHtml += '.edicao-item:hover .edicao-num-local-hover {';
+        edicoesHtml += '  transform: scale(1.05);';
+        edicoesHtml += '  text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);';
+        edicoesHtml += '}';
+        edicoesHtml += '.edicao-item .campeao-nome-hover {';
+        edicoesHtml += '  transition: all 0.3s ease;';
+        edicoesHtml += '}';
+        edicoesHtml += '.edicao-item:hover .campeao-nome-hover {';
+        edicoesHtml += '  text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);';
+        edicoesHtml += '}';
+        edicoesHtml += '.edicao-item .placar-gols-hover {';
+        edicoesHtml += '  transition: all 0.3s ease;';
+        edicoesHtml += '}';
+        edicoesHtml += '.edicao-item:hover .placar-gols-hover {';
+        edicoesHtml += '  transform: scale(1.08);';
+        edicoesHtml += '  text-shadow: 0 0 20px rgba(0, 212, 255, 0.2);';
+        edicoesHtml += '}';
+        edicoesHtml += '.edicao-item .penalty-badge-hover {';
+        edicoesHtml += '  transition: all 0.3s ease;';
+        edicoesHtml += '}';
+        edicoesHtml += '.edicao-item:hover .penalty-badge-hover {';
+        edicoesHtml += '  transform: scale(1.05);';
+        edicoesHtml += '  box-shadow: 0 0 20px rgba(255, 107, 107, 0.2);';
+        edicoesHtml += '}';
+        edicoesHtml += '.edicao-item .artilheiros-hover {';
+        edicoesHtml += '  transition: all 0.3s ease;';
+        edicoesHtml += '}';
+        edicoesHtml += '.edicao-item:hover .artilheiros-hover {';
+        edicoesHtml += '  transform: translateX(4px);';
+        edicoesHtml += '}';
+        edicoesHtml += '.edicao-item .global-badge-hover {';
+        edicoesHtml += '  transition: all 0.3s ease;';
+        edicoesHtml += '}';
+        edicoesHtml += '.edicao-item:hover .global-badge-hover {';
+        edicoesHtml += '  border-color: var(--accent-1) !important;';
+        edicoesHtml += '  color: var(--accent-1) !important;';
+        edicoesHtml += '}';
+        edicoesHtml += '</style>';
+        
+        edicoesHtml += '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">';
+        
+        edicoesHtml += '<span style="font-family:\'Orbitron\',sans-serif;font-size:20px;font-weight:900;color:var(--accent-1);line-height:1.2;flex-shrink:0;">' + ordinal(numeroLocal) + '</span>';
+        
+        if (time1Final && time2Final) {
+          var isTime1Campeao = time1Final.id === e.campeao?.timeId;
+          
+          edicoesHtml += '<div style="display:flex;align-items:center;gap:4px;">';
+          edicoesHtml += '<div style="width:24px;height:24px;border-radius:50%;overflow:hidden;border:2px solid ' + (isTime1Campeao ? '#ffd600' : 'var(--border-color)') + ';background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.3s ease;">';
+          if (time1Final.foto && (time1Final.foto.startsWith('http') || time1Final.foto.startsWith('data:'))) {
+            edicoesHtml += '<img src="'+time1Final.foto+'" style="width:100%;height:100%;object-fit:cover;padding:0;">';
+          } else {
+            edicoesHtml += '<span style="font-size:14px;">'+(time1Final.foto || '🧑')+'</span>';
+          }
+          edicoesHtml += '</div>';
+          edicoesHtml += '<span class="campeao-nome-hover" style="font-weight:' + (isTime1Campeao ? '700' : '600') + ';font-size:15px;color:' + (isTime1Campeao ? '#ffd600' : 'var(--text-secondary)') + ';transition:all 0.3s ease;">' + nomeTime1 + '</span>';
+          edicoesHtml += '</div>';
+
+          edicoesHtml += '<span class="placar-gols-hover" style="font-family:\'Orbitron\',sans-serif;font-weight:700;color:var(--accent-1);font-size:14px;transition:all 0.3s ease;">' + gols1 + ' × ' + gols2 + '</span>';
+
+          var isTime2Campeao = time2Final.id === e.campeao?.timeId;
+          edicoesHtml += '<div style="display:flex;align-items:center;gap:4px;">';
+          edicoesHtml += '<div style="width:24px;height:24px;border-radius:50%;overflow:hidden;border:2px solid ' + (isTime2Campeao ? '#ffd600' : 'var(--border-color)') + ';background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.3s ease;">';
+          if (time2Final.foto && (time2Final.foto.startsWith('http') || time2Final.foto.startsWith('data:'))) {
+            edicoesHtml += '<img src="'+time2Final.foto+'" style="width:100%;height:100%;object-fit:cover;padding:0;">';
+          } else {
+            edicoesHtml += '<span style="font-size:14px;">'+(time2Final.foto || '🧑')+'</span>';
+          }
+          edicoesHtml += '</div>';
+          edicoesHtml += '<span class="campeao-nome-hover" style="font-weight:' + (isTime2Campeao ? '700' : '600') + ';font-size:15px;color:' + (isTime2Campeao ? '#ffd600' : 'var(--text-secondary)') + ';transition:all 0.3s ease;">' + nomeTime2 + '</span>';
+          edicoesHtml += '</div>';
+        }
+
+        if (tevePenalidades) {
+          edicoesHtml += '<span class="penalty-badge-hover" style="font-size:10px;color:#ff6b6b;font-weight:700;background:rgba(255,107,107,0.08);padding:2px 10px;border-radius:12px;border:1px solid rgba(255,107,107,0.15);transition:all 0.3s ease;">⚽ PÊNALTIS ' + golsP1 + '×' + golsP2 + '</span>';
+        }
+
+        edicoesHtml += '<span style="margin-left:auto;display:flex;align-items:center;gap:12px;">';
+        
+        if (artStr !== '—') {
+          edicoesHtml += '<span class="artilheiros-hover" style="font-size:11px;color:var(--accent-1);font-weight:500;transition:all 0.3s ease;">🎯 ' + artStr + '</span>';
+        }
+
+        if (e.dataEdicao) {
+          edicoesHtml += '<span style="font-size:12px;color:var(--text-muted);font-weight:500;">📅 ' + e.dataEdicao + '</span>';
+        }
+
+        edicoesHtml += '<span style="background:rgba(0,212,255,0.15);color:var(--accent-1);border:1px solid rgba(0,212,255,0.25);padding:2px 14px;border-radius:16px;font-weight:700;font-size:14px;font-family:\'Orbitron\',sans-serif;flex-shrink:0;transition:all 0.3s ease;box-shadow:0 0 20px rgba(0,212,255,0.05);">#' + numeroGlobal + '</span>';
+
+        edicoesHtml += '</span>';
+
+        edicoesHtml += '</div>';
+
+        edicoesHtml += '</div>';
+      });
+      edicoesHtml += '</div>';
+    } else {
+      edicoesHtml = '<div class="edicoes-container" style="display:none;padding:12px 20px;color:var(--text-muted);font-size:13px;">Nenhuma edição finalizada para esta temporada</div>';
+    }
+
+    var statusColor = '';
+    if (t.status === 'em_andamento') {
+      statusColor = '#00e676';
+    } else if (t.status === 'encerrado') {
+      statusColor = '#ff6b6b';
+    } else {
+      statusColor = 'var(--accent-1)';
+    }
+
+    html += '<div class="season-pub-card '+(isActive?'active':'')+'" onclick="toggleEdicoes(\''+t.id+'\')" style="margin-bottom:8px;cursor:pointer;">' +
+      '<div class="season-pub-year '+(isActive?'active':'')+'">'+t.ano+'</div>' +
+      '<div class="season-info">' +
+        '<div class="season-pub-name">'+t.nome+'</div>' +
+        '<div class="season-pub-desc">'+(t.descricao||'')+'</div>' +
+        '<div style="font-size:11px;color:var(--text-muted);margin-top:4px;">📋 '+edicoes.length+' edição(ões)</div>' +
+      '</div>' +
+      '<div class="season-pub-badge"><span style="padding:3px 12px;border-radius:20px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:'+statusColor+'20;color:'+statusColor+';border:1px solid '+statusColor+'40;">'+(statusLabel[t.status]||t.status)+'</span></div>' +
+      '<span class="season-pub-expand" id="season-expand-'+t.id+'">'+(edicoes.length ? '▶' : '—')+'</span>' +
+    '</div>' + edicoesHtml;
+  });
+
+  el.innerHTML = html;
+}
+
+function toggleEdicoes(tempId) {
+  var container = document.getElementById('edicoes-'+tempId);
+  var expand = document.getElementById('season-expand-'+tempId);
+  if (!container) return;
+  var isOpen = container.style.display !== 'none';
+  container.style.display = isOpen ? 'none' : 'block';
+  if (expand) expand.textContent = isOpen ? '▶' : '▼';
+}
+
+// ============================================================
+// FIREBASE LISTENERS
+// ============================================================
+
+function setupFirestoreListeners() {
+  var collections = ['jogadores', 'partidas', 'temporadas', 'edicoes'];
+  var loaded = 0;
+
+  collections.forEach(function(col) {
+    db.collection(col).onSnapshot(function(snapshot) {
+      var items = [];
+      snapshot.forEach(function(doc) {
+        var data = doc.data();
+        data.id = doc.id;
+        items.push(data);
+      });
+      state[col] = items;
+      loaded++;
+      if (loaded >= collections.length) {
+        renderDashboard();
+        renderTemporadaAtual();
+        renderTemporadas();
+        
+        if (isFirstLoad) {
+          isFirstLoad = false;
+          restoreTabFromUrl();
+        }
+      }
+    }, function(error) {
+      console.error('Firestore error on', col, ':', error);
+      loaded++;
+      if (loaded >= collections.length) {
+        renderDashboard();
+        renderTemporadaAtual();
+        renderTemporadas();
+        
+        if (isFirstLoad) {
+          isFirstLoad = false;
+          restoreTabFromUrl();
+        }
+      }
+    });
+  });
+}
+
+setupFirestoreListeners();
+
+function restoreTabFromUrl() {
+  var params = getUrlParams();
+  var tab = params.tab || 'atual';
+  
+  // Mapear data-tab para section ID correto
+  var tabMap = {
+    'ATUAL': 'atual',
+    'CARREIRAS': 'dashboard',
+    'TEMPORADAS': 'temporadas'
+  };
+  var sectionId = tabMap[tab] || 'atual';
+  
+  var btn = document.querySelector('.nav-tab[data-tab="' + tab + '"]');
+  if (btn) {
+    showSection(sectionId, btn, true); // true = replaceState (não adiciona ao histórico)
+  } else {
+    var defaultBtn = document.querySelector('.nav-tab[data-tab="atual"]');
+    if (defaultBtn) showSection('atual', defaultBtn, true);
+  }
+}
+
+setTimeout(function() {
+  renderDashboard();
+  renderTemporadaAtual();
+  renderTemporadas();
+  if (isFirstLoad) {
+    isFirstLoad = false;
+    restoreTabFromUrl();
+  }
+}, 3000);
+</script>
+</body>
+</html>
