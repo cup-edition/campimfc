@@ -697,6 +697,7 @@
   .stat-vitorias { color: #4caf50; font-size: 16px; }
   .stat-empates { color: var(--text-muted); font-size: 16px; }
   .stat-derrotas { color: #ef5350; font-size: 16px; }
+  .stat-gols-sofridos { color: #ef5350; font-size: 16px; }
 
   .edicao-footer {
     margin-top: 16px;
@@ -2172,21 +2173,16 @@ function renderDashboard() {
         });
       }
 
-      var jogadoresHtml = '';
-      if (jogadoresDoTime.length > 0) {
-        jogadoresHtml = jogadoresDoTime.map(function(j) {
-          var fotoHtml = j.foto && (j.foto.startsWith('http') || j.foto.startsWith('data:'))
-            ? '<img src="'+j.foto+'" style="width:18px;height:18px;border-radius:50%;object-fit:cover;border:1px solid var(--border-color);">'
-            : '<span style="font-size:11px;">🧑</span>';
-          
-          return '<span style="display:inline-flex;align-items:center;gap:3px;background:rgba(5,8,12,0.3);padding:1px 8px 1px 3px;border-radius:12px;border:1px solid var(--border-color);font-size:11px;margin-right:4px;transition:all 0.3s ease;">'+
-            fotoHtml+
-            '<span style="font-weight:500;">'+j.nome+'</span>'+
-            '<span style="color:var(--accent-1);font-weight:700;font-size:10px;">⚽'+j.gols+'</span>'+
-          '</span>';
-        }).join('');
-      } else {
-        jogadoresHtml = '<span style="font-size:11px;color:var(--text-muted);">Nenhum jogador</span>';
+      var artilheiroEdicao = '';
+      if (e.artilheiros && e.artilheiros.length) {
+        var art = e.artilheiros[0];
+        var artJogador = state.jogadores.find(function(j) { return j.id === art.jogadorId; });
+        artilheiroEdicao = artJogador ? artJogador.nome + ' (' + art.gols + '⚽)' : '?';
+      } else if (e.jogadores && e.jogadores.length) {
+        var topJogador = e.jogadores.slice().sort(function(a, b) { return (b.gols || 0) - (a.gols || 0); })[0];
+        if (topJogador && (topJogador.gols || 0) > 0) {
+          artilheiroEdicao = getJogadorNome(topJogador.id) + ' (' + topJogador.gols + '⚽)';
+        }
       }
 
       var delay = index * 50;
@@ -2201,12 +2197,12 @@ function renderDashboard() {
         'onmouseenter="this.style.opacity=\'1\'" onmouseleave="this.style.opacity=\'0\'"></div>'+
         '<span class="dash-edicao-num-local" style="font-family:\'Orbitron\',sans-serif;font-size:20px;font-weight:900;color:var(--accent-1);position:relative;z-index:1;transition:all 0.3s ease;">'+ordinal(numeroLocal)+'</span>'+
         (escudoCampeao ? '<span style="position:relative;z-index:1;">'+imgOrEmoji(escudoCampeao, 22)+'</span>' : '')+
-        '<span style="font-weight:700;color:#ffd600;font-size:14px;flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;">'+campeaoNome+'</span>'+
-        '<span style="display:flex;align-items:center;gap:2px;flex:1;flex-wrap:wrap;min-width:120px;position:relative;z-index:1;">'+
-          jogadoresHtml+
+        '<span style="font-weight:700;color:#ffd600;font-size:14px;flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;">🏆 '+campeaoNome+'</span>'+
+        '<span style="display:flex;align-items:center;gap:12px;flex-shrink:0;margin-left:auto;position:relative;z-index:1;">'+
+        '<span style="font-size:11px;color:var(--accent-1);font-weight:600;flex-shrink:0;transition:all 0.3s ease;">🎯 '+(artilheiroEdicao || '—')+'</span>'+
+        '<span style="font-size:11px;color:var(--text-muted);flex-shrink:0;transition:all 0.3s ease;">📅 '+(e.dataEdicao||'—')+'</span>'+
+        '<span style="background:rgba(0,212,255,0.15);color:var(--accent-1);border:1px solid rgba(0,212,255,0.25);padding:2px 14px;border-radius:16px;font-weight:700;font-size:14px;font-family:\'Orbitron\',sans-serif;flex-shrink:0;transition:all 0.3s ease;box-shadow:0 0 20px rgba(0,212,255,0.05);">#'+numeroGlobal+'</span>'+
         '</span>'+
-        '<span style="font-size:11px;color:var(--text-muted);flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;">📅 '+(e.dataEdicao||'—')+'</span>'+
-        '<span style="background:rgba(0,212,255,0.15);color:var(--accent-1);border:1px solid rgba(0,212,255,0.25);padding:2px 14px;border-radius:16px;font-weight:700;font-size:14px;font-family:\'Orbitron\',sans-serif;flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;box-shadow:0 0 20px rgba(0,212,255,0.05);">#'+numeroGlobal+'</span>'+
       '</div>';
     }).join('') + 
     '<style>'+
@@ -2443,6 +2439,18 @@ function renderTemporadaAtual() {
           escudoCampeao = timeCampeao.foto;
         }
 
+        var artilheiroEdicao = '';
+        if (e.artilheiros && e.artilheiros.length) {
+          var art = e.artilheiros[0];
+          var artJogador = state.jogadores.find(function(j) { return j.id === art.jogadorId; });
+          artilheiroEdicao = artJogador ? artJogador.nome + ' (' + art.gols + '⚽)' : '?';
+        } else if (e.jogadores && e.jogadores.length) {
+          var topJogador = e.jogadores.slice().sort(function(a, b) { return (b.gols || 0) - (a.gols || 0); })[0];
+          if (topJogador && (topJogador.gols || 0) > 0) {
+            artilheiroEdicao = getJogadorNome(topJogador.id) + ' (' + topJogador.gols + '⚽)';
+          }
+        }
+
         var delay = index * 50;
 
         return '<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid rgba(56,156,255,0.05);cursor:pointer;flex-wrap:wrap;border-radius:10px;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);background:transparent;position:relative;overflow:hidden;animation: fadeInItem 0.4s ease '+delay+'ms both;" '+
@@ -2455,9 +2463,12 @@ function renderTemporadaAtual() {
           'onmouseenter="this.style.opacity=\'1\'" onmouseleave="this.style.opacity=\'0\'"></div>'+
           '<span class="dash-edicao-num-local" style="font-family:\'Orbitron\',sans-serif;font-size:20px;font-weight:900;color:var(--accent-1);position:relative;z-index:1;transition:all 0.3s ease;">'+ordinal(numeroLocal)+'</span>'+
           (escudoCampeao ? '<span style="position:relative;z-index:1;">'+imgOrEmoji(escudoCampeao, 22)+'</span>' : '')+
-          '<span style="font-weight:700;color:#ffd600;font-size:14px;flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;">'+campeaoNome+'</span>'+
-          '<span style="font-size:11px;color:var(--text-muted);flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;">📅 '+(e.dataEdicao||'—')+'</span>'+
-          '<span style="background:rgba(0,212,255,0.15);color:var(--accent-1);border:1px solid rgba(0,212,255,0.25);padding:2px 14px;border-radius:16px;font-weight:700;font-size:14px;font-family:\'Orbitron\',sans-serif;flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;box-shadow:0 0 20px rgba(0,212,255,0.05);margin-left:auto;">#'+numeroGlobal+'</span>'+
+          '<span style="font-weight:700;color:#ffd600;font-size:14px;flex-shrink:0;position:relative;z-index:1;transition:all 0.3s ease;">🏆 '+campeaoNome+'</span>'+
+          '<span style="display:flex;align-items:center;gap:12px;flex-shrink:0;margin-left:auto;position:relative;z-index:1;">'+
+          '<span style="font-size:11px;color:var(--accent-1);font-weight:600;flex-shrink:0;transition:all 0.3s ease;">🎯 '+(artilheiroEdicao || '—')+'</span>'+
+          '<span style="font-size:11px;color:var(--text-muted);flex-shrink:0;transition:all 0.3s ease;">📅 '+(e.dataEdicao||'—')+'</span>'+
+          '<span style="background:rgba(0,212,255,0.15);color:var(--accent-1);border:1px solid rgba(0,212,255,0.25);padding:2px 14px;border-radius:16px;font-weight:700;font-size:14px;font-family:\'Orbitron\',sans-serif;flex-shrink:0;transition:all 0.3s ease;box-shadow:0 0 20px rgba(0,212,255,0.05);">#'+numeroGlobal+'</span>'+
+          '</span>'+
         '</div>';
       }).join('') : '<div style="color:var(--text-muted);text-align:center;padding:20px 0;">Nenhuma edição finalizada nesta temporada</div>'}
     </div>
