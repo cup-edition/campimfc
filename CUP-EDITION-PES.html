@@ -1289,6 +1289,15 @@ document.addEventListener('keydown', function(e){
 
 </div>
 
+<!-- MODAL ESTATÍSTICAS DO JOGADOR -->
+<div id="modal-estatisticas-jogador" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);z-index:10000;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)fecharEstatisticasJogador()">
+  <div style="background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px;padding:28px;width:760px;max-width:95vw;max-height:88vh;overflow-y:auto;position:relative;box-shadow:0 20px 80px rgba(0,0,0,0.8);">
+    <button onclick="fecharEstatisticasJogador()" style="position:sticky;top:0;float:right;background:rgba(255,107,107,0.2);border:none;color:var(--accent-3);font-size:22px;cursor:pointer;padding:4px 12px;border-radius:8px;z-index:10;">✕</button>
+    <div style="font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;background:var(--gradient-main);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:20px;padding-right:60px;">📊 Estatísticas <span id="modal-estatisticas-titulo" style="font-size:12px;font-weight:400;-webkit-text-fill-color:var(--text-muted);"></span></div>
+    <div id="modal-estatisticas-conteudo"></div>
+  </div>
+</div>
+
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
@@ -1445,6 +1454,200 @@ function contarResultadosJogador(jogadorId, edicoesList) {
   });
   return { v: v, e: e, d: d };
 }
+
+function contarGolsSofridos(jogadorId, edicoesList) {
+  var sofridos = 0;
+  edicoesList.forEach(function(edicao) {
+    (edicao.partidas || []).forEach(function(p) {
+      if (p.time1Id !== jogadorId && p.time2Id !== jogadorId) return;
+      var g1 = parseInt(p.gols1), g2 = parseInt(p.gols2);
+      if (isNaN(g1) || isNaN(g2)) return;
+      var ehTime1 = p.time1Id === jogadorId;
+      sofridos += ehTime1 ? g2 : g1;
+    });
+    var f = edicao.final;
+    if (f && (f.time1Id === jogadorId || f.time2Id === jogadorId)) {
+      var ehTime1 = f.time1Id === jogadorId;
+      var g1 = parseInt(f.gols1), g2 = parseInt(f.gols2);
+      if (f.tevePenalidades) {
+        g1 = f.golsPenalidades1 || 0;
+        g2 = f.golsPenalidades2 || 0;
+      }
+      if (!isNaN(g1) && !isNaN(g2)) {
+        sofridos += ehTime1 ? g2 : g1;
+      }
+    }
+  });
+  return sofridos;
+}
+
+// ============================================================
+// ESTATÍSTICAS DO JOGADOR (COMPLETAS + CONFRONTO DIRETO)
+// ============================================================
+
+window.fecharEstatisticasJogador = function() {
+  var modal = document.getElementById('modal-estatisticas-jogador');
+  if (modal) modal.style.display = 'none';
+};
+
+window.abrirEstatisticasJogador = function(jogadorId) {
+  var jogador = state.jogadores.find(function(j) { return j.id === jogadorId; });
+  if (!jogador) return;
+
+  var gols = 0, golsSofridos = 0, partidas = 0, titulos = 0, vices = 0, artilharias = 0, edicoes = 0;
+  var vitorias = 0, empates = 0, derrotas = 0;
+  var confronto = {};
+
+  state.edicoes.forEach(function(edicao) {
+    var jogadorEdicao = edicao.jogadores && edicao.jogadores.find ? edicao.jogadores.find(function(j) { return j.id === jogadorId; }) : null;
+    if (jogadorEdicao) {
+      edicoes++;
+      gols += jogadorEdicao.gols || 0;
+      partidas += jogadorEdicao.partidasJogadas || 0;
+    }
+    if (edicao.campeao && edicao.campeao.timeId === jogadorId) titulos++;
+    if (edicao.vice && edicao.vice.timeId === jogadorId) vices++;
+    if (edicao.artilheiros && Array.isArray(edicao.artilheiros) && edicao.artilheiros.some(function(a) { return a.jogadorId === jogadorId; })) artilharias++;
+
+    (edicao.partidas || []).forEach(function(p) {
+      if (p.time1Id !== jogadorId && p.time2Id !== jogadorId) return;
+      var g1 = parseInt(p.gols1), g2 = parseInt(p.gols2);
+      if (isNaN(g1) || isNaN(g2)) return;
+      var ehTime1 = p.time1Id === jogadorId;
+      var advId = ehTime1 ? p.time2Id : p.time1Id;
+      var meu = ehTime1 ? g1 : g2;
+      var adv = ehTime1 ? g2 : g1;
+      golsSofridos += adv;
+      if (!confronto[advId]) confronto[advId] = { jogos: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0, titulo: 0, vice: 0 };
+      var c = confronto[advId];
+      c.jogos++;
+      c.gp += meu; c.gc += adv;
+      if (meu > adv) { c.v++; vitorias++; }
+      else if (meu < adv) { c.d++; derrotas++; }
+      else { c.e++; empates++; }
+    });
+
+    var f = edicao.final;
+    if (f && (f.time1Id === jogadorId || f.time2Id === jogadorId)) {
+      var ehTime1 = f.time1Id === jogadorId;
+      var advId = ehTime1 ? f.time2Id : f.time1Id;
+      if (!confronto[advId]) confronto[advId] = { jogos: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0, titulo: 0, vice: 0 };
+      var c = confronto[advId];
+      c.jogos++;
+      if (edicao.campeao && edicao.campeao.timeId === jogadorId) c.titulo++;
+      if (edicao.vice && edicao.vice.timeId === jogadorId) c.vice++;
+      var g1 = parseInt(f.gols1), g2 = parseInt(f.gols2);
+      if (f.tevePenalidades) {
+        g1 = f.golsPenalidades1 || 0;
+        g2 = f.golsPenalidades2 || 0;
+      }
+      if (!isNaN(g1) && !isNaN(g2)) {
+        var meu = ehTime1 ? g1 : g2;
+        var adv = ehTime1 ? g2 : g1;
+        golsSofridos += adv;
+        c.gp += meu; c.gc += adv;
+        if (meu > adv) { c.v++; vitorias++; }
+        else if (meu < adv) { c.d++; derrotas++; }
+        else { c.e++; empates++; }
+      }
+    }
+  });
+
+  var avatarHtml = jogador.foto && (jogador.foto.startsWith('http') || jogador.foto.startsWith('data:'))
+    ? '<img src="'+jogador.foto+'" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--accent-1);box-shadow:0 0 20px var(--accent-glow);">'
+    : '<div style="width:56px;height:56px;border-radius:50%;background:var(--border-color);display:flex;align-items:center;justify-content:center;font-size:28px;">🧑</div>';
+
+  var confrontos = Object.keys(confronto).map(function(advId) {
+    var c = confronto[advId];
+    c.advId = advId;
+    c.advNome = getJogadorNome(advId);
+    return c;
+  }).sort(function(a, b) {
+    return b.jogos - a.jogos || (b.gp - b.gc) - (a.gp - a.gc);
+  });
+
+  var confrontoHtml = confrontos.length
+    ? '<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:12px;">'+
+      '<thead><tr>'+
+        '<th style="text-align:left;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">👤 Jogador</th>'+
+        '<th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">🎮 Jogos</th>'+
+        '<th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">✅ Vitórias</th>'+
+        '<th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">➖ Empates</th>'+
+        '<th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">❌ Derrotas</th>'+
+        '<th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">🏆 Título</th>'+
+        '<th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">🥈 Vice</th>'+
+        '<th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">⚽ GM</th>'+
+        '<th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">🥅 GS</th>'+
+      '</tr></thead><tbody>'+
+      confrontos.map(function(c) {
+        var advFoto = getJogador(c.advId) ? getJogador(c.advId).foto : null;
+        function cell(num, color) {
+          return '<td style="text-align:center;padding:8px 10px;font-family:\'Orbitron\',sans-serif;font-size:15px;font-weight:700;color:'+color+';">'+num+'</td>';
+        }
+        return '<tr style="border-top:1px solid var(--border-color);">'+
+          '<td style="padding:8px 10px;"><div style="display:flex;align-items:center;gap:8px;">'+imgOrEmoji(advFoto, 32)+
+            '<span style="font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px;">'+c.advNome+'</span>'+
+          '</div></td>'+
+          cell(c.jogos, 'var(--accent-1)')+
+          cell(c.v, '#4caf50')+
+          cell(c.e, 'var(--text-muted)')+
+          cell(c.d, '#ef5350')+
+          cell(c.titulo, '#ffd600')+
+          cell(c.vice, '#b0bec5')+
+          cell(c.gp, 'var(--accent-1)')+
+          cell(c.gc, 'var(--accent-3)')+
+        '</tr>';
+      }).join('')+'</tbody></table></div>'
+    : '<div style="text-align:center;padding:24px 0;color:var(--text-muted);"><div style="font-size:32px;margin-bottom:8px;">⚔️</div>Ainda não enfrentou ninguém</div>';
+
+  function statCell(num, color) {
+    return '<td style="text-align:center;padding:8px 10px;font-family:\'Orbitron\',sans-serif;font-size:18px;font-weight:900;color:'+color+';">'+num+'</td>';
+  }
+
+  document.getElementById('modal-estatisticas-titulo').textContent = jogador.nome;
+  document.getElementById('modal-estatisticas-conteudo').innerHTML =
+    '<div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">'+
+      avatarHtml+
+      '<div>'+
+        '<div style="font-size:18px;font-weight:700;">'+jogador.nome+'</div>'+
+        '<div style="font-size:12px;color:var(--text-muted);">Estatísticas completas do histórico (edições finalizadas)</div>'+
+      '</div>'+
+    '</div>'+
+
+    '<div style="overflow-x:auto;margin-bottom:20px;"><table style="width:100%;border-collapse:collapse;font-size:12px;">'+
+      '<thead><tr>'+
+        '<th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">🏆 Títulos</th>'+
+        '<th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">🥈 Vices</th>'+
+        '<th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">⚽ Gols</th>'+
+        '<th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">🥅 G.Sofridos</th>'+
+        '<th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">🎯 Artilharias</th>'+
+        '<th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">✅ Vitórias</th>'+
+        '<th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">➖ Empates</th>'+
+        '<th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">❌ Derrotas</th>'+
+      '</tr></thead><tbody>'+
+        '<tr>'+
+          statCell(titulos, '#ffd600')+
+          statCell(vices, '#b0bec5')+
+          statCell(gols, 'var(--accent-1)')+
+          statCell(golsSofridos, 'var(--accent-3)')+
+          statCell(artilharias, 'var(--accent-1)')+
+          statCell(vitorias, '#4caf50')+
+          statCell(empates, 'var(--text-muted)')+
+          statCell(derrotas, '#ef5350')+
+        '</tr>'+
+      '</tbody></table></div>'+
+
+    '<div style="background:rgba(5,8,12,0.3);border:1px solid var(--border-color);border-radius:12px;padding:16px;">'+
+      '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;">'+
+        '<div style="font-size:13px;font-weight:700;color:var(--text-secondary);">⚔️ CONFRONTO DIRETO ('+confrontos.length+')</div>'+
+        '<div style="font-size:10px;color:var(--text-muted);font-weight:500;">— VOCÊ CONTRA CADA JOGADOR ABAIXO</div>'+
+      '</div>'+
+      confrontoHtml+
+    '</div>';
+
+  var modal = document.getElementById('modal-estatisticas-jogador');
+  modal.style.display = 'flex';
+};
 
 // ============================================================
 // VISUALIZAR EDIÇÃO
@@ -2018,7 +2221,7 @@ function renderDashboard() {
 
   var statsEl = document.getElementById('dash-jogadores-stats');
   var jogadoresComHistorico = state.jogadores.map(function(jogador) {
-    var golsHistorico = 0, partidasHistorico = 0, titulosHistorico = 0, vicesHistorico = 0, artilhariasHistorico = 0, edicoesParticipou = 0;
+    var golsHistorico = 0, golsSofridosHistorico = 0, partidasHistorico = 0, titulosHistorico = 0, vicesHistorico = 0, artilhariasHistorico = 0, edicoesParticipou = 0;
 
     state.edicoes.forEach(function(edicao) {
       var jogadorEdicao = (edicao.jogadores || []).find(function(j) { return j.id === jogador.id; });
@@ -2035,8 +2238,9 @@ function renderDashboard() {
     });
 
     var resultados = contarResultadosJogador(jogador.id, state.edicoes);
+    golsSofridosHistorico = contarGolsSofridos(jogador.id, state.edicoes);
 
-    return { ...jogador, golsHistorico, partidasHistorico, titulosHistorico, vicesHistorico, artilhariasHistorico, edicoesParticipou, vitoriasHistorico: resultados.v, empatesHistorico: resultados.e, derrotasHistorico: resultados.d };
+    return { ...jogador, golsHistorico, golsSofridosHistorico, partidasHistorico, titulosHistorico, vicesHistorico, artilhariasHistorico, edicoesParticipou, vitoriasHistorico: resultados.v, empatesHistorico: resultados.e, derrotasHistorico: resultados.d };
   });
 
   var listaOrdenada = jogadoresComHistorico.filter(function(j) {
@@ -2053,7 +2257,7 @@ function renderDashboard() {
     statsEl.innerHTML = '<div class="stats-table-wrap"><table><thead><tr>'+
       '<th style="text-align:left;">Jogador</th><th style="text-align:center;">🏆 Títulos</th>'+
       '<th style="text-align:center;">🥈 Vices</th><th style="text-align:center;">⚽ Gols</th>'+
-      '<th style="text-align:center;">🎯 Artilharias</th><th style="text-align:center;">✅ Vitórias</th>'+
+      '<th style="text-align:center;">🥅 G.Sofridos</th><th style="text-align:center;">🎯 Artilharias</th><th style="text-align:center;">✅ Vitórias</th>'+
       '<th style="text-align:center;">➖ Empates</th><th style="text-align:center;">❌ Derrotas</th>'+
       '<th style="text-align:center;">📅 Edições</th>'+
       '<th style="text-align:center;">📋 Partidas</th></tr></thead><tbody>'+
@@ -2062,12 +2266,13 @@ function renderDashboard() {
           ? '<img src="'+j.foto+'" alt="'+j.nome+'">'
           : '<span class="fallback">🧑</span>';
         var posClass = (index === 0) ? 'pos-1-mini' : (index === 1) ? 'pos-2-mini' : 'pos-other-mini';
-        return '<tr><td><div class="player-cell"><span class="pos-badge-mini '+posClass+'">'+(index+1)+'</span>'+
+        return '<tr style="cursor:pointer" onclick="abrirEstatisticasJogador(\''+j.id+'\')"><td><div class="player-cell"><span class="pos-badge-mini '+posClass+'">'+(index+1)+'</span>'+
           '<div class="avatar-mini">'+avatarHtml+'</div>'+
           '<div><div class="player-name" style="color:var(--text-primary);font-weight:600;">'+j.nome+'</div></div></div></td>'+
           '<td><span class="stat-num stat-titulos">'+j.titulosHistorico+'</span></td>'+
           '<td><span class="stat-num stat-vices">'+j.vicesHistorico+'</span></td>'+
           '<td><span class="stat-num stat-gols">'+j.golsHistorico+'</span></td>'+
+          '<td><span class="stat-num stat-gols-sofridos">'+j.golsSofridosHistorico+'</span></td>'+
           '<td><span class="stat-num stat-artilharias">'+j.artilhariasHistorico+'</span></td>'+
           '<td><span class="stat-num stat-vitorias">'+j.vitoriasHistorico+'</span></td>'+
           '<td><span class="stat-num stat-empates">'+j.empatesHistorico+'</span></td>'+
@@ -2305,13 +2510,14 @@ function renderTemporadaAtual() {
           j.vitorias = resultadosTemp.v;
           j.empates = resultadosTemp.e;
           j.derrotas = resultadosTemp.d;
+          j.golsSofridos = contarGolsSofridos(j.id, edicoesDaTemp);
         });
 
         if (listaTemp.length > 0) {
           return '<div class="stats-table-wrap"><table><thead><tr>'+
             '<th style="text-align:left;">Jogador</th><th style="text-align:center;">🏆 Títulos</th>'+
             '<th style="text-align:center;">🥈 Vices</th><th style="text-align:center;">⚽ Gols</th>'+
-            '<th style="text-align:center;">🎯 Artilharias</th>'+
+            '<th style="text-align:center;">🥅 G.Sofridos</th><th style="text-align:center;">🎯 Artilharias</th>'+
             '<th style="text-align:center;">✅ Vitórias</th>'+
             '<th style="text-align:center;">➖ Empates</th>'+
             '<th style="text-align:center;">❌ Derrotas</th>'+
@@ -2322,12 +2528,13 @@ function renderTemporadaAtual() {
                 ? '<img src="'+j.foto+'" alt="'+j.nome+'">'
                 : '<span class="fallback">🧑</span>';
               var posClass = (index === 0) ? 'pos-1-mini' : (index === 1) ? 'pos-2-mini' : 'pos-other-mini';
-              return '<tr><td><div class="player-cell"><span class="pos-badge-mini '+posClass+'">'+(index+1)+'</span>'+
+              return '<tr style="cursor:pointer" onclick="abrirEstatisticasJogador(\''+j.id+'\')"><td><div class="player-cell"><span class="pos-badge-mini '+posClass+'">'+(index+1)+'</span>'+
                 '<div class="avatar-mini">'+avatarHtml+'</div>'+
                 '<div><div class="player-name" style="color:var(--text-primary);font-weight:600;">'+j.nome+'</div></div></div></td>'+
                 '<td><span class="stat-num stat-titulos">'+j.titulos+'</span></td>'+
                 '<td><span class="stat-num stat-vices">'+j.vices+'</span></td>'+
                 '<td><span class="stat-num stat-gols">'+j.gols+'</span></td>'+
+                '<td><span class="stat-num stat-gols-sofridos">'+j.golsSofridos+'</span></td>'+
                 '<td><span class="stat-num stat-artilharias">'+j.artilharias+'</span></td>'+
                 '<td><span class="stat-num stat-vitorias">'+j.vitorias+'</span></td>'+
                 '<td><span class="stat-num stat-empates">'+j.empates+'</span></td>'+
