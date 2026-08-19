@@ -2748,7 +2748,7 @@ window.abrirEstatisticasJogador = function(jogadorId) {
 
   const confrontos = Object.entries(confronto)
     .map(([advId, c]) => ({ ...c, advId, advNome: getJogadorNome(advId) }))
-    .sort((a, b) => b.jogos - a.jogos || (b.gp - b.gc) - (a.gp - a.gc));
+    .sort((a, b) => b.d - a.d || b.gc - a.gc || b.vice - a.vice);
 
   const confrontoHtml = confrontos.length
     ? `<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:12px;">
