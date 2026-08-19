@@ -1563,7 +1563,7 @@ window.abrirEstatisticasJogador = function(jogadorId) {
     c.advNome = getJogadorNome(advId);
     return c;
   }).sort(function(a, b) {
-    return b.jogos - a.jogos || (b.gp - b.gc) - (a.gp - a.gc);
+    return b.d - a.d || b.gc - a.gc || b.vice - a.vice;
   });
 
   var confrontoHtml = confrontos.length
