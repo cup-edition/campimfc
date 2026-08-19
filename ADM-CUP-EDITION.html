@@ -1258,8 +1258,8 @@
   .text-green { color: #00e676; }
 
   .pos-badge {
-    width: 32px;
-    height: 32px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -2004,7 +2004,6 @@ document.addEventListener('keydown', function(e){
             <select class="form-select" id="temp-status">
               <option value="em_andamento">Em Andamento</option>
               <option value="encerrado">Encerrado</option>
-              <option value="planejado">Planejado</option>
             </select>
           </div>
         </div>
@@ -2743,7 +2742,7 @@ function populateSelects() {
   });
   const filtroEl = document.getElementById('filtro-time-jogadores');
   if (filtroEl) filtroEl.innerHTML = '<option value="">Todos os times</option>' + opts;
-  const jogOpts = state.jogadores.map(j => `<option value="${j.id}">${j.nome} (${j.timeId ? getTimeName(j.timeId) : 'Sem time'})</option>`).join('');
+  const jogOpts = state.jogadores.map(j => `<option value="${j.id}">${j.nome}${j.timeId ? ' (' + getTimeName(j.timeId) + ')' : ''}</option>`).join('');
   ['titulo-artilheiro'].forEach(id => {
     const el = document.getElementById(id); if (el) el.innerHTML = blank + jogOpts;
   });
@@ -2873,7 +2872,7 @@ function renderListaVincularRapido() {
   }
   container.innerHTML = jogadoresDisponiveis.map(j => {
     let avatarHtml = j.foto && (j.foto.startsWith('http') || j.foto.startsWith('data:')) ? `<img src="${j.foto}" alt="${j.nome}">` : '<span class="fallback">🧑</span>';
-    const timeAtual = j.timeId ? getTimeName(j.timeId) : 'Sem time';
+    const timeAtual = j.timeId ? getTimeName(j.timeId) : '';
     return `<div class="modal-player-item">
       <div class="avatar-mini">${avatarHtml}</div>
       <div class="player-name">${j.nome}</div>
@@ -3023,7 +3022,7 @@ function renderJogadores() {
   }
   el.innerHTML = lista.map(j => {
     let avatarHtml = j.foto && (j.foto.startsWith('http') || j.foto.startsWith('data:')) ? `<img src="${j.foto}" alt="${j.nome}">` : '<span class="fallback">🧑</span>';
-    const teamName = j.timeId ? getTimeName(j.timeId) : 'Sem time';
+    const teamName = j.timeId ? getTimeName(j.timeId) : '';
     
     return `<div class="player-list-item">
       <div class="player-avatar">${avatarHtml}</div>
@@ -4295,7 +4294,7 @@ window.finalizarEdicao = async function() {
             id: jogador.id,
             nome: jogador.nome,
             timeId: jogador.timeId || '',
-            timeNome: timeDoJogador ? timeDoJogador.nome : 'Sem time',
+            timeNome: timeDoJogador ? timeDoJogador.nome : '',
             gols: golsEdicao,
             golsFaseGrupos: golsFaseGrupos,
             golsFinal: golsFinal,
@@ -4445,7 +4444,7 @@ window.finalizarEdicao = async function() {
       }
     }
 
-    await fbUpdate('temporadas', tempId, { status: 'planejado' });
+    await fbUpdate('temporadas', tempId, { status: 'em_andamento' });
 
     showToast(`🏆 ${ordinal(numeroLocal)} Edição (Global #${numeroGlobal}) finalizada! ${timeCampeao ? timeCampeao.nome : 'Time'} é o CAMPEÃO! Partidas resetadas e Final excluída para a próxima edição.`);
     
@@ -4853,7 +4852,7 @@ window.visualizarEdicao = function(edicaoId) {
                         ${getPlayerAvatar(j.id)}
                       </div>
                       <span style="font-weight:${isMaiorGol ? '700' : '600'};flex:1;color:${isMaiorGol ? '#ffd600' : 'var(--text-primary)'};">${getJogadorNome(j.id)}</span>
-                      <span style="font-size:11px;color:var(--text-muted);">${timeDoJogador?.nome || 'Sem time'}</span>
+                      <span style="font-size:11px;color:var(--text-muted);">${timeDoJogador?.nome || ''}</span>
                       <span style="color:${isMaiorGol ? '#ffd600' : 'var(--accent-1)'};font-weight:700;font-family:'Orbitron',sans-serif;">${j.gols || 0} ⚽</span>
                       ${isMaiorGol ? '🎯' : ''}
                     </div>
@@ -5074,10 +5073,10 @@ function renderEdicoes() {
           
           <div style="flex:1;min-width:200px;">
             <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-              ${imgOrEmoji(timeCampeao?.escudo, 28)}
+              ${timeCampeao?.escudo ? imgOrEmoji(timeCampeao.escudo, 28) : '<span style="font-size:15px;">⚽</span>'}
               <span style="color:#ffd600;font-weight:700;">🏆 ${campeao}</span>
               <span style="color:var(--text-muted);">×</span>
-              ${imgOrEmoji(timeVice?.escudo, 28)}
+              ${timeVice?.escudo ? imgOrEmoji(timeVice.escudo, 28) : '<span style="font-size:15px;">⚽</span>'}
               <span style="color:var(--text-secondary);">${vice}</span>
             </div>
             <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">
@@ -5181,8 +5180,7 @@ function renderTemporadas() {
   
   const sL = { 
     em_andamento: '🟢 Em Andamento', 
-    encerrado: '🔴 Encerrado', 
-    planejado: '🔵 Planejado' 
+    encerrado: '🔴 Encerrado' 
   };
   
   // Ordenar por mais recente primeiro (extraindo o ano do nome)
@@ -5197,10 +5195,10 @@ function renderTemporadas() {
     const edicoesCount = state.edicoes.filter(e => e.temporadaId === t.id).length;
     let imgHtml = t.imagem && (t.imagem.startsWith('http') || t.imagem.startsWith('data:')) ? `<img src="${t.imagem}" alt="${t.nome}">` : '<span class="fallback">🏆</span>';
     
-    const statusAtual = t.status || 'planejado';
+    const statusAtual = t.status || 'em_andamento';
     
     // Opções do select com o status atual selecionado
-    const statusOptions = ['planejado', 'em_andamento', 'encerrado'].map(status => {
+    const statusOptions = ['em_andamento', 'encerrado'].map(status => {
       const selected = status === statusAtual ? 'selected' : '';
       return `<option value="${status}" ${selected}>${sL[status] || status}</option>`;
     }).join('');
@@ -5227,13 +5225,12 @@ window.mudarStatusTemporada = async function(temporadaId, novoStatus) {
   const temporada = state.temporadas.find(t => t.id === temporadaId);
   if (!temporada) return showToast('⚠️ Temporada não encontrada');
   
-  const statusAtual = temporada.status || 'planejado';
+  const statusAtual = temporada.status || 'em_andamento';
   if (statusAtual === novoStatus) return;
   
   const sL = { 
     em_andamento: '🟢 Em Andamento', 
-    encerrado: '🔴 Encerrado', 
-    planejado: '🔵 Planejado' 
+    encerrado: '🔴 Encerrado' 
   };
   
   try {
@@ -5247,6 +5244,42 @@ window.mudarStatusTemporada = async function(temporadaId, novoStatus) {
 };
 
 // ============ DASHBOARD ============
+function contarResultadosHistorico(jogadorId) {
+  let v = 0, e = 0, d = 0;
+  state.edicoes.forEach(edicao => {
+    const jogadorEdicao = edicao.jogadores?.find(j => j.id === jogadorId);
+    if (!jogadorEdicao || !jogadorEdicao.timeId) return;
+    const timeId = jogadorEdicao.timeId;
+    (edicao.partidas || []).forEach(p => {
+      if (p.time1Id !== timeId && p.time2Id !== timeId) return;
+      const g1 = parseInt(p.gols1), g2 = parseInt(p.gols2);
+      if (isNaN(g1) || isNaN(g2)) return;
+      const ehTime1 = p.time1Id === timeId;
+      const meu = ehTime1 ? g1 : g2;
+      const adv = ehTime1 ? g2 : g1;
+      if (meu > adv) v++;
+      else if (meu < adv) d++;
+      else e++;
+    });
+    const f = edicao.final;
+    if (!f || (f.time1Id !== timeId && f.time2Id !== timeId)) return;
+    const ehTime1 = f.time1Id === timeId;
+    if (f.tevePenalidades) {
+      const g1p = f.golsPenalidades1 || 0, g2p = f.golsPenalidades2 || 0;
+      const meuP = ehTime1 ? g1p : g2p, advP = ehTime1 ? g2p : g1p;
+      if (meuP > advP) v++; else d++;
+    } else {
+      const g1f = parseInt(f.gols1), g2f = parseInt(f.gols2);
+      if (isNaN(g1f) || isNaN(g2f)) return;
+      const meuF = ehTime1 ? g1f : g2f, advF = ehTime1 ? g2f : g1f;
+      if (meuF > advF) v++;
+      else if (meuF < advF) d++;
+      else e++;
+    }
+  });
+  return { v, e, d };
+}
+
 function renderDashboard() {
   document.getElementById('stat-times').textContent = state.times.length;
   document.getElementById('stat-jogadores').textContent = state.jogadores.length;
@@ -5294,30 +5327,14 @@ function renderDashboard() {
   }
   
   if (lideres.length > 0) {
-    liderEl.innerHTML = `<div style="display:flex;flex-direction:column;gap:8px;padding:4px 0">
-      ${lideres.map(j => {
-        let timeNome = 'Sem time';
-        let timeEscudo = null;
-        if (j.timeId) {
-          const time = state.times.find(t => t.id === j.timeId);
-          if (time) {
-            timeNome = time.nome;
-            timeEscudo = time.escudo;
-          }
-        }
-        return `<div style="display:flex;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid rgba(56,156,255,0.05);">
-          ${imgOrEmoji(j.foto, 40)}
-          <div>
-            <div style="display:flex;align-items:center;gap:8px;">
-              <span style="font-size:15px;font-weight:700;color:#ffd600;">🏆 ${j.nome}</span>
-              ${imgOrEmoji(timeEscudo, 20)}
-            </div>
-            <div style="color:var(--text-muted);font-size:12px;">${timeNome} • ${j.titulos} título(s)</div>
-          </div>
+    liderEl.innerHTML = lideres.map(j => {
+      return `<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(56,156,255,0.05);">
+          ${imgOrEmoji(j.foto, 44)}
+          <div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:14px;font-weight:700;color:#ffd600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🏆 ${j.nome}</span></div></div>
+          <div style="text-align:right;flex-shrink:0;"><div style="font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;color:#ffd600;text-shadow:0 0 20px rgba(255,214,0,0.4);line-height:1;">${j.titulos}</div>
+          <div style="color:var(--text-muted);font-size:10px;margin-top:2px;">TÍTULOS</div></div>
         </div>`;
-      }).join('')}
-      <div style="color:var(--accent-1);font-size:12px;margin-top:4px;">🏅 ${state.edicoes.length} edições realizadas</div>
-    </div>`;
+    }).join('');
   } else {
     liderEl.innerHTML = '<div class="empty-state" style="padding:20px"><p>Nenhum título registrado</p></div>';
   }
@@ -5351,24 +5368,14 @@ function renderDashboard() {
   }
   
   if (artilheiros.length > 0) {
-    artEl.innerHTML = `<div style="display:flex;flex-direction:column;gap:8px;padding:4px 0">
-      ${artilheiros.map(j => {
-        let timeNome = 'Sem time';
-        if (j.timeId) {
-          const time = state.times.find(t => t.id === j.timeId);
-          if (time) timeNome = time.nome;
-        }
-        return `<div style="display:flex;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid rgba(56,156,255,0.05);">
-          ${imgOrEmoji(j.foto, 40)}
-          <div>
-            <div style="font-size:15px;font-weight:700;">${j.nome}</div>
-            <div style="color:var(--accent-1);font-family:'Orbitron',sans-serif;font-size:22px;">${j.gols} ⚽</div>
-            <div style="color:var(--text-muted);font-size:12px;">${timeNome}</div>
-          </div>
+    artEl.innerHTML = artilheiros.map(j => {
+      return `<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(56,156,255,0.05);">
+          ${imgOrEmoji(j.foto, 44)}
+          <div style="flex:1;min-width:0;text-align:left;"><div style="font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${j.nome}</div></div>
+          <div style="text-align:right;flex-shrink:0;"><div style="font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;color:#ffd600;text-shadow:0 0 20px rgba(255,214,0,0.4);line-height:1;">${j.gols}</div>
+          <div style="color:var(--text-muted);font-size:10px;margin-top:2px;">⚽ GOLS</div></div>
         </div>`;
-      }).join('')}
-      <div style="color:var(--text-muted);font-size:12px;margin-top:4px;">🎯 Maior(es) Artilheiro(s) do Histórico</div>
-    </div>`;
+    }).join('');
   } else {
     artEl.innerHTML = '<div class="empty-state" style="padding:20px"><p>Sem gols registrados</p></div>';
   }
@@ -5382,7 +5389,7 @@ function renderDashboard() {
       let artilhariasHistorico = 0;
       let vicesHistorico = 0;
       let edicoesParticipou = 0;
-      let ultimoTimeNome = 'Sem time';
+      let ultimoTimeNome = '';
       let ultimoTimeId = null;
       
       state.edicoes.forEach(edicao => {
@@ -5421,12 +5428,17 @@ function renderDashboard() {
         }
       }
       
+      const resultados = contarResultadosHistorico(jogador.id);
+      
       return {
         ...jogador,
         golsHistorico,
         partidasHistorico,
         titulosHistorico,
         artilhariasHistorico,
+        vitoriasHistorico: resultados.v,
+        empatesHistorico: resultados.e,
+        derrotasHistorico: resultados.d,
         vicesHistorico,
         edicoesParticipou,
         ultimoTimeNome,
@@ -5435,9 +5447,9 @@ function renderDashboard() {
     });
     
     const lista = jogadoresComHistorico.sort((a, b) => {
-      if (b.golsHistorico !== a.golsHistorico) return b.golsHistorico - a.golsHistorico;
       if (b.titulosHistorico !== a.titulosHistorico) return b.titulosHistorico - a.titulosHistorico;
       if (b.vicesHistorico !== a.vicesHistorico) return b.vicesHistorico - a.vicesHistorico;
+      if (b.golsHistorico !== a.golsHistorico) return b.golsHistorico - a.golsHistorico;
       if (b.artilhariasHistorico !== a.artilhariasHistorico) return b.artilhariasHistorico - a.artilhariasHistorico;
       return a.nome.localeCompare(b.nome);
     });
@@ -5451,36 +5463,42 @@ function renderDashboard() {
             <thead>
               <tr>
                 <th>Jogador</th>
-                <th style="text-align:center">⚽ Gols</th>
                 <th style="text-align:center">🏆 Títulos</th>
                 <th style="text-align:center">🥈 Vices</th>
+                <th style="text-align:center">⚽ Gols</th>
                 <th style="text-align:center">🎯 Artilharias</th>
+                <th style="text-align:center">✅ Vitórias</th>
+                <th style="text-align:center">➖ Empates</th>
+                <th style="text-align:center">❌ Derrotas</th>
                 <th style="text-align:center">📅 Edições</th>
                 <th style="text-align:center">📋 Partidas</th>
               </tr>
             </thead>
             <tbody>
-              ${lista.map(j => {
+              ${lista.map((j, index) => {
                 const avatarHtml = j.foto && (j.foto.startsWith('http') || j.foto.startsWith('data:')) 
                   ? `<img src="${j.foto}" style="width:32px;height:32px;border-radius:50%;object-fit:cover;border:1px solid var(--border-color);">` 
                   : '<span style="font-size:20px">🧑</span>';
                 
-                const teamName = j.ultimoTimeNome || 'Sem time';
+                const posClass = (index === 0) ? 'pos-1' : (index === 1) ? 'pos-2' : 'pos-other';
                 
                 return `<tr>
                   <td>
                     <div style="display:flex;align-items:center;gap:10px;">
+                      <span class="pos-badge ${posClass}">${index + 1}</span>
                       ${avatarHtml}
                       <div>
                         <div style="font-weight:600;font-size:14px;">${j.nome}</div>
-                        <div style="font-size:11px;color:var(--text-muted);">${teamName}</div>
                       </div>
                     </div>
                   </td>
-                  <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;color:var(--accent-1);">${j.golsHistorico}</td>
                   <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:#ffd600;">${j.titulosHistorico}</td>
                   <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:#b0bec5;">${j.vicesHistorico}</td>
+                  <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;color:var(--accent-1);">${j.golsHistorico}</td>
                   <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:var(--accent-1);">${j.artilhariasHistorico}</td>
+                  <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:#4caf50;">${j.vitoriasHistorico}</td>
+                  <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:var(--text-muted);">${j.empatesHistorico}</td>
+                  <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:#ef5350;">${j.derrotasHistorico}</td>
                   <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:var(--text-muted);">${j.edicoesParticipou}</td>
                   <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:var(--text-muted);">${j.partidasHistorico}</td>
                 </tr>`;
