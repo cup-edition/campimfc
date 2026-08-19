@@ -1258,8 +1258,8 @@
   .text-green { color: #00e676; }
 
   .pos-badge {
-    width: 32px;
-    height: 32px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -4772,6 +4772,40 @@ window.mudarStatusTemporada = async function(temporadaId, novoStatus) {
   }
 };
 
+// ============ RESULTADOS (VITÓRIAS, EMPATES, DERROTAS) NO HISTÓRICO ============
+function contarResultadosHistorico(jogadorId) {
+  let v = 0, e = 0, d = 0;
+  state.edicoes.forEach(edicao => {
+    (edicao.partidas || []).forEach(p => {
+      if (p.time1Id !== jogadorId && p.time2Id !== jogadorId) return;
+      const g1 = parseInt(p.gols1), g2 = parseInt(p.gols2);
+      if (isNaN(g1) || isNaN(g2)) return;
+      const ehTime1 = p.time1Id === jogadorId;
+      const meu = ehTime1 ? g1 : g2;
+      const adv = ehTime1 ? g2 : g1;
+      if (meu > adv) v++;
+      else if (meu < adv) d++;
+      else e++;
+    });
+    const f = edicao.final;
+    if (!f || (f.time1Id !== jogadorId && f.time2Id !== jogadorId)) return;
+    const ehTime1 = f.time1Id === jogadorId;
+    if (f.tevePenalidades) {
+      const g1 = f.golsPenalidades1 || 0, g2 = f.golsPenalidades2 || 0;
+      const meu = ehTime1 ? g1 : g2, adv = ehTime1 ? g2 : g1;
+      if (meu > adv) v++; else d++;
+    } else {
+      const g1 = parseInt(f.gols1), g2 = parseInt(f.gols2);
+      if (isNaN(g1) || isNaN(g2)) return;
+      const meu = ehTime1 ? g1 : g2, adv = ehTime1 ? g2 : g1;
+      if (meu > adv) v++;
+      else if (meu < adv) d++;
+      else e++;
+    }
+  });
+  return { v, e, d };
+}
+
 // ============ DASHBOARD ============
 function renderDashboard() {
   document.getElementById('stat-jogadores').textContent = state.jogadores.length;
@@ -4820,20 +4854,14 @@ function renderDashboard() {
   }
   
   if (lideres.length > 0) {
-    liderEl.innerHTML = `<div style="display:flex;flex-direction:column;gap:8px;padding:4px 0">
-      ${lideres.map(j => {
-        return `<div style="display:flex;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid rgba(56,156,255,0.05);">
-          ${imgOrEmoji(j.foto, 40)}
-          <div>
-            <div style="display:flex;align-items:center;gap:8px;">
-              <span style="font-size:15px;font-weight:700;color:#ffd600;">🏆 ${j.nome}</span>
-            </div>
-            <div style="color:var(--text-muted);font-size:12px;">${j.titulos} título(s)</div>
-          </div>
+    liderEl.innerHTML = lideres.map(j => {
+      return `<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(56,156,255,0.05);">
+          ${imgOrEmoji(j.foto, 44)}
+          <div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:14px;font-weight:700;color:#ffd600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🏆 ${j.nome}</span></div></div>
+          <div style="text-align:right;flex-shrink:0;"><div style="font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;color:#ffd600;text-shadow:0 0 20px rgba(255,214,0,0.4);line-height:1;">${j.titulos}</div>
+          <div style="color:var(--text-muted);font-size:10px;margin-top:2px;">TÍTULOS</div></div>
         </div>`;
-      }).join('')}
-      <div style="color:var(--accent-1);font-size:12px;margin-top:4px;">🏅 ${state.edicoes.length} edições realizadas</div>
-    </div>`;
+    }).join('');
   } else {
     liderEl.innerHTML = '<div class="empty-state" style="padding:20px"><p>Nenhum título registrado</p></div>';
   }
@@ -4867,18 +4895,14 @@ function renderDashboard() {
   }
   
   if (artilheiros.length > 0) {
-    artEl.innerHTML = `<div style="display:flex;flex-direction:column;gap:8px;padding:4px 0">
-      ${artilheiros.map(j => {
-        return `<div style="display:flex;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid rgba(56,156,255,0.05);">
-          ${imgOrEmoji(j.foto, 40)}
-          <div>
-            <div style="font-size:15px;font-weight:700;">${j.nome}</div>
-            <div style="color:var(--accent-1);font-family:'Orbitron',sans-serif;font-size:22px;">${j.gols} ⚽</div>
-          </div>
+    artEl.innerHTML = artilheiros.map(j => {
+      return `<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(56,156,255,0.05);">
+          ${imgOrEmoji(j.foto, 44)}
+          <div style="flex:1;min-width:0;text-align:left;"><div style="font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${j.nome}</div></div>
+          <div style="text-align:right;flex-shrink:0;"><div style="font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;color:#ffd600;text-shadow:0 0 20px rgba(255,214,0,0.4);line-height:1;">${j.gols}</div>
+          <div style="color:var(--text-muted);font-size:10px;margin-top:2px;">⚽ GOLS</div></div>
         </div>`;
-      }).join('')}
-      <div style="color:var(--text-muted);font-size:12px;margin-top:4px;">🎯 Maior(es) Artilheiro(s) do Histórico</div>
-    </div>`;
+    }).join('');
   } else {
     artEl.innerHTML = '<div class="empty-state" style="padding:20px"><p>Sem gols registrados</p></div>';
   }
@@ -4892,6 +4916,9 @@ function renderDashboard() {
       let artilhariasHistorico = 0;
       let vicesHistorico = 0;
       let edicoesParticipou = 0;
+      let vitoriasHistorico = 0;
+      let empatesHistorico = 0;
+      let derrotasHistorico = 0;
       
       state.edicoes.forEach(edicao => {
         const jogadorEdicao = edicao.jogadores?.find(j => j.id === jogador.id);
@@ -4914,6 +4941,37 @@ function renderDashboard() {
             }
           }
         }
+        
+        (edicao.partidas || []).forEach(p => {
+          if (p.time1Id !== jogador.id && p.time2Id !== jogador.id) return;
+          const g1 = parseInt(p.gols1), g2 = parseInt(p.gols2);
+          if (isNaN(g1) || isNaN(g2)) return;
+          const ehTime1 = p.time1Id === jogador.id;
+          const meu = ehTime1 ? g1 : g2;
+          const adv = ehTime1 ? g2 : g1;
+          if (meu > adv) vitoriasHistorico++;
+          else if (meu < adv) derrotasHistorico++;
+          else empatesHistorico++;
+        });
+        
+        const f = edicao.final;
+        if (f && (f.time1Id === jogador.id || f.time2Id === jogador.id)) {
+          const ehTime1 = f.time1Id === jogador.id;
+          if (f.tevePenalidades) {
+            const g1 = f.golsPenalidades1 || 0, g2 = f.golsPenalidades2 || 0;
+            const meu = ehTime1 ? g1 : g2, adv = ehTime1 ? g2 : g1;
+            if (meu > adv) vitoriasHistorico++;
+            else derrotasHistorico++;
+          } else {
+            const g1 = parseInt(f.gols1), g2 = parseInt(f.gols2);
+            if (!isNaN(g1) && !isNaN(g2)) {
+              const meu = ehTime1 ? g1 : g2, adv = ehTime1 ? g2 : g1;
+              if (meu > adv) vitoriasHistorico++;
+              else if (meu < adv) derrotasHistorico++;
+              else empatesHistorico++;
+            }
+          }
+        }
       });
       
       return {
@@ -4923,14 +4981,17 @@ function renderDashboard() {
         titulosHistorico,
         artilhariasHistorico,
         vicesHistorico,
-        edicoesParticipou
+        edicoesParticipou,
+        vitoriasHistorico,
+        empatesHistorico,
+        derrotasHistorico
       };
     });
     
     const lista = jogadoresComHistorico.sort((a, b) => {
-      if (b.golsHistorico !== a.golsHistorico) return b.golsHistorico - a.golsHistorico;
       if (b.titulosHistorico !== a.titulosHistorico) return b.titulosHistorico - a.titulosHistorico;
       if (b.vicesHistorico !== a.vicesHistorico) return b.vicesHistorico - a.vicesHistorico;
+      if (b.golsHistorico !== a.golsHistorico) return b.golsHistorico - a.golsHistorico;
       if (b.artilhariasHistorico !== a.artilhariasHistorico) return b.artilhariasHistorico - a.artilhariasHistorico;
       return a.nome.localeCompare(b.nome);
     });
@@ -4944,33 +5005,42 @@ function renderDashboard() {
             <thead>
               <tr>
                 <th>Jogador</th>
-                <th style="text-align:center">⚽ Gols</th>
                 <th style="text-align:center">🏆 Títulos</th>
                 <th style="text-align:center">🥈 Vices</th>
+                <th style="text-align:center">⚽ Gols</th>
                 <th style="text-align:center">🎯 Artilharias</th>
+                <th style="text-align:center">✅ Vitórias</th>
+                <th style="text-align:center">➖ Empates</th>
+                <th style="text-align:center">❌ Derrotas</th>
                 <th style="text-align:center">📅 Edições</th>
                 <th style="text-align:center">📋 Partidas</th>
               </tr>
             </thead>
             <tbody>
-              ${lista.map(j => {
+              ${lista.map((j, index) => {
                 const avatarHtml = j.foto && (j.foto.startsWith('http') || j.foto.startsWith('data:')) 
                   ? `<img src="${j.foto}" style="width:32px;height:32px;border-radius:50%;object-fit:cover;border:1px solid var(--border-color);">` 
                   : '<span style="font-size:20px">🧑</span>';
                 
+                const posClass = (index === 0) ? 'pos-1' : (index === 1) ? 'pos-2' : 'pos-other';
+                
                 return `<tr>
                   <td>
                     <div style="display:flex;align-items:center;gap:10px;">
+                      <span class="pos-badge ${posClass}">${index + 1}</span>
                       ${avatarHtml}
                       <div>
                         <div style="font-weight:600;font-size:14px;">${j.nome}</div>
                       </div>
                     </div>
                   </td>
-                  <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;color:var(--accent-1);">${j.golsHistorico}</td>
                   <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:#ffd600;">${j.titulosHistorico}</td>
                   <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:#b0bec5;">${j.vicesHistorico}</td>
+                  <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;color:var(--accent-1);">${j.golsHistorico}</td>
                   <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:var(--accent-1);">${j.artilhariasHistorico}</td>
+                  <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:#4caf50;">${j.vitoriasHistorico}</td>
+                  <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:var(--text-muted);">${j.empatesHistorico}</td>
+                  <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:#ef5350;">${j.derrotasHistorico}</td>
                   <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:var(--text-muted);">${j.edicoesParticipou}</td>
                   <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:var(--text-muted);">${j.partidasHistorico}</td>
                 </tr>`;
