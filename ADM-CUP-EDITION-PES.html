@@ -4297,8 +4297,6 @@ window.finalizarEdicao = async function() {
 
     showToast(`🔄 ${partidasGrupoParaResetar.length} partidas resetadas, ${finais.length} final(ais) excluída(s).`);
 
-    await fbUpdate('temporadas', tempId, { status: 'encerrado' });
-
     showToast(`🏆 ${ordinal(numeroLocal)} Edição (Global #${numeroGlobal}) finalizada! ${timeCampeao ? timeCampeao.nome : 'Time'} é o CAMPEÃO! Partidas resetadas e Final excluída para a próxima edição.`);
     
     document.getElementById('finalizar-confirmacao-status').style.display = 'none';
