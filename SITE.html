@@ -20,7 +20,7 @@
     <meta name="twitter:description" content="Participe da maior competição do CAMPIM FC" />
     <meta name="twitter:image" content="https://cup-edition.github.io/campimfc/CUP%20EDITION.jpg" />
 
-    <title>CUP EDITION - CAMPIM FC</title>
+    <title>CUP EDITION - CAMPIM FC & PES</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
@@ -1074,6 +1074,17 @@
             if (!menuDropdown.contains(e.target)) {
                 menuDropdown.style.display = 'none';
                 btnMenu.classList.remove('aberto');
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === ' ' || e.key === 'Spacebar') {
+                const alvo = document.activeElement;
+                if (alvo && (alvo.tagName === 'INPUT' || alvo.tagName === 'TEXTAREA' || alvo.tagName === 'SELECT')) {
+                    return;
+                }
+                e.preventDefault();
+                toggleMenu();
             }
         });
     </script>
