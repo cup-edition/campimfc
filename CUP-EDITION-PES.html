@@ -1748,7 +1748,8 @@ window.visualizarEdicao = function(edicaoId) {
       return '<div style="color:var(--text-muted);font-size:13px;text-align:center;padding:12px;">Nenhuma partida registrada</div>';
     }
 
-    return edicao.partidas.map(p => {
+    const _colsP = 2; const _rowsP = Math.ceil(edicao.partidas.length/_colsP); const _partidasOrdenadas = []; for(let r=0;r<_rowsP;r++) for(let c=0;c<_colsP;c++){const idx=c*_rowsP+r; if(idx<edicao.partidas.length) _partidasOrdenadas.push(edicao.partidas[idx]);}
+    return _partidasOrdenadas.map(p => {
       const escudo1 = getJogador(p.time1Id)?.foto || '🧑';
       const escudo2 = getJogador(p.time2Id)?.foto || '🧑';
       const nome1 = getJogadorNome(p.time1Id) || p.time1Nome || '?';
@@ -1915,9 +1916,9 @@ window.visualizarEdicao = function(edicaoId) {
           
           <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);">
             <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">📊 CLASSIFICAÇÃO FASE DE GRUPOS</div>
-            ${edicao.classificacao?.length ? `
+            ${(() => { const _cf = (edicao.classificacao || []).filter(c => Number(c.jogos ?? c.j ?? 0) > 0); return _cf.length ? `
               <div style="display:flex;flex-direction:column;gap:4px;max-height:300px;overflow-y:auto;">
-                ${edicao.classificacao.filter(c => (c.jogos || 0) > 0).map(c => {
+                ${_cf.map(c => {
                   const time = state.jogadores.find(t => t.id === c.timeId);
                   const posEmoji = c.posicao === 1 ? '🥇' : (c.posicao === 2 ? '🥈' : (c.posicao === 3 ? '🥉' : `${c.posicao}.`));
                   return `
@@ -1936,23 +1937,23 @@ window.visualizarEdicao = function(edicaoId) {
                   `;
                 }).join('')}
               </div>
-            ` : '<div style="color:var(--text-muted);">Classificação não disponível</div>'}
+            ` : '<div style="color:var(--text-muted);">Classificação não disponível</div>'; })()}
           </div>
         </div>
         
         <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);margin-bottom:16px;">
           <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">👥 JOGADORES PARTICIPANTES</div>
-          <div style="max-height:350px;overflow-y:auto;display:flex;flex-wrap:wrap;">
+          <div style="max-height:350px;overflow-y:auto;display:flex;flex-wrap:wrap;gap:8px;">
             ${renderJogadoresAgrupados()}
           </div>
         </div>
         
-        <div style="margin-top:16px;font-size:11px;color:var(--text-muted);text-align:center;border-top:1px solid var(--border-color);padding-top:12px;">
-          Finalizado em ${edicao.dataFinalizacao ? new Date(edicao.dataFinalizacao).toLocaleDateString('pt-BR') : 'data desconhecida'}
-          ${edicao.jogadores?.length ? `• ${edicao.jogadores.length} jogadores participantes` : ''}
-          ${edicao.totalGols ? `• ${edicao.totalGols} gols totais` : ''}
-          ${edicao.partidas?.length ? `• ${edicao.partidas.length} partidas na fase de grupos` : ''}
-          ${tevePenalidades ? '• ⚽ Decidido nos pênaltis' : ''}
+        <div style="margin-top:16px;font-size:11px;color:var(--text-muted);text-align:center;border-top:1px solid var(--border-color);padding-top:12px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 10px;">
+          <span style="white-space:nowrap;">Finalizado em ${edicao.dataFinalizacao ? new Date(edicao.dataFinalizacao).toLocaleDateString('pt-BR') : 'data desconhecida'}</span>
+          ${edicao.jogadores?.length ? `<span style="white-space:nowrap;">• ${edicao.jogadores.length} jogadores participantes</span>` : ''}
+          ${edicao.totalGols ? `<span style="white-space:nowrap;">• ${edicao.totalGols} gols totais</span>` : ''}
+          ${edicao.partidas?.length ? `<span style="white-space:nowrap;">• ${edicao.partidas.length} partidas na fase de grupos</span>` : ''}
+          ${tevePenalidades ? `<span style="white-space:nowrap;">• ⚽ Decidido nos pênaltis</span>` : ''}
         </div>
       </div>
     </div>
