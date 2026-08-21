@@ -4231,8 +4231,8 @@ window.finalizarEdicao = async function() {
       // PARTIDAS DA FASE DE GRUPOS
       partidas: partidasSalvas,
       
-      // Classificação (estatísticas agregadas)
-      classificacao: classificacaoFinal.map((t, index) => ({
+      // Classificação (estatísticas agregadas) — não inclui times sem partida definida
+      classificacao: classificacaoFinal.filter(t => (t.j || 0) > 0).map((t, index) => ({
         timeId: t.id,
         timeNome: t.nome,
         posicao: index + 1,
@@ -4588,7 +4588,7 @@ window.visualizarEdicao = function(edicaoId) {
       const timeEscudo = getTime(time.id)?.escudo || '⚽';
       
       html += `
-        <div style="flex:1;min-width:180px;max-width:280px;margin-right:16px;margin-bottom:12px;background:rgba(5,8,12,0.3);border-radius:8px;padding:12px 14px;border:1px solid var(--border-color);">
+        <div style="flex:1 1 0;min-width:200px;background:rgba(5,8,12,0.3);border-radius:8px;padding:12px 14px;border:1px solid var(--border-color);">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;border-bottom:1px solid var(--border-color);padding-bottom:8px;">
             <div style="width:32px;height:32px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
               ${timeEscudo && (timeEscudo.startsWith('http') || timeEscudo.startsWith('data:')) 
@@ -4690,7 +4690,8 @@ window.visualizarEdicao = function(edicaoId) {
       }).join('');
     }
     
-    return partidasOrdenadas.map(p => {
+    const _cols = 2; const _rows = Math.ceil(partidasOrdenadas.length / _cols); const _ordenadaColuna = []; for (let r=0; r<_rows; r++) for (let c=0; c<_cols; c++) { const idx = c*_rows + r; if (idx < partidasOrdenadas.length) _ordenadaColuna.push(partidasOrdenadas[idx]); }
+    return _ordenadaColuna.map(p => {
       const escudo1 = getTime(p.time1Id)?.escudo || '⚽';
       const escudo2 = getTime(p.time2Id)?.escudo || '⚽';
       
@@ -4865,9 +4866,9 @@ window.visualizarEdicao = function(edicaoId) {
           <!-- COLUNA DIREITA: CLASSIFICAÇÃO FASE DE GRUPOS -->
           <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);">
             <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">📊 CLASSIFICAÇÃO FASE DE GRUPOS</div>
-            ${edicao.classificacao?.length ? `
+            ${(() => { const _cf = (edicao.classificacao || []).filter(c => Number(c.jogos ?? c.j ?? 0) > 0); return _cf.length ? `
               <div style="display:flex;flex-direction:column;gap:4px;max-height:300px;overflow-y:auto;">
-                ${edicao.classificacao.map(c => {
+                ${_cf.map(c => {
                   const time = state.times.find(t => t.id === c.timeId);
                   const posEmoji = c.posicao === 1 ? '🥇' : (c.posicao === 2 ? '🥈' : (c.posicao === 3 ? '🥉' : `${c.posicao}.`));
                   return `
@@ -4886,25 +4887,25 @@ window.visualizarEdicao = function(edicaoId) {
                   `;
                 }).join('')}
               </div>
-            ` : '<div class="text-muted">Classificação não disponível</div>'}
+            ` : '<div class="text-muted">Classificação não disponível</div>'; })()}
           </div>
         </div>
         
         <!-- ===== JOGADORES POR TIME (EMBAIXO, HORIZONTAL, LISTA VERTICAL) ===== -->
         <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);margin-bottom:16px;">
           <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">👥 JOGADORES POR TIME</div>
-          <div style="max-height:350px;overflow-y:auto;display:flex;flex-wrap:wrap;">
+          <div style="max-height:350px;overflow-y:auto;display:flex;flex-wrap:wrap;gap:16px;align-items:stretch;">
             ${renderJogadoresAgrupados()}
           </div>
         </div>
         
         <!-- RODAPÉ -->
-        <div style="margin-top:16px;font-size:11px;color:var(--text-muted);text-align:center;border-top:1px solid var(--border-color);padding-top:12px;">
-          Finalizado em ${edicao.dataFinalizacao ? new Date(edicao.dataFinalizacao).toLocaleDateString('pt-BR') : 'data desconhecida'}
-          ${edicao.jogadores?.length ? `• ${edicao.jogadores.length} jogadores participantes` : ''}
-          ${edicao.totalGols ? `• ${edicao.totalGols} gols totais` : ''}
-          ${edicao.partidas?.length ? `• ${edicao.partidas.length} partidas na fase de grupos` : ''}
-          ${tevePenalidades ? '• ⚽ Decidido nos pênaltis' : ''}
+        <div style="margin-top:16px;font-size:11px;color:var(--text-muted);text-align:center;border-top:1px solid var(--border-color);padding-top:12px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 10px;">
+          <span style="white-space:nowrap;">Finalizado em ${edicao.dataFinalizacao ? new Date(edicao.dataFinalizacao).toLocaleDateString('pt-BR') : 'data desconhecida'}</span>
+          ${edicao.jogadores?.length ? `<span style="white-space:nowrap;">• ${edicao.jogadores.length} jogadores participantes</span>` : ''}
+          ${edicao.totalGols ? `<span style="white-space:nowrap;">• ${edicao.totalGols} gols totais</span>` : ''}
+          ${edicao.partidas?.length ? `<span style="white-space:nowrap;">• ${edicao.partidas.length} partidas na fase de grupos</span>` : ''}
+          ${tevePenalidades ? `<span style="white-space:nowrap;">• ⚽ Decidido nos pênaltis</span>` : ''}
         </div>
       </div>
     </div>
