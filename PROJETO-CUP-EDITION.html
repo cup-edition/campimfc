@@ -95,6 +95,36 @@
     .nav{gap:6px;padding:8px 10px}
     .tab{padding:9px 12px;font-size:9px}
   }
+  /* ===== SPLIT VIEW (tipo Brave) - menu clique direito ===== */
+  .ctx-menu{position:fixed;min-width:210px;background:#1a2332;border:1px solid rgba(0,212,255,0.25);border-radius:12px;box-shadow:0 12px 32px rgba(0,0,0,0.5);padding:6px;display:none;flex-direction:column;gap:4px;z-index:9999}
+  .ctx-menu.show{display:flex}
+  .ctx-item{padding:10px 14px;font-size:11px;font-weight:800;letter-spacing:0.4px;text-transform:uppercase;color:var(--txt);background:transparent;border:none;border-radius:8px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:8px;transition:all 0.15s}
+  .ctx-item:hover{background:rgba(0,212,255,0.12);color:#00d4ff}
+  .ctx-item.danger{color:#ff6b6b}
+  .ctx-item.danger:hover{background:rgba(255,107,107,0.12)}
+  .ctx-sep{height:1px;background:rgba(56,156,255,0.12);margin:2px 0}
+  .tab.split-pick{outline:2px dashed #00d4ff;outline-offset:2px;animation:pulsePick 1.2s infinite}
+  .tab.split-left{color:#fff !important;background:linear-gradient(135deg,#00d4ff 0%,#00a8cc 100%) !important;border-color:transparent !important;box-shadow:0 4px 16px rgba(0,212,255,0.4)}
+  .tab.split-right{color:#fff !important;background:linear-gradient(135deg,#7b2ffc 0%,#5a1fcc 100%) !important;border-color:transparent !important;box-shadow:0 4px 16px rgba(123,47,252,0.4)}
+  @keyframes pulsePick{0%,100%{opacity:1}50%{opacity:0.6}}
+  .wrap.split{display:flex;flex-direction:row;gap:0;height:calc(100vh - 44px);overflow:hidden}
+  .wrap.split .pane{display:none !important;flex:1 1 0;min-width:0;height:100% !important}
+  .wrap.split .pane.split-active{display:block !important}
+  .split-divider{width:3px;background:rgba(56,156,255,0.25);cursor:col-resize;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;transition:all 0.15s;user-select:none;-webkit-user-select:none}
+  .split-divider::before{content:"";position:absolute;left:-6px;right:-6px;top:0;bottom:0}
+  .split-divider::after{content:"";width:1px;height:28px;background:rgba(0,212,255,0.6);border-radius:999px;opacity:0.7}
+  .split-divider:hover{background:rgba(0,212,255,0.5);width:4px}
+  .split-divider:active{width:4px;background:#00d4ff}
+  .split-divider.dragging{background:#00d4ff;width:4px}
+  .split-label{position:absolute;top:8px;padding:3px 7px;font-size:9px;font-weight:800;letter-spacing:0.5px;border-radius:999px;color:#fff;pointer-events:none}
+  .split-label.left{left:8px;background:rgba(0,212,255,0.9)}
+  .split-label.right{right:8px;background:rgba(123,47,252,0.9)}
+  @media (max-width:768px){
+    .wrap.split{flex-direction:column;height:calc(100dvh - 68px)}
+    .split-divider{width:100%;height:3px;cursor:row-resize}
+    .split-divider::before{left:0;right:0;top:-6px;bottom:-6px}
+    .split-divider::after{width:28px;height:1px}
+  }
 </style>
 </head>
 <body>
@@ -123,6 +153,12 @@
   <div class="pane" id="p-saque"><iframe src="https://cup-edition.github.io/sistema-inscricoes/SAQUE-PIX.html" loading="lazy" title="SAQUE"></iframe></div>
   <div class="pane" id="p-site"><iframe src="https://cup-edition.github.io/campimfc/SITE.html" loading="eager" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-forms allow-popups" title="SITE"></iframe></div>
 </div>
+<div id="ctxMenu" class="ctx-menu" role="menu">
+  <button class="ctx-item" id="ctxSplit" role="menuitem">⊞ Dividir com esta aba</button>
+  <button class="ctx-item" id="ctxSplitOther" role="menuitem" style="display:none">⇄ Escolher 2ª aba...</button>
+  <div class="ctx-sep" id="ctxSep" style="display:none"></div>
+  <button class="ctx-item danger" id="ctxCloseSplit" role="menuitem" style="display:none">✕ Fechar divisão</button>
+</div>
 <script>
   const tabs=document.querySelectorAll('.tab');
   const panes=document.querySelectorAll('.pane');
@@ -133,8 +169,276 @@
     if(!tab || !nav) return;
     tab.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
   }
+  // ===== SPLIT VIEW LOGIC (clique direito na aba) =====
+  let splitSelecting=false, splitLeft=null, splitRight=null;
+  let ctxTarget=null;
+  const wrapEl2=document.querySelector('.wrap');
+  const ctxMenu=document.getElementById('ctxMenu');
+  const ctxSplit=document.getElementById('ctxSplit');
+  const ctxCloseSplit=document.getElementById('ctxCloseSplit');
+  const ctxSep=document.getElementById('ctxSep');
+  function updateSplitPickUI(){
+    tabs.forEach(t=>{ t.classList.remove('split-pick','split-left','split-right'); });
+    if(!splitSelecting) return;
+    if(!splitLeft) tabs.forEach(t=> t.classList.add('split-pick'));
+    else if(splitLeft && !splitRight){
+      tabs.forEach(t=>{
+        if(t.dataset.pane===splitLeft) t.classList.add('split-left');
+        else t.classList.add('split-pick');
+      });
+    }
+  }
+  function enterSplitSelect(initialLeft){
+    exitSplit();
+    splitSelecting=true;
+    splitLeft=initialLeft||null; splitRight=null;
+    updateSplitPickUI();
+    // dica visual no cursor
+    if(splitLeft) ctxSplit.textContent='⇄ Agora clique na 2ª aba...';
+  }
+  function exitSplitSelect(){
+    splitSelecting=false;
+    tabs.forEach(t=> t.classList.remove('split-pick','split-left','split-right'));
+    ctxSplit.textContent='⊞ Dividir com esta aba';
+  }
+  function enterSplit(leftId,rightId){
+    splitSelecting=false;
+    splitLeft=leftId; splitRight=rightId;
+    hideCtx();
+    // garante que IDs existem
+    if(!document.getElementById(leftId) || !document.getElementById(rightId)) return;
+    tabs.forEach(t=> t.classList.remove('split-pick','split-left','split-right','active'));
+    document.querySelectorAll('.pane').forEach(p=>{ p.classList.remove('active','split-active'); p.style.order=''; p.style.flex=''; p.style.display=''; });
+    // marca as duas abas
+    const tL=document.querySelector(`.tab[data-pane="${leftId}"]`);
+    const tR=document.querySelector(`.tab[data-pane="${rightId}"]`);
+    if(tL) tL.classList.add('split-left');
+    if(tR) tR.classList.add('split-right');
+    // ativa os dois panes - garante que ambos fiquem visíveis (com !important)
+    const pL=document.getElementById(leftId), pR=document.getElementById(rightId);
+    if(!pL || !pR) return;
+    pL.classList.add('split-active'); pR.classList.add('split-active');
+    pL.style.setProperty('display','block','important');
+    pR.style.setProperty('display','block','important');
+    pL.style.setProperty('flex','1 1 0','important');
+    pR.style.setProperty('flex','1 1 0','important');
+    pL.style.setProperty('min-width','0','important');
+    pR.style.setProperty('min-width','0','important');
+    pL.style.order='1'; pR.style.order='3';
+    wrapEl2.classList.add('split');
+    // cria divisor se não existe
+    if(!document.getElementById('splitDivider')){
+      const div=document.createElement('div');
+      div.id='splitDivider'; div.className='split-divider';
+      div.innerHTML='';
+      // garante ordem visual left -> divider -> right independente da ordem no DOM
+      pL.style.order='1'; div.style.order='2'; pR.style.order='3';
+      // coloca divider entre os dois no DOM para flex order funcionar
+      // remove e reinsere na ordem correta
+      wrapEl2.appendChild(div);
+      // força reflow para garantir que ambos apareçam
+      void wrapEl2.offsetHeight;
+      // drag só com mouse pressionado - evita seleção de texto
+      let dragging=false;
+      const isMobileSplit=()=> window.innerWidth<=768;
+      const startDrag=e=>{
+        dragging=true; div.classList.add('dragging');
+        document.body.style.userSelect='none';
+        document.body.style.webkitUserSelect='none';
+        document.body.style.cursor=isMobileSplit()?'row-resize':'col-resize';
+        document.querySelectorAll('.pane iframe').forEach(f=> f.style.pointerEvents='none');
+        if(e.cancelable){ e.preventDefault(); e.stopPropagation(); }
+      };
+      const stopDrag=()=>{
+        dragging=false; div.classList.remove('dragging');
+        document.body.style.userSelect='';
+        document.body.style.webkitUserSelect='';
+        document.body.style.cursor='';
+        document.querySelectorAll('.pane iframe').forEach(f=> f.style.pointerEvents='');
+      };
+      div.addEventListener('mousedown', startDrag);
+      div.addEventListener('touchstart', startDrag, {passive:false});
+      window.addEventListener('mouseup', stopDrag);
+      window.addEventListener('touchend', stopDrag);
+      window.addEventListener('touchcancel', stopDrag);
+      window.addEventListener('mousemove',e=>{
+        if(!dragging) return;
+        e.preventDefault();
+        if(isMobileSplit()){
+          const rect=wrapEl2.getBoundingClientRect();
+          const pct=((e.clientY-rect.top)/rect.height)*100;
+          if(pct<22||pct>78) return;
+          pL.style.setProperty('flex',`0 0 ${pct}%`,'important');
+          pR.style.setProperty('flex',`0 0 ${100-pct}%`,'important');
+        } else {
+          const rect=wrapEl2.getBoundingClientRect();
+          const pct=((e.clientX-rect.left)/rect.width)*100;
+          if(pct<22||pct>78) return;
+          pL.style.setProperty('flex',`0 0 ${pct}%`,'important');
+          pR.style.setProperty('flex',`0 0 ${100-pct}%`,'important');
+        }
+      });
+      window.addEventListener('touchmove',e=>{
+        if(!dragging) return;
+        if(isMobileSplit()){
+          const rect=wrapEl2.getBoundingClientRect();
+          const pct=((e.touches[0].clientY-rect.top)/rect.height)*100;
+          if(pct<22||pct>78) return;
+          pL.style.setProperty('flex',`0 0 ${pct}%`,'important');
+          pR.style.setProperty('flex',`0 0 ${100-pct}%`,'important');
+        } else {
+          const rect=wrapEl2.getBoundingClientRect();
+          const pct=((e.touches[0].clientX-rect.left)/rect.width)*100;
+          if(pct<22||pct>78) return;
+          pL.style.setProperty('flex',`0 0 ${pct}%`,'important');
+          pR.style.setProperty('flex',`0 0 ${100-pct}%`,'important');
+        }
+        if(e.cancelable) e.preventDefault();
+      },{passive:false});
+    }
+    history.replaceState(null,'',`#${leftId}+${rightId}`);
+  }
+  function exitSplit(){
+    // guarda a aba que estava aberta antes da divisão (ESQ)
+    const keepId = splitLeft || document.querySelector('.tab.active')?.dataset.pane || document.querySelector('.pane.active')?.id || null;
+    splitSelecting=false; splitLeft=null; splitRight=null; ctxTarget=null;
+    hideCtx();
+    tabs.forEach(t=> t.classList.remove('split-pick','split-left','split-right'));
+    wrapEl2.classList.remove('split');
+    document.querySelectorAll('.pane').forEach(p=>{ p.classList.remove('split-active'); p.style.removeProperty('display'); p.style.removeProperty('flex'); p.style.removeProperty('order'); });
+    const d=document.getElementById('splitDivider'); if(d) d.remove();
+    // volta na aba que estava aberta antes de dividir
+    const curId = keepId || (tabs[0] && tabs[0].dataset.pane);
+    const curTab = document.querySelector(`.tab[data-pane="${curId}"]`) || tabs[0];
+    if(curTab){
+      tabs.forEach(x=>x.classList.remove('active'));
+      document.querySelectorAll('.pane').forEach(p=>p.classList.remove('active'));
+      curTab.classList.add('active');
+      const el=document.getElementById(curTab.dataset.pane);
+      if(el) el.classList.add('active');
+      centerActiveTab(curTab);
+      history.replaceState(null,'','#'+curTab.dataset.pane);
+    }
+  }
+  function showCtx(x,y,forTab){
+    ctxTarget=forTab;
+    const isSplit=wrapEl2.classList.contains('split');
+    ctxCloseSplit.style.display=isSplit?'flex':'none';
+    ctxSep.style.display=isSplit?'block':'none';
+    ctxSplit.textContent= isSplit ? '⇄ Trocar esta aba no split' : '⊞ Dividir com esta aba';
+    // posiciona
+    ctxMenu.style.left=Math.min(x, window.innerWidth-230)+'px';
+    ctxMenu.style.top=Math.min(y, window.innerHeight-120)+'px';
+    ctxMenu.classList.add('show');
+  }
+  function hideCtx(){ ctxMenu.classList.remove('show'); }
+  // clique direito na aba
+  tabs.forEach(t=>{
+    t.addEventListener('contextmenu',e=>{
+      e.preventDefault();
+      showCtx(e.clientX, e.clientY, t.dataset.pane);
+    });
+    // long-press no celular (500ms)
+    let pressTimer=null;
+    t.addEventListener('touchstart',e=>{
+      pressTimer=setTimeout(()=>{
+        const touch=e.touches[0];
+        showCtx(touch.clientX, touch.clientY, t.dataset.pane);
+      }, 500);
+    },{passive:true});
+    t.addEventListener('touchend',()=> clearTimeout(pressTimer));
+    t.addEventListener('touchmove',()=> clearTimeout(pressTimer));
+  });
+  ctxSplit.addEventListener('click',()=>{
+    if(wrapEl2.classList.contains('split')){
+      const newId=ctxTarget;
+      if(newId===splitLeft || newId===splitRight){ hideCtx(); return; }
+      document.querySelectorAll('.pane.split-active').forEach(p=>{
+        if(p.id!==splitLeft){
+          p.classList.remove('split-active');
+          p.style.removeProperty('display'); p.style.removeProperty('flex'); p.style.removeProperty('order');
+        }
+      });
+      splitRight=newId;
+      const pr=document.getElementById(newId);
+      if(pr){
+        pr.classList.add('split-active');
+        pr.style.setProperty('display','block','important');
+        pr.style.setProperty('flex','1 1 0','important');
+        pr.style.setProperty('min-width','0','important');
+        pr.style.order='3';
+      }
+      tabs.forEach(x=>x.classList.remove('split-right'));
+      document.querySelector(`.tab[data-pane="${splitRight}"]`)?.classList.add('split-right');
+      history.replaceState(null,'',`#${splitLeft}+${splitRight}`);
+      hideCtx();
+      return;
+    }
+    if(!ctxTarget) return;
+    const curActive = document.querySelector('.tab.active')?.dataset.pane || document.querySelector('.pane.active')?.id || splitLeft;
+    // esquerda é a que estava aberta antes de dividir, direita é a clicada
+    if(curActive && curActive !== ctxTarget){
+      enterSplit(curActive, ctxTarget);
+    } else {
+      enterSplitSelect(ctxTarget);
+      document.querySelector(`.tab[data-pane="${ctxTarget}"]`)?.classList.add('split-left');
+    }
+    hideCtx();
+  });
+  ctxCloseSplit.addEventListener('click',()=>{ hideCtx(); exitSplit(); });
+  document.addEventListener('click',e=>{ if(!ctxMenu.contains(e.target)) hideCtx(); });
+  // ESC sai do split
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){
+      if(ctxMenu.classList.contains('show')){ e.preventDefault(); hideCtx(); return; }
+      if(wrapEl2.classList.contains('split')||splitSelecting){ e.preventDefault(); exitSplit(); }
+    }
+  });
+
   tabs.forEach(t=>{
     t.addEventListener('click',()=>{
+      // modo escolha do split (após clique direito)
+      if(splitSelecting){
+        const id=t.dataset.pane;
+        if(!splitLeft){
+          splitLeft=id;
+          updateSplitPickUI();
+          return;
+        } else if(!splitRight && id!==splitLeft){
+          splitRight=id;
+          enterSplit(splitLeft,splitRight);
+          return;
+        } else if(id===splitLeft){
+          splitLeft=null; updateSplitPickUI(); return;
+        }
+        return;
+      }
+      // em split: esquerda FIXA na primeira (p-admin), só a direita troca - max 2
+      if(wrapEl2.classList.contains('split')){
+        const newId=t.dataset.pane;
+        if(newId===splitLeft) return;
+        document.querySelectorAll('.pane.split-active').forEach(p=>{
+          if(p.id!==splitLeft){
+            p.classList.remove('split-active');
+            p.style.removeProperty('display'); p.style.removeProperty('flex'); p.style.removeProperty('order');
+          }
+        });
+        splitRight=newId;
+        const p=document.getElementById(newId);
+        if(p){
+          p.classList.add('split-active');
+          p.style.setProperty('display','block','important');
+          p.style.setProperty('flex','1 1 0','important');
+          p.style.setProperty('min-width','0','important');
+          p.style.order='3';
+        }
+        tabs.forEach(x=>x.classList.remove('split-right'));
+        document.querySelector(`.tab[data-pane="${splitRight}"]`)?.classList.add('split-right');
+        // garante esquerda
+        document.querySelector(`.tab[data-pane="${splitLeft}"]`)?.classList.add('split-left');
+        history.replaceState(null,'',`#${splitLeft}+${splitRight}`);
+        return;
+      }
       tabs.forEach(x=>x.classList.remove('active'));
       panes.forEach(p=>p.classList.remove('active'));
       t.classList.add('active');
@@ -157,10 +461,21 @@
       tabs[i].click(); tabs[i].focus();
     }
   });
-  // restaura aba via hash
+  // restaura aba via hash (suporta split com +)
   const h=location.hash.replace('#','');
-  if(h){ const tt=document.querySelector(`.tab[data-pane="${h}"]`); if(tt) tt.click(); }
-  else { const a=document.querySelector('.tab.active'); if(a) centerActiveTab(a); }
+  if(h){
+    if(h.includes('+')){
+      const [a,b]=h.split('+');
+      if(a&&b && document.getElementById(a) && document.getElementById(b)){
+        // espera tabs carregarem
+        setTimeout(()=> enterSplit(a,b), 100);
+      } else {
+        const tt=document.querySelector(`.tab[data-pane="${h}"]`); if(tt) tt.click();
+      }
+    } else {
+      const tt=document.querySelector(`.tab[data-pane="${h}"]`); if(tt) tt.click();
+    }
+  } else { const a=document.querySelector('.tab.active'); if(a) centerActiveTab(a); }
 
 
 
