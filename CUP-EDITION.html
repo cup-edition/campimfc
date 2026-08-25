@@ -79,14 +79,16 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 72px;
+    height: 80px;
+    gap: 24px;
   }
   .header-logo {
-    height: 60px;
+    height: 72px;
     display: flex;
     align-items: center;
-    flex: 1;
-    max-width: 280px;
+    flex: 0 0 auto;
+    max-width: 320px;
+    margin-left: 6px;
   }
   .header-logo img {
     width: 100%;
@@ -103,8 +105,23 @@
   .header-right {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 8px;
+    background: rgba(0,230,118,0.08);
+    border: 1px solid rgba(0,230,118,0.18);
+    border-radius: 20px;
+    padding: 5px 14px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 25px rgba(0,230,118,0.12), inset 0 1px 0 rgba(255,255,255,0.06);
+    transition: var(--transition);
+    transform: translateX(-6px);
   }
+  .header-right:hover {
+    background: rgba(0,230,118,0.12);
+    box-shadow: 0 0 30px rgba(0,230,118,0.18);
+    transform: translateY(-1px);
+  }
+  .header-right.err { background: rgba(255,23,68,0.08); border-color: rgba(255,23,68,0.18); box-shadow: 0 0 25px rgba(255,23,68,0.12); }
+  .header-right.offline { background: rgba(255,214,0,0.08); border-color: rgba(255,214,0,0.18); box-shadow: 0 0 25px rgba(255,214,0,0.12); }
 
   .live-badge {
     background: var(--accent-3);
@@ -134,27 +151,47 @@
   }
 
   .status-dot {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: #00e676;
     display: inline-block;
-    box-shadow: 0 0 20px rgba(0, 230, 118, 0.4);
-    animation: pulse-dot 2s ease-in-out infinite;
+    box-shadow: 0 0 12px rgba(0,230,118,0.8);
+    position: relative;
     flex-shrink: 0;
   }
-  @keyframes pulse-dot {
-    0%, 100% { box-shadow: 0 0 20px rgba(0, 230, 118, 0.4); }
-    50% { box-shadow: 0 0 40px rgba(0, 230, 118, 0.1); }
+  .status-dot::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,230,118,0.4);
+    animation: ping-dot 1.8s ease-out infinite;
   }
+  @keyframes ping-dot {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+  .status-dot.ok { background: #00e676; box-shadow: 0 0 12px rgba(0,230,118,0.8); }
+  .status-dot.ok::before { border-color: rgba(0,230,118,0.4); }
+  .status-dot.err { background: #ff1744; box-shadow: 0 0 12px rgba(255,23,68,0.8); }
+  .status-dot.err::before { border-color: rgba(255,23,68,0.4); }
+  .status-dot.offline { background: #ffd600; box-shadow: 0 0 12px rgba(255,214,0,0.8); }
+  .status-dot.offline::before { border-color: rgba(255,214,0,0.4); }
 
   .status-text {
-    font-size: 10px;
-    color: var(--text-muted);
-    letter-spacing: 1px;
-    font-weight: 600;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    color: #00e676;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(0,230,118,0.5);
     flex-shrink: 0;
   }
+  .status-dot.ok ~ .status-text { color: #00e676; text-shadow: 0 0 10px rgba(0,230,118,0.5); }
+  .status-dot.err ~ .status-text { color: #ff6b6b; text-shadow: 0 0 10px rgba(255,23,68,0.5); }
+  .status-dot.offline ~ .status-text { color: #ffd600; text-shadow: 0 0 10px rgba(255,214,0,0.5); }
 
   .main-nav {
     background: rgba(10, 18, 25, 0.8);
@@ -185,16 +222,29 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     border-radius: 8px 8px 0 0;
+    position: relative;
   }
   .nav-tab:hover {
     color: var(--text-primary);
     background: rgba(0, 212, 255, 0.03);
   }
   .nav-tab.active {
-    color: var(--accent-1);
+    color: #fff;
+    background: linear-gradient(180deg, rgba(0,212,255,0.14) 0%, rgba(0,212,255,0.04) 100%);
     border-bottom-color: var(--accent-1);
-    background: rgba(0, 212, 255, 0.05);
-    box-shadow: inset 0 -3px 0 var(--accent-1);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -2px 0 var(--accent-1), 0 4px 18px rgba(0,212,255,0.18);
+    text-shadow: 0 0 10px rgba(0,212,255,0.5);
+    font-weight: 800;
+    letter-spacing: 1.1px;
+  }
+  .nav-tab:not(.active) {
+    opacity: 1;
+    color: #fff;
+  }
+  .nav-tab:not(.active):hover {
+    opacity: 1;
+    background: rgba(255,255,255,0.04);
+    color: var(--text-primary);
   }
 
   .container { max-width: 1280px; margin: 0 auto; padding: 32px 24px; }
@@ -813,8 +863,13 @@
       gap: 8px;
     }
     .header-logo {
-      height: 36px;
-      max-width: 150px;
+      height: 44px;
+      max-width: 180px;
+    }
+    .header .main-nav {
+      flex: 1;
+      overflow-x: auto;
+      min-width: 0;
     }
     .header-time {
       font-size: 9px;
@@ -1278,22 +1333,19 @@ document.addEventListener('keydown', function(e){
     <div class="header-logo">
       <img src="https://cup-edition.github.io/sistema-inscricoes/CUP%20EDITION%20CAMPIM%20FC.png" alt="CUP EDITION">
     </div>
+    <nav class="main-nav" style="background:transparent;border:none;flex:1;margin-left:16px;box-shadow:none;backdrop-filter:none;">
+      <div class="main-nav-inner" style="justify-content:flex-start;">
+        <button class="nav-tab active" data-tab="ATUAL" onclick="showSection('atual', this)">📈 TEMPORADA ATUAL</button>
+        <button class="nav-tab" data-tab="CARREIRAS" onclick="showSection('dashboard', this)">📊 CARREIRAS</button>
+        <button class="nav-tab" data-tab="TEMPORADAS" onclick="showSection('temporadas', this)">📅 TODAS AS TEMPORADAS</button>
+      </div>
+    </nav>
     <div class="header-right">
-      <span class="live-badge">● AO VIVO</span>
-      <div class="header-time" id="clock"></div>
-      <span class="status-dot"></span>
-      <span class="status-text">EM TEMPO REAL</span>
+      <span class="status-dot offline" id="server-dot"></span>
+      <span class="status-text" id="server-text">Conectando...</span>
     </div>
   </div>
 </header>
-
-<nav class="main-nav">
-  <div class="main-nav-inner">
-    <button class="nav-tab active" data-tab="ATUAL" onclick="showSection('atual', this)">📈 TEMPORADA ATUAL</button>
-    <button class="nav-tab" data-tab="CARREIRAS" onclick="showSection('dashboard', this)">📊 CARREIRAS</button>
-    <button class="nav-tab" data-tab="TEMPORADAS" onclick="showSection('temporadas', this)">📅 TODAS AS TEMPORADAS</button>
-  </div>
-</nav>
 
 <div class="container">
 
@@ -1359,6 +1411,15 @@ const db = firebase.firestore();
 
 let state = { times: [], jogadores: [], partidas: [], temporadas: [], titulos: [], edicoes: [] };
 let isFirstLoad = true;
+let serverReady = false;
+function setServerStatus(msg, type) {
+  var dot = document.getElementById('server-dot');
+  var lbl = document.getElementById('server-text');
+  var hr = document.querySelector('.header-right');
+  if (dot) dot.className = 'status-dot ' + type;
+  if (lbl) lbl.textContent = msg;
+  if (hr) hr.className = 'header-right ' + type;
+}
 
 // ============================================================
 // FUNÇÕES AUXILIARES
@@ -2853,6 +2914,7 @@ function toggleEdicoes(tempId) {
 // ============================================================
 
 function setupFirestoreListeners() {
+  setServerStatus('Conectando...', 'offline');
   var collections = ['times', 'jogadores', 'partidas', 'temporadas', 'titulos', 'edicoes'];
   var loaded = 0;
 
@@ -2866,6 +2928,10 @@ function setupFirestoreListeners() {
       });
       state[col] = items;
       loaded++;
+      if (loaded >= collections.length && !serverReady) {
+        serverReady = true;
+        setServerStatus('SERVIDOR ONLINE', 'ok');
+      }
       if (loaded >= collections.length) {
         renderDashboard();
         renderTemporadaAtual();
@@ -2878,6 +2944,7 @@ function setupFirestoreListeners() {
       }
     }, function(error) {
       console.error('Firestore error on', col, ':', error);
+      setServerStatus('ERRO SERVIDOR', 'err');
       loaded++;
       if (loaded >= collections.length) {
         renderDashboard();
@@ -2891,6 +2958,7 @@ function setupFirestoreListeners() {
       }
     });
   });
+  setTimeout(function(){ if(!serverReady) setServerStatus('SERVIDOR OFFLINE','offline'); }, 8000);
 }
 
 setupFirestoreListeners();
