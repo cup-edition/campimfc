@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="https://cup-edition.github.io/sistema-inscricoes/CUP%20EDITION.png">
-<title>ADM - CUP EDITION CAMPIM FC</title>
-    <meta property="og:title" content="ADM - CUP EDITION CAMPIM FC" />
-    <meta property="og:description" content="Painel administrativo da maior competição do CAMPIM FC" />
-    <meta property="og:image" content="https://cup-edition.github.io/campimfc/CUP%20EDITION.jpg" />
+<title>ADM - CUP EDITION PES</title>
+    <meta property="og:title" content="ADM - CUP EDITION PES" />
+    <meta property="og:description" content="Painel administrativo da maior competição do PES" />
+    <meta property="og:image" content="https://cup-edition.github.io/campimfc/CUP%20EDITION%20PES.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:url" content="https://cup-edition.github.io/sistema-inscricoes/ADM-CUP-EDITION.html" />
+    <meta property="og:url" content="https://cup-edition.github.io/campimfc/ADM-CUP-EDITION-PES.html" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="CUP EDITION - CAMPIM FC" />
+    <meta property="og:site_name" content="CUP EDITION - PES" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="ADM - CUP EDITION CAMPIM FC" />
-    <meta name="twitter:description" content="Painel administrativo da maior competição do CAMPIM FC" />
-    <meta name="twitter:image" content="https://cup-edition.github.io/campimfc/CUP%20EDITION.jpg" />
+    <meta name="twitter:title" content="ADM - CUP EDITION PES" />
+    <meta name="twitter:description" content="Painel administrativo da maior competição do PES" />
+    <meta name="twitter:image" content="https://cup-edition.github.io/campimfc/CUP%20EDITION%20PES.png" />
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;600;700;900&display=swap');
 
@@ -499,13 +499,13 @@
     50% { box-shadow: 0 0 40px rgba(255, 107, 107, 0.6); }
   }
 
-  .stat-boxes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+  .stat-boxes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
   .stat-box {
     background: var(--bg-card);
     backdrop-filter: blur(20px);
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
-    padding: 14px 12px;
+    padding: 24px;
     text-align: center;
     transition: var(--transition);
     position: relative;
@@ -532,7 +532,7 @@
   }
   .stat-box-num {
     font-family: 'Orbitron', sans-serif;
-    font-size: 32px;
+    font-size: 42px;
     font-weight: 900;
     background: var(--gradient-main);
     -webkit-background-clip: text;
@@ -540,40 +540,15 @@
     line-height: 1;
   }
   .stat-box-label {
-    font-size: 9px;
+    font-size: 10px;
     color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-top: 4px;
+    letter-spacing: 3px;
+    margin-top: 8px;
     font-weight: 600;
   }
 
   .table-wrap { overflow-x: auto; border-radius: 12px; }
-  .stats-table-wrap { overflow-x: visible; border-radius: 12px; }
-  .stats-table-wrap table { font-size: 12px; width: 100%; table-layout: auto; }
-  .stats-table-wrap thead th { padding: 6px 10px; font-size: 9px; text-align: center; white-space: nowrap; }
-  .stats-table-wrap tbody td { padding: 6px 10px; text-align: center; font-size: 12px; white-space: nowrap; }
-  .stats-table-wrap tbody td:first-child { text-align: left; white-space: normal; word-break: keep-all; }
-  .stats-table-wrap .player-cell { display: flex; align-items: center; gap: 8px; }
-  .stats-table-wrap .player-cell .avatar-mini { width: 28px; height: 28px; border-radius: 50%; overflow: hidden; border: 1px solid var(--border-color); background: rgba(5,8,12,0.5); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .stats-table-wrap .player-cell .avatar-mini img { width: 100%; height: 100%; object-fit: cover; }
-  .stats-table-wrap .player-cell .avatar-mini .fallback { font-size: 14px; }
-  .stats-table-wrap .player-cell .player-name { font-weight: 600; font-size: 13px; white-space: nowrap; }
-  .stats-table-wrap .pos-badge-mini { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 10px; font-family: 'Orbitron', sans-serif; }
-  .pos-1-mini { background: linear-gradient(135deg, #ffd600, #f5a623); color: #000; }
-  .pos-2-mini { background: linear-gradient(135deg, #b0bec5, #78909c); color: #000; }
-  .pos-other-mini { background: var(--border-color); color: var(--text-muted); }
-  .stat-num { font-family: 'Orbitron', sans-serif; font-weight: 700; }
-  .dashboard-player-name { white-space: nowrap; }
-  .stat-titulos { color: #ffd600; font-size: 16px; }
-  .stat-vices { color: #b0bec5; font-size: 16px; }
-  .stat-gols { color: var(--accent-1); font-size: 16px; }
-  .stat-artilharias { color: var(--accent-1); font-size: 16px; }
-  .stat-vitorias { color: #4caf50; font-size: 16px; }
-  .stat-empates { color: var(--text-muted); font-size: 16px; }
-  .stat-derrotas { color: #ef5350; font-size: 16px; }
-  .stat-edicoes { color: var(--text-muted); font-size: 16px; }
-  .stat-partidas { color: var(--text-muted); font-size: 16px; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   thead th {
     padding: 14px 18px;
@@ -939,25 +914,6 @@
     color: var(--accent-1);
     min-width: auto;
     flex-shrink: 0;
-  }
-  .season-stats-btn {
-    background: rgba(0,212,255,0.12);
-    border: 1px solid rgba(0,212,255,0.3);
-    color: var(--accent-1);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    padding: 6px 14px;
-    border-radius: 16px;
-    cursor: pointer;
-    flex-shrink: 0;
-    transition: var(--transition);
-    white-space: nowrap;
-  }
-  .season-stats-btn:hover {
-    background: rgba(0,212,255,0.2);
-    border-color: var(--accent-1);
-    box-shadow: 0 0 20px rgba(0,212,255,0.15);
   }
   .season-details { flex: 1; }
   .season-meta { font-size: 12px; color: var(--text-muted); }
@@ -1640,13 +1596,6 @@
     .penalty-grid { grid-template-columns: 1fr; }
     .penalty-score { font-size: 20px; }
   }
-  /* Tabelas 100% visíveis sem rolagem lateral - todas as colunas */
-  .table-wrap { overflow-x: visible; }
-  .table-wrap table { width: 100%; table-layout: auto; font-size: 12px; }
-  .table-wrap thead th { white-space: nowrap; font-size: 9px; padding: 6px 10px; text-align: center; }
-  .table-wrap tbody td { white-space: nowrap; font-size: 12px; padding: 6px 10px; text-align: center; }
-  .table-wrap tbody td:first-child { white-space: normal; word-break: break-word; text-align: left; }
-  .table-wrap th, .table-wrap td { width: 8.2%; }
   @media (max-width: 768px) {
     .sidebar { width: 72px; }
     .sidebar-logo { padding: 12px; }
@@ -1673,26 +1622,6 @@
     .top-actions { flex-direction: column; align-items: stretch; }
     .penalty-grid { grid-template-columns: 1fr; }
     .penalty-score { font-size: 20px; }
-    .table-wrap table { font-size: 7px; min-width: 0; }
-    .table-wrap thead th { padding: 3px 1px; font-size: 6px; line-height: 1; white-space: nowrap; letter-spacing: -0.2px; }
-    .table-wrap tbody td { padding: 3px 1px; font-size: 7px; white-space: nowrap; }
-    .table-wrap tbody td:first-child { white-space: nowrap; word-break: keep-all; }
-    .stats-table-wrap { overflow-x: visible; }
-    .stats-table-wrap table { font-size: 8px; min-width: 0; width: 100%; table-layout: auto; }
-    .stats-table-wrap thead th { padding: 3px 1px; font-size: 6.5px; white-space: nowrap; line-height: 1; letter-spacing: -0.2px; }
-    .stats-table-wrap tbody td { padding: 3px 1px; font-size: 8px; white-space: nowrap; }
-    .stats-table-wrap tbody td:first-child { white-space: nowrap; word-break: keep-all; }
-    .stats-table-wrap .player-cell { gap: 4px; }
-    .stats-table-wrap .player-cell .avatar-mini { width: 18px !important; height: 18px !important; }
-    .stats-table-wrap .player-cell .player-name { font-size: 8px !important; white-space: nowrap !important; }
-    .stats-table-wrap .pos-badge-mini { width: 16px !important; height: 16px !important; font-size: 7px !important; }
-    .stat-num { font-size: 8px !important; }
-    .table-wrap tbody td:first-child > div { gap: 4px !important; }
-    .table-wrap tbody td:first-child div[style*="width:32px"] { width: 20px !important; height: 20px !important; }
-    .table-wrap tbody td:first-child div[style*="font-weight:600"] { font-size: 8px !important; white-space: nowrap !important; }
-    .table-wrap img[style*="width:32px"] { width: 20px !important; height: 20px !important; }
-    .dashboard-player-name { font-size: 8px !important; white-space: nowrap !important; }
-    .pos-badge { width: 14px !important; height: 14px !important; font-size: 6px !important; }
   }
   @media (max-width: 480px) {
     .stat-boxes { grid-template-columns: 1fr; }
@@ -1762,7 +1691,7 @@ document.addEventListener('keydown', function(e){
 
 <div id="telaLogin">
   <div class="caixa-login">
-    <img src="https://cup-edition.github.io/sistema-inscricoes/CUP%20EDITION%20CAMPIM%20FC.png" alt="Cup Edition Logo" style="width: 280px; height: auto; margin-top: -15px; margin-bottom: 10px; display: inline-block;">
+    <img src="https://cup-edition.github.io/campimfc/CUP%20EDITION%20PES.png" alt="Cup Edition Logo" style="width: 280px; height: auto; margin-top: -15px; margin-bottom: 10px; display: inline-block;">
     <h2>🔐 ACESSO RESTRITO</h2>
     <input type="text" id="usuarioLogin" placeholder="USUÁRIO" required oninput="verificarUsuario()">
     <input type="password" id="senhaLogin" placeholder="SENHA" required onkeydown="if(event.key === 'Enter') fazerLogin()">
@@ -1783,12 +1712,11 @@ document.addEventListener('keydown', function(e){
 <div class="shell">
 <aside class="sidebar">
   <div class="sidebar-logo">
-    <img src="https://cup-edition.github.io/sistema-inscricoes/CUP%20EDITION%20CAMPIM%20FC.png" alt="CUP EDITION">
+    <img src="https://cup-edition.github.io/campimfc/CUP%20EDITION%20PES.png" alt="CUP EDITION">
   </div>
   <nav class="nav">
     <div class="nav-section">Gestão</div>
     <div class="nav-item active" onclick="navigate('dashboard')"><span class="nav-icon">📊</span><span>Dashboard</span></div>
-    <div class="nav-item" onclick="navigate('times')"><span class="nav-icon">🛡️</span><span>Times</span></div>
     <div class="nav-item" onclick="navigate('jogadores')"><span class="nav-icon">👤</span><span>Jogadores</span></div>
     <div class="nav-section">Competição</div>
     <div class="nav-item" onclick="navigate('partidas')"><span class="nav-icon">🏟️</span><span>Partidas</span></div>
@@ -1811,66 +1739,18 @@ document.addEventListener('keydown', function(e){
   </div>
 
   <!-- DASHBOARD -->
-  <div class="page active" id="page-dashboard" style="padding-top:4px">
-    <div class="tab-bar" style="margin-top:0;margin-bottom:12px">
-      <button class="tab-btn active" onclick="switchTab('dashboard','atual')">📈 Temporada Atual</button>
-      <button class="tab-btn" onclick="switchTab('dashboard','carreiras')">📊 Carreiras</button>
+  <div class="page active" id="page-dashboard">
+    <div class="stat-boxes">
+      <div class="stat-box"><div class="stat-box-num" id="stat-edicoes">0</div><div class="stat-box-label">Edições</div></div>
+      <div class="stat-box"><div class="stat-box-num" id="stat-jogadores">0</div><div class="stat-box-label">Jogadores</div></div>
+      <div class="stat-box"><div class="stat-box-num" id="stat-partidas">0</div><div class="stat-box-label">Partidas</div></div>
+      <div class="stat-box"><div class="stat-box-num" id="stat-gols">0</div><div class="stat-box-label">Gols</div></div>
     </div>
-    <!-- ABA TEMPORADA ATUAL -->
-    <div class="tab-content active" id="tab-dashboard-atual">
-      <div id="dashboard-atual-content">
-        <div style="text-align:center;color:var(--text-muted);padding:20px">Carregando temporada atual...</div>
-      </div>
+    <div class="grid-2">
+      <div class="card"><div class="card-title">🏆 Líder (Jogador com mais títulos)</div><div id="dash-lider" class="empty-state" style="padding:20px"><p>Nenhum título registrado</p></div></div>
+      <div class="card"><div class="card-title">🎯 Artilheiro do Histórico</div><div id="dash-artilheiro" class="empty-state" style="padding:20px"><p>Sem gols registrados</p></div></div>
     </div>
-    <!-- ABA CARREIRAS (HISTÓRICO) -->
-    <div class="tab-content" id="tab-dashboard-carreiras">
-      <div class="stat-boxes" style="gap:12px;margin-bottom:12px">
-        <div class="stat-box"><div class="stat-box-num" id="stat-times">0</div><div class="stat-box-label">Times</div></div>
-        <div class="stat-box"><div class="stat-box-num" id="stat-jogadores">0</div><div class="stat-box-label">Jogadores</div></div>
-        <div class="stat-box"><div class="stat-box-num" id="stat-partidas">0</div><div class="stat-box-label">Partidas</div></div>
-        <div class="stat-box"><div class="stat-box-num" id="stat-gols">0</div><div class="stat-box-label">Gols</div></div>
-      </div>
-      <div class="grid-2" style="align-items:stretch;gap:12px">
-        <div class="card" style="height:86px;display:flex;flex-direction:column;justify-content:center;padding:14px !important;margin-bottom:12px"><div class="card-title" style="margin-bottom:8px">🏆 Líder (Jogador com mais títulos)</div><div id="dash-lider" class="empty-state" style="padding:0;flex:1;display:flex;align-items:center"><p>Nenhum título registrado</p></div></div>
-        <div class="card" style="height:86px;display:flex;flex-direction:column;justify-content:center;padding:14px !important;margin-bottom:12px"><div class="card-title" style="margin-bottom:8px">🎯 Artilheiro do Histórico</div><div id="dash-artilheiro" class="empty-state" style="padding:0;flex:1;display:flex;align-items:center"><p>Sem gols registrados</p></div></div>
-      </div>
-      <div class="card" style="margin-top:0;margin-bottom:12px"><div class="card-title">📋 Últimas 5 Edições</div><div id="dash-ultimas-edicoes"></div></div>
-      <div class="card" style="margin-top:0;margin-bottom:12px"><div class="card-title">👤 Estatísticas dos Jogadores</div><div class="player-list" id="dash-jogadores-stats"></div></div>
-    </div>
-  </div>
-
-  <!-- TIMES -->
-  <div class="page" id="page-times">
-    <div class="card">
-      <div class="card-title" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none" onclick="toggleCadastroTime()">
-        <span>Cadastrar Time</span>
-        <span id="btn-toggle-cadastro-time" style="width:28px;height:28px;border-radius:50%;background:rgba(0,212,255,0.15);border:1px solid rgba(0,212,255,0.3);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:var(--accent-1);transition:var(--transition);flex-shrink:0">+</span>
-      </div>
-      <div id="form-cadastro-time" style="display:none;margin-top:16px">
-        <div class="form-group"><label class="form-label">Nome do Time</label><input class="form-input" id="time-nome" placeholder="Ex: Grêmio Esportivo"></div>
-        <div class="form-group">
-          <label class="form-label">Escudo do Time</label>
-          <div class="file-input-wrapper">
-            <input type="file" id="time-escudo-input" accept="image/*" onchange="previewEscudoTime(event)">
-            <div class="file-input-label" id="escudo-time-label">
-              <span id="escudo-time-placeholder">📸 Clique ou arraste uma imagem</span>
-              <div id="escudo-time-preview-container"></div>
-            </div>
-          </div>
-          <div class="file-name" id="escudo-time-nome"></div>
-          <input type="hidden" id="time-escudo-base64" value="">
-        </div>
-        <div class="form-group"><label class="form-label">Cor Principal</label><input type="color" class="form-input" id="time-cor" value="#00d4ff" style="height:42px;padding:4px 8px;cursor:pointer"></div>
-        <button class="btn btn-primary" onclick="adicionarTime()">➕ Adicionar Time</button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title">🛡️ Times Cadastrados</div>
-      <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
-        <button class="btn btn-warning btn-sm" onclick="desvincularTodosJogadores()">🔗 Desvincular Todos os Jogadores</button>
-      </div>
-      <div class="team-grid" id="lista-times"><div class="empty-state"><div class="icon">🛡️</div><p>Nenhum time cadastrado</p></div></div>
-    </div>
+    <div class="card"><div class="card-title">👤 Estatísticas dos Jogadores</div><div class="player-list" id="dash-jogadores-stats"></div></div>
   </div>
 
   <!-- JOGADORES -->
@@ -1902,11 +1782,6 @@ document.addEventListener('keydown', function(e){
     </div>
     <div class="card">
       <div class="card-title">👤 Todos os Jogadores</div>
-      <div class="form-group" style="max-width:280px">
-        <select class="form-select" id="filtro-time-jogadores" onchange="renderJogadores()">
-          <option value="">Todos os times</option>
-        </select>
-      </div>
       <div class="player-list" id="lista-jogadores">
         <div class="empty-state" style="grid-column:1/-1">
           <div class="icon">👤</div>
@@ -1931,22 +1806,15 @@ document.addEventListener('keydown', function(e){
           <span id="btn-toggle-cadastro-partida" style="width:28px;height:28px;border-radius:50%;background:rgba(0,212,255,0.15);border:1px solid rgba(0,212,255,0.3);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:var(--accent-1);transition:var(--transition);flex-shrink:0">+</span>
         </div>
         <div id="form-cadastro-partida" style="display:none;margin-top:16px">
-          <div class="grid-2">
-            <div class="form-group"><label class="form-label">Fase</label>
-              <select class="form-select" id="partida-fase">
-                <option value="Fase de Grupos">Fase de Grupos</option>
-                <option value="Final">Final</option>
-              </select>
-            </div>
-            <div class="form-group"><label class="form-label">Temporada</label>
-              <select class="form-select" id="partida-temporada">
-                <option value="">— Selecione —</option>
-              </select>
-            </div>
+          <div class="form-group"><label class="form-label">Fase</label>
+            <select class="form-select" id="partida-fase">
+              <option value="Fase de Grupos">Fase de Grupos</option>
+              <option value="Final">Final</option>
+            </select>
           </div>
           <div class="grid-2">
-            <div class="form-group"><label class="form-label">Time Mandante</label><select class="form-select" id="partida-time1"><option value="">— Selecione —</option></select></div>
-            <div class="form-group"><label class="form-label">Time Visitante</label><select class="form-select" id="partida-time2"><option value="">— Selecione —</option></select></div>
+            <div class="form-group"><label class="form-label">Jogador 1</label><select class="form-select" id="partida-jogador1"><option value="">— Selecione —</option></select></div>
+            <div class="form-group"><label class="form-label">Jogador 2</label><select class="form-select" id="partida-jogador2"><option value="">— Selecione —</option></select></div>
           </div>
           <hr class="separator">
           <button class="btn btn-primary" onclick="criarPartidaVazia()">📝 Criar Partida</button>
@@ -1964,31 +1832,40 @@ document.addEventListener('keydown', function(e){
         <input type="hidden" id="edicao-time1-id">
         <input type="hidden" id="edicao-time2-id">
         
+        <div class="grid-2" style="margin-bottom:16px">
+          <div class="form-group"><label class="form-label">Jogador 1</label>
+            <select class="form-select" id="edicao-jogador1-select" onchange="edicaoMudarJogador(1)"></select>
+          </div>
+          <div class="form-group"><label class="form-label">Jogador 2</label>
+            <select class="form-select" id="edicao-jogador2-select" onchange="edicaoMudarJogador(2)"></select>
+          </div>
+        </div>
+        
         <div class="card-title" style="font-size:13px">⚽ Placar</div>
         <div class="match-score-edicao" style="display:flex;align-items:stretch;gap:20px;justify-content:center;padding:10px 0;flex-wrap:wrap">
           <div style="text-align:center;flex:1;min-width:180px;background:rgba(5,8,12,0.3);border-radius:12px;padding:16px;border:1px solid var(--border-color)">
-            <div id="edicao-escudo1" style="width:64px;height:64px;border-radius:50%;overflow:hidden;border:2px solid var(--border-color);margin:0 auto 6px;background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center">
-              <span style="font-size:32px">⚽</span>
+            <div id="edicao-foto1" style="width:64px;height:64px;border-radius:50%;overflow:hidden;border:2px solid var(--border-color);margin:0 auto 6px;background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center">
+              <span style="font-size:32px">🧑</span>
             </div>
-            <div id="edicao-placar-time1-nome" style="font-size:14px;font-weight:700;color:var(--text-primary)">Mandante</div>
+            <div id="edicao-jogador1-nome" style="font-size:14px;font-weight:700;color:var(--text-primary)">Jogador 1</div>
             <input class="score-input editable" type="text" id="edicao-gols1" value="-" style="width:60px;text-align:center;font-size:28px;font-family:'Orbitron',sans-serif;background:rgba(5,8,12,0.8);border:2px solid var(--border-color);border-radius:10px;padding:8px;color:var(--accent-1);font-weight:700;margin:6px auto;cursor:text">
             <div style="margin-top:10px">
-              <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Jogadores</div>
-              <div id="edicao-jogadores-time1" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-height:150px;overflow-y:auto;padding:4px 0"></div>
+              <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Jogador 1</div>
+              <div id="edicao-jogador1" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-height:150px;overflow-y:auto;padding:4px 0"></div>
             </div>
           </div>
           
           <div class="score-vs" style="font-size:24px;color:var(--text-muted);font-weight:900;display:flex;align-items:center;padding:0 10px">✕</div>
           
           <div style="text-align:center;flex:1;min-width:180px;background:rgba(5,8,12,0.3);border-radius:12px;padding:16px;border:1px solid var(--border-color)">
-            <div id="edicao-escudo2" style="width:64px;height:64px;border-radius:50%;overflow:hidden;border:2px solid var(--border-color);margin:0 auto 6px;background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center">
-              <span style="font-size:32px">⚽</span>
+            <div id="edicao-foto2" style="width:64px;height:64px;border-radius:50%;overflow:hidden;border:2px solid var(--border-color);margin:0 auto 6px;background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center">
+              <span style="font-size:32px">🧑</span>
             </div>
-            <div id="edicao-placar-time2-nome" style="font-size:14px;font-weight:700;color:var(--text-primary)">Visitante</div>
+            <div id="edicao-jogador2-nome" style="font-size:14px;font-weight:700;color:var(--text-primary)">Jogador 2</div>
             <input class="score-input editable" type="text" id="edicao-gols2" value="-" style="width:60px;text-align:center;font-size:28px;font-family:'Orbitron',sans-serif;background:rgba(5,8,12,0.8);border:2px solid var(--border-color);border-radius:10px;padding:8px;color:var(--accent-1);font-weight:700;margin:6px auto;cursor:text">
             <div style="margin-top:10px">
-              <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Jogadores</div>
-              <div id="edicao-jogadores-time2" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-height:150px;overflow-y:auto;padding:4px 0"></div>
+              <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Jogador 2</div>
+              <div id="edicao-jogador2" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-height:150px;overflow-y:auto;padding:4px 0"></div>
             </div>
           </div>
         </div>
@@ -1997,9 +1874,9 @@ document.addEventListener('keydown', function(e){
           <div class="penalty-title">⚽ DISPUTA DE PÊNALTIS</div>
           <div class="penalty-grid" id="penalty-grid">
             <div class="penalty-team">
-              <div class="team-name" id="penalty-time1-nome">
-                <span class="escudo-mini" id="penalty-escudo1"></span>
-                Time 1
+              <div class="team-name" id="penalty-jogador1-nome">
+                <span class="escudo-mini" id="penalty-foto1"></span>
+                Jogador 1
               </div>
               <div class="penalty-kicks" id="penalty-kicks1"></div>
             </div>
@@ -2009,22 +1886,22 @@ document.addEventListener('keydown', function(e){
               <span class="g2" id="penalty-score2">0</span>
             </div>
             <div class="penalty-team">
-              <div class="team-name" id="penalty-time2-nome">
-                <span class="escudo-mini" id="penalty-escudo2"></span>
-                Time 2
+              <div class="team-name" id="penalty-jogador2-nome">
+                <span class="escudo-mini" id="penalty-foto2"></span>
+                Jogador 2
               </div>
               <div class="penalty-kicks" id="penalty-kicks2"></div>
             </div>
           </div>
           <div class="penalty-actions">
-            <button class="btn btn-penalty-goal btn-sm" onclick="adicionarPenalty('time1', true)">⚽ GOL Time 1</button>
-            <button class="btn btn-penalty-miss btn-sm" onclick="adicionarPenalty('time1', false)">❌ ERRO Time 1</button>
-            <button class="btn btn-penalty-goal btn-sm" onclick="adicionarPenalty('time2', true)">⚽ GOL Time 2</button>
-            <button class="btn btn-penalty-miss btn-sm" onclick="adicionarPenalty('time2', false)">❌ ERRO Time 2</button>
+            <button class="btn btn-penalty-goal btn-sm" onclick="adicionarPenalty('time1', true)">⚽ GOL Jogador 1</button>
+            <button class="btn btn-penalty-miss btn-sm" onclick="adicionarPenalty('time1', false)">❌ ERRO Jogador 1</button>
+            <button class="btn btn-penalty-goal btn-sm" onclick="adicionarPenalty('time2', true)">⚽ GOL Jogador 2</button>
+            <button class="btn btn-penalty-miss btn-sm" onclick="adicionarPenalty('time2', false)">❌ ERRO Jogador 2</button>
             <button class="btn btn-warning btn-sm" onclick="resetarPenalties()">🔄 Resetar</button>
           </div>
           <div style="margin-top:8px;font-size:11px;color:var(--text-muted);text-align:center">
-            Mínimo de 3 cobranças cada. A disputa termina quando um time abrir 1 gol de diferença.
+            Mínimo de 3 cobranças cada. A disputa termina quando um jogador abrir 1 gol de diferença.
           </div>
         </div>
 
@@ -2124,37 +2001,6 @@ document.addEventListener('keydown', function(e){
 </div>
 
 <!-- MODALS -->
-<div class="modal-overlay" id="modal-editar-time">
-  <div class="modal">
-    <div class="modal-title">✏️ Editar Time</div>
-    <input type="hidden" id="edit-time-id">
-    <div class="form-group">
-      <label class="form-label">Nome do Time</label>
-      <input class="form-input" id="edit-time-nome" placeholder="Nome do time">
-    </div>
-    <div class="form-group">
-      <label class="form-label">Escudo do Time</label>
-      <div class="file-input-wrapper">
-        <input type="file" id="edit-time-escudo-input" accept="image/*" onchange="previewEditEscudoTime(event)">
-        <div class="file-input-label" id="edit-escudo-time-label">
-          <span id="edit-escudo-time-placeholder">📸 Clique ou arraste uma imagem</span>
-          <div id="edit-escudo-time-preview-container"></div>
-        </div>
-      </div>
-      <div class="file-name" id="edit-escudo-time-nome"></div>
-      <input type="hidden" id="edit-time-escudo-base64" value="">
-    </div>
-    <div class="form-group">
-      <label class="form-label">Cor Principal</label>
-      <input type="color" class="form-input" id="edit-time-cor" value="#00d4ff" style="height:42px;padding:4px 8px;cursor:pointer">
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-editar-time')">Cancelar</button>
-      <button class="btn btn-primary" onclick="salvarEdicaoTime()">💾 Salvar</button>
-    </div>
-  </div>
-</div>
-
 <div class="modal-overlay" id="modal-editar-jogador">
   <div class="modal">
     <div class="modal-title">✏️ Editar Jogador</div>
@@ -2182,57 +2028,14 @@ document.addEventListener('keydown', function(e){
   </div>
 </div>
 
-<div class="modal-overlay" id="modal-vincular-rapido">
-  <div class="modal">
-    <div class="modal-title">
-      <span>➕ Vincular Jogadores</span>
-      <span class="sub" id="modal-vincular-time-nome">Time selecionado</span>
-    </div>
-    <input type="hidden" id="vincular-rapido-time-id">
-    
-    <div class="modal-search">
-      <input type="text" id="vincular-rapido-search" placeholder="🔍 Buscar jogador..." oninput="filtrarJogadoresVincular()">
-    </div>
-    
-    <div id="vincular-rapido-lista" style="max-height:400px;overflow-y:auto;">
-      <div class="modal-empty"><div class="icon">👤</div><p>Carregando jogadores...</p></div>
-    </div>
-    
+<!-- MODAL ESTATÍSTICAS DO JOGADOR -->
+<div class="modal-overlay" id="modal-estatisticas-jogador">
+  <div class="modal" style="width:760px;max-width:95vw;">
+    <div class="modal-title">📊 Estatísticas <span class="sub" id="modal-estatisticas-titulo"></span></div>
+    <div id="modal-estatisticas-conteudo"></div>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-vincular-rapido')">✖️ Fechar</button>
+      <button class="btn btn-ghost" onclick="closeModal('modal-estatisticas-jogador')">Fechar</button>
     </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="modal-desvincular-rapido">
-  <div class="modal">
-    <div class="modal-title">
-      <span>🔓 Desvincular Jogadores</span>
-      <span class="sub" id="modal-desvincular-time-nome">Time selecionado</span>
-    </div>
-    <input type="hidden" id="desvincular-rapido-time-id">
-    
-    <div class="modal-search">
-      <input type="text" id="desvincular-rapido-search" placeholder="🔍 Buscar jogador..." oninput="filtrarJogadoresDesvincular()">
-    </div>
-    
-    <div id="desvincular-rapido-lista" style="max-height:400px;overflow-y:auto;">
-      <div class="modal-empty"><div class="icon">👤</div><p>Carregando jogadores...</p></div>
-    </div>
-    
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('modal-desvincular-rapido')">✖️ Fechar</button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="modal-detalhes-jogador" style="z-index:10020;">
-  <div class="modal" style="width:720px;max-width:96vw;max-height:90vh;overflow-y:auto;">
-    <div class="modal-title" style="display:flex;align-items:center;gap:12px">
-      <span>👤 Detalhes do Jogador</span>
-      <button onclick="closeModal('modal-detalhes-jogador')" style="margin-left:auto;background:rgba(255,107,107,0.15);border:1px solid rgba(255,107,107,0.3);color:var(--accent-3);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center">✕</button>
-    </div>
-    <div id="detalhes-jogador-conteudo"></div>
   </div>
 </div>
 
@@ -2241,36 +2044,31 @@ document.addEventListener('keydown', function(e){
 <!-- FIREBASE CDN -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <script>
 // ============ FIREBASE CONFIG ============
 const firebaseConfig = {
-  apiKey: "AIzaSyAR--VWkuPUBzKtJlEHPXnwBwbapB8JY_w",
-  authDomain: "sistema-inscricoes-e9241.firebaseapp.com",
-  databaseURL: "https://sistema-inscricoes-e9241-default-rtdb.firebaseio.com",
-  projectId: "sistema-inscricoes-e9241",
-  storageBucket: "sistema-inscricoes-e9241.firebasestorage.app",
-  messagingSenderId: "232618438422",
-  appId: "1:232618438422:web:1c62103b2169e64e862a37"
+  apiKey: "AIzaSyA6ozmGZgsNYsNjCtpoaT9J3OY8t6hdUkc",
+  authDomain: "sistema-pes-d7794.firebaseapp.com",
+  projectId: "sistema-pes-d7794",
+  storageBucket: "sistema-pes-d7794.firebasestorage.app",
+  messagingSenderId: "110858256169",
+  appId: "1:110858256169:web:b5cdcee911b0b2d7954138"
 };
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-const rtdb = firebase.database();
 
 // ============ STATE ============
-let state = { times:[], jogadores:[], partidas:[], temporadas:[], edicoes:[] };
+let state = { jogadores:[], partidas:[], temporadas:[], edicoes:[] };
 let fotoBase64 = '';
 let tempImagemBase64 = '';
 let editFotoBase64 = '';
-let escudoTimeBase64 = '';
-let editEscudoTimeBase64 = '';
 let edicaoEventosPendentes = [];
 let isFirebaseReady = false;
 let listenersReady = 0;
-const totalListeners = 5;
+const totalListeners = 4;
 
 // ============ PÊNALTIS ============
 let penalties = { time1: [], time2: [] };
@@ -2296,9 +2094,9 @@ function fazerLogin() {
   const senha = document.getElementById('senhaLogin').value.trim();
   const mensagemErro = document.getElementById('mensagemErro');
 
-  rtdb.ref('seguranca').once('value')
+  db.collection('seguranca').doc('admin').get()
     .then(snap => {
-      const dados = snap.val();
+      const dados = snap.exists ? snap.data() : null;
       if (dados && usuario === dados.usuario && senha === dados.senha) {
         document.getElementById('telaLogin').style.display = 'none';
         setupFirestoreListeners();
@@ -2312,7 +2110,7 @@ function fazerLogin() {
 
 // ============ FIRESTORE LISTENERS ============
 function setupFirestoreListeners() {
-  const collections = ['times', 'jogadores', 'partidas', 'temporadas', 'edicoes'];
+  const collections = ['jogadores', 'partidas', 'temporadas', 'edicoes'];
   
   collections.forEach(col => {
     try {
@@ -2389,23 +2187,6 @@ async function fbDelete(collectionName, docId) {
     throw e;
   }
 }
-
-window.desvincularTodosJogadores = async function() {
-  const vinculados = state.jogadores.filter(j => j.timeId);
-  if (!vinculados.length) return showToast('⚠️ Nenhum jogador vinculado.');
-  if (!confirm(`Desvincular todos os ${vinculados.length} jogador(es) dos times?`)) return;
-  showToast('⏳ Desvinculando...');
-  let ok = 0, falha = 0;
-  for (const jogador of vinculados) {
-    try {
-      await fbUpdate('jogadores', jogador.id, { timeId: '' });
-      ok++;
-    } catch (e) {
-      falha++;
-    }
-  }
-  showToast(`✅ ${ok} jogador(es) desvinculado(s).${falha ? ` ${falha} falhou.` : ''}`);
-};
 
 // ============ CALENDÁRIO PARA SELEÇÃO DE DATA ============
 function mostrarCalendarioData() {
@@ -2552,7 +2333,6 @@ function navigate(page) {
   });
   const titles = {
     dashboard:'Dashboard',
-    times:'Times',
     jogadores:'Jogadores',
     partidas:'Partidas',
     temporadas:'Temporadas',
@@ -2586,7 +2366,6 @@ function _toggleForm(formId, btnId) {
   btn.style.borderColor = aberto ? 'rgba(0,212,255,0.3)' : 'rgba(255,107,107,0.3)';
   btn.style.color = aberto ? 'var(--accent-1)' : 'var(--accent-3)';
 }
-window.toggleCadastroTime = () => _toggleForm('form-cadastro-time', 'btn-toggle-cadastro-time');
 window.toggleCadastroJogador = () => _toggleForm('form-cadastro-jogador', 'btn-toggle-cadastro-jogador');
 
 function imgOrEmoji(src, size=40) {
@@ -2596,14 +2375,13 @@ function imgOrEmoji(src, size=40) {
   return `<div style="width:${size}px;height:${size}px;border-radius:50%;background:var(--bg-primary);display:flex;align-items:center;justify-content:center;font-size:${size*.5}px;border:1px solid var(--border-color)">${src}</div>`;
 }
 
-function getTime(id) {
-  return state.times.find(x => x.id === id) || { nome: '?', escudo: '⚽' };
+function getJogador(id) {
+  return state.jogadores.find(x => x.id === id) || { nome: '?', foto: '🧑' };
 }
 
-function getTimeName(id) { const t = state.times.find(x => x.id === id); return t ? t.nome : '?'; }
-function getTimeEscudo(id) { const t = state.times.find(x => x.id === id); return t ? t.escudo : '⚽'; }
+function getTimeName(id) { const j = getJogador(id); return j.nome; }
+function getTimeEscudo(id) { const j = getJogador(id); return j.foto || '🧑'; }
 function getJogadorNome(id) { const j = state.jogadores.find(x => x.id === id); return j ? j.nome : '?'; }
-function getJogadorTime(id) { const j = state.jogadores.find(x => x.id === id); return j ? j.timeId : null; }
 
 function isPlacarDefinido(valor) {
   return valor !== '-' && valor !== '' && valor !== null && valor !== undefined && !isNaN(parseInt(valor));
@@ -2629,7 +2407,7 @@ function contarPartidasHistoricoJogador(jogadorId) {
   state.partidas.forEach(p => {
     if (p.status !== 'encerrada') return;
     if (!isPlacarDefinido(p.gols1) || !isPlacarDefinido(p.gols2)) return;
-    const participou = p.time1Id === jogador.timeId || p.time2Id === jogador.timeId;
+    const participou = p.time1Id === jogadorId || p.time2Id === jogadorId;
     if (p.eventos && Array.isArray(p.eventos)) {
       const fezGol = p.eventos.some(e => e.jogadorId === jogadorId && !e.isPenalidade);
       if (fezGol) { total++; return; }
@@ -2770,275 +2548,17 @@ window.previewTempImagem = function(event) {
   reader.readAsDataURL(file);
 }
 
-window.previewEscudoTime = function(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-  if (!file.type.startsWith('image/')) {
-    showToast('⚠️ Por favor, selecione uma imagem');
-    event.target.value = '';
-    return;
-  }
-  if (file.size > 500 * 1024) {
-    showToast('⚠️ Imagem muito grande! Máx 500KB.');
-    event.target.value = '';
-    return;
-  }
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    escudoTimeBase64 = e.target.result;
-    document.getElementById('time-escudo-base64').value = escudoTimeBase64;
-    const container = document.getElementById('escudo-time-preview-container');
-    const label = document.getElementById('escudo-time-label');
-    const placeholder = document.getElementById('escudo-time-placeholder');
-    const nome = document.getElementById('escudo-time-nome');
-    placeholder.style.display = 'none';
-    container.innerHTML = `<img src="${escudoTimeBase64}" class="file-preview">`;
-    label.classList.add('has-image');
-    nome.textContent = `📷 ${file.name} (${(file.size/1024).toFixed(1)} KB)`;
-  };
-  reader.readAsDataURL(file);
-}
-
-window.previewEditEscudoTime = function(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-  if (!file.type.startsWith('image/')) {
-    showToast('⚠️ Por favor, selecione uma imagem');
-    event.target.value = '';
-    return;
-  }
-  if (file.size > 500 * 1024) {
-    showToast('⚠️ Imagem muito grande! Máx 500KB.');
-    event.target.value = '';
-    return;
-  }
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    editEscudoTimeBase64 = e.target.result;
-    document.getElementById('edit-time-escudo-base64').value = editEscudoTimeBase64;
-    const container = document.getElementById('edit-escudo-time-preview-container');
-    const label = document.getElementById('edit-escudo-time-label');
-    const placeholder = document.getElementById('edit-escudo-time-placeholder');
-    const nome = document.getElementById('edit-escudo-time-nome');
-    placeholder.style.display = 'none';
-    container.innerHTML = `<img src="${editEscudoTimeBase64}" class="file-preview">`;
-    label.classList.add('has-image');
-    nome.textContent = `📷 ${file.name} (${(file.size/1024).toFixed(1)} KB)`;
-  };
-  reader.readAsDataURL(file);
-}
-
 // ============ SELECTS ============
 function populateSelects() {
-  const opts = state.times.map(t => `<option value="${t.id}">${t.nome}</option>`).join('');
   const blank = '<option value="">— Selecione —</option>';
-  ['partida-time1','partida-time2','titulo-time','titulo-vice'].forEach(id => {
-    const el = document.getElementById(id); if (el) el.innerHTML = blank + opts;
-  });
-  const filtroEl = document.getElementById('filtro-time-jogadores');
-  if (filtroEl) filtroEl.innerHTML = '<option value="">Todos os times</option>' + opts;
-  const jogOpts = state.jogadores.map(j => `<option value="${j.id}">${j.nome}${j.timeId ? ' (' + getTimeName(j.timeId) + ')' : ''}</option>`).join('');
-  ['titulo-artilheiro'].forEach(id => {
+  const jogOpts = state.jogadores.map(j => `<option value="${j.id}">${j.nome}</option>`).join('');
+  ['partida-jogador1','partida-jogador2','titulo-artilheiro','edicao-jogador1-select','edicao-jogador2-select'].forEach(id => {
     const el = document.getElementById(id); if (el) el.innerHTML = blank + jogOpts;
   });
   const tempOpts = state.temporadas.map(t => `<option value="${t.id}">${t.nome || t.ano}</option>`).join('');
-  ['partida-temporada','titulo-temporada','finalizar-temporada-confirmar'].forEach(id => {
+  ['titulo-temporada','finalizar-temporada-confirmar'].forEach(id => {
     const el = document.getElementById(id); if (el) el.innerHTML = blank + tempOpts;
   });
-}
-
-// ============ TIMES ============
-window.adicionarTime = async function() {
-  const nome = document.getElementById('time-nome').value.trim();
-  const escudo = document.getElementById('time-escudo-base64').value || '';
-  const cor = document.getElementById('time-cor').value;
-  if (!nome) return showToast('⚠️ Informe o nome do time');
-  
-  await fbAdd('times', {
-    nome, 
-    escudo, 
-    cor,
-    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-  });
-  
-  document.getElementById('time-nome').value = '';
-  document.getElementById('time-escudo-base64').value = '';
-  document.getElementById('escudo-time-preview-container').innerHTML = '';
-  document.getElementById('escudo-time-placeholder').style.display = 'block';
-  document.getElementById('escudo-time-label').classList.remove('has-image');
-  document.getElementById('escudo-time-nome').textContent = '';
-  document.getElementById('time-escudo-input').value = '';
-  escudoTimeBase64 = '';
-  showToast('✅ Time adicionado!');
-}
-
-window.removerTime = async function(id) {
-  if (!confirm('Remover este time?')) return;
-  await fbDelete('times', id);
-  showToast('🗑️ Time removido');
-}
-
-window.abrirEditarTime = function(id) {
-  const t = state.times.find(x => x.id === id);
-  if (!t) return;
-  document.getElementById('edit-time-id').value = id;
-  document.getElementById('edit-time-nome').value = t.nome || '';
-  document.getElementById('edit-time-cor').value = t.cor || '#00d4ff';
-  document.getElementById('edit-time-escudo-base64').value = '';
-  editEscudoTimeBase64 = '';
-  const container = document.getElementById('edit-escudo-time-preview-container');
-  const label = document.getElementById('edit-escudo-time-label');
-  const placeholder = document.getElementById('edit-escudo-time-placeholder');
-  const nome = document.getElementById('edit-escudo-time-nome');
-  if (t.escudo && (t.escudo.startsWith('http') || t.escudo.startsWith('data:'))) {
-    placeholder.style.display = 'none';
-    container.innerHTML = `<img src="${t.escudo}" class="file-preview">`;
-    label.classList.add('has-image');
-    nome.textContent = '📷 Escudo atual';
-  } else {
-    placeholder.style.display = 'block';
-    container.innerHTML = '';
-    label.classList.remove('has-image');
-    nome.textContent = '';
-  }
-  document.getElementById('edit-time-escudo-input').value = '';
-  openModal('modal-editar-time');
-}
-
-window.salvarEdicaoTime = async function() {
-  const id = document.getElementById('edit-time-id').value;
-  const nome = document.getElementById('edit-time-nome').value.trim();
-  const cor = document.getElementById('edit-time-cor').value;
-  if (!nome) return showToast('⚠️ Informe o nome do time');
-  let escudoFinal = document.getElementById('edit-time-escudo-base64').value;
-  if (!escudoFinal) {
-    const t = state.times.find(x => x.id === id);
-    escudoFinal = t ? t.escudo : '';
-  }
-  await fbUpdate('times', id, { nome, escudo: escudoFinal, cor });
-  closeModal('modal-editar-time');
-  showToast('✅ Time atualizado!');
-  document.getElementById('edit-time-escudo-base64').value = '';
-  editEscudoTimeBase64 = '';
-}
-
-// ============ DESVINCULAR JOGADOR DO TIME (INDIVIDUAL) ============
-window.desvincularJogadorDoTime = async function(jogadorId, timeId) {
-  const jogador = state.jogadores.find(j => j.id === jogadorId);
-  if (!jogador) return showToast('⚠️ Jogador não encontrado');
-  
-  if (!confirm(`Deseja desvincular ${jogador.nome} do time ${getTimeName(timeId)}?`)) return;
-  
-  try {
-    await fbUpdate('jogadores', jogadorId, { timeId: '' });
-    showToast(`🔓 ${jogador.nome} desvinculado do time!`);
-    renderTimes();
-  } catch (error) {
-    console.error('Erro ao desvincular jogador:', error);
-    showToast('❌ Erro ao desvincular jogador');
-  }
-};
-
-// ============ VINCULAR RÁPIDO ============
-window.abrirVincularRapido = function(timeId) {
-  const time = state.times.find(t => t.id === timeId);
-  if (!time) return;
-  document.getElementById('vincular-rapido-time-id').value = timeId;
-  document.getElementById('modal-vincular-time-nome').textContent = `⚽ ${time.nome}`;
-  document.getElementById('vincular-rapido-search').value = '';
-  openModal('modal-vincular-rapido');
-  renderListaVincularRapido();
-}
-
-function renderListaVincularRapido() {
-  const container = document.getElementById('vincular-rapido-lista');
-  const timeId = document.getElementById('vincular-rapido-time-id').value;
-  const searchTerm = document.getElementById('vincular-rapido-search').value.toLowerCase().trim();
-  if (!timeId) {
-    container.innerHTML = '<div class="modal-empty"><div class="icon">⚠️</div><p>Selecione um time primeiro</p></div>';
-    return;
-  }
-  let jogadoresDisponiveis = state.jogadores.filter(j => j.timeId !== timeId);
-  if (searchTerm) jogadoresDisponiveis = jogadoresDisponiveis.filter(j => j.nome.toLowerCase().includes(searchTerm));
-  jogadoresDisponiveis.sort((a, b) => a.nome.localeCompare(b.nome));
-  if (!jogadoresDisponiveis.length) {
-    container.innerHTML = `<div class="modal-empty"><div class="icon">👤</div><p>${searchTerm ? 'Nenhum jogador encontrado' : 'Nenhum jogador disponível'}</p></div>`;
-    return;
-  }
-  container.innerHTML = jogadoresDisponiveis.map(j => {
-    let avatarHtml = j.foto && (j.foto.startsWith('http') || j.foto.startsWith('data:')) ? `<img src="${j.foto}" alt="${j.nome}">` : '<span class="fallback">🧑</span>';
-    const timeAtual = j.timeId ? getTimeName(j.timeId) : '';
-    return `<div class="modal-player-item">
-      <div class="avatar-mini">${avatarHtml}</div>
-      <div class="player-name">${j.nome}</div>
-      <div class="player-status">${timeAtual}</div>
-      <button class="btn-add" onclick="vincularJogadorRapido('${j.id}')">➕ Vincular</button>
-    </div>`;
-  }).join('');
-}
-
-window.filtrarJogadoresVincular = renderListaVincularRapido;
-
-window.vincularJogadorRapido = async function(jogadorId) {
-  const timeId = document.getElementById('vincular-rapido-time-id').value;
-  if (!timeId) return showToast('⚠️ Selecione um time');
-  const jogador = state.jogadores.find(j => j.id === jogadorId);
-  if (!jogador) return showToast('⚠️ Jogador não encontrado');
-  await fbUpdate('jogadores', jogadorId, { timeId: timeId, vinculadoEm: firebase.firestore.FieldValue.serverTimestamp() });
-  showToast(`✅ ${jogador.nome} vinculado ao time!`);
-  renderListaVincularRapido();
-  renderTimes();
-}
-
-// ============ DESVINCULAR RÁPIDO (MODAL) ============
-window.abrirDesvincularRapido = function(timeId) {
-  const time = state.times.find(t => t.id === timeId);
-  if (!time) return;
-  document.getElementById('desvincular-rapido-time-id').value = timeId;
-  document.getElementById('modal-desvincular-time-nome').textContent = `⚽ ${time.nome}`;
-  document.getElementById('desvincular-rapido-search').value = '';
-  openModal('modal-desvincular-rapido');
-  renderListaDesvincularRapido();
-}
-
-function renderListaDesvincularRapido() {
-  const container = document.getElementById('desvincular-rapido-lista');
-  const timeId = document.getElementById('desvincular-rapido-time-id').value;
-  const searchTerm = document.getElementById('desvincular-rapido-search').value.toLowerCase().trim();
-  if (!timeId) {
-    container.innerHTML = '<div class="modal-empty"><div class="icon">⚠️</div><p>Selecione um time primeiro</p></div>';
-    return;
-  }
-  let jogadoresDoTime = state.jogadores.filter(j => j.timeId === timeId);
-  if (searchTerm) jogadoresDoTime = jogadoresDoTime.filter(j => j.nome.toLowerCase().includes(searchTerm));
-  jogadoresDoTime.sort((a, b) => a.nome.localeCompare(b.nome));
-  if (!jogadoresDoTime.length) {
-    container.innerHTML = `<div class="modal-empty"><div class="icon">👤</div><p>${searchTerm ? 'Nenhum jogador encontrado' : 'Este time não possui jogadores'}</p></div>`;
-    return;
-  }
-  container.innerHTML = jogadoresDoTime.map(j => {
-    let avatarHtml = j.foto && (j.foto.startsWith('http') || j.foto.startsWith('data:')) ? `<img src="${j.foto}" alt="${j.nome}">` : '<span class="fallback">🧑</span>';
-    return `<div class="modal-player-item">
-      <div class="avatar-mini">${avatarHtml}</div>
-      <div class="player-name">${j.nome}</div>
-      <div class="player-status">⚽ ${getTimeName(timeId)}</div>
-      <button class="btn-remove" onclick="desvincularJogadorRapido('${j.id}')">🔓 Desvincular</button>
-    </div>`;
-  }).join('');
-}
-
-window.filtrarJogadoresDesvincular = renderListaDesvincularRapido;
-
-window.desvincularJogadorRapido = async function(jogadorId) {
-  const timeId = document.getElementById('desvincular-rapido-time-id').value;
-  if (!timeId) return showToast('⚠️ Selecione um time');
-  const jogador = state.jogadores.find(j => j.id === jogadorId);
-  if (!jogador) return showToast('⚠️ Jogador não encontrado');
-  if (!confirm(`Deseja desvincular ${jogador.nome} do time?`)) return;
-  await fbUpdate('jogadores', jogadorId, { timeId: '' });
-  showToast(`🔓 ${jogador.nome} desvinculado do time!`);
-  renderListaDesvincularRapido();
-  renderTimes();
 }
 
 // ============ JOGADORES ============
@@ -3046,7 +2566,7 @@ window.adicionarJogador = async function() {
   const nome = document.getElementById('jogador-nome').value.trim();
   const foto = document.getElementById('jogador-foto-base64').value || '';
   if (!nome) return showToast('⚠️ Preencha o nome do jogador');
-  await fbAdd('jogadores', { nome, foto, timeId: '', gols: 0, titulos: 0, partidasJogadas: 0 });
+  await fbAdd('jogadores', { nome, foto, gols: 0, titulos: 0, partidasJogadas: 0 });
   document.getElementById('jogador-nome').value = '';
   document.getElementById('jogador-foto-base64').value = '';
   document.getElementById('foto-preview-container').innerHTML = '';
@@ -3104,109 +2624,11 @@ window.salvarEdicaoJogador = async function() {
   editFotoBase64 = '';
 }
 
-window.abrirDetalhesJogador = function(jogadorId) {
-  const jogador = state.jogadores.find(j => j.id === jogadorId);
-  if (!jogador) return showToast('⚠️ Jogador não encontrado');
-  const conteudo = document.getElementById('detalhes-jogador-conteudo');
-  if (!conteudo) return;
-
-  let golsHistorico = 0, partidasHistorico = 0, titulosHistorico = 0, artilhariasHistorico = 0, vicesHistorico = 0, edicoesParticipou = 0;
-  const edicoesDoJogador = [];
-  state.edicoes.forEach(edicao => {
-    const jEd = edicao.jogadores?.find(j => j.id === jogadorId);
-    if (!jEd) return;
-    edicoesParticipou++;
-    golsHistorico += jEd.gols || 0;
-    partidasHistorico += jEd.partidasJogadas || 0;
-    const isCampeao = edicao.campeao?.timeId === jEd.timeId;
-    const isVice = edicao.vice?.timeId === jEd.timeId;
-    const isArt = edicao.artilheiros?.some(a => a.jogadorId === jogadorId);
-    if (isCampeao) titulosHistorico++;
-    if (isVice) vicesHistorico++;
-    if (isArt) artilhariasHistorico++;
-    const timeNome = jEd.timeNome || getTimeName(jEd.timeId) || 'Sem time';
-    const resultado = contarResultadosHistorico(jogadorId);
-    edicoesDoJogador.push({
-      edicao,
-      jEd,
-      isCampeao,
-      isVice,
-      isArt,
-      timeNome
-    });
-  });
-  const resultados = contarResultadosHistorico(jogadorId);
-  if (!edicoesDoJogador.length) {
-    // ainda pega time atual para exibir
-  }
-  const timeAtual = jogador.timeId ? getTime(jogador.timeId) : null;
-  const timeAtualNome = timeAtual ? timeAtual.nome : (edicoesDoJogador.length ? edicoesDoJogador[edicoesDoJogador.length-1].timeNome : 'Sem time');
-  const timeAtualEscudo = timeAtual ? timeAtual.escudo : '';
-  let escudoHtml = '';
-  if (timeAtualEscudo && (timeAtualEscudo.startsWith('http') || timeAtualEscudo.startsWith('data:'))) escudoHtml = `<img src="${timeAtualEscudo}" style="width:28px;height:28px;border-radius:50%;object-fit:contain;padding:2px;background:rgba(5,8,12,0.5);border:1px solid var(--border-color)">`;
-  else if (timeAtualEscudo) escudoHtml = `<span style="font-size:22px">${timeAtualEscudo}</span>`;
-
-  let avatarGrande = jogador.foto && (jogador.foto.startsWith('http') || jogador.foto.startsWith('data:')) ? `<img src="${jogador.foto}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--border-color)">` : `<div style="width:80px;height:80px;border-radius:50%;background:var(--border-color);display:flex;align-items:center;justify-content:center;font-size:40px;border:2px solid var(--border-color)">🧑</div>`;
-
-  edicoesDoJogador.sort((a,b) => (b.edicao.numero||0) - (a.edicao.numero||0));
-
-  let edicoesHtml = '';
-  if (!edicoesDoJogador.length) {
-    edicoesHtml = `<div class="empty-state" style="padding:24px"><div class="icon">📋</div><p>Nenhuma edição participada ainda</p><small style="color:var(--text-muted)">As edições aparecem aqui após finalizar uma edição onde o jogador estava vinculado a um time</small></div>`;
-  } else {
-    edicoesHtml = edicoesDoJogador.map(({edicao, jEd, isCampeao, isVice, isArt, timeNome}) => {
-      const numLocal = edicao.numeroTemporada || edicao.numero || 1;
-      const numGlobal = edicao.numero || 0;
-      const badges = [];
-      if (isCampeao) badges.push(`<span style="background:linear-gradient(135deg,#ffd600,#f5a623);color:#000;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:800">🏆 CAMPEÃO</span>`);
-      if (isVice) badges.push(`<span style="background:rgba(176,190,197,0.2);color:#b0bec5;border:1px solid rgba(176,190,197,0.3);padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700">🥈 VICE</span>`);
-      if (isArt) badges.push(`<span style="background:rgba(0,212,255,0.15);color:var(--accent-1);border:1px solid rgba(0,212,255,0.3);padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700">🎯 ARTILHEIRO (${jEd.gols} gols)</span>`);
-      const finalTxt = edicao.final ? `${edicao.final.time1Nome} ${edicao.final.gols1} × ${edicao.final.gols2} ${edicao.final.time2Nome}` : '';
-      let statusFinal = '';
-      if (edicao.campeao) statusFinal = `🏆 ${edicao.campeao.nome} campeão`;
-      return `<div style="background:rgba(5,8,12,0.35);border:1px solid var(--border-color);border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer" onclick="visualizarEdicao('${edicao.id}')">
-        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between">
-          <div>
-            <div style="font-family:'Orbitron',sans-serif;font-weight:800;color:var(--accent-1);font-size:14px">${ordinal(numLocal)} Edição <span style="color:#fff;font-size:11px">• Global #${numGlobal}</span> <span style="color:#fff;font-weight:400;font-size:11px">• ${edicao.temporadaNome||''}</span></div>
-            <div style="font-size:11px;color:var(--text-muted);margin-top:2px">📅 ${edicao.dataEdicao||'-'} • ⚽ ${timeNome} • ${jEd.gols||0} gol(s) • ${jEd.partidasJogadas||0} partidas</div>
-            ${finalTxt ? `<div style="font-size:11px;color:var(--text-secondary);margin-top:4px">${finalTxt} • ${statusFinal}</div>` : ``}
-          </div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap">${badges.join('')}</div>
-        </div>
-      </div>`;
-    }).join('');
-  }
-
-  conteudo.innerHTML = `
-    <div style="display:flex;gap:16px;align-items:center;padding:12px;background:rgba(5,8,12,0.35);border:1px solid var(--border-color);border-radius:12px;margin-bottom:16px">
-      ${avatarGrande}
-      <div style="flex:1">
-        <div style="font-size:20px;font-weight:800;color:var(--text-primary)">${jogador.nome}</div>
-        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">${edicoesParticipou} edição(ões) • Clique em uma edição para ver detalhes</div>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:nowrap;overflow-x:auto;padding:10px 0;margin-bottom:16px;border-top:1px solid var(--border-color);border-bottom:1px solid var(--border-color)">
-      <div style="text-align:center;flex:1;min-width:60px"><div style="font-size:9px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;white-space:nowrap">🏆 Títulos</div><div style="font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;color:#ffd600;line-height:1;margin-top:4px">${titulosHistorico}</div></div>
-      <div style="text-align:center;flex:1;min-width:60px"><div style="font-size:9px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;white-space:nowrap">🥈 Vices</div><div style="font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;color:#b0bec5;line-height:1;margin-top:4px">${vicesHistorico}</div></div>
-      <div style="text-align:center;flex:1;min-width:60px"><div style="font-size:9px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;white-space:nowrap">⚽ Gols</div><div style="font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;color:var(--accent-1);line-height:1;margin-top:4px">${golsHistorico}</div></div>
-      <div style="text-align:center;flex:1;min-width:60px"><div style="font-size:9px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;white-space:nowrap">🎯 Artilharias</div><div style="font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;color:var(--accent-1);line-height:1;margin-top:4px">${artilhariasHistorico}</div></div>
-      <div style="text-align:center;flex:1;min-width:60px"><div style="font-size:9px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;white-space:nowrap">✅ Vitórias</div><div style="font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;color:#4caf50;line-height:1;margin-top:4px">${resultados.v}</div></div>
-      <div style="text-align:center;flex:1;min-width:60px"><div style="font-size:9px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;white-space:nowrap">➖ Empates</div><div style="font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;color:var(--text-muted);line-height:1;margin-top:4px">${resultados.e}</div></div>
-      <div style="text-align:center;flex:1;min-width:60px"><div style="font-size:9px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;white-space:nowrap">❌ Derrotas</div><div style="font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;color:#ef5350;line-height:1;margin-top:4px">${resultados.d}</div></div>
-    </div>
-    <div style="font-size:12px;font-weight:700;color:var(--text-secondary);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">📋 Edições Participadas (${edicoesDoJogador.length})</div>
-    <div style="max-height:360px;overflow-y:auto;padding-right:4px">${edicoesHtml}</div>
-  `;
-  openModal('modal-detalhes-jogador');
-}
-
 // ============ RENDER JOGADORES ============
 function renderJogadores() {
-  const filtro = document.getElementById('filtro-time-jogadores')?.value || '';
   const el = document.getElementById('lista-jogadores');
   if (!el) return;
-  let lista = filtro ? state.jogadores.filter(j => j.timeId === filtro) : state.jogadores;
-  lista = [...lista].sort((a, b) => a.nome.localeCompare(b.nome));
+  let lista = [...state.jogadores].sort((a, b) => a.nome.localeCompare(b.nome));
   if (!lista.length) {
     el.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><div class="icon">👤</div><p>Nenhum jogador</p></div>';
     return;
@@ -3214,92 +2636,211 @@ function renderJogadores() {
   el.innerHTML = lista.map(j => {
     let avatarHtml = j.foto && (j.foto.startsWith('http') || j.foto.startsWith('data:')) ? `<img src="${j.foto}" alt="${j.nome}">` : '<span class="fallback">🧑</span>';
     
-    return `<div class="player-list-item" onclick="abrirDetalhesJogador('${j.id}')" style="cursor:pointer">
+    return `<div class="player-list-item" style="cursor:pointer" onclick="abrirEstatisticasJogador('${j.id}')">
       <div class="player-avatar">${avatarHtml}</div>
       <div class="player-info">
         <div class="player-name">${j.nome}</div>
+        <div class="player-team">👆 Clique para ver estatísticas</div>
       </div>
-      <div class="player-actions" onclick="event.stopPropagation()">
-        <button class="btn btn-warning btn-sm" onclick="abrirEditarJogador('${j.id}')">✏️</button>
-        <button class="btn btn-danger btn-sm" onclick="removerJogador('${j.id}')">🗑️</button>
+      <div class="player-actions">
+        <button class="btn btn-warning btn-sm" onclick="event.stopPropagation();abrirEditarJogador('${j.id}')">✏️</button>
+        <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();removerJogador('${j.id}')">🗑️</button>
       </div>
     </div>`;
   }).join('');
 }
 
-// ============ RENDER TIMES (ORDEM DE CADASTRO) ============
-function renderTimes() {
-  const el = document.getElementById('lista-times');
-  if (!el) return;
-  if (!state.times.length) {
-    el.innerHTML = '<div class="empty-state"><div class="icon">🛡️</div><p>Nenhum time cadastrado</p></div>';
-    return;
-  }
-  
-  const timesOrdenados = [...state.times].sort((a, b) => {
-    if (a.createdAt && b.createdAt) {
-      const aTime = a.createdAt.seconds || a.createdAt;
-      const bTime = b.createdAt.seconds || b.createdAt;
-      return aTime - bTime;
+// ============ ESTATÍSTICAS DO JOGADOR (COM CONFRONTO DIRETO) ============
+// ============ ESTATÍSTICAS DO JOGADOR ============
+
+function contarGolsSofridos(jogadorId, edicoesList) {
+  let sofridos = 0;
+  edicoesList.forEach(edicao => {
+    (edicao.partidas || []).forEach(p => {
+      if (p.time1Id !== jogadorId && p.time2Id !== jogadorId) return;
+      const g1 = parseInt(p.gols1), g2 = parseInt(p.gols2);
+      if (isNaN(g1) || isNaN(g2)) return;
+      const ehTime1 = p.time1Id === jogadorId;
+      sofridos += ehTime1 ? g2 : g1;
+    });
+    const f = edicao.final;
+    if (f && (f.time1Id === jogadorId || f.time2Id === jogadorId)) {
+      const ehTime1 = f.time1Id === jogadorId;
+      let g1 = parseInt(f.gols1), g2 = parseInt(f.gols2);
+      if (f.tevePenalidades) {
+        g1 = f.golsPenalidades1 || 0;
+        g2 = f.golsPenalidades2 || 0;
+      }
+      if (!isNaN(g1) && !isNaN(g2)) {
+        sofridos += ehTime1 ? g2 : g1;
+      }
     }
-    return a.id.localeCompare(b.id);
   });
-  
-  el.innerHTML = timesOrdenados.map(t => {
-    const jogadoresDoTime = (() => {
-      const todos = state.jogadores.filter(j => j.timeId === t.id);
-      const comData = todos.filter(j => j.vinculadoEm).sort((a, b) => {
-        const aTime = a.vinculadoEm.seconds || a.vinculadoEm;
-        const bTime = b.vinculadoEm.seconds || b.vinculadoEm;
-        return aTime - bTime;
-      });
-      const semData = todos.filter(j => !j.vinculadoEm);
-      return comData.concat(semData);
-    })();
-    let logoHtml = t.escudo && (t.escudo.startsWith('http') || t.escudo.startsWith('data:')) ? `<img src="${t.escudo}" alt="${t.nome}">` : `<span class="fallback-logo">${t.escudo || '⚽'}</span>`;
-    
-    let jogadoresHtml = '';
-    if (jogadoresDoTime.length > 0) {
-      jogadoresHtml = `<div style="margin-top:12px;border-top:1px solid var(--border-color);padding-top:10px;text-align:left;width:100%;">
-        <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">👤 Jogadores vinculados</div>
-        <div style="display:flex;flex-direction:column;gap:4px;">
-          ${jogadoresDoTime.map(j => {
-            const avatarHtml = j.foto && (j.foto.startsWith('http') || j.foto.startsWith('data:')) ? 
-              `<img src="${j.foto}" style="width:24px;height:24px;border-radius:50%;object-fit:cover;border:1px solid var(--border-color);">` : 
-              `<span style="font-size:16px;">🧑</span>`;
-            return `<div onclick="abrirDetalhesJogador('${j.id}')" style="display:flex;align-items:center;gap:8px;padding:4px 8px;background:rgba(5,8,12,0.3);border-radius:6px;font-size:12px;cursor:pointer">
-              ${avatarHtml}
-              <span style="flex:1;font-weight:500;">${j.nome}</span>
-              <button class="btn btn-danger btn-sm" onclick="event.stopPropagation(); desvincularJogadorDoTime('${j.id}', '${t.id}')" style="padding:2px 8px;font-size:10px;background:rgba(255,23,68,0.15);color:var(--accent-3);border:1px solid var(--accent-3);border-radius:6px;cursor:pointer;transition:var(--transition);" onmouseover="this.style.background='var(--accent-3)';this.style.color='#fff';" onmouseout="this.style.background='rgba(255,23,68,0.15)';this.style.color='var(--accent-3)';">🗑️</button>
-            </div>`;
-          }).join('')}
-        </div>
-      </div>`;
-    }
-    
-    return `<div class="team-card">
-      <div class="team-card-actions">
-        <button class="btn btn-success btn-sm" onclick="abrirVincularRapido('${t.id}')" title="Vincular jogador">➕</button>
-        <button class="btn btn-warning btn-sm" onclick="abrirEditarTime('${t.id}')">✏️</button>
-        <button class="btn btn-danger btn-sm" onclick="removerTime('${t.id}')">🗑️</button>
-      </div>
-      <div class="team-logo-container">${logoHtml}</div>
-      <div class="team-name">${t.nome}</div>
-      <div class="team-players-count">👤 ${jogadoresDoTime.length} jogadores</div>
-      ${jogadoresHtml}
-    </div>`;
-  }).join('');
+  return sofridos;
 }
+
+window.abrirEstatisticasJogador = function(jogadorId) {
+  const jogador = state.jogadores.find(j => j.id === jogadorId);
+  if (!jogador) return showToast('⚠️ Jogador não encontrado');
+
+  let gols = 0, golsSofridos = 0, partidas = 0, titulos = 0, vices = 0, artilharias = 0, edicoes = 0;
+  let vitorias = 0, empates = 0, derrotas = 0;
+  const confronto = {};
+
+  state.edicoes.forEach(edicao => {
+    const jogadorEdicao = edicao.jogadores?.find(j => j.id === jogadorId);
+    if (jogadorEdicao) {
+      edicoes++;
+      gols += jogadorEdicao.gols || 0;
+      partidas += jogadorEdicao.partidasJogadas || 0;
+    }
+    if (edicao.campeao?.timeId === jogadorId) titulos++;
+    if (edicao.vice?.timeId === jogadorId) vices++;
+    if (edicao.artilheiros && Array.isArray(edicao.artilheiros) && edicao.artilheiros.some(a => a.jogadorId === jogadorId)) artilharias++;
+
+    (edicao.partidas || []).forEach(p => {
+      if (p.time1Id !== jogadorId && p.time2Id !== jogadorId) return;
+      const g1 = parseInt(p.gols1), g2 = parseInt(p.gols2);
+      if (isNaN(g1) || isNaN(g2)) return;
+      const ehTime1 = p.time1Id === jogadorId;
+      const advId = ehTime1 ? p.time2Id : p.time1Id;
+      const meu = ehTime1 ? g1 : g2;
+      const adv = ehTime1 ? g2 : g1;
+      golsSofridos += adv;
+      if (!confronto[advId]) confronto[advId] = { jogos: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0, titulo: 0, vice: 0 };
+      const c = confronto[advId];
+      c.jogos++;
+      c.gp += meu; c.gc += adv;
+      if (meu > adv) { c.v++; vitorias++; }
+      else if (meu < adv) { c.d++; derrotas++; }
+      else { c.e++; empates++; }
+    });
+
+    const f = edicao.final;
+    if (f && (f.time1Id === jogadorId || f.time2Id === jogadorId)) {
+      const ehTime1 = f.time1Id === jogadorId;
+      const advId = ehTime1 ? f.time2Id : f.time1Id;
+      if (!confronto[advId]) confronto[advId] = { jogos: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0, titulo: 0, vice: 0 };
+      const c = confronto[advId];
+      c.jogos++;
+      if (edicao.campeao && edicao.campeao.timeId === jogadorId) c.titulo++;
+      if (edicao.vice && edicao.vice.timeId === jogadorId) c.vice++;
+      let g1 = parseInt(f.gols1), g2 = parseInt(f.gols2);
+      if (f.tevePenalidades) {
+        g1 = f.golsPenalidades1 || 0;
+        g2 = f.golsPenalidades2 || 0;
+      }
+      if (!isNaN(g1) && !isNaN(g2)) {
+        const meu = ehTime1 ? g1 : g2;
+        const adv = ehTime1 ? g2 : g1;
+        golsSofridos += adv;
+        c.gp += meu; c.gc += adv;
+        if (meu > adv) { c.v++; vitorias++; }
+        else if (meu < adv) { c.d++; derrotas++; }
+        else { c.e++; empates++; }
+      }
+    }
+  });
+
+  const avatarHtml = jogador.foto && (jogador.foto.startsWith('http') || jogador.foto.startsWith('data:'))
+    ? `<img src="${jogador.foto}" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--accent-1);box-shadow:0 0 20px var(--accent-glow);">`
+    : `<div style="width:56px;height:56px;border-radius:50%;background:var(--border-color);display:flex;align-items:center;justify-content:center;font-size:28px;">🧑</div>`;
+
+  const confrontos = Object.entries(confronto)
+    .map(([advId, c]) => ({ ...c, advId, advNome: getJogadorNome(advId) }))
+    .sort((a, b) => b.d - a.d || b.gc - a.gc || b.vice - a.vice);
+
+  const confrontoHtml = confrontos.length
+    ? `<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:12px;">
+        <thead><tr>
+          <th style="text-align:left;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">👤 Jogador</th>
+          <th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">🎮 Jogos</th>
+          <th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">✅ Vitórias</th>
+          <th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">➖ Empates</th>
+          <th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">❌ Derrotas</th>
+          <th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">🏆 Título</th>
+          <th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">🥈 Vice</th>
+          <th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">⚽ GM</th>
+          <th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">🥅 GS</th>
+        </tr></thead><tbody>
+        ${confrontos.map(c => {
+          const advFoto = getJogador(c.advId).foto;
+          function cell(num, color) {
+            return `<td style="text-align:center;padding:8px 10px;font-family:'Orbitron',sans-serif;font-size:15px;font-weight:700;color:${color};">${num}</td>`;
+          }
+          return `<tr style="border-top:1px solid var(--border-color);">
+            <td style="padding:8px 10px;"><div style="display:flex;align-items:center;gap:8px;">${imgOrEmoji(advFoto, 32)}
+              <span style="font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px;">${c.advNome}</span>
+            </div></td>
+            ${cell(c.jogos, 'var(--accent-1)')}
+            ${cell(c.v, '#4caf50')}
+            ${cell(c.e, 'var(--text-muted)')}
+            ${cell(c.d, '#ef5350')}
+            ${cell(c.titulo, '#ffd600')}
+            ${cell(c.vice, '#b0bec5')}
+            ${cell(c.gp, 'var(--accent-1)')}
+            ${cell(c.gc, 'var(--accent-3)')}
+          </tr>`;
+        }).join('')}
+        </tbody></table></div>`
+    : '<div class="modal-empty"><div class="icon">⚔️</div><p>Ainda não enfrentou ninguém</p></div>';
+
+  function statCell(num, color) {
+    return `<td style="text-align:center;padding:8px 10px;font-family:'Orbitron',sans-serif;font-size:18px;font-weight:900;color:${color};">${num}</td>`;
+  }
+
+  document.getElementById('modal-estatisticas-titulo').textContent = jogador.nome;
+  document.getElementById('modal-estatisticas-conteudo').innerHTML = `
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+      ${avatarHtml}
+      <div>
+        <div style="font-size:18px;font-weight:700;">${jogador.nome}</div>
+        <div style="font-size:12px;color:var(--text-muted);">Estatísticas completas do histórico (edições finalizadas)</div>
+      </div>
+    </div>
+
+    <div style="overflow-x:auto;margin-bottom:20px;"><table style="width:100%;border-collapse:collapse;font-size:12px;">
+      <thead><tr>
+        <th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">🏆 Títulos</th>
+        <th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">🥈 Vices</th>
+        <th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">⚽ Gols</th>
+        <th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">🥅 G.Sofridos</th>
+        <th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">🎯 Artilharias</th>
+        <th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">✅ Vitórias</th>
+        <th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">➖ Empates</th>
+        <th style="text-align:center;padding:6px 10px;color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">❌ Derrotas</th>
+      </tr></thead><tbody>
+        <tr>
+          ${statCell(titulos, '#ffd600')}
+          ${statCell(vices, '#b0bec5')}
+          ${statCell(gols, 'var(--accent-1)')}
+          ${statCell(golsSofridos, 'var(--accent-3)')}
+          ${statCell(artilharias, 'var(--accent-1)')}
+          ${statCell(vitorias, '#4caf50')}
+          ${statCell(empates, 'var(--text-muted)')}
+          ${statCell(derrotas, '#ef5350')}
+        </tr>
+      </tbody></table></div>
+
+    <div style="background:rgba(5,8,12,0.3);border:1px solid var(--border-color);border-radius:12px;padding:16px;">
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+      <div style="font-size:13px;font-weight:700;color:var(--text-secondary);">⚔️ CONFRONTO DIRETO (${confrontos.length})</div>
+      <div style="font-size:10px;color:var(--text-muted);font-weight:500;">— VOCÊ CONTRA CADA JOGADOR ABAIXO</div>
+    </div>
+      ${confrontoHtml}
+    </div>
+  `;
+  openModal('modal-estatisticas-jogador');
+};
 
 // ============ PARTIDAS ============
 window.criarPartidaVazia = async function() {
-  const t1 = document.getElementById('partida-time1').value;
-  const t2 = document.getElementById('partida-time2').value;
-  const temp = document.getElementById('partida-temporada').value;
-  if (!t1 || !t2 || !temp) return showToast('⚠️ Selecione os times e a temporada');
-  if (t1 === t2) return showToast('⚠️ Times não podem ser iguais');
+  const t1 = document.getElementById('partida-jogador1').value;
+  const t2 = document.getElementById('partida-jogador2').value;
+  if (!t1 || !t2) return showToast('⚠️ Selecione os jogadores');
+  if (t1 === t2) return showToast('⚠️ Os jogadores não podem ser os mesmos');
   await fbAdd('partidas', {
-    temporadaId: temp,
+    temporadaId: '',
     fase: document.getElementById('partida-fase').value,
     time1Id: t1,
     time2Id: t2,
@@ -3322,10 +2863,10 @@ async function atualizarPartidasJogadasJogadores(partidaId) {
     const partida = state.partidas.find(p => p.id === partidaId);
     if (!partida) return;
     if (!isPlacarDefinido(partida.gols1) || !isPlacarDefinido(partida.gols2)) return;
-    const jogadoresTime1 = state.jogadores.filter(j => j.timeId === partida.time1Id);
-    const jogadoresTime2 = state.jogadores.filter(j => j.timeId === partida.time2Id);
-    const todosJogadores = [...jogadoresTime1, ...jogadoresTime2];
-    for (const jogador of todosJogadores) {
+    const idsJogadores = [partida.time1Id, partida.time2Id].filter(id => id);
+    for (const id of idsJogadores) {
+      const jogador = state.jogadores.find(j => j.id === id);
+      if (!jogador) continue;
       const partidasAtuais = jogador.partidasJogadas || 0;
       await fbUpdate('jogadores', jogador.id, { partidasJogadas: partidasAtuais + 1 });
     }
@@ -3339,10 +2880,10 @@ async function removerPartidasJogadasJogadores(partidaId) {
     const partida = state.partidas.find(p => p.id === partidaId);
     if (!partida) return;
     if (!isPlacarDefinido(partida.gols1) || !isPlacarDefinido(partida.gols2)) return;
-    const jogadoresTime1 = state.jogadores.filter(j => j.timeId === partida.time1Id);
-    const jogadoresTime2 = state.jogadores.filter(j => j.timeId === partida.time2Id);
-    const todosJogadores = [...jogadoresTime1, ...jogadoresTime2];
-    for (const jogador of todosJogadores) {
+    const idsJogadores = [partida.time1Id, partida.time2Id].filter(id => id);
+    for (const id of idsJogadores) {
+      const jogador = state.jogadores.find(j => j.id === id);
+      if (!jogador) continue;
       const partidasAtuais = jogador.partidasJogadas || 0;
       if (partidasAtuais > 0) {
         await fbUpdate('jogadores', jogador.id, { partidasJogadas: partidasAtuais - 1 });
@@ -3359,10 +2900,10 @@ function resetarPenalties() {
   penaltyRound = 0;
   penaltyFinished = false;
   document.querySelector('.penalty-actions').innerHTML = `
-    <button class="btn btn-penalty-goal btn-sm" onclick="adicionarPenalty('time1', true)">⚽ GOL Time 1</button>
-    <button class="btn btn-penalty-miss btn-sm" onclick="adicionarPenalty('time1', false)">❌ ERRO Time 1</button>
-    <button class="btn btn-penalty-goal btn-sm" onclick="adicionarPenalty('time2', true)">⚽ GOL Time 2</button>
-    <button class="btn btn-penalty-miss btn-sm" onclick="adicionarPenalty('time2', false)">❌ ERRO Time 2</button>
+    <button class="btn btn-penalty-goal btn-sm" onclick="adicionarPenalty('time1', true)">⚽ GOL Jogador 1</button>
+    <button class="btn btn-penalty-miss btn-sm" onclick="adicionarPenalty('time1', false)">❌ ERRO Jogador 1</button>
+    <button class="btn btn-penalty-goal btn-sm" onclick="adicionarPenalty('time2', true)">⚽ GOL Jogador 2</button>
+    <button class="btn btn-penalty-miss btn-sm" onclick="adicionarPenalty('time2', false)">❌ ERRO Jogador 2</button>
     <button class="btn btn-warning btn-sm" onclick="resetarPenalties()">🔄 Resetar</button>
   `;
   renderPenalties();
@@ -3377,11 +2918,11 @@ function iniciarPenalties() {
   const partida = state.partidas.find(p => p.id === partidaId);
   if (!partida) return;
   
-  const time1 = getTime(partida.time1Id);
-  const time2 = getTime(partida.time2Id);
+  const time1 = getJogador(partida.time1Id);
+  const time2 = getJogador(partida.time2Id);
   
-  document.getElementById('penalty-time1-nome').innerHTML = `<span class="escudo-mini" id="penalty-escudo1">${time1.escudo && (time1.escudo.startsWith('http') || time1.escudo.startsWith('data:')) ? `<img src="${time1.escudo}" alt="${time1.nome}">` : `<span class="fallback">${time1.escudo || '⚽'}</span>`}</span> ${time1.nome}`;
-  document.getElementById('penalty-time2-nome').innerHTML = `<span class="escudo-mini" id="penalty-escudo2">${time2.escudo && (time2.escudo.startsWith('http') || time2.escudo.startsWith('data:')) ? `<img src="${time2.escudo}" alt="${time2.nome}">` : `<span class="fallback">${time2.escudo || '⚽'}</span>`}</span> ${time2.nome}`;
+  document.getElementById('penalty-jogador1-nome').innerHTML = `<span class="escudo-mini" id="penalty-foto1">${time1.foto && (time1.foto.startsWith('http') || time1.foto.startsWith('data:')) ? `<img src="${time1.foto}" alt="${time1.nome}">` : `<span class="fallback">🧑</span>`}</span> ${time1.nome}`;
+  document.getElementById('penalty-jogador2-nome').innerHTML = `<span class="escudo-mini" id="penalty-foto2">${time2.foto && (time2.foto.startsWith('http') || time2.foto.startsWith('data:')) ? `<img src="${time2.foto}" alt="${time2.nome}">` : `<span class="fallback">🧑</span>`}</span> ${time2.nome}`;
   
   renderPenalties();
 }
@@ -3474,20 +3015,20 @@ window.adicionarPenalty = function(time, scored) {
   const vezTime1 = p1.length <= p2.length;
   
   if (time === 'time1' && !vezTime1) {
-    showToast('⏳ Aguarde a vez do Time 1');
+    showToast('⏳ Aguarde a vez do Jogador 1');
     return;
   }
   if (time === 'time2' && vezTime1) {
-    showToast('⏳ Aguarde a vez do Time 2');
+    showToast('⏳ Aguarde a vez do Jogador 2');
     return;
   }
   
   if (time === 'time1' && p1.length >= 10) {
-    showToast('⚠️ Time 1 já completou 10 cobranças');
+    showToast('⚠️ Jogador 1 já completou 10 cobranças');
     return;
   }
   if (time === 'time2' && p2.length >= 10) {
-    showToast('⚠️ Time 2 já completou 10 cobranças');
+    showToast('⚠️ Jogador 2 já completou 10 cobranças');
     return;
   }
   
@@ -3514,12 +3055,17 @@ window.abrirEdicaoPartida = function(id) {
   document.getElementById('edicao-time1-id').value = p.time1Id;
   document.getElementById('edicao-time2-id').value = p.time2Id;
   
+  const sel1 = document.getElementById('edicao-jogador1-select');
+  const sel2 = document.getElementById('edicao-jogador2-select');
+  if (sel1) sel1.value = p.time1Id;
+  if (sel2) sel2.value = p.time2Id;
+  
   document.getElementById('edicao-gols1').value = (p.gols1 !== undefined && p.gols1 !== null && p.gols1 !== '-') ? p.gols1 : '-';
   document.getElementById('edicao-gols2').value = (p.gols2 !== undefined && p.gols2 !== null && p.gols2 !== '-') ? p.gols2 : '-';
   
   atualizarEscudosEdicao(p.time1Id, p.time2Id);
-  document.getElementById('edicao-placar-time1-nome').textContent = getTimeName(p.time1Id);
-  document.getElementById('edicao-placar-time2-nome').textContent = getTimeName(p.time2Id);
+  document.getElementById('edicao-jogador1-nome').textContent = getTimeName(p.time1Id);
+  document.getElementById('edicao-jogador2-nome').textContent = getTimeName(p.time2Id);
   atualizarJogadoresEdicao(p.time1Id, p.time2Id);
   
   edicaoEventosPendentes = [...(p.eventos || [])];
@@ -3542,34 +3088,158 @@ window.abrirEdicaoPartida = function(id) {
   }
 }
 
+async function propagarTrocaJogador(oldId, newId, partidaAtualId) {
+  const afetadas = state.partidas.filter(p =>
+    p.id !== partidaAtualId &&
+    (p.time1Id === oldId || p.time2Id === oldId)
+  );
+  if (afetadas.length === 0) return 0;
+
+  const deltas = {};
+  function addDelta(id, campo, valor) {
+    if (!deltas[id]) deltas[id] = { gols: 0, partidasJogadas: 0 };
+    deltas[id][campo] += valor;
+  }
+
+  const promises = [];
+  let atualizadas = 0;
+
+  for (const p of afetadas) {
+    const ehTime1 = p.time1Id === oldId;
+    const outroId = ehTime1 ? p.time2Id : p.time1Id;
+    if (outroId === newId) continue;
+
+    const temPlacar = isPlacarDefinido(p.gols1) && isPlacarDefinido(p.gols2);
+    const temEventos = p.eventos && p.eventos.some(e => !e.isPenalidade && e.jogadorId === oldId);
+    const temPenaltyWinner = p.penaltyWinner === oldId;
+
+    if (temEventos) {
+      const novosEventos = p.eventos.map(e => {
+        if (!e.isPenalidade && e.jogadorId === oldId) {
+          addDelta(oldId, 'gols', -1);
+          addDelta(newId, 'gols', 1);
+          return { ...e, jogadorId: newId };
+        }
+        return e;
+      });
+      p.eventos = novosEventos;
+    }
+
+    if (temPlacar) {
+      addDelta(oldId, 'partidasJogadas', -1);
+      addDelta(newId, 'partidasJogadas', 1);
+    }
+
+    const update = {};
+    if (ehTime1) update.time1Id = newId;
+    else update.time2Id = newId;
+    if (temEventos) update.eventos = p.eventos;
+    if (temPenaltyWinner) update.penaltyWinner = newId;
+
+    if (ehTime1) p.time1Id = newId;
+    else p.time2Id = newId;
+    if (temPenaltyWinner) p.penaltyWinner = newId;
+
+    promises.push(fbUpdate('partidas', p.id, update));
+    atualizadas++;
+  }
+
+  for (const [jogadorId, d] of Object.entries(deltas)) {
+    const j = state.jogadores.find(x => x.id === jogadorId);
+    if (!j) continue;
+    if (d.gols !== 0) {
+      const novoGols = Math.max(0, (j.gols || 0) + d.gols);
+      promises.push(fbUpdate('jogadores', jogadorId, { gols: novoGols }));
+      j.gols = novoGols;
+    }
+    if (d.partidasJogadas !== 0) {
+      const novoPartidas = Math.max(0, (j.partidasJogadas || 0) + d.partidasJogadas);
+      promises.push(fbUpdate('jogadores', jogadorId, { partidasJogadas: novoPartidas }));
+      j.partidasJogadas = novoPartidas;
+    }
+  }
+
+  await Promise.all(promises);
+  return atualizadas;
+}
+
+window.edicaoMudarJogador = async function(side) {
+  const sel = document.getElementById(side === 1 ? 'edicao-jogador1-select' : 'edicao-jogador2-select');
+  if (!sel) return;
+  const novoId = sel.value;
+  const atualId = document.getElementById(side === 1 ? 'edicao-time1-id' : 'edicao-time2-id').value;
+  if (!novoId || novoId === atualId) return;
+
+  const outroId = document.getElementById(side === 1 ? 'edicao-time2-id' : 'edicao-time1-id').value;
+  if (novoId === outroId) {
+    showToast('⚠️ Os jogadores não podem ser os mesmos');
+    sel.value = atualId;
+    return;
+  }
+
+  const antigoId = atualId;
+  const partidaId = document.getElementById('edicao-partida-id').value;
+
+  document.getElementById(side === 1 ? 'edicao-time1-id' : 'edicao-time2-id').value = novoId;
+
+  const t1 = document.getElementById('edicao-time1-id').value;
+  const t2 = document.getElementById('edicao-time2-id').value;
+  document.getElementById('edicao-partida-nome').textContent = `${getTimeName(t1)} × ${getTimeName(t2)}`;
+  document.getElementById('edicao-jogador1-nome').textContent = getTimeName(t1);
+  document.getElementById('edicao-jogador2-nome').textContent = getTimeName(t2);
+  atualizarEscudosEdicao(t1, t2);
+  atualizarJogadoresEdicao(t1, t2);
+
+  document.getElementById('edicao-gols1').value = '-';
+  document.getElementById('edicao-gols2').value = '-';
+  edicaoEventosPendentes = [];
+  renderEventosEdicao();
+  resetarPenalties();
+  document.getElementById('penalty-area').style.display = 'none';
+  showToast('⚠️ Confronto alterado — placar, gols e pênaltis foram limpos. Redefina o placar.');
+
+  try {
+    const count = await propagarTrocaJogador(antigoId, novoId, partidaId);
+    if (count > 0) {
+      showToast(`✅ Troca aplicada automaticamente em ${count} outra(s) partida(s)!`);
+      renderPartidasTabela();
+      renderClassificacao();
+    }
+  } catch (error) {
+    console.error('Erro ao propagar troca de jogador:', error);
+    showToast('❌ Erro ao aplicar troca nas outras partidas: ' + error.message);
+  }
+}
+
 function atualizarEscudosEdicao(time1Id, time2Id) {
-  const t1 = getTime(time1Id);
-  const t2 = getTime(time2Id);
-  const escudo1 = document.getElementById('edicao-escudo1');
-  const escudo2 = document.getElementById('edicao-escudo2');
+  const t1 = getJogador(time1Id);
+  const t2 = getJogador(time2Id);
+  const escudo1 = document.getElementById('edicao-foto1');
+  const escudo2 = document.getElementById('edicao-foto2');
   
-  if (t1.escudo && (t1.escudo.startsWith('http') || t1.escudo.startsWith('data:'))) {
-    escudo1.innerHTML = `<img src="${t1.escudo}" style="width:100%;height:100%;object-fit:contain;padding:4px">`;
+  if (t1.foto && (t1.foto.startsWith('http') || t1.foto.startsWith('data:'))) {
+    escudo1.innerHTML = `<img src="${t1.foto}" style="width:100%;height:100%;object-fit:cover;padding:4px">`;
   } else {
-    escudo1.innerHTML = `<span style="font-size:32px">${t1.escudo || '⚽'}</span>`;
+    escudo1.innerHTML = `<span style="font-size:32px">🧑</span>`;
   }
   
-  if (t2.escudo && (t2.escudo.startsWith('http') || t2.escudo.startsWith('data:'))) {
-    escudo2.innerHTML = `<img src="${t2.escudo}" style="width:100%;height:100%;object-fit:contain;padding:4px">`;
+  if (t2.foto && (t2.foto.startsWith('http') || t2.foto.startsWith('data:'))) {
+    escudo2.innerHTML = `<img src="${t2.foto}" style="width:100%;height:100%;object-fit:cover;padding:4px">`;
   } else {
-    escudo2.innerHTML = `<span style="font-size:32px">${t2.escudo || '⚽'}</span>`;
+    escudo2.innerHTML = `<span style="font-size:32px">🧑</span>`;
   }
 }
 
 function atualizarJogadoresEdicao(time1Id, time2Id) {
-  const container1 = document.getElementById('edicao-jogadores-time1');
-  const container2 = document.getElementById('edicao-jogadores-time2');
+  const container1 = document.getElementById('edicao-jogador1');
+  const container2 = document.getElementById('edicao-jogador2');
   if (!container1 || !container2) return;
   
-  const jogadores1 = state.jogadores.filter(j => j.timeId === time1Id);
-  const jogadores2 = state.jogadores.filter(j => j.timeId === time2Id);
+  const jogador1 = state.jogadores.find(j => j.id === time1Id);
+  const jogador2 = state.jogadores.find(j => j.id === time2Id);
   
   function renderJogadorMini(jogador) {
+    if (!jogador) return '<span style="font-size:12px;color:var(--text-muted);padding:8px;">Sem jogador</span>';
     const foto = jogador.foto && (jogador.foto.startsWith('http') || jogador.foto.startsWith('data:')) ? 
       `<img src="${jogador.foto}" style="width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid var(--border-color);background:var(--bg-primary);">` : 
       `<span style="font-size:26px;line-height:46px;">🧑</span>`;
@@ -3584,8 +3254,8 @@ function atualizarJogadoresEdicao(time1Id, time2Id) {
     </div>`;
   }
   
-  container1.innerHTML = jogadores1.length ? jogadores1.map(j => renderJogadorMini(j)).join('') : '<span style="font-size:12px;color:var(--text-muted);padding:8px;">Sem jogadores</span>';
-  container2.innerHTML = jogadores2.length ? jogadores2.map(j => renderJogadorMini(j)).join('') : '<span style="font-size:12px;color:var(--text-muted);padding:8px;">Sem jogadores</span>';
+  container1.innerHTML = renderJogadorMini(jogador1);
+  container2.innerHTML = renderJogadorMini(jogador2);
 }
 
 window.adicionarGolPorJogador = function(jogId) {
@@ -3593,11 +3263,11 @@ window.adicionarGolPorJogador = function(jogId) {
   
   const jogador = state.jogadores.find(j => j.id === jogId);
   if (!jogador) return showToast('⚠️ Jogador não encontrado');
-  if (!jogador.timeId) return showToast('⚠️ Jogador não está vinculado a um time');
   
   const time1 = document.getElementById('edicao-time1-id').value;
   const time2 = document.getElementById('edicao-time2-id').value;
-  if (!time1 || !time2) return showToast('⚠️ Times não definidos');
+  if (!time1 || !time2) return showToast('⚠️ Confronto não definido');
+  if (jogId !== time1 && jogId !== time2) return showToast('⚠️ Jogador não pertence a este confronto');
   
   let gols1 = document.getElementById('edicao-gols1').value;
   let gols2 = document.getElementById('edicao-gols2').value;
@@ -3607,9 +3277,9 @@ window.adicionarGolPorJogador = function(jogId) {
   let g1 = parseInt(gols1) || 0;
   let g2 = parseInt(gols2) || 0;
   
-  if (jogador.timeId === time1) g1++;
-  else if (jogador.timeId === time2) g2++;
-  else return showToast('⚠️ Jogador não pertence a nenhum dos times da partida');
+  if (jogId === time1) g1++;
+  else if (jogId === time2) g2++;
+  else return showToast('⚠️ Jogador não pertence ao confronto');
   
   document.getElementById('edicao-gols1').value = g1;
   document.getElementById('edicao-gols2').value = g2;
@@ -3647,7 +3317,7 @@ window.removerEventoEdicao = function(id) {
       if (gols2 === '-' || gols2 === '') gols2 = '0';
       let g1 = parseInt(gols1) || 0;
       let g2 = parseInt(gols2) || 0;
-      if (jogador.timeId === time1) g1 = Math.max(0, g1 - 1);
+      if (evento.jogadorId === time1) g1 = Math.max(0, g1 - 1);
       else g2 = Math.max(0, g2 - 1);
       document.getElementById('edicao-gols1').value = g1 > 0 ? g1 : '-';
       document.getElementById('edicao-gols2').value = g2 > 0 ? g2 : '-';
@@ -3671,7 +3341,7 @@ function renderEventosEdicao() {
   el.innerHTML = edicaoEventosPendentes.map(e => {
     const j = state.jogadores.find(x => x.id === e.jogadorId);
     const nome = j ? j.nome : '?';
-    const time = getTimeName(getJogadorTime(e.jogadorId));
+    const time = getTimeName(e.jogadorId);
     const foto = j && j.foto && (j.foto.startsWith('http') || j.foto.startsWith('data:')) ? 
       `<img src="${j.foto}" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:1px solid var(--border-color)">` : 
       `<span style="font-size:20px">🧑</span>`;
@@ -3714,7 +3384,7 @@ function atualizarClassificacaoTempoReal() {
     el.innerHTML = `<div class="table-wrap"><table>
       <thead><tr>
         <th>#</th>
-        <th>Time</th>
+        <th>Jogador</th>
         <th style="color:var(--accent-1)">PTS</th>
         <th>V</th>
         <th>E</th>
@@ -3753,8 +3423,8 @@ function calcClassificacaoSimulada(partidasSimuladas) {
   );
   
   const tabela = {};
-  state.times.forEach(t => {
-    tabela[t.id] = { id: t.id, nome: t.nome, escudo: t.escudo, j: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0, sg: 0, pts: 0 };
+  state.jogadores.forEach(t => {
+    tabela[t.id] = { id: t.id, nome: t.nome, escudo: t.foto, j: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0, sg: 0, pts: 0 };
   });
   partidas.forEach(p => {
     const g1 = parseInt(p.gols1);
@@ -3790,7 +3460,7 @@ window.salvarEdicaoPartidaCompleta = async function() {
   const gols1Str = document.getElementById('edicao-gols1').value;
   const gols2Str = document.getElementById('edicao-gols2').value;
   
-  if (!time1 || !time2) return showToast('⚠️ Times não definidos');
+  if (!time1 || !time2) return showToast('⚠️ Confronto não definido');
   
   const gols1 = parseGol(gols1Str);
   const gols2 = parseGol(gols2Str);
@@ -3874,30 +3544,30 @@ window.salvarEdicaoPartidaCompleta = async function() {
     
     // === ATUALIZAR PARTIDAS JOGADAS EM PARALELO ===
     if (isPlacarDefinido(finalGols1) && isPlacarDefinido(finalGols2)) {
-      const jogadoresTime1 = state.jogadores.filter(j => j.timeId === time1);
-      const jogadoresTime2 = state.jogadores.filter(j => j.timeId === time2);
+      const jogadoresTime1 = [time1].filter(Boolean);
+      const jogadoresTime2 = [time2].filter(Boolean);
       
       const jogadoresAntigos = [];
       if (partidaAntiga) {
-        if (partidaAntiga.time1Id) {
-          jogadoresAntigos.push(...state.jogadores.filter(j => j.timeId === partidaAntiga.time1Id));
-        }
-        if (partidaAntiga.time2Id) {
-          jogadoresAntigos.push(...state.jogadores.filter(j => j.timeId === partidaAntiga.time2Id));
-        }
+        if (partidaAntiga.time1Id) jogadoresAntigos.push(partidaAntiga.time1Id);
+        if (partidaAntiga.time2Id) jogadoresAntigos.push(partidaAntiga.time2Id);
       }
       
       const jogadoresNovos = [...jogadoresTime1, ...jogadoresTime2];
       const todosJogadores = new Map();
       
-      for (const j of jogadoresAntigos) {
+      for (const id of jogadoresAntigos) {
+        const j = state.jogadores.find(x => x.id === id);
+        if (!j) continue;
         if (!todosJogadores.has(j.id)) {
           todosJogadores.set(j.id, { ...j, delta: 0 });
         }
         todosJogadores.get(j.id).delta -= 1;
       }
       
-      for (const j of jogadoresNovos) {
+      for (const id of jogadoresNovos) {
+        const j = state.jogadores.find(x => x.id === id);
+        if (!j) continue;
         if (!todosJogadores.has(j.id)) {
           todosJogadores.set(j.id, { ...j, delta: 0 });
         }
@@ -3931,10 +3601,8 @@ window.salvarEdicaoPartidaCompleta = async function() {
 
 // ============ GERAR OU ATUALIZAR FINAL ============
 async function gerarOuAtualizarFinal(tempId) {
-  if (!tempId) return;
-  
   const partidasGrupo = state.partidas.filter(p => 
-    p.temporadaId === tempId && 
+    (!p.temporadaId || p.temporadaId === tempId) && 
     p.fase === 'Fase de Grupos'
   );
   
@@ -3944,7 +3612,7 @@ async function gerarOuAtualizarFinal(tempId) {
   
   if (definidas.length < 3) {
     const finais = state.partidas.filter(p => 
-      p.temporadaId === tempId && 
+      (!p.temporadaId || p.temporadaId === tempId) && 
       p.fase === 'Final'
     );
     for (const f of finais) {
@@ -3969,7 +3637,7 @@ async function gerarOuAtualizarFinal(tempId) {
   const segundo = timesOrdenados[1];
   
   const finais = state.partidas.filter(p => 
-    p.temporadaId === tempId && 
+    (!p.temporadaId || p.temporadaId === tempId) && 
     p.fase === 'Final'
   );
   
@@ -4013,7 +3681,7 @@ async function gerarOuAtualizarFinal(tempId) {
 // ============ CLASSIFICAÇÃO POR TEMPORADA ============
 function calcClassificacaoPorTemporada(tempId) {
   const partidas = state.partidas.filter(p => 
-    p.temporadaId === tempId && 
+    (!p.temporadaId || p.temporadaId === tempId) && 
     p.fase === 'Fase de Grupos' &&
     p.status === 'encerrada' && 
     isPlacarDefinido(p.gols1) && 
@@ -4021,11 +3689,11 @@ function calcClassificacaoPorTemporada(tempId) {
   );
   
   const tabela = {};
-  state.times.forEach(t => {
+  state.jogadores.forEach(t => {
     tabela[t.id] = { 
       id: t.id, 
       nome: t.nome, 
-      escudo: t.escudo, 
+      escudo: t.foto, 
       j: 0, v: 0, e: 0, d: 0, 
       gp: 0, gc: 0, sg: 0, pts: 0 
     };
@@ -4060,7 +3728,7 @@ function calcClassificacaoPorTemporada(tempId) {
 // ============ FUNÇÕES PARA PARTIDAS ============
 function getPartidasFinal(tempId) {
   return state.partidas.filter(p => 
-    p.temporadaId === tempId && 
+    (!p.temporadaId || p.temporadaId === tempId) && 
     p.fase === 'Final'
   );
 }
@@ -4160,9 +3828,9 @@ function renderPartidasTabela() {
     <thead><tr>
       <th>#</th>
       <th>Fase</th>
-      <th>Mandante</th>
+      <th>Jogador 1</th>
       <th>Placar</th>
-      <th>Visitante</th>
+      <th>Jogador 2</th>
       <th>Status</th>
       <th>Edição</th>
       <th>Ações</th>
@@ -4223,11 +3891,11 @@ function calcClassificacao() {
   );
   
   const tabela = {};
-  state.times.forEach(t => {
+  state.jogadores.forEach(t => {
     tabela[t.id] = { 
       id: t.id, 
       nome: t.nome, 
-      escudo: t.escudo, 
+      escudo: t.foto, 
       j: 0, v: 0, e: 0, d: 0, 
       gp: 0, gc: 0, sg: 0, pts: 0 
     };
@@ -4277,7 +3945,7 @@ function renderClassificacao() {
     el.innerHTML = `<div class="table-wrap"><table>
       <thead><tr>
         <th>#</th>
-        <th>Time</th>
+        <th>Jogador</th>
         <th style="color:var(--accent-1)">PTS</th>
         <th>V</th>
         <th>E</th>
@@ -4364,19 +4032,25 @@ window.finalizarEdicao = async function() {
     perdedorId = g1 > g2 ? final.time2Id : final.time1Id;
   }
   
-  const timeCampeao = state.times.find(t => t.id === vencedorId);
-  const timeVice = state.times.find(t => t.id === perdedorId);
+  const timeCampeao = getJogador(vencedorId);
+  const timeVice = getJogador(perdedorId);
   
   let mensagemPenaltis = '';
   if (tevePenalidades) {
     mensagemPenaltis = `\n✅ Pênaltis: ${golsPenalidades1} × ${golsPenalidades2}`;
   }
   
-  if (!confirm(`⚠️ ATENÇÃO! Ao finalizar esta edição:\n\n✅ ${getTimeName(final.time1Id)} ${final.gols1} × ${final.gols2} ${getTimeName(final.time2Id)}${mensagemPenaltis}\n\n✅ ${timeCampeao ? timeCampeao.nome : 'Time'} será o CAMPEÃO!\n✅ ${timeVice ? timeVice.nome : 'Time'} será o VICE-CAMPEÃO!\n✅ Data: ${dataFormatada}\n\n📊 Numeração:\n  🌍 Global: #${numeroGlobal}\n  📅 Local (${temporada.nome || temporada.ano}): ${ordinal(numeroLocal)}\n\n✅ Será criada a ${ordinal(numeroLocal)} Edição (Global #${numeroGlobal})\n✅ Os títulos serão salvos DENTRO da edição\n✅ As partidas serão RESETADAS (placares zerados)\n✅ A FINAL será EXCLUÍDA para gerar nova na próxima edição\n✅ Os jogadores serão desvinculados\n\nDeseja continuar?`)) return;
+  if (!confirm(`⚠️ ATENÇÃO! Ao finalizar esta edição:\n\n✅ ${getTimeName(final.time1Id)} ${final.gols1} × ${final.gols2} ${getTimeName(final.time2Id)}${mensagemPenaltis}\n\n✅ ${timeCampeao.nome} será o CAMPEÃO!\n✅ ${timeVice.nome} será o VICE-CAMPEÃO!\n✅ Data: ${dataFormatada}\n\n📊 Numeração:\n  🌍 Global: #${numeroGlobal}\n  📅 Local (${temporada.nome || temporada.ano}): ${ordinal(numeroLocal)}\n\n✅ Será criada a ${ordinal(numeroLocal)} Edição (Global #${numeroGlobal})\n✅ Os títulos serão salvos DENTRO da edição\n✅ As partidas serão RESETADAS (placares zerados)\n✅ A FINAL será EXCLUÍDA para gerar nova na próxima edição\n\nDeseja continuar?`)) return;
   
   showToast('⏳ Processando finalização da edição...');
 
   try {
+    // Associar partidas sem temporada à temporada escolhida
+    const partidasSemTemporada = state.partidas.filter(p => !p.temporadaId);
+    if (partidasSemTemporada.length > 0) {
+      await Promise.all(partidasSemTemporada.map(p => fbUpdate('partidas', p.id, { temporadaId: tempId })));
+      partidasSemTemporada.forEach(p => { p.temporadaId = tempId; });
+    }
     const todasPartidas = state.partidas.filter(p => p.temporadaId === tempId);
     const partidasGrupo = todasPartidas.filter(p => p.fase === 'Fase de Grupos');
     const partidasFinalizadas = partidasGrupo.filter(p => 
@@ -4384,6 +4058,15 @@ window.finalizarEdicao = async function() {
     );
     
     const classificacaoFinal = calcClassificacaoPorTemporada(tempId);
+    
+    // ===== ORDENAR POR CRIAÇÃO (createdAt/_ts) PARA MANTER ORDEM DE CRIAÇÃO =====
+    partidasFinalizadas.sort((a,b) => {
+      const aSec = (a.createdAt?.seconds ?? a._ts?.seconds ?? a.createdAt ?? 0);
+      const bSec = (b.createdAt?.seconds ?? b._ts?.seconds ?? b.createdAt ?? 0);
+      const aVal = typeof aSec === 'number' ? aSec : (aSec?.seconds ?? 0);
+      const bVal = typeof bSec === 'number' ? bSec : (bSec?.seconds ?? 0);
+      return aVal - bVal;
+    });
     
     // ===== SALVAR PLACARES DA FASE DE GRUPOS =====
     const partidasSalvas = partidasFinalizadas.map(p => ({
@@ -4411,8 +4094,8 @@ window.finalizarEdicao = async function() {
       dataEdicao: dataFormatada,
       dataFinalizacao: new Date().toISOString(),
       
-      // Times (apenas IDs e nomes, SEM escudos)
-      times: state.times.map(time => ({
+      // Jogadores participantes (apenas IDs e nomes, SEM fotos)
+      times: state.jogadores.map(time => ({
         id: time.id,
         nome: time.nome
       })),
@@ -4420,7 +4103,7 @@ window.finalizarEdicao = async function() {
       // PARTIDAS DA FASE DE GRUPOS
       partidas: partidasSalvas,
       
-      // Classificação (estatísticas agregadas) — não inclui times sem partida definida
+      // Classificação (estatísticas agregadas) — não inclui jogadores sem partida definida
       classificacao: classificacaoFinal.filter(t => (t.j || 0) > 0).map((t, index) => ({
         timeId: t.id,
         timeNome: t.nome,
@@ -4438,11 +4121,10 @@ window.finalizarEdicao = async function() {
       // Jogadores (apenas estatísticas, SEM fotos)
       jogadores: state.jogadores
         .filter(jogador => {
-          if (!jogador.timeId) return false;
           let participou = false;
           todasPartidas.forEach(p => {
             if (isPlacarDefinido(p.gols1) && isPlacarDefinido(p.gols2)) {
-              if (p.time1Id === jogador.timeId || p.time2Id === jogador.timeId) {
+              if (p.time1Id === jogador.id || p.time2Id === jogador.id) {
                 participou = true;
               }
             }
@@ -4471,19 +4153,17 @@ window.finalizarEdicao = async function() {
               });
             }
             if (isPlacarDefinido(p.gols1) && isPlacarDefinido(p.gols2)) {
-              if (p.time1Id === jogador.timeId || p.time2Id === jogador.timeId) {
+              if (p.time1Id === jogador.id || p.time2Id === jogador.id) {
                 partidasJogadas++;
               }
             }
           });
           
-          const timeDoJogador = state.times.find(t => t.id === jogador.timeId);
-          
           return {
             id: jogador.id,
             nome: jogador.nome,
-            timeId: jogador.timeId || '',
-            timeNome: timeDoJogador ? timeDoJogador.nome : '',
+            timeId: jogador.id,
+            timeNome: '',
             gols: golsEdicao,
             golsFaseGrupos: golsFaseGrupos,
             golsFinal: golsFinal,
@@ -4626,15 +4306,6 @@ window.finalizarEdicao = async function() {
 
     showToast(`🔄 ${partidasGrupoParaResetar.length} partidas resetadas, ${finais.length} final(ais) excluída(s).`);
 
-    showToast('🔄 Desvinculando jogadores...');
-    for (const jogador of state.jogadores) {
-      if (jogador.timeId) {
-        await fbUpdate('jogadores', jogador.id, { timeId: '' });
-      }
-    }
-
-    await fbUpdate('temporadas', tempId, { status: 'em_andamento' });
-
     showToast(`🏆 ${ordinal(numeroLocal)} Edição (Global #${numeroGlobal}) finalizada! ${timeCampeao ? timeCampeao.nome : 'Time'} é o CAMPEÃO! Partidas resetadas e Final excluída para a próxima edição.`);
     
     document.getElementById('finalizar-confirmacao-status').style.display = 'none';
@@ -4652,23 +4323,11 @@ window.visualizarEdicao = function(edicaoId) {
   const edicao = state.edicoes.find(e => e.id === edicaoId);
   if (!edicao) return showToast('⚠️ Edição não encontrada');
   
-  // Busca dados atuais dos times
+  // Busca dados atuais dos jogadores
   const timesComEscudos = edicao.times.map(t => ({
     ...t,
-    escudo: getTime(t.id)?.escudo || '⚽'
+    escudo: getJogador(t.id)?.foto || '🧑'
   }));
-  
-  // ===== ORDEM FIXA DOS TIMES =====
-  const ORDEM_FIXA = ['BARCELONA', 'REAL MADRID', 'PSG', 'LIVERPOOL'];
-  
-  // Ordena os times da edição baseado na ordem fixa
-  const timesOrdenados = [...edicao.times].sort((a, b) => {
-    const idxA = ORDEM_FIXA.indexOf(a.nome?.toUpperCase() || '');
-    const idxB = ORDEM_FIXA.indexOf(b.nome?.toUpperCase() || '');
-    if (idxA === -1) return 1;
-    if (idxB === -1) return -1;
-    return idxA - idxB;
-  });
   
   const time1Final = timesComEscudos.find(t => t.id === edicao.final?.time1Id);
   const time2Final = timesComEscudos.find(t => t.id === edicao.final?.time2Id);
@@ -4733,164 +4392,49 @@ window.visualizarEdicao = function(edicaoId) {
   jogadoresTime1Final.sort((a, b) => b.gols - a.gols);
   jogadoresTime2Final.sort((a, b) => b.gols - a.gols);
   
-  // Agrupa jogadores por time usando dados da edição
-  const jogadoresPorTime = {};
-  
-  // Inicializa com todos os times da edição
-  timesOrdenados.forEach(time => {
-    jogadoresPorTime[time.id] = {
-      timeId: time.id,
-      timeNome: time.nome,
-      jogadores: []
-    };
-  });
-  
-  // Adiciona os jogadores aos seus respectivos times
-  if (edicao.jogadores && Array.isArray(edicao.jogadores)) {
-    edicao.jogadores.forEach(j => {
-      const timeId = j.timeId;
-      if (timeId && jogadoresPorTime[timeId]) {
-        const nomeAtual = getJogadorNome(j.id);
-        jogadoresPorTime[timeId].jogadores.push({
-          id: j.id,
-          nome: nomeAtual,
-          gols: j.gols || 0,
-          partidasJogadas: j.partidasJogadas || 0
-        });
-      }
-    });
-  }
-  
-  // Ordena jogadores por gols dentro de cada time (do maior para o menor)
-  Object.keys(jogadoresPorTime).forEach(timeId => {
-    jogadoresPorTime[timeId].jogadores.sort((a, b) => b.gols - a.gols);
-  });
-  
-  // Monta HTML dos jogadores agrupados por time (em lista vertical)
+  // Monta HTML dos jogadores participantes (em lista vertical)
   function renderJogadoresAgrupados() {
-    let html = '';
+    const jogadores = (edicao.jogadores && Array.isArray(edicao.jogadores)) ? edicao.jogadores : [];
+    if (jogadores.length === 0) {
+      return '<div style="color:var(--text-muted);font-size:13px;text-align:center;padding:12px;width:100%;">Nenhum jogador registrado nesta edição</div>';
+    }
     
-    timesOrdenados.forEach(time => {
-      const data = jogadoresPorTime[time.id];
-      if (!data || data.jogadores.length === 0) return;
-      
-      const timeEscudo = getTime(time.id)?.escudo || '⚽';
-      
-      html += `
-        <div style="flex:1 1 0;min-width:200px;background:rgba(5,8,12,0.3);border-radius:8px;padding:12px 14px;border:1px solid var(--border-color);">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;border-bottom:1px solid var(--border-color);padding-bottom:8px;">
-            <div style="width:32px;height:32px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-              ${timeEscudo && (timeEscudo.startsWith('http') || timeEscudo.startsWith('data:')) 
-                ? `<img src="${timeEscudo}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
-                : `<span style="font-size:18px;">${timeEscudo || '⚽'}</span>`}
-            </div>
-            <span style="font-size:15px;font-weight:700;color:var(--text-secondary);">${time.nome}</span>
-            <span style="font-size:10px;color:var(--text-muted);margin-left:auto;">${data.jogadores.length}</span>
+    return jogadores
+      .slice()
+      .sort((a, b) => (b.gols || 0) - (a.gols || 0))
+      .map(j => {
+        const isMaiorGol = j.gols > 0 && j.gols === maiorGols;
+        return `
+          <div style="display:flex;align-items:center;gap:8px;padding:4px 10px;background:${isMaiorGol ? 'rgba(255,215,0,0.08)' : 'rgba(5,8,12,0.3)'};border-radius:6px;border:${isMaiorGol ? '1px solid rgba(255,215,0,0.2)' : '1px solid var(--border-color)'};margin:0 16px 8px 0;min-width:220px;flex:1;">
+          <div style="width:28px;height:28px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            ${getPlayerAvatar(j.id)}
           </div>
-          <div style="display:flex;flex-direction:column;gap:4px;">
-            ${data.jogadores.map(j => {
-              const isMaiorGol = j.gols > 0 && j.gols === maiorGols;
-              return `
-                <div style="display:flex;align-items:center;gap:8px;padding:3px 8px;background:${isMaiorGol ? 'rgba(255,215,0,0.08)' : 'rgba(5,8,12,0.2)'};border-radius:4px;border:${isMaiorGol ? '1px solid rgba(255,215,0,0.15)' : 'none'};">
-                  <div style="width:22px;height:22px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                    ${getPlayerAvatar(j.id)}
-                  </div>
-                  <span style="font-weight:${isMaiorGol ? '700' : '500'};flex:1;font-size:13px;color:${isMaiorGol ? '#ffd600' : 'var(--text-primary)'};">${j.nome}</span>
-                  <span style="font-size:11px;color:${isMaiorGol ? '#ffd600' : 'var(--accent-1)'};font-weight:600;">${j.gols}⚽</span>
-                  ${isMaiorGol ? '<span style="font-size:11px;">🎯</span>' : ''}
-                </div>
-              `;
-            }).join('')}
-          </div>
+          <span style="font-weight:${isMaiorGol ? '700' : '500'};flex:1;font-size:13px;color:${isMaiorGol ? '#ffd600' : 'var(--text-primary)'};">${getJogadorNome(j.id)}</span>
+          <span style="font-size:11px;color:${isMaiorGol ? '#ffd600' : 'var(--accent-1)'};font-weight:600;">${j.gols || 0}⚽</span>
+          ${isMaiorGol ? '<span style="font-size:11px;">🎯</span>' : ''}
         </div>
       `;
-    });
-    
-    return html || '<div style="color:var(--text-muted);font-size:13px;text-align:center;padding:12px;width:100%;">Nenhum jogador registrado nesta edição</div>';
+    }).join('');
   }
   
-  // ===== MONTAGEM DOS PLACARES DA FASE DE GRUPOS COM ORDEM FIXA =====
+  // ===== MONTAGEM DOS PLACARES DA FASE DE GRUPOS =====
   function renderPlacaresFaseGrupos() {
     if (!edicao.partidas || edicao.partidas.length === 0) {
       return '<div style="color:var(--text-muted);font-size:13px;text-align:center;padding:12px;">Nenhuma partida registrada</div>';
     }
     
-    // ===== ORDEM FIXA DOS JOGOS DA FASE DE GRUPOS =====
-    const ORDEM_JOGOS = [
-      ['BARCELONA', 'PSG'],
-      ['REAL MADRID', 'LIVERPOOL'],
-      ['BARCELONA', 'LIVERPOOL'],
-      ['REAL MADRID', 'PSG'],
-      ['BARCELONA', 'REAL MADRID'],
-      ['PSG', 'LIVERPOOL']
-    ];
-    
-    // Ordena as partidas baseado na ordem fixa
-    const partidasOrdenadas = [];
-    ORDEM_JOGOS.forEach(([time1, time2]) => {
-      const partida = edicao.partidas.find(p => 
-        (p.time1Nome?.toUpperCase() === time1 && p.time2Nome?.toUpperCase() === time2) ||
-        (p.time1Nome?.toUpperCase() === time2 && p.time2Nome?.toUpperCase() === time1)
-      );
-      if (partida) {
-        // Garante que time1Nome seja o primeiro time da ordem
-        const partidaCorrigida = { ...partida };
-        if (partida.time1Nome?.toUpperCase() !== time1) {
-          // Inverte os times se necessário
-          partidaCorrigida.time1Nome = partida.time2Nome;
-          partidaCorrigida.time2Nome = partida.time1Nome;
-          partidaCorrigida.time1Id = partida.time2Id;
-          partidaCorrigida.time2Id = partida.time1Id;
-          partidaCorrigida.gols1 = partida.gols2;
-          partidaCorrigida.gols2 = partida.gols1;
-        }
-        partidasOrdenadas.push(partidaCorrigida);
-      }
-    });
-    
-    // Se não encontrou nenhuma partida na ordem fixa, usa a ordenação antiga como fallback
-    if (partidasOrdenadas.length === 0) {
-      return edicao.partidas.map(p => {
-        const escudo1 = getTime(p.time1Id)?.escudo || '⚽';
-        const escudo2 = getTime(p.time2Id)?.escudo || '⚽';
-        return `
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 12px;background:rgba(5,8,12,0.2);border-radius:6px;margin-bottom:4px;border:1px solid var(--border-color);">
-            <div style="display:flex;align-items:center;gap:8px;flex:1;">
-              <div style="width:24px;height:24px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                ${escudo1 && (escudo1.startsWith('http') || escudo1.startsWith('data:')) 
-                  ? `<img src="${escudo1}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
-                  : `<span style="font-size:12px;">${escudo1 || '⚽'}</span>`}
-              </div>
-              <span style="font-size:13px;font-weight:500;">${p.time1Nome || '?'}</span>
-            </div>
-            <div style="font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:var(--accent-1);padding:0 12px;">
-              ${p.gols1 || 0} × ${p.gols2 || 0}
-            </div>
-            <div style="display:flex;align-items:center;gap:8px;flex:1;justify-content:flex-end;">
-              <span style="font-size:13px;font-weight:500;">${p.time2Nome || '?'}</span>
-              <div style="width:24px;height:24px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                ${escudo2 && (escudo2.startsWith('http') || escudo2.startsWith('data:')) 
-                  ? `<img src="${escudo2}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
-                  : `<span style="font-size:12px;">${escudo2 || '⚽'}</span>`}
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-    
-    const _cols = 2; const _rows = Math.ceil(partidasOrdenadas.length / _cols); const _ordenadaColuna = []; for (let r=0; r<_rows; r++) for (let c=0; c<_cols; c++) { const idx = c*_rows + r; if (idx < partidasOrdenadas.length) _ordenadaColuna.push(partidasOrdenadas[idx]); }
-    return _ordenadaColuna.map(p => {
-      const escudo1 = getTime(p.time1Id)?.escudo || '⚽';
-      const escudo2 = getTime(p.time2Id)?.escudo || '⚽';
+    const _colsP = 2; const _rowsP = Math.ceil(edicao.partidas.length/_colsP); const _partidasOrdenadas = []; for(let r=0;r<_rowsP;r++) for(let c=0;c<_colsP;c++){const idx=c*_rowsP+r; if(idx<edicao.partidas.length) _partidasOrdenadas.push(edicao.partidas[idx]);}
+    return _partidasOrdenadas.map(p => {
+      const escudo1 = getJogador(p.time1Id)?.foto || '🧑';
+      const escudo2 = getJogador(p.time2Id)?.foto || '🧑';
       
       return `
         <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 12px;background:rgba(5,8,12,0.2);border-radius:6px;margin-bottom:4px;border:1px solid var(--border-color);">
           <div style="display:flex;align-items:center;gap:8px;flex:1;">
             <div style="width:24px;height:24px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
               ${escudo1 && (escudo1.startsWith('http') || escudo1.startsWith('data:')) 
-                ? `<img src="${escudo1}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
-                : `<span style="font-size:12px;">${escudo1 || '⚽'}</span>`}
+                ? `<img src="${escudo1}" style="width:100%;height:100%;object-fit:cover;padding:0;">` 
+                : `<span style="font-size:12px;">${escudo1 || '🧑'}</span>`}
             </div>
             <span style="font-size:13px;font-weight:500;">${p.time1Nome || '?'}</span>
           </div>
@@ -4901,8 +4445,8 @@ window.visualizarEdicao = function(edicaoId) {
             <span style="font-size:13px;font-weight:500;">${p.time2Nome || '?'}</span>
             <div style="width:24px;height:24px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
               ${escudo2 && (escudo2.startsWith('http') || escudo2.startsWith('data:')) 
-                ? `<img src="${escudo2}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
-                : `<span style="font-size:12px;">${escudo2 || '⚽'}</span>`}
+                ? `<img src="${escudo2}" style="width:100%;height:100%;object-fit:cover;padding:0;">` 
+                : `<span style="font-size:12px;">${escudo2 || '🧑'}</span>`}
             </div>
           </div>
         </div>
@@ -4924,11 +4468,11 @@ window.visualizarEdicao = function(edicaoId) {
   
   // Monta HTML da edição
   let html = `
-    <div style="position:fixed;inset:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(12px);z-index:10030;display:flex;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)this.remove()">
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(12px);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)this.remove()">
       <div id="modal-edicao-captura" style="background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px;padding:32px;max-width:1100px;max-height:90vh;overflow-y:auto;width:100%;position:relative;">
-        <button onclick="this.parentElement.parentElement.remove()" id="btn-fechar-modal-edicao" style="position:sticky;top:0;float:right;background:rgba(255,107,107,0.2);border:none;color:var(--accent-3);font-size:24px;cursor:pointer;padding:4px 12px;border-radius:8px;z-index:10;">✕</button>
+        <button onclick="this.closest('div[style*=\\'position:fixed\\']').remove()" id="btn-fechar-modal-edicao" style="position:sticky;top:0;float:right;background:rgba(255,107,107,0.2);border:none;color:var(--accent-3);font-size:24px;cursor:pointer;padding:4px 12px;border-radius:8px;z-index:10;">✕</button>
         <div style="position:sticky;top:0;float:right;margin-right:8px;display:flex;align-items:center;gap:8px;z-index:10;">
-        <img src="https://cup-edition.github.io/sistema-inscricoes/CUP%20EDITION%20CAMPIM%20FC.png" alt="CUP EDITION CAMPIM FC" style="height:38px;width:auto;border-radius:8px;filter:drop-shadow(0 0 20px var(--accent-glow));">
+        <img src="https://cup-edition.github.io/campimfc/CUP%20EDITION%20PES.png" alt="CUP EDITION PES" style="height:38px;width:auto;border-radius:8px;filter:drop-shadow(0 0 20px var(--accent-glow));">
         <button onclick="baixarImagemEdicao('modal-edicao-captura', '${nomeArquivoEdicao}')" id="btn-baixar-edicao" title="Baixar imagem da edição" style="background:rgba(0,212,255,0.15);border:1px solid rgba(0,212,255,0.3);color:var(--accent-1);font-size:18px;cursor:pointer;padding:6px 14px;border-radius:8px;">📥</button>
         </div>
         
@@ -5034,7 +4578,6 @@ window.visualizarEdicao = function(edicaoId) {
             ${edicao.jogadores?.length ? `
               <div style="display:flex;flex-direction:column;gap:3px;max-height:300px;overflow-y:auto;">
                 ${edicao.jogadores.sort((a, b) => (b.gols || 0) - (a.gols || 0)).map(j => {
-                  const timeDoJogador = edicao.times.find(t => t.id === j.timeId);
                   const isMaiorGol = j.gols > 0 && j.gols === maiorGols;
                   return `
                     <div style="display:flex;align-items:center;gap:8px;padding:4px 8px;background:${isMaiorGol ? 'rgba(255,215,0,0.08)' : 'rgba(5,8,12,0.2)'};border-radius:4px;border:${isMaiorGol ? '1px solid rgba(255,215,0,0.2)' : 'none'};">
@@ -5042,7 +4585,6 @@ window.visualizarEdicao = function(edicaoId) {
                         ${getPlayerAvatar(j.id)}
                       </div>
                       <span style="font-weight:${isMaiorGol ? '700' : '600'};flex:1;color:${isMaiorGol ? '#ffd600' : 'var(--text-primary)'};">${getJogadorNome(j.id)}</span>
-                      <span style="font-size:11px;color:var(--text-muted);">${timeDoJogador?.nome || ''}</span>
                       <span style="color:${isMaiorGol ? '#ffd600' : 'var(--accent-1)'};font-weight:700;font-family:'Orbitron',sans-serif;">${j.gols || 0} ⚽</span>
                       ${isMaiorGol ? '🎯' : ''}
                     </div>
@@ -5058,15 +4600,15 @@ window.visualizarEdicao = function(edicaoId) {
             ${(() => { const _cf = (edicao.classificacao || []).filter(c => Number(c.jogos ?? c.j ?? 0) > 0); return _cf.length ? `
               <div style="display:flex;flex-direction:column;gap:4px;max-height:300px;overflow-y:auto;">
                 ${_cf.map(c => {
-                  const time = state.times.find(t => t.id === c.timeId);
+                  const time = state.jogadores.find(t => t.id === c.timeId);
                   const posEmoji = c.posicao === 1 ? '🥇' : (c.posicao === 2 ? '🥈' : (c.posicao === 3 ? '🥉' : `${c.posicao}.`));
                   return `
                     <div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:${c.posicao === 1 ? 'rgba(255,215,0,0.08)' : (c.posicao === 2 ? 'rgba(192,192,192,0.08)' : 'rgba(5,8,12,0.3)')};border-radius:6px;border:${c.posicao === 1 ? '1px solid rgba(255,215,0,0.2)' : (c.posicao === 2 ? '1px solid rgba(192,192,192,0.15)' : 'none')};">
                       <span style="font-weight:700;color:var(--text-muted);min-width:30px;">${posEmoji}</span>
                       <div style="width:24px;height:24px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                        ${time?.escudo && (time.escudo.startsWith('http') || time.escudo.startsWith('data:')) 
-                          ? `<img src="${time.escudo}" style="width:100%;height:100%;object-fit:contain;padding:2px;">` 
-                          : `<span style="font-size:12px;">${time?.escudo || '⚽'}</span>`}
+                        ${time?.foto && (time.foto.startsWith('http') || time.foto.startsWith('data:')) 
+                          ? `<img src="${time.foto}" style="width:100%;height:100%;object-fit:cover;padding:0;">` 
+                          : `<span style="font-size:12px;">🧑</span>`}
                       </div>
                       <span style="font-weight:600;flex:1;font-size:14px;color:${c.posicao === 1 ? '#ffd600' : 'var(--text-primary)'};">${c.timeNome}</span>
                       <span style="color:var(--accent-1);font-weight:700;font-family:'Orbitron',sans-serif;font-size:18px;">${c.pontos}</span>
@@ -5077,13 +4619,13 @@ window.visualizarEdicao = function(edicaoId) {
                 }).join('')}
               </div>
             ` : '<div class="text-muted">Classificação não disponível</div>'; })()}
-          </div>
+        </div>
         </div>
         
         <!-- ===== JOGADORES POR TIME (EMBAIXO, HORIZONTAL, LISTA VERTICAL) ===== -->
         <div style="background:rgba(5,8,12,0.4);border-radius:10px;padding:16px;border:1px solid var(--border-color);margin-bottom:16px;">
-          <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">👥 JOGADORES POR TIME</div>
-          <div style="max-height:350px;overflow-y:auto;display:flex;flex-wrap:wrap;gap:16px;align-items:stretch;">
+          <div style="font-size:14px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;">👥 JOGADORES PARTICIPANTES</div>
+          <div style="max-height:350px;overflow-y:auto;display:flex;flex-wrap:wrap;">
             ${renderJogadoresAgrupados()}
           </div>
         </div>
@@ -5131,13 +4673,13 @@ window.baixarImagemEdicao = function(containerId, nomeArquivo) {
         n.style.overflow = 'visible';
       });
       if (raiz) {
-        var logoCampim = raiz.querySelector('img[alt="CUP EDITION CAMPIM FC"]');
-        if (logoCampim) {
-          logoCampim.style.height = '90px';
-          logoCampim.style.width = 'auto';
-          logoCampim.style.borderRadius = '0';
-          logoCampim.style.filter = 'drop-shadow(0 0 30px rgba(0, 212, 255, 0.3))';
-          var logoPai = logoCampim.parentNode;
+        var logoPes = raiz.querySelector('img[alt="CUP EDITION PES"]');
+        if (logoPes) {
+          logoPes.style.height = '90px';
+          logoPes.style.width = 'auto';
+          logoPes.style.borderRadius = '0';
+          logoPes.style.filter = 'drop-shadow(0 0 30px rgba(0, 212, 255, 0.3))';
+          var logoPai = logoPes.parentNode;
           if (logoPai) {
             logoPai.style.position = 'absolute';
             logoPai.style.top = '12px';
@@ -5151,7 +4693,7 @@ window.baixarImagemEdicao = function(containerId, nomeArquivo) {
         raiz.querySelectorAll('img').forEach(function(img) {
           var inline = img.getAttribute('style') || '';
           var ehEscudo = inline.indexOf('object-fit:contain') !== -1;
-          if (!ehEscudo && img !== logoCampim) {
+          if (!ehEscudo && img !== logoPes) {
             img.style.borderRadius = '50%';
           }
         });
@@ -5237,8 +4779,8 @@ function renderEdicoes() {
       
       const tevePenalidades = e.final?.tevePenalidades || false;
       
-      const timeCampeao = state.times.find(t => t.id === e.campeao?.timeId);
-      const timeVice = state.times.find(t => t.id === e.vice?.timeId);
+      const timeCampeao = getJogador(e.campeao?.timeId);
+      const timeVice = getJogador(e.vice?.timeId);
       
       let penaltyInfo = '';
       if (tevePenalidades && e.final) {
@@ -5263,10 +4805,10 @@ function renderEdicoes() {
           
           <div style="flex:1;min-width:200px;">
             <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-              ${timeCampeao?.escudo ? imgOrEmoji(timeCampeao.escudo, 28) : '<span style="font-size:15px;">⚽</span>'}
+              ${imgOrEmoji(timeCampeao?.foto, 28)}
               <span style="color:#ffd600;font-weight:700;">🏆 ${campeao}</span>
               <span style="color:var(--text-muted);">×</span>
-              ${timeVice?.escudo ? imgOrEmoji(timeVice.escudo, 28) : '<span style="font-size:15px;">⚽</span>'}
+              ${imgOrEmoji(timeVice?.foto, 28)}
               <span style="color:var(--text-secondary);">${vice}</span>
             </div>
             <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">
@@ -5330,7 +4872,7 @@ function renderArtilharia() {
   }
   el.innerHTML = lista.map((j, i) => `<div class="artilheiro-row">
     <div class="art-rank">${i + 1}</div>${imgOrEmoji(j.foto, 40)}
-    <div class="art-info"><div class="art-name">${j.nome}</div><div class="art-team">${getTimeName(j.timeId)}</div></div>
+    <div class="art-info"><div class="art-name">${j.nome}</div></div>
     <div class="art-goals">${j.golsTotais}</div>
   </div>`).join('');
 }
@@ -5385,7 +4927,7 @@ function renderTemporadas() {
     const edicoesCount = state.edicoes.filter(e => e.temporadaId === t.id).length;
     let imgHtml = t.imagem && (t.imagem.startsWith('http') || t.imagem.startsWith('data:')) ? `<img src="${t.imagem}" alt="${t.nome}">` : '<span class="fallback">🏆</span>';
     
-    const statusAtual = t.status || 'em_andamento';
+    const statusAtual = (t.status === 'planejado' || !t.status) ? 'em_andamento' : t.status;
     
     // Opções do select com o status atual selecionado
     const statusOptions = ['em_andamento', 'encerrado'].map(status => {
@@ -5393,7 +4935,6 @@ function renderTemporadas() {
       return `<option value="${status}" ${selected}>${sL[status] || status}</option>`;
     }).join('');
     
-    const statsBtn = (statusAtual === 'encerrado' && edicoesCount > 0) ? `<button class="season-stats-btn" onclick="event.stopPropagation();visualizarEstatisticasTemporada('${t.id}')">📊 Estatísticas</button>` : '';
     return `<div class="season-card">
       <div class="season-image-container">${imgHtml}</div>
       <div class="season-year">${t.nome || t.ano}</div>
@@ -5406,10 +4947,7 @@ function renderTemporadas() {
         </div>
         <div class="season-meta" style="margin-top:4px;color:var(--accent-1)">📋 ${edicoesCount} edição(ões)</div>
       </div>
-      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-        ${statsBtn}
-        <button class="btn btn-danger btn-sm" onclick="removerTemporada('${t.id}')">🗑️</button>
-      </div>
+      <button class="btn btn-danger btn-sm" onclick="removerTemporada('${t.id}')">🗑️</button>
     </div>`;
   }).join('');
 }
@@ -5419,7 +4957,7 @@ window.mudarStatusTemporada = async function(temporadaId, novoStatus) {
   const temporada = state.temporadas.find(t => t.id === temporadaId);
   if (!temporada) return showToast('⚠️ Temporada não encontrada');
   
-  const statusAtual = temporada.status || 'em_andamento';
+  const statusAtual = (temporada.status === 'planejado' || !temporada.status) ? 'em_andamento' : temporada.status;
   if (statusAtual === novoStatus) return;
   
   const sL = { 
@@ -5437,202 +4975,15 @@ window.mudarStatusTemporada = async function(temporadaId, novoStatus) {
   }
 };
 
-window.visualizarEstatisticasTemporada = function(tempId) {
-  var temp = state.temporadas.find(function(t) { return t.id === tempId; });
-  if (!temp) return showToast('⚠️ Temporada não encontrada');
-  var conteudo = montarEstatisticasTemporada(temp);
-  var overlay = document.createElement('div');
-  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(12px);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto;';
-  overlay.setAttribute('onclick', 'if(event.target===this)this.remove()');
-  overlay.innerHTML = `
-    <div style="background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px;padding:28px;max-width:1100px;max-height:90vh;overflow-y:auto;width:100%;position:relative;">
-      <button onclick="this.parentElement.parentElement.remove()" style="position:sticky;top:0;float:right;background:rgba(255,107,107,0.2);border:none;color:var(--accent-3);font-size:24px;cursor:pointer;padding:4px 12px;border-radius:8px;z-index:10;">✕</button>
-      <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap;">
-        <img src="https://cup-edition.github.io/sistema-inscricoes/CUP%20EDITION%20CAMPIM%20FC.png" alt="CUP EDITION CAMPIM FC" style="height:38px;width:auto;border-radius:8px;filter:drop-shadow(0 0 20px var(--accent-glow));">
-        <div style="font-size:14px;color:var(--text-muted);font-weight:600;">📊 Estatísticas da Temporada</div>
-      </div>
-      ${conteudo}
-    </div>`;
-  document.body.appendChild(overlay);
-};
-
-function montarEstatisticasTemporada(temp) {
-  var edicoesDaTemp = state.edicoes.filter(function(e) { return e.temporadaId === temp.id; });
-  var timesUnicos = new Set();
-  var jogadoresUnicos = new Set();
-  var totalPartidas = 0;
-  var totalGols = 0;
-  edicoesDaTemp.forEach(function(e) {
-    if (e.times && Array.isArray(e.times)) e.times.forEach(function(t) { if (t.id) timesUnicos.add(t.id); });
-    if (e.jogadores && Array.isArray(e.jogadores)) e.jogadores.forEach(function(j) { if (j.id) jogadoresUnicos.add(j.id); });
-    totalPartidas += e.totalPartidas || 0;
-    totalGols += e.totalGols || 0;
-  });
-  var totalTimes = timesUnicos.size || state.times.length;
-  var totalJogadores = jogadoresUnicos.size || state.jogadores.length;
-  var titulosPorJogadorTemp = {};
-  edicoesDaTemp.forEach(function(edicao) {
-    if (edicao.jogadores && Array.isArray(edicao.jogadores)) {
-      edicao.jogadores.forEach(function(j) {
-        if (j.timeId === (edicao.campeao || {}).timeId) titulosPorJogadorTemp[j.id] = (titulosPorJogadorTemp[j.id] || 0) + 1;
-      });
-    }
-  });
-  var maiorTitulosTemp = 0;
-  for (var key in titulosPorJogadorTemp) if (titulosPorJogadorTemp[key] > maiorTitulosTemp) maiorTitulosTemp = titulosPorJogadorTemp[key];
-  var lideresTitulosTemp = [];
-  for (var key2 in titulosPorJogadorTemp) if (titulosPorJogadorTemp[key2] === maiorTitulosTemp && maiorTitulosTemp > 0) {
-    var jogador = state.jogadores.find(function(j) { return j.id === key2; });
-    if (jogador) lideresTitulosTemp.push({ ...jogador, titulos: titulosPorJogadorTemp[key2] });
-  }
-  var golsPorJogadorTemp = {};
-  edicoesDaTemp.forEach(function(edicao) {
-    if (edicao.jogadores && Array.isArray(edicao.jogadores)) {
-      edicao.jogadores.forEach(function(j) { if (j.gols) golsPorJogadorTemp[j.id] = (golsPorJogadorTemp[j.id] || 0) + j.gols; });
-    }
-  });
-  var maiorGolsTemp = 0;
-  for (var key3 in golsPorJogadorTemp) if (golsPorJogadorTemp[key3] > maiorGolsTemp) maiorGolsTemp = golsPorJogadorTemp[key3];
-  var artilheirosTemp = [];
-  for (var key4 in golsPorJogadorTemp) if (golsPorJogadorTemp[key4] === maiorGolsTemp && maiorGolsTemp > 0) {
-    var jogador2 = state.jogadores.find(function(j) { return j.id === key4; });
-    if (jogador2) artilheirosTemp.push({ ...jogador2, gols: golsPorJogadorTemp[key4] });
-  }
-  var statusColor = temp.status === 'em_andamento' ? '#00e676' : temp.status === 'encerrado' ? '#ff6b6b' : 'var(--accent-1)';
-  var html = `
-    <div style="margin-bottom:20px;padding:16px 20px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-color);">
-      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-        <span style="font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;background:var(--gradient-main);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">${temp.ano}</span>
-        <span style="font-size:18px;font-weight:700;">${temp.nome}</span>
-        <span style="padding:3px 14px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:${statusColor}20;color:${statusColor};border:1px solid ${statusColor}40;">${temp.status || 'Em Andamento'}</span>
-        ${edicoesDaTemp.length > 0 ? `<span style="font-size:12px;color:var(--text-muted);">📋 ${edicoesDaTemp.length} edição(ões)</span>` : ''}
-      </div>
-      ${temp.descricao ? `<div style="color:var(--text-muted);font-size:13px;margin-top:8px;">${temp.descricao}</div>` : ''}
-    </div>
-    <div class="stat-boxes" style="gap:12px;margin-bottom:12px">
-      <div class="stat-box"><div class="stat-box-num">${totalTimes}</div><div class="stat-box-label">Times</div></div>
-      <div class="stat-box"><div class="stat-box-num">${totalJogadores}</div><div class="stat-box-label">Jogadores</div></div>
-      <div class="stat-box"><div class="stat-box-num">${totalPartidas}</div><div class="stat-box-label">Partidas</div></div>
-      <div class="stat-box"><div class="stat-box-num">${totalGols}</div><div class="stat-box-label">Gols</div></div>
-    </div>
-    <div class="grid-2" style="gap:12px">
-      <div class="card" style="height:86px;display:flex;flex-direction:column;justify-content:center;padding:14px !important;margin-bottom:12px">
-        <div class="card-title" style="margin-bottom:8px">🏆 Líder de Títulos (Temporada)</div>
-        <div style="flex:1;display:flex;align-items:center">${lideresTitulosTemp.length > 0 ? lideresTitulosTemp.map(function(j) {
-          return '<div onclick="abrirDetalhesJogador(\''+j.id+'\')" style="display:flex;align-items:center;gap:12px;padding:0;cursor:pointer;width:100%">'+
-            imgOrEmoji(j.foto, 44)+
-            '<div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:14px;font-weight:700;color:#ffd600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🏆 '+j.nome+'</span></div></div>'+
-            '<div style="text-align:right;flex-shrink:0;"><div style="font-family:Orbitron,sans-serif;font-size:22px;font-weight:900;color:#ffd600;text-shadow:0 0 20px rgba(255,214,0,0.4);line-height:1;">'+j.titulos+'</div>'+
-            '<div style="color:var(--text-muted);font-size:10px;margin-top:2px;">TÍTULOS</div></div></div>';
-        }).join('') : '<div style="color:var(--text-muted);text-align:center;padding:0;width:100%">Nenhum título nesta temporada</div>'}</div>
-      </div>
-      <div class="card" style="height:86px;display:flex;flex-direction:column;justify-content:center;padding:14px !important;margin-bottom:12px">
-        <div class="card-title" style="margin-bottom:8px">🎯 Artilheiro (Temporada)</div>
-        <div style="flex:1;display:flex;align-items:center">${artilheirosTemp.length > 0 ? artilheirosTemp.map(function(j) {
-          return '<div onclick="abrirDetalhesJogador(\''+j.id+'\')" style="display:flex;align-items:center;gap:12px;padding:0;cursor:pointer;width:100%">'+
-            imgOrEmoji(j.foto, 44)+
-            '<div style="flex:1;min-width:0;text-align:left;"><div style="font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+j.nome+'</div></div>'+
-            '<div style="text-align:right;flex-shrink:0;"><div style="font-family:Orbitron,sans-serif;font-size:22px;font-weight:900;color:#ffd600;text-shadow:0 0 20px rgba(255,214,0,0.4);line-height:1;">'+j.gols+'</div>'+
-            '<div style="color:var(--text-muted);font-size:10px;margin-top:2px;">⚽ GOLS</div></div></div>';
-        }).join('') : '<div style="color:var(--text-muted);text-align:center;padding:0;width:100%">Sem gols registrados</div>'}</div>
-      </div>
-    </div>
-    <div class="card" style="margin-top:0;margin-bottom:12px">
-      <div class="card-title">📋 Últimas 5 Edições da Temporada</div>
-      ${edicoesDaTemp.length > 0 ? edicoesDaTemp.slice().sort(function(a, b) { return (b.numero || 0) - (a.numero || 0); }).slice(0, 5).map(function(e, index) {
-        var numeroLocal = e.numeroTemporada || e.numero || 1;
-        var numeroGlobal = e.numero || 0;
-        var campeaoId = (e.campeao || {}).timeId;
-        var campeaoNome = 'N/A';
-        var escudoCampeao = '';
-        if (campeaoId) { var timeCampeao = state.times.find(function(t) { return t.id === campeaoId; }); if (timeCampeao) { campeaoNome = timeCampeao.nome; escudoCampeao = timeCampeao.escudo; } }
-        var jogadoresDoTime = [];
-        if (e.jogadores && Array.isArray(e.jogadores)) {
-          var filtrados = e.jogadores.filter(function(j){ return j.timeId===campeaoId; });
-          filtrados.forEach(function(j){ var jg = state.jogadores.find(function(x){ return x.id===j.id; }); jogadoresDoTime.push({ nome: jg?jg.nome:(j.nome||'Jogador'), gols: j.gols||0, foto: jg?jg.foto:null, id: j.id }); });
-          jogadoresDoTime.sort(function(a,b){ return b.gols-a.gols; });
-        }
-        var jogadoresHtml = jogadoresDoTime.length ? jogadoresDoTime.map(function(j){
-          var fotoHtml = j.foto && (j.foto.indexOf('http')===0 || j.foto.indexOf('data:')===0) ? '<img src="'+j.foto+'" style="width:18px;height:18px;border-radius:50%;object-fit:cover;border:1px solid var(--border-color);">' : '<span style="font-size:11px">🧑</span>';
-          return '<span onclick="event.stopPropagation();abrirDetalhesJogador(\''+j.id+'\')" style="display:inline-flex;align-items:center;gap:3px;background:rgba(5,8,12,0.3);padding:1px 8px 1px 3px;border-radius:12px;border:1px solid var(--border-color);font-size:11px;margin-right:4px;cursor:pointer">'+fotoHtml+'<span style="font-weight:500;">'+j.nome+'</span><span style="color:var(--accent-1);font-weight:700;font-size:10px;">⚽'+j.gols+'</span></span>';
-        }).join('') : '<span style="font-size:11px;color:var(--text-muted);">Nenhum jogador</span>';
-        return '<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid rgba(56,156,255,0.05);cursor:pointer;flex-wrap:wrap;border-radius:10px;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);background:transparent;position:relative;overflow:hidden;" onmouseenter="this.style.background=\'rgba(0,212,255,0.06)\'; this.style.transform=\'translateX(6px) scale(1.01)\';" onmouseleave="this.style.background=\'transparent\'; this.style.transform=\'translateX(0) scale(1)\';" onclick="visualizarEdicao(\''+e.id+'\')">'+
-          '<span style="font-family:Orbitron,sans-serif;font-size:20px;font-weight:900;color:var(--accent-1)">'+ordinal(numeroLocal)+'</span>'+
-          (escudoCampeao ? '<span>'+imgOrEmoji(escudoCampeao, 22)+'</span>' : '')+
-          '<span style="font-weight:700;color:#ffd600;font-size:14px;">'+campeaoNome+'</span>'+
-          '<span style="display:flex;align-items:center;gap:2px;flex:1;flex-wrap:wrap;min-width:120px;">'+jogadoresHtml+'</span>'+
-          '<span style="font-size:11px;color:var(--text-muted);">📅 '+(e.dataEdicao||'—')+'</span>'+
-          '<span style="background:rgba(0,212,255,0.15);color:var(--accent-1);border:1px solid rgba(0,212,255,0.25);padding:2px 14px;border-radius:16px;font-weight:700;font-size:14px;font-family:Orbitron,sans-serif;">#'+numeroGlobal+'</span>'+
-        '</div>';
-      }).join('') : '<div style="color:var(--text-muted);text-align:center;padding:20px 0;">Nenhuma edição finalizada nesta temporada</div>'}
-    </div>
-    <div class="card" style="margin-top:0;margin-bottom:12px">
-      <div class="card-title">👤 Estatísticas dos Jogadores (Temporada)</div>
-      ${edicoesDaTemp.length > 0 ? (function() {
-        var jogadoresDaTemp = {};
-        edicoesDaTemp.forEach(function(edicao) {
-          if (edicao.jogadores && Array.isArray(edicao.jogadores)) {
-            edicao.jogadores.forEach(function(j) {
-              if (!jogadoresDaTemp[j.id]) jogadoresDaTemp[j.id] = { id: j.id, nome: getJogadorNome(j.id), foto: getJogadorFoto(j.id), gols: 0, partidas: 0, titulos: 0, vices: 0, artilharias: 0, edicoes: 0 };
-              jogadoresDaTemp[j.id].gols += j.gols || 0;
-              jogadoresDaTemp[j.id].partidas += j.partidasJogadas || 0;
-              jogadoresDaTemp[j.id].edicoes += 1;
-              if ((edicao.campeao || {}).timeId === j.timeId) jogadoresDaTemp[j.id].titulos++;
-              if ((edicao.vice || {}).timeId === j.timeId) jogadoresDaTemp[j.id].vices++;
-              if (edicao.artilheiros && Array.isArray(edicao.artilheiros)) if (edicao.artilheiros.some(function(a) { return a.jogadorId === j.id; })) jogadoresDaTemp[j.id].artilharias++;
-            });
-          }
-        });
-        var listaTemp = Object.values(jogadoresDaTemp).filter(function(j) { return j.gols > 0 || j.titulos > 0 || j.vices > 0 || j.artilharias > 0 || j.partidas > 0 || j.edicoes > 0; }).sort(function(a, b) {
-          if (b.titulos !== a.titulos) return b.titulos - a.titulos;
-          if (b.vices !== a.vices) return b.vices - a.vices;
-          if (b.gols !== a.gols) return b.gols - a.gols;
-          if (b.artilharias !== a.artilharias) return b.artilharias - a.artilharias;
-          return a.nome.localeCompare(b.nome);
-        });
-        listaTemp.forEach(function(j) { var resultadosTemp = contarResultadosHistorico(j.id); j.vitorias = resultadosTemp.v; j.empates = resultadosTemp.e; j.derrotas = resultadosTemp.d; });
-        if (listaTemp.length > 0) {
-          return '<div class="stats-table-wrap"><table><thead><tr>'+
-            '<th style="text-align:left;">Jogador</th><th style="text-align:center;">🏆 Títulos</th>'+
-            '<th style="text-align:center;">🥈 Vices</th><th style="text-align:center;">⚽ Gols</th>'+
-            '<th style="text-align:center;">🎯 Artilharias</th><th style="text-align:center;">✅ Vitórias</th>'+
-            '<th style="text-align:center;">➖ Empates</th><th style="text-align:center;">❌ Derrotas</th>'+
-            '<th style="text-align:center;">📅 Edições</th><th style="text-align:center;">📋 Partidas</th></tr></thead><tbody>'+
-            listaTemp.map(function(j, index) {
-              var avatarHtml = j.foto && (j.foto.startsWith('http') || j.foto.startsWith('data:')) ? '<img src="'+j.foto+'" alt="'+j.nome+'" style="width:100%;height:100%;object-fit:cover;">' : '<span class="fallback" style="font-size:14px;line-height:1;">🧑</span>';
-              var posClass = (index === 0) ? 'pos-1-mini' : (index === 1) ? 'pos-2-mini' : 'pos-other-mini';
-              return '<tr onclick="abrirDetalhesJogador(\''+j.id+'\')" style="cursor:pointer"><td><div class="player-cell"><span class="pos-badge-mini '+posClass+'">'+(index+1)+'</span>'+
-                '<div class="avatar-mini">'+avatarHtml+'</div>'+
-                '<div><div class="player-name" style="color:var(--text-primary);font-weight:600;">'+j.nome+'</div></div></div></td>'+
-                '<td><span class="stat-num stat-titulos">'+j.titulos+'</span></td>'+
-                '<td><span class="stat-num stat-vices">'+j.vices+'</span></td>'+
-                '<td><span class="stat-num stat-gols">'+j.gols+'</span></td>'+
-                '<td><span class="stat-num stat-artilharias">'+j.artilharias+'</span></td>'+
-                '<td><span class="stat-num stat-vitorias">'+j.vitorias+'</span></td>'+
-                '<td><span class="stat-num stat-empates">'+j.empates+'</span></td>'+
-                '<td><span class="stat-num stat-derrotas">'+j.derrotas+'</span></td>'+
-                '<td><span class="stat-num stat-edicoes">'+j.edicoes+'</span></td>'+
-                '<td><span class="stat-num stat-partidas">'+j.partidas+'</span></td></tr>';
-            }).join('')+'</tbody></table></div>';
-        } else return '<div style="color:var(--text-muted);text-align:center;padding:12px 0;">Nenhum jogador</div>';
-      })() : '<div style="color:var(--text-muted);text-align:center;padding:12px 0;">Nenhuma edição</div>'}
-    </div>
-  `;
-  return html;
-}
-
-// ============ DASHBOARD ============
+// ============ RESULTADOS (VITÓRIAS, EMPATES, DERROTAS) NO HISTÓRICO ============
 function contarResultadosHistorico(jogadorId) {
   let v = 0, e = 0, d = 0;
   state.edicoes.forEach(edicao => {
-    const jogadorEdicao = edicao.jogadores?.find(j => j.id === jogadorId);
-    if (!jogadorEdicao || !jogadorEdicao.timeId) return;
-    const timeId = jogadorEdicao.timeId;
     (edicao.partidas || []).forEach(p => {
-      if (p.time1Id !== timeId && p.time2Id !== timeId) return;
+      if (p.time1Id !== jogadorId && p.time2Id !== jogadorId) return;
       const g1 = parseInt(p.gols1), g2 = parseInt(p.gols2);
       if (isNaN(g1) || isNaN(g2)) return;
-      const ehTime1 = p.time1Id === timeId;
+      const ehTime1 = p.time1Id === jogadorId;
       const meu = ehTime1 ? g1 : g2;
       const adv = ehTime1 ? g2 : g1;
       if (meu > adv) v++;
@@ -5640,27 +4991,28 @@ function contarResultadosHistorico(jogadorId) {
       else e++;
     });
     const f = edicao.final;
-    if (!f || (f.time1Id !== timeId && f.time2Id !== timeId)) return;
-    const ehTime1 = f.time1Id === timeId;
+    if (!f || (f.time1Id !== jogadorId && f.time2Id !== jogadorId)) return;
+    const ehTime1 = f.time1Id === jogadorId;
     if (f.tevePenalidades) {
-      const g1p = f.golsPenalidades1 || 0, g2p = f.golsPenalidades2 || 0;
-      const meuP = ehTime1 ? g1p : g2p, advP = ehTime1 ? g2p : g1p;
-      if (meuP > advP) v++; else d++;
+      const g1 = f.golsPenalidades1 || 0, g2 = f.golsPenalidades2 || 0;
+      const meu = ehTime1 ? g1 : g2, adv = ehTime1 ? g2 : g1;
+      if (meu > adv) v++; else d++;
     } else {
-      const g1f = parseInt(f.gols1), g2f = parseInt(f.gols2);
-      if (isNaN(g1f) || isNaN(g2f)) return;
-      const meuF = ehTime1 ? g1f : g2f, advF = ehTime1 ? g2f : g1f;
-      if (meuF > advF) v++;
-      else if (meuF < advF) d++;
+      const g1 = parseInt(f.gols1), g2 = parseInt(f.gols2);
+      if (isNaN(g1) || isNaN(g2)) return;
+      const meu = ehTime1 ? g1 : g2, adv = ehTime1 ? g2 : g1;
+      if (meu > adv) v++;
+      else if (meu < adv) d++;
       else e++;
     }
   });
   return { v, e, d };
 }
 
+// ============ DASHBOARD ============
 function renderDashboard() {
-  document.getElementById('stat-times').textContent = state.times.length;
   document.getElementById('stat-jogadores').textContent = state.jogadores.length;
+  document.getElementById('stat-edicoes').textContent = state.edicoes.length;
   
   let totalPartidas = 0;
   state.edicoes.forEach(e => {
@@ -5706,10 +5058,10 @@ function renderDashboard() {
   
   if (lideres.length > 0) {
     liderEl.innerHTML = lideres.map(j => {
-      return `<div onclick="abrirDetalhesJogador('${j.id}')" style="display:flex;align-items:center;gap:12px;padding:0;cursor:pointer;width:100%">
+      return `<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(56,156,255,0.05);">
           ${imgOrEmoji(j.foto, 44)}
           <div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:14px;font-weight:700;color:#ffd600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🏆 ${j.nome}</span></div></div>
-          <div style="text-align:right;flex-shrink:0;"><div style="font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:#ffd600;text-shadow:0 0 20px rgba(255,214,0,0.4);line-height:1;">${j.titulos}</div>
+          <div style="text-align:right;flex-shrink:0;"><div style="font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;color:#ffd600;text-shadow:0 0 20px rgba(255,214,0,0.4);line-height:1;">${j.titulos}</div>
           <div style="color:var(--text-muted);font-size:10px;margin-top:2px;">TÍTULOS</div></div>
         </div>`;
     }).join('');
@@ -5747,10 +5099,10 @@ function renderDashboard() {
   
   if (artilheiros.length > 0) {
     artEl.innerHTML = artilheiros.map(j => {
-      return `<div onclick="abrirDetalhesJogador('${j.id}')" style="display:flex;align-items:center;gap:12px;padding:0;cursor:pointer;width:100%">
+      return `<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(56,156,255,0.05);">
           ${imgOrEmoji(j.foto, 44)}
           <div style="flex:1;min-width:0;text-align:left;"><div style="font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${j.nome}</div></div>
-          <div style="text-align:right;flex-shrink:0;"><div style="font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:#ffd600;text-shadow:0 0 20px rgba(255,214,0,0.4);line-height:1;">${j.gols}</div>
+          <div style="text-align:right;flex-shrink:0;"><div style="font-family:'Orbitron',sans-serif;font-size:28px;font-weight:900;color:#ffd600;text-shadow:0 0 20px rgba(255,214,0,0.4);line-height:1;">${j.gols}</div>
           <div style="color:var(--text-muted);font-size:10px;margin-top:2px;">⚽ GOLS</div></div>
         </div>`;
     }).join('');
@@ -5762,13 +5114,15 @@ function renderDashboard() {
   if (statsEl) {
     const jogadoresComHistorico = state.jogadores.map(jogador => {
       let golsHistorico = 0;
+      let golsSofridosHistorico = 0;
       let partidasHistorico = 0;
       let titulosHistorico = 0;
       let artilhariasHistorico = 0;
       let vicesHistorico = 0;
       let edicoesParticipou = 0;
-      let ultimoTimeNome = '';
-      let ultimoTimeId = null;
+      let vitoriasHistorico = 0;
+      let empatesHistorico = 0;
+      let derrotasHistorico = 0;
       
       state.edicoes.forEach(edicao => {
         const jogadorEdicao = edicao.jogadores?.find(j => j.id === jogador.id);
@@ -5777,16 +5131,11 @@ function renderDashboard() {
           golsHistorico += jogadorEdicao.gols || 0;
           partidasHistorico += jogadorEdicao.partidasJogadas || 0;
           
-          if (jogadorEdicao.timeId && jogadorEdicao.timeNome) {
-            ultimoTimeId = jogadorEdicao.timeId;
-            ultimoTimeNome = jogadorEdicao.timeNome;
-          }
-          
-          if (edicao.campeao?.timeId === jogadorEdicao.timeId) {
+          if (edicao.campeao?.timeId === jogador.id) {
             titulosHistorico++;
           }
           
-          if (edicao.vice?.timeId === jogadorEdicao.timeId) {
+          if (edicao.vice?.timeId === jogador.id) {
             vicesHistorico++;
           }
           
@@ -5796,31 +5145,53 @@ function renderDashboard() {
             }
           }
         }
-      });
-      
-      if (jogador.timeId) {
-        const timeAtual = state.times.find(t => t.id === jogador.timeId);
-        if (timeAtual) {
-          ultimoTimeNome = timeAtual.nome;
-          ultimoTimeId = jogador.timeId;
+        
+        (edicao.partidas || []).forEach(p => {
+          if (p.time1Id !== jogador.id && p.time2Id !== jogador.id) return;
+          const g1 = parseInt(p.gols1), g2 = parseInt(p.gols2);
+          if (isNaN(g1) || isNaN(g2)) return;
+          const ehTime1 = p.time1Id === jogador.id;
+          const meu = ehTime1 ? g1 : g2;
+          const adv = ehTime1 ? g2 : g1;
+          if (meu > adv) vitoriasHistorico++;
+          else if (meu < adv) derrotasHistorico++;
+          else empatesHistorico++;
+        });
+        
+        const f = edicao.final;
+        if (f && (f.time1Id === jogador.id || f.time2Id === jogador.id)) {
+          const ehTime1 = f.time1Id === jogador.id;
+          if (f.tevePenalidades) {
+            const g1 = f.golsPenalidades1 || 0, g2 = f.golsPenalidades2 || 0;
+            const meu = ehTime1 ? g1 : g2, adv = ehTime1 ? g2 : g1;
+            if (meu > adv) vitoriasHistorico++;
+            else derrotasHistorico++;
+          } else {
+            const g1 = parseInt(f.gols1), g2 = parseInt(f.gols2);
+            if (!isNaN(g1) && !isNaN(g2)) {
+              const meu = ehTime1 ? g1 : g2, adv = ehTime1 ? g2 : g1;
+              if (meu > adv) vitoriasHistorico++;
+              else if (meu < adv) derrotasHistorico++;
+              else empatesHistorico++;
+            }
+          }
         }
-      }
-      
-      const resultados = contarResultadosHistorico(jogador.id);
-      
+      });
+
+      golsSofridosHistorico = contarGolsSofridos(jogador.id, state.edicoes);
+
       return {
         ...jogador,
         golsHistorico,
+        golsSofridosHistorico,
         partidasHistorico,
         titulosHistorico,
         artilhariasHistorico,
-        vitoriasHistorico: resultados.v,
-        empatesHistorico: resultados.e,
-        derrotasHistorico: resultados.d,
         vicesHistorico,
         edicoesParticipou,
-        ultimoTimeNome,
-        ultimoTimeId
+        vitoriasHistorico,
+        empatesHistorico,
+        derrotasHistorico
       };
     });
     
@@ -5844,6 +5215,7 @@ function renderDashboard() {
                 <th style="text-align:center">🏆 Títulos</th>
                 <th style="text-align:center">🥈 Vices</th>
                 <th style="text-align:center">⚽ Gols</th>
+                <th style="text-align:center">🥅 G.Sofridos</th>
                 <th style="text-align:center">🎯 Artilharias</th>
                 <th style="text-align:center">✅ Vitórias</th>
                 <th style="text-align:center">➖ Empates</th>
@@ -5860,19 +5232,20 @@ function renderDashboard() {
                 
                 const posClass = (index === 0) ? 'pos-1' : (index === 1) ? 'pos-2' : 'pos-other';
                 
-                return `<tr onclick="abrirDetalhesJogador('${j.id}')" style="cursor:pointer">
+                return `<tr style="cursor:pointer" onclick="abrirEstatisticasJogador('${j.id}')" title="Ver estatísticas">
                   <td>
-                    <div style="display:flex;align-items:center;gap:6px;flex-wrap:nowrap;">
+                    <div style="display:flex;align-items:center;gap:10px;">
                       <span class="pos-badge ${posClass}">${index + 1}</span>
                       ${avatarHtml}
-                      <div style="min-width:0;">
-                        <div class="dashboard-player-name" style="font-weight:600;font-size:13px;white-space:nowrap;">${j.nome}</div>
+                      <div>
+                        <div style="font-weight:600;font-size:14px;">${j.nome}</div>
                       </div>
                     </div>
                   </td>
                   <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:#ffd600;">${j.titulosHistorico}</td>
                   <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:#b0bec5;">${j.vicesHistorico}</td>
                   <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;color:var(--accent-1);">${j.golsHistorico}</td>
+                  <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:var(--accent-3);">${j.golsSofridosHistorico}</td>
                   <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:var(--accent-1);">${j.artilhariasHistorico}</td>
                   <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:#4caf50;">${j.vitoriasHistorico}</td>
                   <td style="text-align:center;font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;color:var(--text-muted);">${j.empatesHistorico}</td>
@@ -5889,116 +5262,6 @@ function renderDashboard() {
   }
 }
 
-function renderDashboardAtual(){
-  const el = document.getElementById('dashboard-atual-content');
-  if(!el) return;
-  if(!state.temporadas.length){
-    el.innerHTML='<div style="text-align:center;color:var(--text-muted);padding:40px 0;">Nenhuma temporada cadastrada</div>';
-    return;
-  }
-  const sortedTemps = [...state.temporadas].sort((a,b)=> (b.ano||'').localeCompare(a.ano||''));
-  const ultimaTemp = sortedTemps[0];
-  const edicoesDaTemp = state.edicoes.filter(e=> e.temporadaId===ultimaTemp.id);
-  const timesUnicos=new Set(), jogadoresUnicos=new Set();
-  let totalPartidas=0, totalGols=0;
-  edicoesDaTemp.forEach(e=>{
-    (e.times||[]).forEach(t=>{ if(t.id) timesUnicos.add(t.id); });
-    (e.jogadores||[]).forEach(j=>{ if(j.id) jogadoresUnicos.add(j.id); });
-    totalPartidas+= e.totalPartidas||0;
-    totalGols+= e.totalGols||0;
-  });
-  const totalTimes = timesUnicos.size || 0;
-  const totalJogadores = jogadoresUnicos.size || 0;
-  // líderes temporada
-  const titulosPorJogadorTemp={};
-  edicoesDaTemp.forEach(ed=>{
-    (ed.jogadores||[]).forEach(j=>{
-      if(j.timeId === (ed.campeao||{}).timeId) titulosPorJogadorTemp[j.id]=(titulosPorJogadorTemp[j.id]||0)+1;
-    });
-  });
-  let maiorTitTemp=0; for(const k in titulosPorJogadorTemp) if(titulosPorJogadorTemp[k]>maiorTitTemp) maiorTitTemp=titulosPorJogadorTemp[k];
-  const lideresTemp=[];
-  for(const k in titulosPorJogadorTemp) if(titulosPorJogadorTemp[k]===maiorTitTemp && maiorTitTemp>0){
-    const jog=state.jogadores.find(j=>j.id===k);
-    if(jog) lideresTemp.push({...jog, titulos:titulosPorJogadorTemp[k]});
-  }
-  const golsPorJogadorTemp={};
-  edicoesDaTemp.forEach(ed=>{
-    (ed.jogadores||[]).forEach(j=>{ if(j.gols) golsPorJogadorTemp[j.id]=(golsPorJogadorTemp[j.id]||0)+j.gols; });
-  });
-  let maiorGolsTemp=0; for(const k in golsPorJogadorTemp) if(golsPorJogadorTemp[k]>maiorGolsTemp) maiorGolsTemp=golsPorJogadorTemp[k];
-  const artTemp=[];
-  for(const k in golsPorJogadorTemp) if(golsPorJogadorTemp[k]===maiorGolsTemp && maiorGolsTemp>0){
-    const jog=state.jogadores.find(j=>j.id===k);
-    if(jog) artTemp.push({...jog, gols:golsPorJogadorTemp[k]});
-  }
-  let html = `
-    <div style="margin-bottom:16px;padding:14px 20px;background:var(--bg-card);border-radius:var(--radius);border:1px solid var(--border-color);display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-      <span style="font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;background:var(--gradient-main);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">${ultimaTemp.ano||''}</span>
-      <span style="font-size:16px;font-weight:700;">${ultimaTemp.nome||''}</span>
-      <span style="font-size:11px;color:var(--text-muted);">📋 ${edicoesDaTemp.length} edição(ões)</span>
-      <span style="margin-left:auto;font-size:10px;padding:3px 10px;border-radius:20px;background:${ultimaTemp.status==='encerrado'?'rgba(255,107,107,0.15)':'rgba(0,230,118,0.15)'};color:${ultimaTemp.status==='encerrado'?'#ff6b6b':'#00e676'}">${ultimaTemp.status||'em_andamento'}</span>
-    </div>
-    <div class="stat-boxes" style="gap:12px;margin-bottom:12px">
-      <div class="stat-box"><div class="stat-box-num">${totalTimes}</div><div class="stat-box-label">Times</div></div>
-      <div class="stat-box"><div class="stat-box-num">${totalJogadores}</div><div class="stat-box-label">Jogadores</div></div>
-      <div class="stat-box"><div class="stat-box-num">${totalPartidas}</div><div class="stat-box-label">Partidas</div></div>
-      <div class="stat-box"><div class="stat-box-num">${totalGols}</div><div class="stat-box-label">Gols</div></div>
-    </div>
-    <div class="grid-2" style="align-items:stretch;gap:12px">
-      <div class="card" style="height:86px;display:flex;flex-direction:column;justify-content:center;padding:14px !important;margin-bottom:12px"><div class="card-title" style="margin-bottom:8px">🏆 Líder de Títulos (Temporada)</div><div style="flex:1;display:flex;align-items:center">${lideresTemp.length ? lideresTemp.map(j=>`<div onclick="abrirDetalhesJogador('${j.id}')" style="display:flex;align-items:center;gap:12px;padding:0;cursor:pointer;width:100%">${imgOrEmoji(j.foto,44)}<div style="flex:1;min-width:0;"><span style="font-size:14px;font-weight:700;color:#ffd600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🏆 ${j.nome}</span></div><div style="text-align:right;flex-shrink:0;"><div style="font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:#ffd600;line-height:1;">${j.titulos}</div><div style="color:var(--text-muted);font-size:10px;margin-top:2px;">TÍTULOS</div></div></div>`).join('') : '<div style="color:var(--text-muted);text-align:center;padding:0;width:100%">Nenhum título nesta temporada</div>'}</div></div>
-      <div class="card" style="height:86px;display:flex;flex-direction:column;justify-content:center;padding:14px !important;margin-bottom:12px"><div class="card-title" style="margin-bottom:8px">🎯 Artilheiro (Temporada)</div><div style="flex:1;display:flex;align-items:center">${artTemp.length ? artTemp.map(j=>`<div onclick="abrirDetalhesJogador('${j.id}')" style="display:flex;align-items:center;gap:12px;padding:0;cursor:pointer;width:100%">${imgOrEmoji(j.foto,44)}<div style="flex:1;min-width:0;text-align:left;"><div style="font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${j.nome}</div></div><div style="text-align:right;flex-shrink:0;"><div style="font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:#ffd600;line-height:1;">${j.gols}</div><div style="color:var(--text-muted);font-size:10px;margin-top:2px;">⚽ GOLS</div></div></div>`).join('') : '<div style="color:var(--text-muted);text-align:center;padding:0;width:100%">Sem gols registrados</div>'}</div></div>
-    </div>
-    <div class="card" style="margin-top:0;margin-bottom:12px"><div class="card-title">📋 Últimas 5 Edições da Temporada</div>${edicoesDaTemp.length ? edicoesDaTemp.slice().sort((a,b)=>(b.numero||0)-(a.numero||0)).slice(0,5).map((e,index)=>{
-      const numLocal=e.numeroTemporada||e.numero||1, numGlobal=e.numero||0;
-      const campeaoId=(e.campeao||{}).timeId;
-      let campeaoNome='N/A', escudoCampeao='';
-      if(campeaoId){ const t=state.times.find(x=>x.id===campeaoId); if(t){ campeaoNome=t.nome; escudoCampeao=t.escudo; } }
-      let jogadoresDoTime=[];
-      if(e.jogadores && Array.isArray(e.jogadores)){
-        const f=e.jogadores.filter(j=> j.timeId===campeaoId);
-        f.forEach(j=>{
-          const jg=state.jogadores.find(x=>x.id===j.id);
-          jogadoresDoTime.push({id:j.id, nome: jg?jg.nome:(j.nome||'Jogador'), gols:j.gols||0, foto: jg?jg.foto:null});
-        });
-        jogadoresDoTime.sort((a,b)=> b.gols-a.gols);
-      }
-      const jogadoresHtml=jogadoresDoTime.length ? jogadoresDoTime.map(j=>{
-        const fotoHtml=j.foto && (j.foto.startsWith('http')||j.foto.startsWith('data:')) ? '<img src="'+j.foto+'" style="width:18px;height:18px;border-radius:50%;object-fit:cover;border:1px solid var(--border-color);">' : '<span style="font-size:11px">🧑</span>';
-        return '<span onclick="event.stopPropagation();abrirDetalhesJogador(\''+j.id+'\')" style="display:inline-flex;align-items:center;gap:3px;background:rgba(5,8,12,0.3);padding:1px 8px 1px 3px;border-radius:12px;border:1px solid var(--border-color);font-size:11px;margin-right:4px;cursor:pointer">'+fotoHtml+'<span style="font-weight:500;color:#fff">'+j.nome+'</span><span style="color:var(--accent-1);font-weight:700;font-size:10px;">⚽'+j.gols+'</span></span>';
-      }).join('') : '<span style="font-size:11px;color:var(--text-muted);">Nenhum jogador</span>';
-      return '<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid rgba(56,156,255,0.05);cursor:pointer;flex-wrap:wrap;border-radius:10px;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);background:transparent;position:relative;overflow:hidden;" onmouseenter="this.style.background=\'rgba(0,212,255,0.06)\';this.style.borderColor=\'var(--accent-1)\';this.style.transform=\'translateX(6px) scale(1.01)\';this.style.boxShadow=\'0 0 40px rgba(0,212,255,0.06)\';" onmouseleave="this.style.background=\'transparent\';this.style.borderColor=\'transparent\';this.style.transform=\'translateX(0) scale(1)\';this.style.boxShadow=\'none\';" onmousedown="this.style.transform=\'scale(0.97)\';" onmouseup="this.style.transform=\'scale(1.01)\';" onclick="visualizarEdicao(\''+e.id+'\')"><span style="font-family:Orbitron,sans-serif;font-size:18px;font-weight:900;color:var(--accent-1)">'+ordinal(numLocal)+'</span>'+(escudoCampeao?'<span>'+imgOrEmoji(escudoCampeao,22)+'</span>':'')+'<span style="font-weight:700;color:#ffd600;font-size:14px;">'+campeaoNome+'</span><span style="display:flex;align-items:center;gap:2px;flex:1;flex-wrap:wrap;min-width:120px;">'+jogadoresHtml+'</span><span style="font-size:11px;color:var(--text-muted);">📅 '+(e.dataEdicao||'—')+'</span><span style="background:rgba(0,212,255,0.15);color:var(--accent-1);border:1px solid rgba(0,212,255,0.25);padding:2px 12px;border-radius:16px;font-weight:700;font-size:12px;margin-left:auto;">#'+numGlobal+'</span></div>';
-    }).join('') : '<div style="color:var(--text-muted);text-align:center;padding:20px 0;">Nenhuma edição finalizada nesta temporada</div>'}</div>
-    <div class="card" style="margin-top:0;margin-bottom:12px"><div class="card-title">👤 Estatísticas dos Jogadores (Temporada)</div>${(function(){
-      if(!edicoesDaTemp.length) return '<div style="color:var(--text-muted);text-align:center;padding:12px 0;">Nenhuma edição para exibir</div>';
-      const map={};
-      edicoesDaTemp.forEach(ed=>{
-        (ed.jogadores||[]).forEach(j=>{
-          if(!map[j.id]) map[j.id]={id:j.id, nome: getJogadorNome(j.id), foto: getJogadorFoto(j.id), gols:0, partidas:0, titulos:0, vices:0, artilharias:0, edicoes:0};
-          map[j.id].gols+= j.gols||0;
-          map[j.id].partidas+= j.partidasJogadas||0;
-          map[j.id].edicoes+=1;
-          if((ed.campeao||{}).timeId===j.timeId) map[j.id].titulos++;
-          if((ed.vice||{}).timeId===j.timeId) map[j.id].vices++;
-          if((ed.artilheiros||[]).some(a=> a.jogadorId===j.id)) map[j.id].artilharias++;
-        });
-      });
-      let lista=Object.values(map).filter(j=> j.gols>0 || j.titulos>0 || j.vices>0 || j.artilharias>0 || j.edicoes>0);
-      lista.forEach(j=>{ const r=contarResultadosHistorico(j.id); j.vitorias=r.v; j.empates=r.e; j.derrotas=r.d; });
-      // filtrar só quem realmente participou da temp
-      lista=lista.filter(j=> map[j.id].edicoes>0).sort((a,b)=> b.titulos-a.titulos || b.vices-a.vices || b.gols-a.gols || b.artilharias-a.artilharias || a.nome.localeCompare(b.nome));
-      if(!lista.length) return '<div style="color:var(--text-muted);text-align:center;padding:12px 0;">Nenhum jogador</div>';
-      return '<div class="table-wrap"><table><thead><tr><th>Jogador</th><th style="text-align:center">🏆 Títulos</th><th style="text-align:center">🥈 Vices</th><th style="text-align:center">⚽ Gols</th><th style="text-align:center">🎯 Artilharias</th><th style="text-align:center">✅ Vitórias</th><th style="text-align:center">➖ Empates</th><th style="text-align:center">❌ Derrotas</th><th style="text-align:center">📅 Edições</th><th style="text-align:center">📋 Partidas</th></tr></thead><tbody>'+lista.map((j,index)=>{
-        const av=j.foto && (j.foto.startsWith('http')||j.foto.startsWith('data:')) ? '<img src="'+j.foto+'" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:1px solid var(--border-color)">' : '<span style="font-size:14px">🧑</span>';
-        const pc=index===0?'pos-1':index===1?'pos-2':'pos-other';
-        return '<tr onclick="abrirDetalhesJogador(\''+j.id+'\')" style="cursor:pointer"><td><div style="display:flex;align-items:center;gap:6px;flex-wrap:nowrap;"><span class="pos-badge '+pc+'">'+(index+1)+'</span><div style="width:28px;height:28px;border-radius:50%;overflow:hidden;border:1px solid var(--border-color);background:rgba(5,8,12,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;">'+av+'</div><div style="min-width:0;"><div class="dashboard-player-name" style="font-weight:600;font-size:13px;white-space:nowrap;">'+j.nome+'</div></div></div></td><td style="text-align:center;font-family:Orbitron,sans-serif;color:#ffd600;font-size:16px;font-weight:700;">'+j.titulos+'</td><td style="text-align:center;font-family:Orbitron,sans-serif;color:#b0bec5;font-size:16px;font-weight:700;">'+j.vices+'</td><td style="text-align:center;font-family:Orbitron,sans-serif;color:var(--accent-1);font-size:16px;font-weight:700;">'+j.gols+'</td><td style="text-align:center;font-family:Orbitron,sans-serif;color:var(--accent-1);font-size:16px;font-weight:700;">'+j.artilharias+'</td><td style="text-align:center;font-family:Orbitron,sans-serif;color:#4caf50;font-size:16px;font-weight:700;">'+j.vitorias+'</td><td style="text-align:center;font-family:Orbitron,sans-serif;color:var(--text-muted);font-size:16px;font-weight:700;">'+j.empates+'</td><td style="text-align:center;font-family:Orbitron,sans-serif;color:#ef5350;font-size:16px;font-weight:700;">'+j.derrotas+'</td><td style="text-align:center;font-family:Orbitron,sans-serif;color:var(--text-muted);font-size:16px;font-weight:700;">'+j.edicoes+'</td><td style="text-align:center;font-family:Orbitron,sans-serif;color:var(--text-muted);font-size:16px;font-weight:700;">'+j.partidas+'</td></tr>';
-      }).join('')+'</tbody></table></div>';
-    })()}</div>
-  `;
-  el.innerHTML=html;
-}
-function getJogadorFoto(id){ const j=state.jogadores.find(x=>x.id===id); return j?j.foto:null; }
-
 // ============ TABS ============
 window.switchTab = function(page, tab) {
   document.querySelectorAll(`#page-${page} .tab-btn`).forEach(b => b.classList.remove('active'));
@@ -6006,8 +5269,6 @@ window.switchTab = function(page, tab) {
   const btn = event.target;
   btn.classList.add('active');
   document.getElementById(`tab-${page}-${tab}`).classList.add('active');
-  if (page==='dashboard' && tab==='atual') renderDashboardAtual();
-  if (page==='dashboard' && tab==='carreiras') renderDashboard();
   if (tab === 'lista') { 
     renderPartidasTabela(); 
     document.getElementById('edicao-partida-card').style.display = 'none';
@@ -6029,13 +5290,15 @@ window.switchTab = function(page, tab) {
 }
 
 document.addEventListener('change', function(e) {
-  if (e.target.id === 'partida-time1') {
-    const t = state.times.find(x => x.id === e.target.value);
-    document.getElementById('placar-time1-nome').textContent = t ? t.nome : 'Mandante';
+  if (e.target.id === 'partida-jogador1') {
+    const t = state.jogadores.find(x => x.id === e.target.value);
+    const el = document.getElementById('placar-jogador1-nome');
+    if (el) el.textContent = t ? t.nome : 'Jogador 1';
   }
-  if (e.target.id === 'partida-time2') {
-    const t = state.times.find(x => x.id === e.target.value);
-    document.getElementById('placar-time2-nome').textContent = t ? t.nome : 'Visitante';
+  if (e.target.id === 'partida-jogador2') {
+    const t = state.jogadores.find(x => x.id === e.target.value);
+    const el = document.getElementById('placar-jogador2-nome');
+    if (el) el.textContent = t ? t.nome : 'Jogador 2';
   }
   if (e.target.id === 'finalizar-temporada-confirmar') carregarConfirmacaoFinalizacao();
 });
@@ -6053,41 +5316,12 @@ document.querySelectorAll('.modal-overlay').forEach(o => {
 // ============ REFRESH ALL ============
 function refreshAll() {
   populateSelects();
-  renderTimes();
   renderJogadores();
   renderPartidasTabela();
   renderClassificacao();
   renderArtilharia();
   renderTemporadas();
   renderDashboard();
-  renderDashboardAtual();
-  // preencher últimas 5 carreiras
-  (function(){
-    const ultEl=document.getElementById('dash-ultimas-edicoes');
-    if(!ultEl) return;
-    const sorted=[...state.edicoes].sort((a,b)=>(b.numero||0)-(a.numero||0)).slice(0,5);
-    if(!sorted.length){ ultEl.innerHTML='Nenhuma edição finalizada'; return; }
-    ultEl.innerHTML=sorted.map((e,index)=>{
-      const numLocal=e.numeroTemporada||e.numero||1, numGlobal=e.numero||0;
-      const campeaoId=(e.campeao||{}).timeId;
-      let campeaoNome='N/A', escudoCampeao='';
-      if(campeaoId){ const t=state.times.find(x=>x.id===campeaoId); if(t){ campeaoNome=t.nome; escudoCampeao=t.escudo; } }
-      let jogadoresDoTime=[];
-      if(e.jogadores && Array.isArray(e.jogadores)){
-        const f=e.jogadores.filter(j=> j.timeId===campeaoId);
-        f.forEach(j=>{
-          const jg=state.jogadores.find(x=>x.id===j.id);
-          jogadoresDoTime.push({id:j.id, nome: jg?jg.nome:(j.nome||'Jogador'), gols:j.gols||0, foto: jg?jg.foto:null});
-        });
-        jogadoresDoTime.sort((a,b)=> b.gols-a.gols);
-      }
-      const jogadoresHtml=jogadoresDoTime.length ? jogadoresDoTime.map(j=>{
-        const fotoHtml=j.foto && (j.foto.startsWith('http')||j.foto.startsWith('data:')) ? '<img src="'+j.foto+'" style="width:18px;height:18px;border-radius:50%;object-fit:cover;border:1px solid var(--border-color);">' : '<span style="font-size:11px">🧑</span>';
-        return '<span onclick="event.stopPropagation();abrirDetalhesJogador(\''+j.id+'\')" style="display:inline-flex;align-items:center;gap:3px;background:rgba(5,8,12,0.3);padding:1px 8px 1px 3px;border-radius:12px;border:1px solid var(--border-color);font-size:11px;margin-right:4px;cursor:pointer">'+fotoHtml+'<span style="font-weight:500;color:#fff">'+j.nome+'</span><span style="color:var(--accent-1);font-weight:700;font-size:10px;">⚽'+j.gols+'</span></span>';
-      }).join('') : '<span style="font-size:11px;color:var(--text-muted);">Nenhum jogador</span>';
-      return '<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid rgba(56,156,255,0.05);cursor:pointer;flex-wrap:wrap;border-radius:10px;transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);background:transparent;" onmouseenter="this.style.background=\'rgba(0,212,255,0.06)\';this.style.borderColor=\'var(--accent-1)\';this.style.transform=\'translateX(6px) scale(1.01)\';this.style.boxShadow=\'0 0 40px rgba(0,212,255,0.06)\';" onmouseleave="this.style.background=\'transparent\';this.style.borderColor=\'transparent\';this.style.transform=\'translateX(0) scale(1)\';this.style.boxShadow=\'none\';" onmousedown="this.style.transform=\'scale(0.97)\';" onmouseup="this.style.transform=\'scale(1.01)\';" onclick="visualizarEdicao(\''+e.id+'\')"><span style="font-family:Orbitron,sans-serif;font-size:18px;font-weight:900;color:var(--accent-1)">'+ordinal(numLocal)+'</span>'+(escudoCampeao?'<span>'+imgOrEmoji(escudoCampeao,22)+'</span>':'')+'<span style="font-weight:700;color:#ffd600;font-size:14px;">'+campeaoNome+'</span><span style="display:flex;align-items:center;gap:2px;flex:1;flex-wrap:wrap;min-width:120px;">'+jogadoresHtml+'</span><span style="font-size:11px;color:var(--text-muted);">📅 '+(e.dataEdicao||'—')+'</span><span style="background:rgba(0,212,255,0.15);color:var(--accent-1);border:1px solid rgba(0,212,255,0.25);padding:2px 12px;border-radius:16px;font-weight:700;font-size:12px;margin-left:auto;">#'+numGlobal+'</span></div>';
-    }).join('');
-  })();
   renderEdicoes();
   if (document.getElementById('finalizar-confirmacao-status').style.display !== 'none') carregarConfirmacaoFinalizacao();
 }
