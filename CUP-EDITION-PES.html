@@ -79,14 +79,16 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 72px;
+    height: 80px;
+    gap: 24px;
   }
   .header-logo {
-    height: 60px;
+    height: 72px;
     display: flex;
     align-items: center;
-    flex: 1;
-    max-width: 280px;
+    flex: 0 0 auto;
+    max-width: 320px;
+    margin-left: 6px;
   }
   .header-logo img {
     width: 100%;
@@ -103,8 +105,23 @@
   .header-right {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 8px;
+    background: rgba(0,230,118,0.08);
+    border: 1px solid rgba(0,230,118,0.18);
+    border-radius: 20px;
+    padding: 5px 14px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 25px rgba(0,230,118,0.12), inset 0 1px 0 rgba(255,255,255,0.06);
+    transition: var(--transition);
+    transform: translateX(-6px);
   }
+  .header-right:hover {
+    background: rgba(0,230,118,0.12);
+    box-shadow: 0 0 30px rgba(0,230,118,0.18);
+    transform: translateX(-6px) translateY(-1px);
+  }
+  .header-right.err { background: rgba(255,23,68,0.08); border-color: rgba(255,23,68,0.18); box-shadow: 0 0 25px rgba(255,23,68,0.12); }
+  .header-right.offline { background: rgba(255,214,0,0.08); border-color: rgba(255,214,0,0.18); box-shadow: 0 0 25px rgba(255,214,0,0.12); }
 
   .live-badge {
     background: var(--accent-3);
@@ -134,27 +151,47 @@
   }
 
   .status-dot {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: #00e676;
     display: inline-block;
-    box-shadow: 0 0 20px rgba(0, 230, 118, 0.4);
-    animation: pulse-dot 2s ease-in-out infinite;
+    box-shadow: 0 0 12px rgba(0,230,118,0.8);
+    position: relative;
     flex-shrink: 0;
   }
-  @keyframes pulse-dot {
-    0%, 100% { box-shadow: 0 0 20px rgba(0, 230, 118, 0.4); }
-    50% { box-shadow: 0 0 40px rgba(0, 230, 118, 0.1); }
+  .status-dot::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,230,118,0.4);
+    animation: ping-dot 1.8s ease-out infinite;
   }
+  @keyframes ping-dot {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+  .status-dot.ok { background: #00e676; box-shadow: 0 0 12px rgba(0,230,118,0.8); }
+  .status-dot.ok::before { border-color: rgba(0,230,118,0.4); }
+  .status-dot.err { background: #ff1744; box-shadow: 0 0 12px rgba(255,23,68,0.8); }
+  .status-dot.err::before { border-color: rgba(255,23,68,0.4); }
+  .status-dot.offline { background: #ffd600; box-shadow: 0 0 12px rgba(255,214,0,0.8); }
+  .status-dot.offline::before { border-color: rgba(255,214,0,0.4); }
 
   .status-text {
-    font-size: 10px;
-    color: var(--text-muted);
-    letter-spacing: 1px;
-    font-weight: 600;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    color: #00e676;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(0,230,118,0.5);
     flex-shrink: 0;
   }
+  .status-dot.ok ~ .status-text { color: #00e676; text-shadow: 0 0 10px rgba(0,230,118,0.5); }
+  .status-dot.err ~ .status-text { color: #ff6b6b; text-shadow: 0 0 10px rgba(255,23,68,0.5); }
+  .status-dot.offline ~ .status-text { color: #ffd600; text-shadow: 0 0 10px rgba(255,214,0,0.5); }
 
   .main-nav {
     background: rgba(10, 18, 25, 0.8);
@@ -185,16 +222,29 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     border-radius: 8px 8px 0 0;
+    position: relative;
   }
   .nav-tab:hover {
     color: var(--text-primary);
     background: rgba(0, 212, 255, 0.03);
   }
   .nav-tab.active {
-    color: var(--accent-1);
+    color: #fff;
+    background: linear-gradient(180deg, rgba(0,212,255,0.14) 0%, rgba(0,212,255,0.04) 100%);
     border-bottom-color: var(--accent-1);
-    background: rgba(0, 212, 255, 0.05);
-    box-shadow: inset 0 -3px 0 var(--accent-1);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -2px 0 var(--accent-1), 0 4px 18px rgba(0,212,255,0.18);
+    text-shadow: 0 0 10px rgba(0,212,255,0.5);
+    font-weight: 800;
+    letter-spacing: 1.1px;
+  }
+  .nav-tab:not(.active) {
+    opacity: 1;
+    color: #fff;
+  }
+  .nav-tab:not(.active):hover {
+    opacity: 1;
+    background: rgba(255,255,255,0.04);
+    color: var(--text-primary);
   }
 
   .container { max-width: 1280px; margin: 0 auto; padding: 32px 24px; }
@@ -229,15 +279,15 @@
   .stat-boxes {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 24px;
+    gap: 12px;
+    margin-bottom: 16px;
   }
   .stat-box {
     background: var(--bg-card);
     backdrop-filter: blur(20px);
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
-    padding: 24px;
+    padding: 14px 12px;
     text-align: center;
     transition: var(--transition);
     position: relative;
@@ -264,7 +314,7 @@
   }
   .stat-box-num {
     font-family: 'Orbitron', sans-serif;
-    font-size: 42px;
+    font-size: 32px;
     font-weight: 900;
     background: var(--gradient-main);
     -webkit-background-clip: text;
@@ -272,11 +322,11 @@
     line-height: 1;
   }
   .stat-box-label {
-    font-size: 10px;
+    font-size: 9px;
     color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 3px;
-    margin-top: 8px;
+    letter-spacing: 2px;
+    margin-top: 4px;
     font-weight: 600;
   }
 
@@ -796,8 +846,13 @@
       gap: 8px;
     }
     .header-logo {
-      height: 36px;
-      max-width: 150px;
+      height: 44px;
+      max-width: 180px;
+    }
+    .header .main-nav {
+      flex: 1;
+      overflow-x: auto;
+      min-width: 0;
     }
     .header-time {
       font-size: 9px;
@@ -1239,22 +1294,19 @@ document.addEventListener('keydown', function(e){
     <div class="header-logo">
       <img src="https://cup-edition.github.io/campimfc/CUP%20EDITION%20PES.png" alt="CUP EDITION">
     </div>
+    <nav class="main-nav" style="background:transparent;border:none;flex:1;margin-left:16px;box-shadow:none;backdrop-filter:none;">
+      <div class="main-nav-inner" style="justify-content:flex-start;">
+        <button class="nav-tab active" data-tab="ATUAL" onclick="showSection('atual', this)">📈 TEMPORADA ATUAL</button>
+        <button class="nav-tab" data-tab="CARREIRAS" onclick="showSection('dashboard', this)">📊 CARREIRAS</button>
+        <button class="nav-tab" data-tab="TEMPORADAS" onclick="showSection('temporadas', this)">📅 TODAS AS TEMPORADAS</button>
+      </div>
+    </nav>
     <div class="header-right">
-      <span class="live-badge">● AO VIVO</span>
-      <div class="header-time" id="clock"></div>
-      <span class="status-dot"></span>
-      <span class="status-text">EM TEMPO REAL</span>
+      <span class="status-dot offline" id="server-dot"></span>
+      <span class="status-text" id="server-text">Conectando...</span>
     </div>
   </div>
 </header>
-
-<nav class="main-nav">
-  <div class="main-nav-inner">
-    <button class="nav-tab active" data-tab="ATUAL" onclick="showSection('atual', this)">📈 TEMPORADA ATUAL</button>
-    <button class="nav-tab" data-tab="CARREIRAS" onclick="showSection('dashboard', this)">📊 CARREIRAS</button>
-    <button class="nav-tab" data-tab="TEMPORADAS" onclick="showSection('temporadas', this)">📅 TODAS AS TEMPORADAS</button>
-  </div>
-</nav>
 
 <div class="container">
 
@@ -1274,9 +1326,9 @@ document.addEventListener('keydown', function(e){
       <div class="stat-box"><div class="stat-box-num" id="stat-partidas">0</div><div class="stat-box-label">Partidas</div></div>
       <div class="stat-box"><div class="stat-box-num" id="stat-gols">0</div><div class="stat-box-label">Gols</div></div>
     </div>
-    <div class="grid-2">
-      <div class="card"><div class="card-title">🏆 Líder de Títulos</div><div id="dash-lider" style="padding:8px 0;color:var(--text-muted);text-align:center;">Carregando...</div></div>
-      <div class="card"><div class="card-title">🎯 Artilheiro do Histórico</div><div id="dash-artilheiro" style="padding:8px 0;color:var(--text-muted);text-align:center;">Carregando...</div></div>
+    <div class="grid-2" style="gap:10px;">
+      <div class="card" style="padding:12px;"><div class="card-title" style="margin-bottom:6px;font-size:12px;">🏆 Líder de Títulos</div><div id="dash-lider" style="padding:4px 0;color:var(--text-muted);text-align:center;">Carregando...</div></div>
+      <div class="card" style="padding:12px;"><div class="card-title" style="margin-bottom:6px;font-size:12px;">🎯 Artilheiro do Histórico</div><div id="dash-artilheiro" style="padding:4px 0;color:var(--text-muted);text-align:center;">Carregando...</div></div>
     </div>
     <div class="card" style="margin-top:16px;"><div class="card-title">📋 Últimas 5 Edições</div><div id="dash-ultimas-edicoes" style="color:var(--text-muted);">Carregando...</div></div>
     <div class="card" style="margin-top:16px;"><div class="card-title">👤 Estatísticas dos Jogadores</div><div id="dash-jogadores-stats" style="padding:8px 0;color:var(--text-muted);text-align:center;">Carregando...</div></div>
@@ -1318,6 +1370,15 @@ const db = firebase.firestore();
 
 let state = { jogadores: [], partidas: [], temporadas: [], edicoes: [] };
 let isFirstLoad = true;
+let serverReady = false;
+function setServerStatus(msg, type) {
+  var dot = document.getElementById('server-dot');
+  var lbl = document.getElementById('server-text');
+  var hr = document.querySelector('.header-right');
+  if (dot) dot.className = 'status-dot ' + type;
+  if (lbl) lbl.textContent = msg;
+  if (hr) hr.className = 'header-right ' + type;
+}
 
 // ============================================================
 // FUNÇÕES AUXILIARES
@@ -1601,6 +1662,42 @@ window.abrirEstatisticasJogador = function(jogadorId) {
       }).join('')+'</tbody></table></div>'
     : '<div style="text-align:center;padding:24px 0;color:var(--text-muted);"><div style="font-size:32px;margin-bottom:8px;">⚔️</div>Ainda não enfrentou ninguém</div>';
 
+  var edicoesDoJogador = [];
+  state.edicoes.forEach(function(edicao){
+    var je = edicao.jogadores && edicao.jogadores.find ? edicao.jogadores.find(function(j){return j.id===jogadorId;}) : null;
+    if(je) edicoesDoJogador.push(edicao);
+  });
+  edicoesDoJogador.sort(function(a,b){ return (b.numero||0)-(a.numero||0); });
+  var edicoesHtml = '';
+  if(!edicoesDoJogador.length){
+    edicoesHtml = '<div style="text-align:center;padding:12px;color:var(--text-muted);">Nenhuma edição participada</div>';
+  } else {
+    edicoesHtml = edicoesDoJogador.map(function(edicao){
+      var numLocal = edicao.numeroTemporada || edicao.numero || 1;
+      var numGlobal = edicao.numero || 0;
+      var je = (edicao.jogadores || []).find(function(j){return j.id===jogadorId;}) || {};
+      var golsEd = je.gols || 0;
+      var partsEd = je.partidasJogadas || 0;
+      var isCampeao = edicao.campeao && edicao.campeao.timeId === jogadorId;
+      var isVice = edicao.vice && edicao.vice.timeId === jogadorId;
+      var isArt = edicao.artilheiros && edicao.artilheiros.some(function(a){return a.jogadorId===jogadorId;});
+      var badges = [];
+      if(isCampeao) badges.push('<span style="background:linear-gradient(135deg,#ffd600,#f5a623);color:#000;padding:1px 6px;border-radius:8px;font-size:9px;font-weight:800;">🏆 CAMPEÃO</span>');
+      if(isVice) badges.push('<span style="background:rgba(176,190,197,0.15);color:#b0bec5;border:1px solid rgba(176,190,197,0.3);padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;">🥈 VICE</span>');
+      if(isArt) badges.push('<span style="background:rgba(0,212,255,0.12);color:var(--accent-1);border:1px solid rgba(0,212,255,0.3);padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;">🎯 ARTILHEIRO ('+golsEd+' gols)</span>');
+      var finalTxt = edicao.final ? (getJogadorNome(edicao.final.time1Id)+' '+(edicao.final.gols1||0)+' × '+(edicao.final.gols2||0)+' '+getJogadorNome(edicao.final.time2Id)) : '';
+      var campeaoNome = edicao.campeao ? getJogadorNome(edicao.campeao.timeId) : '';
+      return '<div onclick="visualizarEdicao(\''+edicao.id+'\')" style="cursor:pointer;background:rgba(5,8,12,0.5);border:1px solid var(--border-color);border-radius:8px;padding:10px 12px;margin-bottom:6px;display:flex;align-items:center;gap:12px;">'+
+        '<div style="flex:1;min-width:0;">'+
+          '<div style="font-family:Orbitron,sans-serif;font-size:12px;font-weight:800;"><span style="color:var(--accent-1);font-size:13px;">'+ ordinal(numLocal) +' Edição</span><span style="color:#fff;font-weight:600;"> • Global #'+numGlobal+' • </span><span style="color:var(--text-primary);font-weight:700;">'+(edicao.temporadaNome||'')+'</span></div>'+
+          '<div style="font-size:11px;color:var(--text-muted);margin-top:3px;">📅 '+(edicao.dataEdicao||'-')+' • '+ golsEd +' gol(s) • '+ partsEd +' partidas</div>'+
+          '<div style="font-size:11px;color:var(--text-secondary);margin-top:3px;">'+ finalTxt +' • 🏆 '+ campeaoNome +' campeão</div>'+
+        '</div>'+
+        (badges.length ? '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;flex-shrink:0;">'+ badges.join('') +'</div>' : '')+
+      '</div>';
+    }).join('');
+  }
+
   function statCell(num, color) {
     return '<td style="text-align:center;padding:8px 10px;font-family:\'Orbitron\',sans-serif;font-size:18px;font-weight:900;color:'+color+';">'+num+'</td>';
   }
@@ -1609,10 +1706,11 @@ window.abrirEstatisticasJogador = function(jogadorId) {
   document.getElementById('modal-estatisticas-conteudo').innerHTML =
     '<div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">'+
       avatarHtml+
-      '<div>'+
+      '<div style="flex:1;">'+
         '<div style="font-size:18px;font-weight:700;">'+jogador.nome+'</div>'+
         '<div style="font-size:12px;color:var(--text-muted);">Estatísticas completas do histórico (edições finalizadas)</div>'+
       '</div>'+
+      '<button onclick="abrirModalEdicoesParticipadas(\''+jogadorId+'\')" style="margin-left:auto;background:rgba(0,212,255,0.12);border:1px solid rgba(0,212,255,0.3);color:var(--accent-1);font-size:11px;font-weight:700;padding:6px 14px;border-radius:16px;cursor:pointer;white-space:nowrap;flex-shrink:0;">📋 EDIÇÕES PARTICIPADAS ('+edicoes+')</button>'+
     '</div>'+
 
     '<div style="overflow-x:auto;margin-bottom:20px;"><table style="width:100%;border-collapse:collapse;font-size:12px;">'+
@@ -1648,6 +1746,49 @@ window.abrirEstatisticasJogador = function(jogadorId) {
 
   var modal = document.getElementById('modal-estatisticas-jogador');
   modal.style.display = 'flex';
+};
+
+window.abrirModalEdicoesParticipadas = function(jogadorId){
+  var jogador = state.jogadores.find(function(j){return j.id===jogadorId;});
+  if(!jogador) return;
+  var lista = state.edicoes.filter(function(edicao){
+    var je = edicao.jogadores && edicao.jogadores.find ? edicao.jogadores.find(function(j){return j.id===jogadorId;}) : null;
+    return !!je;
+  }).sort(function(a,b){ return (b.numero||0)-(a.numero||0); });
+  var htmlList = '';
+  if(!lista.length){
+    htmlList = '<div style="text-align:center;padding:20px;color:var(--text-muted);">Nenhuma edição participada</div>';
+  } else {
+    htmlList = lista.map(function(edicao){
+      var numLocal = edicao.numeroTemporada || edicao.numero || 1;
+      var numGlobal = edicao.numero || 0;
+      var je = (edicao.jogadores || []).find(function(j){return j.id===jogadorId;}) || {};
+      var golsEd = je.gols || 0;
+      var partsEd = je.partidasJogadas || 0;
+      var isCampeao = edicao.campeao && edicao.campeao.timeId === jogadorId;
+      var isVice = edicao.vice && edicao.vice.timeId === jogadorId;
+      var isArt = edicao.artilheiros && edicao.artilheiros.some(function(a){return a.jogadorId===jogadorId;});
+      var badges = [];
+      if(isCampeao) badges.push('<span style="background:linear-gradient(135deg,#ffd600,#f5a623);color:#000;padding:1px 6px;border-radius:8px;font-size:9px;font-weight:800;">🏆 CAMPEÃO</span>');
+      if(isVice) badges.push('<span style="background:rgba(176,190,197,0.15);color:#b0bec5;border:1px solid rgba(176,190,197,0.3);padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;">🥈 VICE</span>');
+      if(isArt) badges.push('<span style="background:rgba(0,212,255,0.12);color:var(--accent-1);border:1px solid rgba(0,212,255,0.3);padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;">🎯 ARTILHEIRO ('+golsEd+' gols)</span>');
+      var finalTxt = edicao.final ? (getJogadorNome(edicao.final.time1Id)+' '+(edicao.final.gols1||0)+' × '+(edicao.final.gols2||0)+' '+getJogadorNome(edicao.final.time2Id)) : '';
+      var campeaoNome = edicao.campeao ? getJogadorNome(edicao.campeao.timeId) : '';
+      return '<div onclick="visualizarEdicao(\''+edicao.id+'\')" style="cursor:pointer;background:rgba(5,8,12,0.5);border:1px solid var(--border-color);border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:12px;">'+
+        '<div style="flex:1;min-width:0;">'+
+          '<div style="font-family:Orbitron,sans-serif;font-size:12px;font-weight:800;"><span style="color:var(--accent-1);font-size:13px;">'+ ordinal(numLocal) +' Edição</span><span style="color:#fff;font-weight:600;"> • Global #'+numGlobal+' • </span><span style="color:var(--text-primary);font-weight:700;">'+(edicao.temporadaNome||'')+'</span></div>'+
+          '<div style="font-size:11px;color:var(--text-muted);margin-top:3px;">📅 '+(edicao.dataEdicao||'-')+' • '+ golsEd +' gol(s) • '+ partsEd +' partidas</div>'+
+          '<div style="font-size:11px;color:var(--text-secondary);margin-top:3px;">'+ finalTxt +' • 🏆 '+ campeaoNome +' campeão</div>'+
+        '</div>'+
+        (badges.length ? '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;flex-shrink:0;">'+ badges.join('') +'</div>' : '')+
+      '</div>';
+    }).join('');
+  }
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);z-index:10030;display:flex;align-items:center;justify-content:center;padding:20px;';
+  overlay.setAttribute('onclick','if(event.target===this)this.remove()');
+  overlay.innerHTML = '<div style="background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px;padding:20px;width:640px;max-width:95vw;max-height:80vh;overflow-y:auto;position:relative;"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:12px;"><span style="font-family:Orbitron,sans-serif;font-size:14px;font-weight:800;color:var(--accent-1);">📋 EDIÇÕES PARTICIPADAS ('+lista.length+') — '+jogador.nome+'</span><button onclick="this.parentElement.parentElement.parentElement.remove()" style="background:rgba(255,107,107,0.15);border:none;color:#ff6b6b;font-size:18px;cursor:pointer;padding:4px 10px;border-radius:8px;flex-shrink:0;">✕</button></div><div style="display:flex;flex-direction:column;gap:8px;">'+htmlList+'</div></div>';
+  document.body.appendChild(overlay);
 };
 
 // ============================================================
@@ -2079,11 +2220,11 @@ function renderDashboard() {
 
   if (lideres.length > 0) {
     liderEl.innerHTML = lideres.map(function(j) {
-      return '<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(56,156,255,0.05);">'+
-        imgOrEmoji(j.foto, 44)+
-        '<div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:14px;font-weight:700;color:#ffd600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🏆 '+j.nome+'</span></div></div>'+
-        '<div style="text-align:right;flex-shrink:0;"><div style="font-family:Orbitron,sans-serif;font-size:28px;font-weight:900;color:#ffd600;text-shadow:0 0 20px rgba(255,214,0,0.4);line-height:1;">'+j.titulos+'</div>'+
-        '<div style="color:var(--text-muted);font-size:10px;margin-top:2px;">TÍTULOS</div></div></div>';
+      return '<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(56,156,255,0.05);">'+
+        imgOrEmoji(j.foto, 36)+
+        '<div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:12px;font-weight:700;color:#ffd600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🏆 '+j.nome+'</span></div></div>'+
+        '<div style="text-align:right;flex-shrink:0;"><div style="font-family:Orbitron,sans-serif;font-size:22px;font-weight:900;color:#ffd600;text-shadow:0 0 20px rgba(255,214,0,0.4);line-height:1;">'+j.titulos+'</div>'+
+        '<div style="color:var(--text-muted);font-size:9px;margin-top:1px;">TÍTULOS</div></div></div>';
     }).join('');
   } else {
     liderEl.innerHTML = 'Nenhum título registrado';
@@ -2116,11 +2257,11 @@ function renderDashboard() {
 
   if (artilheiros.length > 0) {
     artEl.innerHTML = artilheiros.map(function(j) {
-      return '<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(56,156,255,0.05);">'+
-        imgOrEmoji(j.foto, 44)+
-'<div style="flex:1;min-width:0;text-align:left;"><div style="font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+j.nome+'</div></div>'+
-            '<div style="text-align:right;flex-shrink:0;"><div style="font-family:Orbitron,sans-serif;font-size:28px;font-weight:900;color:#ffd600;text-shadow:0 0 20px rgba(255,214,0,0.4);line-height:1;">'+j.gols+'</div>'+
-        '<div style="color:var(--text-muted);font-size:10px;margin-top:2px;">⚽ GOLS</div></div></div>';
+      return '<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(56,156,255,0.05);">'+
+        imgOrEmoji(j.foto, 36)+
+'<div style="flex:1;min-width:0;text-align:left;"><div style="font-size:12px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+j.nome+'</div></div>'+
+            '<div style="text-align:right;flex-shrink:0;"><div style="font-family:Orbitron,sans-serif;font-size:22px;font-weight:900;color:#ffd600;text-shadow:0 0 20px rgba(255,214,0,0.4);line-height:1;">'+j.gols+'</div>'+
+        '<div style="color:var(--text-muted);font-size:9px;margin-top:1px;">⚽ GOLS</div></div></div>';
     }).join('');
   } else {
     artEl.innerHTML = 'Sem gols registrados';
@@ -2400,26 +2541,26 @@ function renderTemporadaAtual() {
       <div class="stat-box"><div class="stat-box-num">${totalGols}</div><div class="stat-box-label">Gols</div></div>
     </div>
 
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-title">🏆 Líder de Títulos (Temporada)</div>
+    <div class="grid-2" style="gap:10px;">
+      <div class="card" style="padding:12px;">
+        <div class="card-title" style="margin-bottom:6px;font-size:12px;">🏆 Líder de Títulos (Temporada)</div>
         ${lideresTitulosTemp.length > 0 ? lideresTitulosTemp.map(function(j) {
-          return '<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(56,156,255,0.05);">'+
-            imgOrEmoji(j.foto, 44)+
-            '<div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:14px;font-weight:700;color:#ffd600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🏆 '+j.nome+'</span></div></div>'+
-            '<div style="text-align:right;flex-shrink:0;"><div style="font-family:Orbitron,sans-serif;font-size:28px;font-weight:900;color:#ffd600;text-shadow:0 0 20px rgba(255,214,0,0.4);line-height:1;">'+j.titulos+'</div>'+
-            '<div style="color:var(--text-muted);font-size:10px;margin-top:2px;">TÍTULOS</div></div></div>';
-        }).join('') : '<div style="color:var(--text-muted);text-align:center;padding:12px 0;">Nenhum título nesta temporada</div>'}
+          return '<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(56,156,255,0.05);">'+
+            imgOrEmoji(j.foto, 36)+
+            '<div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:6px;"><span style="font-size:12px;font-weight:700;color:#ffd600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">🏆 '+j.nome+'</span></div></div>'+
+            '<div style="text-align:right;flex-shrink:0;"><div style="font-family:Orbitron,sans-serif;font-size:22px;font-weight:900;color:#ffd600;text-shadow:0 0 20px rgba(255,214,0,0.4);line-height:1;">'+j.titulos+'</div>'+
+            '<div style="color:var(--text-muted);font-size:9px;margin-top:1px;">TÍTULOS</div></div></div>';
+        }).join('') : '<div style="color:var(--text-muted);text-align:center;padding:8px 0;font-size:12px;">Nenhum título nesta temporada</div>'}
       </div>
-      <div class="card">
-        <div class="card-title">🎯 Artilheiro (Temporada)</div>
+      <div class="card" style="padding:12px;">
+        <div class="card-title" style="margin-bottom:6px;font-size:12px;">🎯 Artilheiro (Temporada)</div>
         ${artilheirosTemp.length > 0 ? artilheirosTemp.map(function(j) {
-          return '<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(56,156,255,0.05);">'+
-            imgOrEmoji(j.foto, 44)+
-            '<div style="flex:1;min-width:0;text-align:left;"><div style="font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+j.nome+'</div></div>'+
-            '<div style="text-align:right;flex-shrink:0;"><div style="font-family:Orbitron,sans-serif;font-size:28px;font-weight:900;color:#ffd600;text-shadow:0 0 20px rgba(255,214,0,0.4);line-height:1;">'+j.gols+'</div>'+
-            '<div style="color:var(--text-muted);font-size:10px;margin-top:2px;">⚽ GOLS</div></div></div>';
-        }).join('') : '<div style="color:var(--text-muted);text-align:center;padding:12px 0;">Sem gols registrados</div>'}
+          return '<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(56,156,255,0.05);">'+
+            imgOrEmoji(j.foto, 36)+
+            '<div style="flex:1;min-width:0;text-align:left;"><div style="font-size:12px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+j.nome+'</div></div>'+
+            '<div style="text-align:right;flex-shrink:0;"><div style="font-family:Orbitron,sans-serif;font-size:22px;font-weight:900;color:#ffd600;text-shadow:0 0 20px rgba(255,214,0,0.4);line-height:1;">'+j.gols+'</div>'+
+            '<div style="color:var(--text-muted);font-size:9px;margin-top:1px;">⚽ GOLS</div></div></div>';
+        }).join('') : '<div style="color:var(--text-muted);text-align:center;padding:8px 0;font-size:12px;">Sem gols registrados</div>'}
       </div>
     </div>
 
@@ -2779,6 +2920,7 @@ function toggleEdicoes(tempId) {
 // ============================================================
 
 function setupFirestoreListeners() {
+  setServerStatus('Conectando...', 'offline');
   var collections = ['jogadores', 'partidas', 'temporadas', 'edicoes'];
   var loaded = 0;
 
@@ -2792,6 +2934,10 @@ function setupFirestoreListeners() {
       });
       state[col] = items;
       loaded++;
+      if (loaded >= collections.length && !serverReady) {
+        serverReady = true;
+        setServerStatus('SERVIDOR ONLINE', 'ok');
+      }
       if (loaded >= collections.length) {
         renderDashboard();
         renderTemporadaAtual();
@@ -2804,6 +2950,7 @@ function setupFirestoreListeners() {
       }
     }, function(error) {
       console.error('Firestore error on', col, ':', error);
+      setServerStatus('ERRO SERVIDOR', 'err');
       loaded++;
       if (loaded >= collections.length) {
         renderDashboard();
@@ -2817,6 +2964,7 @@ function setupFirestoreListeners() {
       }
     });
   });
+  setTimeout(function(){ if(!serverReady) setServerStatus('SERVIDOR OFFLINE','offline'); }, 8000);
 }
 
 setupFirestoreListeners();
