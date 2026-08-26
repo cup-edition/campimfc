@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=980">
 <link rel="icon" type="image/png" href="https://cup-edition.github.io/sistema-inscricoes/CUP%20EDITION.png">
 <title>ADM - CUP EDITION PES</title>
     <meta property="og:title" content="ADM - CUP EDITION PES" />
@@ -1591,58 +1591,7 @@
     transform: scale(1.05);
   }
 
-  @media (max-width: 1024px) {
-    .grid-4 { grid-template-columns: 1fr 1fr; }
-    .penalty-grid { grid-template-columns: 1fr; }
-    .penalty-score { font-size: 20px; }
-  }
-  @media (max-width: 768px) {
-    .sidebar { width: 72px; }
-    .sidebar-logo { padding: 12px; }
-    .sidebar-logo img { max-width: 48px; }
-    .nav-section, .nav-item span { display: none; }
-    .nav-item { justify-content: center; padding: 14px; margin: 2px 4px; }
-    .nav-icon { font-size: 22px; width: auto; }
-    .topbar { padding: 12px 16px; flex-wrap: wrap; gap: 8px; }
-    .page { padding: 16px; }
-    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-    .stat-boxes { grid-template-columns: 1fr 1fr; }
-    .modal { padding: 24px; width: 98vw; }
-    .team-logo-container { width: 80px; height: 80px; }
-    .team-logo-container .fallback-logo { font-size: 36px; }
-    .classif-escudo { width: 36px; height: 36px; }
-    .classif-escudo .fallback { font-size: 18px; }
-    .season-image-container { width: 56px; height: 56px; }
-    .season-image-container .fallback { font-size: 24px; }
-    .season-year { font-size: 24px; }
-    .match-shield { width: 32px; height: 32px; }
-    .match-shield .fallback { font-size: 16px; }
-    .sorteio-header { flex-direction: column; align-items: stretch; }
-    .sorteio-header .sorteio-buttons { justify-content: center; }
-    .top-actions { flex-direction: column; align-items: stretch; }
-    .penalty-grid { grid-template-columns: 1fr; }
-    .penalty-score { font-size: 20px; }
-  }
-  @media (max-width: 480px) {
-    .stat-boxes { grid-template-columns: 1fr; }
-    .team-grid { grid-template-columns: 1fr; }
-    .player-list-item { flex-wrap: wrap; }
-    .topbar-title { font-size: 14px; }
-    .team-logo-container { width: 70px; height: 70px; }
-    .team-logo-container .fallback-logo { font-size: 30px; }
-    .classif-escudo { width: 32px; height: 32px; }
-    .classif-escudo .fallback { font-size: 16px; }
-    .season-image-container { width: 44px; height: 44px; }
-    .season-image-container .fallback { font-size: 18px; }
-    .season-year { font-size: 20px; }
-    .match-shield { width: 28px; height: 28px; }
-    .match-shield .fallback { font-size: 14px; }
-    .modal-player-item { flex-wrap: wrap; }
-    .sorteio-header .sorteio-buttons .btn { font-size: 8px; padding: 3px 8px; }
-    .penalty-kick { width: 24px; height: 24px; font-size: 10px; }
-  }
-
-  #telaLogin {
+        #telaLogin {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(12px);
@@ -4548,7 +4497,7 @@ window.visualizarEdicao = function(edicaoId) {
   
   // Monta HTML da edição
   let html = `
-    <div style="position:fixed;inset:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(12px);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)this.remove()">
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(12px);z-index:10040;display:flex;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)this.remove()">
       <div id="modal-edicao-captura" style="background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:16px;padding:32px;max-width:1100px;max-height:90vh;overflow-y:auto;width:100%;position:relative;">
         <button onclick="this.closest('div[style*=\\'position:fixed\\']').remove()" id="btn-fechar-modal-edicao" style="position:sticky;top:0;float:right;background:rgba(255,107,107,0.2);border:none;color:var(--accent-3);font-size:24px;cursor:pointer;padding:4px 12px;border-radius:8px;z-index:10;">✕</button>
         <div style="position:sticky;top:0;float:right;margin-right:8px;display:flex;align-items:center;gap:8px;z-index:10;">
