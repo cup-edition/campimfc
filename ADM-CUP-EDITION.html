@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=980">
 <link rel="icon" type="image/png" href="https://cup-edition.github.io/sistema-inscricoes/CUP%20EDITION.png">
 <title>ADM - CUP EDITION CAMPIM FC</title>
     <meta property="og:title" content="ADM - CUP EDITION CAMPIM FC" />
@@ -1635,85 +1635,21 @@
     transform: scale(1.05);
   }
 
-  @media (max-width: 1024px) {
-    .grid-4 { grid-template-columns: 1fr 1fr; }
-    .penalty-grid { grid-template-columns: 1fr; }
-    .penalty-score { font-size: 20px; }
-  }
-  /* Tabelas 100% visíveis sem rolagem lateral - todas as colunas */
+    /* Tabelas 100% visíveis sem rolagem lateral - todas as colunas */
   .table-wrap { overflow-x: visible; }
   .table-wrap table { width: 100%; table-layout: auto; font-size: 12px; }
   .table-wrap thead th { white-space: nowrap; font-size: 9px; padding: 6px 10px; text-align: center; }
   .table-wrap tbody td { white-space: nowrap; font-size: 12px; padding: 6px 10px; text-align: center; }
   .table-wrap tbody td:first-child { white-space: normal; word-break: break-word; text-align: left; }
   .table-wrap th, .table-wrap td { width: 8.2%; }
-  @media (max-width: 768px) {
-    .sidebar { width: 72px; }
-    .sidebar-logo { padding: 12px; }
-    .sidebar-logo img { max-width: 48px; }
-    .nav-section, .nav-item span { display: none; }
-    .nav-item { justify-content: center; padding: 14px; margin: 2px 4px; }
-    .nav-icon { font-size: 22px; width: auto; }
-    .topbar { padding: 12px 16px; flex-wrap: wrap; gap: 8px; }
-    .page { padding: 16px; }
-    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-    .stat-boxes { grid-template-columns: 1fr 1fr; }
-    .modal { padding: 24px; width: 98vw; }
-    .team-logo-container { width: 80px; height: 80px; }
-    .team-logo-container .fallback-logo { font-size: 36px; }
-    .classif-escudo { width: 36px; height: 36px; }
-    .classif-escudo .fallback { font-size: 18px; }
-    .season-image-container { width: 56px; height: 56px; }
-    .season-image-container .fallback { font-size: 24px; }
-    .season-year { font-size: 24px; }
-    .match-shield { width: 32px; height: 32px; }
-    .match-shield .fallback { font-size: 16px; }
-    .sorteio-header { flex-direction: column; align-items: stretch; }
-    .sorteio-header .sorteio-buttons { justify-content: center; }
-    .top-actions { flex-direction: column; align-items: stretch; }
-    .penalty-grid { grid-template-columns: 1fr; }
-    .penalty-score { font-size: 20px; }
-    .table-wrap table { font-size: 7px; min-width: 0; }
-    .table-wrap thead th { padding: 3px 1px; font-size: 6px; line-height: 1; white-space: nowrap; letter-spacing: -0.2px; }
-    .table-wrap tbody td { padding: 3px 1px; font-size: 7px; white-space: nowrap; }
-    .table-wrap tbody td:first-child { white-space: nowrap; word-break: keep-all; }
-    .stats-table-wrap { overflow-x: visible; }
-    .stats-table-wrap table { font-size: 8px; min-width: 0; width: 100%; table-layout: auto; }
-    .stats-table-wrap thead th { padding: 3px 1px; font-size: 6.5px; white-space: nowrap; line-height: 1; letter-spacing: -0.2px; }
-    .stats-table-wrap tbody td { padding: 3px 1px; font-size: 8px; white-space: nowrap; }
-    .stats-table-wrap tbody td:first-child { white-space: nowrap; word-break: keep-all; }
-    .stats-table-wrap .player-cell { gap: 4px; }
-    .stats-table-wrap .player-cell .avatar-mini { width: 18px !important; height: 18px !important; }
-    .stats-table-wrap .player-cell .player-name { font-size: 8px !important; white-space: nowrap !important; }
-    .stats-table-wrap .pos-badge-mini { width: 16px !important; height: 16px !important; font-size: 7px !important; }
-    .stat-num { font-size: 8px !important; }
-    .table-wrap tbody td:first-child > div { gap: 4px !important; }
-    .table-wrap tbody td:first-child div[style*="width:32px"] { width: 20px !important; height: 20px !important; }
-    .table-wrap tbody td:first-child div[style*="font-weight:600"] { font-size: 8px !important; white-space: nowrap !important; }
-    .table-wrap img[style*="width:32px"] { width: 20px !important; height: 20px !important; }
-    .dashboard-player-name { font-size: 8px !important; white-space: nowrap !important; }
-    .pos-badge { width: 14px !important; height: 14px !important; font-size: 6px !important; }
-  }
-  @media (max-width: 480px) {
-    .stat-boxes { grid-template-columns: 1fr; }
-    .team-grid { grid-template-columns: 1fr; }
-    .player-list-item { flex-wrap: wrap; }
-    .topbar-title { font-size: 14px; }
-    .team-logo-container { width: 70px; height: 70px; }
-    .team-logo-container .fallback-logo { font-size: 30px; }
-    .classif-escudo { width: 32px; height: 32px; }
-    .classif-escudo .fallback { font-size: 16px; }
-    .season-image-container { width: 44px; height: 44px; }
-    .season-image-container .fallback { font-size: 18px; }
-    .season-year { font-size: 20px; }
-    .match-shield { width: 28px; height: 28px; }
-    .match-shield .fallback { font-size: 14px; }
-    .modal-player-item { flex-wrap: wrap; }
-    .sorteio-header .sorteio-buttons .btn { font-size: 8px; padding: 3px 8px; }
-    .penalty-kick { width: 24px; height: 24px; font-size: 10px; }
-  }
-
-  #telaLogin {
+  /* FIX IGUAL CUP - igual imagem: sem quebrar, sem cortar, sem barra */
+  .stats-table-wrap { overflow-x: hidden; }
+  .stats-table-wrap table { min-width: 0; width: 100%; table-layout: auto; }
+  .stats-table-wrap thead th { white-space: nowrap; padding: 8px 6px; font-size: 8px; text-align: center; }
+  .stats-table-wrap tbody td { white-space: nowrap; padding: 8px 6px; font-size: 12px; text-align: center; }
+  .stats-table-wrap tbody td:first-child { text-align: left; }
+  .card-title { white-space: nowrap; overflow: visible; }
+      #telaLogin {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(12px);
