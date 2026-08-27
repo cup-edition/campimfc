@@ -1639,9 +1639,11 @@
   .table-wrap { overflow-x: visible; }
   .table-wrap table { width: 100%; table-layout: auto; font-size: 12px; }
   .table-wrap thead th { white-space: nowrap; font-size: 9px; padding: 6px 10px; text-align: center; }
-  .table-wrap tbody td { white-space: nowrap; font-size: 12px; padding: 6px 10px; text-align: center; }
+  .table-wrap tbody td { white-space: nowrap; font-size: 12px; padding: 6px 10px; text-align: center; vertical-align: middle; }
   .table-wrap tbody td:first-child { white-space: normal; word-break: break-word; text-align: left; }
-  .table-wrap th, .table-wrap td { width: 8.2%; }
+  .table-wrap th, .table-wrap td { width: auto; }
+  .table-wrap th:last-child, .table-wrap td:last-child { width: 90px; min-width: 90px; max-width: 90px; text-align: center; }
+  .table-wrap td:last-child > div { display: flex; gap: 8px; justify-content: center; align-items: center; flex-wrap: nowrap; }
   /* FIX IGUAL CUP - igual imagem: sem quebrar, sem cortar, sem barra */
   .stats-table-wrap { overflow-x: hidden; }
   .stats-table-wrap table { min-width: 0; width: 100%; table-layout: auto; }
@@ -2781,6 +2783,27 @@ function populateSelects() {
   ['partida-temporada','titulo-temporada','finalizar-temporada-confirmar'].forEach(id => {
     const el = document.getElementById(id); if (el) el.innerHTML = blank + tempOpts;
   });
+  // === TEMPORADA MAIS RECENTE PRÉ-SELECIONADA EM FINALIZAR EDIÇÃO ===
+  const elFinal = document.getElementById('finalizar-temporada-confirmar');
+  if (elFinal && state.temporadas.length) {
+    const valorAtual = elFinal.value;
+    const existeAtual = valorAtual && state.temporadas.some(t => t.id === valorAtual);
+    if (!valorAtual || !existeAtual) {
+      const ordenadas = [...state.temporadas].sort((a,b) => {
+        const anoA = parseInt(String(a.nome||a.ano||'').match(/\d{4}/)?.[0])||0;
+        const anoB = parseInt(String(b.nome||b.ano||'').match(/\d{4}/)?.[0])||0;
+        if (anoA !== anoB) return anoB - anoA;
+        const tA = a.createdAt?.seconds || a._ts?.seconds || 0;
+        const tB = b.createdAt?.seconds || b._ts?.seconds || 0;
+        return tB - tA;
+      });
+      const maisRecente = ordenadas[0];
+      if (maisRecente) {
+        elFinal.value = maisRecente.id;
+        if (typeof carregarConfirmacaoFinalizacao === 'function') setTimeout(() => carregarConfirmacaoFinalizacao(), 0);
+      }
+    }
+  }
 }
 
 // ============ TIMES ============
@@ -4141,10 +4164,10 @@ function renderPartidasTabela() {
         <td><div style="display:flex;align-items:center;gap:10px">${renderMatchShield(getTimeEscudo(p.time2Id), getTimeName(p.time2Id))}<span style="${isFinal ? 'font-weight:700;' : ''}">${getTimeName(p.time2Id)}</span></div></td>
         <td>${statusBadge}</td>
         <td>${p.edicaoNumero ? ordinal(p.edicaoNumero) + ' Edição' : '-'}</td>
-        <td style="display:flex;gap:6px;flex-wrap:wrap">
-          <button class="btn btn-reset btn-sm" onclick="event.stopPropagation();resetarPartida('${p.id}')" style="padding:2px 8px;font-size:9px;">🔄</button>
-          <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();removerPartida('${p.id}')" style="padding:2px 8px;font-size:9px;">🗑️</button>
-        </td>
+        <td><div>
+          <button class="btn btn-reset btn-sm" onclick="event.stopPropagation();resetarPartida('${p.id}')" style="width:32px;height:32px;padding:0;font-size:13px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">🔄</button>
+          <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();removerPartida('${p.id}')" style="width:32px;height:32px;padding:0;font-size:13px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;">🗑️</button>
+        </div></td>
       </tr>`;
     }).join('')}</tbody></table></div>`;
 }
